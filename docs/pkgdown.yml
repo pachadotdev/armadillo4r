@@ -1,0 +1,24 @@
+pandoc: 3.2.1
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  basic-usage: basic-usage.html
+  configuration: configuration.html
+  decompositions-factorisations-inverses-and-equation-solvers-dense: decompositions-factorisations-inverses-and-equation-solvers-dense.html
+  decompositions-factorisations-inverses-and-equation-solvers-sparse: decompositions-factorisations-inverses-and-equation-solvers-sparse.html
+  functions-of-vector-matrices-cubes: functions-of-vector-matrices-cubes.html
+  generated-vectors-matrices-cubes: generated-vectors-matrices-cubes.html
+  linear-model: linear-model.html
+  matrix-vector-cube-and-field-classes: matrix-vector-cube-and-field-classes.html
+  member-functions-and-variables: member-functions-and-variables.html
+  miscellaneous: miscellaneous.html
+  save-load: save-load.html
+  signal-and-image-processing: signal-and-image-processing.html
+  sparse-matrices: sparse-matrices.html
+  statistics-and-clustering: statistics-and-clustering.html
+  syntax-comparison-for-matlab-users: syntax-comparison-for-matlab-users.html
+  using-sexp-cpp: using-sexp-cpp.html
+last_built: 2025-10-06T04:10Z
+urls:
+  reference: ../armadillo4r/reference
+  article: ../armadillo4r/articles
