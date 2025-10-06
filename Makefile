@@ -20,7 +20,7 @@ site:
 install:
 	@Rscript -e 'devtools::install()'
 
-clang_format=`which clang-format-14`
+clang_format=`which clang-format-18`
 
-format: $(shell find . -name '*.h') $(shell find . -name '*.hpp') $(shell find . -name '*.cpp')
-	@${clang_format} -i $?
+format: inst/include/armadillo4r.hpp inst/include/armadillo4r/wrappers/*.hpp armadillo4rtest/src/*.cpp
+	@${clang_format} -i $^

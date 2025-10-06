@@ -192,13 +192,13 @@ inline doubles_matrix<> as_doubles_matrix(const fmat& x) {
 
 inline complexes as_complexes(const Col<std::complex<double>>& x) {
   const size_t n = x.n_elem;
-  
+
   writable::complexes y(n);
-  
+
   for (size_t i = 0; i < n; ++i) {
     y[i] = r_complex(x(i).real(), x(i).imag());
   }
-  
+
   return y;
 }
 

@@ -4,6 +4,7 @@
 #include <omp.h>
 #endif
 
+// clang-format off
 #include <R.h>
 #include <R_ext/Random.h>
 #include <Rmath.h>
@@ -12,6 +13,7 @@
 #include <armadillo4r/wrappers/matrices.hpp>
 #include <armadillo4r/wrappers/sparse_matrices.hpp>
 #include <armadillo4r/wrappers/vectors.hpp>
+// clang-format on
 
 using mat = arma::mat;
 using fmat = arma::fmat;
@@ -171,7 +173,7 @@ inline arma::fmat as_cpp<arma::fmat>(SEXP x) {
 
 template <>
 inline arma::imat as_cpp<arma::imat>(SEXP x) {
-  // Handle both integer and double matrices  
+  // Handle both integer and double matrices
   if (TYPEOF(x) == REALSXP) {
     cpp4r::doubles_matrix<> temp = cpp4r::as_cpp<cpp4r::doubles_matrix<>>(x);
     arma::mat dmat = ::as_Mat(temp);
@@ -337,4 +339,4 @@ inline SEXP as_sexp(const arma::frowvec& x) {
   return ::as_doubles_matrix(temp);
 }
 
-} // namespace cpp4r
+}  // namespace cpp4r

@@ -20,11 +20,10 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-14, r: 'release', name: "macOS 14"}
-          - {os: macos-13, r: 'release', name: "macOS 13"}
+          - {os: macos-latest, r: 'release', name: "macOS latest"}
           - {os: windows-latest, r: 'release', name: "Windows latest"}
+          - {os: ubuntu-latest,   r: 'release', custom: 'clang-format'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release', name: "Ubuntu latest (R devel)"}
-          - {os: ubuntu-latest,   r: 'release', custom: 'no-armadillo4rtest', name: "Ubuntu latest"}
           - {os: ubuntu-latest,   r: 'release', custom: 'no-armadillo4rtest', name: "Ubuntu latest (no armadillo4rtest)"}
           - {os: ubuntu-latest,   r: 'release', custom: 'cpp15', name: "Ubuntu latest (GCC15)"} # CRAN email Dec 7, 2024
 
@@ -34,6 +33,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pachadotdev/clang-format@main
+        if: matrix.config.custom == 'clang-format'
+        with:
+          version: '18'
+          files: 'inst/include/armadillo4r.hpp inst/include/armadillo4r/wrappers/*.hpp'
+          auto-commit: true
+          commit-message: 'style: format C++ code in R package'
 
       - uses: r-lib/actions/setup-pandoc@v2
 
