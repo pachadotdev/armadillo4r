@@ -11,11 +11,15 @@ name: test-coverage
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: r-lib/actions/setup-r@v2
         with:
@@ -26,7 +30,7 @@ jobs:
           extra-packages: any::covr
           needs: coverage
 
-      - name: Install armadillo4rtest
+      - name: Install package
         run: |
           options(warn = 2)
           pak::pkg_install("pachadotdev/cpp4r", dependencies = TRUE)
@@ -55,15 +59,23 @@ jobs:
             color <- "red"
           }
           
-          # Write coverage info to environment
-          writeLines(paste0("COVERAGE=", percent), Sys.getenv("GITHUB_ENV"))
-          writeLines(paste0("COVERAGE_COLOR=", color), Sys.getenv("GITHUB_ENV"))
+          writeLines(as.character(percent), "coverage_percent.txt")
+          writeLines(color, "coverage_color.txt")          
         shell: Rscript {0}
 
       - name: Generate coverage badge
         run: |
+          COVERAGE=$(cat coverage_percent.txt)
+          COVERAGE_COLOR=$(cat coverage_color.txt)
+          
+          echo "Coverage: $COVERAGE%"
+          echo "Color: $COVERAGE_COLOR"
+          
           mkdir -p badges
-          curl -s "https://img.shields.io/badge/coverage-${{ env.COVERAGE }}%25-${{ env.COVERAGE_COLOR }}" > badges/coverage.svg
+          curl -s "https://raw.githubusercontent.com/pachadotdev/ghacoveragebadge/refs/heads/main/badges/${COVERAGE_COLOR}.svg" > badges/coverage.svg
+
+          # each badge contains a placeholder {{ COVERAGE }} that we replace with the actual coverage percentage
+          sed -i "s/{{ COVERAGE }}/${COVERAGE}/g" badges/coverage.svg
         
       - name: Commit coverage badge
         if: github.ref == 'refs/heads/main'
@@ -71,5 +83,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add badges/coverage.svg
-          git diff --staged --quiet || git commit -m "Update coverage badge [skip ci]" || true
-          git push || true
+          if ! git diff --staged --quiet; then
+            # Amend the last commit to include the updated badge, preserving its message
+            git commit --amend --no-edit
+            # Safely update the remote with force-with-lease to avoid clobbering concurrent changes
+            git push --force-with-lease origin main
+          else
+            echo "No changes to commit"
+          fi

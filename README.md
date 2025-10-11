@@ -8,7 +8,6 @@
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/pachadotdev/armadillo4r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/armadillo4r/actions/workflows/R-CMD-check.yaml)
-[![BuyMeACoffee](https://raw.githubusercontent.com/pachadotdev/buymeacoffee-badges/main/bmc-donate-white.svg)](https://buymeacoffee.com/pacha)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/armadillo4r)](https://CRAN.R-project.org/package=armadillo4r)
 [![Test
