@@ -13,6 +13,12 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+# Register cpp as an alias for C++ syntax highlighting
+knitr::knit_engines$set(cpp = function(options) {
+  # Just return the code as-is for syntax highlighting
+  paste("```cpp", options$code, "```", sep = "\n")
+})
 ```
 
 **Adapted from the official Armadillo

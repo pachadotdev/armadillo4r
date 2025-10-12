@@ -26,8 +26,7 @@
 <div class="main-container">
 <div id="menu">
   <div>
-    <h1>armadillo4r Documentation</h1>
-  </div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
 
   <div class="search-container">
     <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
@@ -96,23 +95,37 @@ properties of S4 objects.</p>
 <p>Here is an example of how to convert a <code>dgCMatrix</code> object
 to a <code>SpMat</code> object and re-import it to R:</p>
 <pre class="cpp"><code>[[cpp4r::register]] SEXP sum_matrices_(SEXP x) {
+``````cpp
   // Convert from dgCMatrix to SpMat
+``````cpp
   SpMat&lt;double&gt; A = as_SpMat(x);
+``````cpp
 
+``````cpp
   // Create a matrix B with a diagonal of random numbers
+``````cpp
   SpMat&lt;double&gt; B(A.n_rows, A.n_cols);
+``````cpp
   for (uword i = 0; i &lt; A.n_rows; ++i) {
+``````cpp
     B(i, i) = randu&lt;double&gt;();
+``````cpp
   }
+``````cpp
 
+``````cpp
   A += B; // Add the two matrices
+``````cpp
 
+``````cpp
   // Convert back to dgCMatrix and return
+``````cpp
   return as_dgCMatrix(A);
+``````cpp
 }</code></pre>
 </div>
 </div>
-<footer><p>Last updated: 2025-10-12 18:01:44</p>
+<footer><p>Last updated: 2025-10-12 19:43:19</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality
