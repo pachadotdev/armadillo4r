@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Armadillo configuration • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      svg: {
+        fontCache: 'global',
+        scale: 1.5,  /* Scale SVG math to 150% */
+        minScale: 0.5,
+        mtextInheritFont: false,
+        merrorInheritFont: true,
+        mathmlSpacing: false,
+        exFactor: 0.5  /* Adjust baseline for better alignment */
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <h1>armadillo4r Documentation</h1>
+  </div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>Functions</label>
+    <a href="../reference/armadillo_version.html">armadillo_version</a>
+    <a href="../reference/armadillo4r-package.html">armadillo4r-package</a>
+    <a href="../reference/check_cpp4r.html">check_cpp4r</a>
+    <a href="../reference/pkg_template.html">pkg_template</a>
+    <a href="../reference/unvendor.html">unvendor</a>
+    <a href="../reference/vendor.html">vendor</a>
+  </div>
+
+  <div class="submenu">
+    <label>Vignettes</label>
+    <a href="../vignettes/basic-usage.html">Basic 'armadillo4r' usage</a>
+    <a href="../vignettes/configuration.html">Armadillo configuration</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-dense.html">Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-sparse.html">Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
+    <a href="../vignettes/functions-of-vector-matrices-cubes.html">Functions of vectors, matrices, and cubes</a>
+    <a href="../vignettes/generated-vectors-matrices-cubes.html">Generated vectors, matrices, and cubes</a>
+    <a href="../vignettes/linear-model.html">Fitting regressions with Armadillo</a>
+    <a href="../vignettes/matrix-vector-cube-and-field-classes.html">Matrix, vector, cube and field classes</a>
+    <a href="../vignettes/member-functions-and-variables.html">Member functions and variables</a>
+    <a href="../vignettes/miscellaneous.html">Miscellaneous</a>
+    <a href="../vignettes/save-load.html">Saving and loading Armadillo objects on C++ side</a>
+    <a href="../vignettes/signal-and-image-processing.html">Signal and image processing</a>
+    <a href="../vignettes/sparse-matrices.html">Sparse matrices</a>
+    <a href="../vignettes/statistics-and-clustering.html">Statistics and clustering</a>
+    <a href="../vignettes/syntax-comparison-for-matlab-users.html">Syntax comparison for MATLAB/Octave users</a>
+    <a href="../vignettes/using-sexp-cpp.html">Using SEXP and cpp conversions</a>
+  </div>
+
+  <div class="submenu">
+    <label>News</label>
+    <a href="../news/index.html">Changelog</a>
+  </div>
+</div>
+<div id="content">
+<div class="content-wrapper">
+<div class="content-main">
+<h1>Armadillo configuration</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<p>If you vendor <code>armadillo4r</code>, Armadillo options on C++ side
+can be configured via editing the file
+<code>include/armadillo/config.hpp</code>.</p>
+<p>Specific functionality can be enabled or disabled by uncommenting or
+commenting out a particular <code>#define</code>, listed below.</p>
+<p>Some options can also be specified by explicitly defining them before
+including the armadillo header in <code>cpp</code> scripts. For
+example:</p>
+<pre class="cpp"><code>#define ARMA_WARN_LEVEL 1
+
+#include &lt;cpp4r.hpp&gt;
+#include &lt;armadillo4r.hpp&gt;
+
+[[cpp4r::register]] my_fun() {
+  // some linear algebra code
+  // ...
+}</code></pre>
+<table><colgroup><col width="38%"><col width="61%"></colgroup><thead><tr class="header"><th>Option</th>
+<th>Description</th>
+</tr></thead><tbody><tr class="odd"><td><code>ARMA_DONT_USE_WRAPPER</code></td>
+<td>Disable going through the run-time Armadillo wrapper library
+(<code>libarmadillo.so</code>) when calling LAPACK, BLAS, ARPACK, and
+SuperLU functions. You will need to directly link with BLAS, LAPACK, etc
+(eg. <code>-lblas -llapack</code>)</td>
+</tr><tr class="even"><td><code>ARMA_USE_LAPACK</code></td>
+<td>Enable use of LAPACK, or a high-speed replacement for LAPACK (eg.
+OpenBLAS, Intel MKL, or the Accelerate framework). Armadillo requires
+LAPACK for functions such as <code>svd()</code>, <code>inv()</code>,
+<code>eig_sym()</code>, <code>solve()</code>, etc.</td>
+</tr><tr class="odd"><td><code>ARMA_DONT_USE_LAPACK</code></td>
+<td>Disable use of LAPACK; overrides <code>ARMA_USE_LAPACK</code></td>
+</tr><tr class="even"><td><code>ARMA_USE_BLAS</code></td>
+<td>Enable use of BLAS, or a high-speed replacement for BLAS (eg.
+OpenBLAS, Intel MKL, or the Accelerate framework). BLAS is used for
+matrix multiplication. Without BLAS, Armadillo will use a built-in
+matrix multiplication routine, which might be slower for large
+matrices.</td>
+</tr><tr class="odd"><td><code>ARMA_DONT_USE_BLAS</code></td>
+<td>Disable use of BLAS; overrides <code>ARMA_USE_BLAS</code></td>
+</tr><tr class="even"><td><code>ARMA_USE_NEWARP</code></td>
+<td>Enable use of NEWARP (built-in alternative to ARPACK). This is used
+for the eigen decomposition of real (non-complex) sparse matrices, ie.
+<code>eigs_gen()</code>, <code>eigs_sym()</code> and
+<code>svds()</code>. Requires <code>ARMA_USE_LAPACK</code> to be
+enabled. If use of both NEWARP and ARPACK is enabled, NEWARP will be
+preferred.</td>
+</tr><tr class="odd"><td><code>ARMA_DONT_USE_NEWARP</code></td>
+<td>Disable use of NEWARP (built-in alternative to ARPACK); overrides
+<code>ARMA_USE_NEWARP</code></td>
+</tr><tr class="even"><td><code>ARMA_USE_ARPACK</code></td>
+<td>Enable use of ARPACK, or a high-speed replacement for ARPACK.
+Armadillo requires ARPACK for the eigen decomposition of complex sparse
+matrices, ie. <code>eigs_gen()</code>, <code>eigs_sym()</code> and
+<code>svds()</code>. If use of NEWARP is disabled, ARPACK will also be
+used for the eigen decomposition of real sparse matrices.</td>
+</tr><tr class="odd"><td><code>ARMA_DONT_USE_ARPACK</code></td>
+<td>Disable use of ARPACK; overrides <code>ARMA_USE_ARPACK</code></td>
+</tr><tr class="even"><td><code>ARMA_USE_SUPERLU</code></td>
+<td>Enable use of SuperLU, which is used by <code>spsolve()</code> for
+finding the solutions of sparse systems, as well as
+<code>eigs_sym()</code> and <code>eigs_gen()</code> in shift-invert
+mode. You will need to link with the superlu library, for example
+<code>-lsuperlu</code></td>
+</tr><tr class="odd"><td><code>ARMA_DONT_USE_SUPERLU</code></td>
+<td>Disable use of SuperLU; overrides <code>ARMA_USE_SUPERLU</code></td>
+</tr><tr class="even"><td><code>ARMA_USE_HDF5</code></td>
+<td>Enable the ability to save and load matrices stored in the HDF5
+format; the <code>hdf5.h</code> header file must be available on your
+system and you will need to link with the hdf5 library (eg.
+<code>-lhdf5</code>)</td>
+</tr><tr class="odd"><td><code>ARMA_DONT_USE_HDF5</code></td>
+<td>Disable the use of the HDF5 library; overrides
+<code>ARMA_USE_HDF5</code></td>
+</tr><tr class="even"><td><code>ARMA_USE_FFTW3</code></td>
+<td>Enable use of the FFTW3 library by <code>fft()</code> and
+<code>ifft()</code>; you will need to link with the FFTW3 library (eg.
+<code>-lfftw3</code>)</td>
+</tr><tr class="odd"><td><code>ARMA_DONT_USE_FFTW3</code></td>
+<td>Disable the use of the FFTW3 library; overrides
+<code>ARMA_USE_FFTW3</code></td>
+</tr><tr class="even"><td><code>ARMA_DONT_USE_STD_MUTEX</code></td>
+<td>Disable use of <code>std::mutex</code>; applicable if your compiler
+and/or environment doesn’t support <code>std::mutex</code></td>
+</tr><tr class="odd"><td><code>ARMA_DONT_OPTIMISE_BAND</code></td>
+<td>Disable automatically optimised handling of band matrices by
+<code>solve()</code> and <code>chol()</code></td>
+</tr><tr class="even"><td><code>ARMA_DONT_OPTIMISE_SYMPD</code></td>
+<td>Disable automatically optimised handling of symmetric/hermitian
+positive definite matrices by <code>solve()</code>, <code>inv()</code>,
+<code>pinv()</code>, <code>expmat()</code>, <code>logmat()</code>,
+<code>sqrtmat()</code>, <code>powmat()</code>, <code>rcond()</code></td>
+</tr><tr class="odd"><td><code>ARMA_USE_OPENMP</code></td>
+<td>Use OpenMP for parallelisation of computationally expensive
+element-wise operations (such as <code>exp()</code>, <code>log()</code>,
+<code>cos()</code>, etc). Automatically enabled when using a compiler
+which has OpenMP 3.1+ active (eg. the <code>-fopenmp</code> option for
+gcc and clang).</td>
+</tr><tr class="even"><td><code>ARMA_DONT_USE_OPENMP</code></td>
+<td>Disable use of OpenMP for parallelisation of element-wise
+operations; overrides <code>ARMA_USE_OPENMP</code></td>
+</tr><tr class="odd"><td><code>ARMA_OPENMP_THRESHOLD</code></td>
+<td>The minimum number of elements in a matrix to enable OpenMP based
+parallelisation of computationally expensive element-wise functions;
+default value is 320</td>
+</tr><tr class="even"><td><code>ARMA_OPENMP_THREADS</code></td>
+<td>The maximum number of threads for OpenMP based parallelisation of
+computationally expensive element-wise functions; default value is
+8</td>
+</tr><tr class="odd"><td><code>ARMA_BLAS_CAPITALS</code></td>
+<td>Use capitalised (uppercase) BLAS and LAPACK function names (eg.
+<code>DGEMM</code> vs <code>dgemm</code>)</td>
+</tr><tr class="even"><td><code>ARMA_BLAS_UNDERSCORE</code></td>
+<td>Append an underscore to BLAS and LAPACK function names (eg.
+<code>dgemm_</code> vs <code>dgemm</code>). Enabled by default.</td>
+</tr><tr class="odd"><td><code>ARMA_BLAS_LONG_LONG</code></td>
+<td>Use <code>"long long"</code> instead of <code>"int"</code> when
+calling BLAS and LAPACK functions; the <code>"long long"</code> type is
+a 64 bit integer type on all platforms</td>
+</tr><tr class="even"><td><code>ARMA_USE_FORTRAN_HIDDEN_ARGS</code></td>
+<td>Use so-called “hidden arguments” when calling BLAS and LAPACK
+functions. Enabled by default. See Fortran argument passing conventions
+for more details.</td>
+</tr><tr class="odd"><td><code>ARMA_DONT_USE_FORTRAN_HIDDEN_ARGS</code></td>
+<td>Disable use of so-called “hidden arguments” when calling BLAS and
+LAPACK functions. May be necessary when using Armadillo in conjunction
+with broken MKL headers (eg. if you have
+<code>#include "mkl_lapack.h"</code> in your code).</td>
+</tr><tr class="even"><td><code>ARMA_USE_TBB_ALLOC</code></td>
+<td>Use Intel TBB <code>scalable_malloc()</code> and
+<code>scalable_free()</code> instead of standard <code>malloc()</code>
+and <code>free()</code> for managing matrix memory</td>
+</tr><tr class="odd"><td><code>ARMA_USE_MKL_ALLOC</code></td>
+<td>Use Intel MKL <code>mkl_malloc()</code> and <code>mkl_free()</code>
+instead of standard <code>malloc()</code> and <code>free()</code> for
+managing matrix memory</td>
+</tr><tr class="even"><td><code>ARMA_USE_MKL_TYPES</code></td>
+<td>Use Intel MKL types for complex numbers. You will need to include
+appropriate MKL headers before the Armadillo header. You may also need
+to enable one or more of the following options:
+<code>ARMA_BLAS_LONG_LONG</code>,
+<code>ARMA_DONT_USE_FORTRAN_HIDDEN_ARGS</code></td>
+</tr><tr class="odd"><td><code>ARMA_64BIT_WORD</code></td>
+<td>Use 64 bit integers for matrix and vector sizes. Automatically
+enabled when using a 64-bit platform, except when using Armadillo in the
+R environment (via RcppArmadillo). Useful if matrices/vectors capable of
+holding more than 4 billion elements are required. This can also be
+enabled by adding <code>#define ARMA_64BIT_WORD</code> before each
+instance of <code>#include &lt;armadillo&gt;</code>. See also the
+<code>ARMA_BLAS_LONG_LONG</code> option.</td>
+</tr><tr class="even"><td><code>ARMA_MAT_PREALLOC</code></td>
+<td>The number of pre-allocated elements used by matrices and vectors.
+Must be always enabled and set to an integer that is at least 1. By
+default set to 16. If you mainly use lots of very small vectors (eg. ≤ 4
+elements), change the number to the size of your vectors.</td>
+</tr><tr class="odd"><td><code>ARMA_COUT_STREAM</code></td>
+<td>The default stream used for printing matrices and cubes by
+<code>.print()</code>. Must be always enabled. By default defined to
+<code>std::cout</code></td>
+</tr><tr class="even"><td><code>ARMA_CERR_STREAM</code></td>
+<td>The default stream used for printing warnings and errors. Must be
+always enabled. By default defined to <code>std::cerr</code></td>
+</tr><tr class="odd"><td><code>ARMA_WARN_LEVEL</code></td>
+<td>The level of warning messages printed to
+<code>ARMA_CERR_STREAM</code>. Must be an integer ≥ 0. By default
+defined to 2.<br>0 = no warnings; generally not recommended.<br>1 = only
+critical warnings about arguments and/or data which are likely to lead
+to incorrect results.<br>2 = as per level 1, and warnings about poorly
+conditioned systems (low <code>rcond</code>) detected by
+<code>solve()</code>, <code>spsolve()</code>, etc.<br>3 = as per level
+2, and warnings about failed decompositions, failed saving / loading,
+etc.</td>
+</tr></tbody></table></div>
+<footer><p>Last updated: 2025-10-12 11:46:25</p>
+</footer><script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  const currentTheme = localStorage.getItem('theme') || 'light';
+
+  // Apply saved theme
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  }
+
+  // Search functionality
+  const searchBox = document.getElementById('search-box');
+  if (!searchBox) return;
+
+  let searchIndex = [];
+
+  // Load search index
+  fetch('../search.json')
+    .then(response => response.json())
+    .then(data => {
+      searchIndex = data;
+    })
+    .catch(error => {
+      console.log('Search index not available, falling back to simple search');
+    });
+
+  searchBox.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase().trim();
+
+    if (searchTerm === '') {
+      // Show all items when search is empty
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        link.style.display = 'block';
+      });
+      document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
+        submenu.style.display = 'block';
+      });
+      return;
+    }
+
+    // Content-based search using search index
+    if (searchIndex.length > 0) {
+      const matchingUrls = new Set();
+
+      searchIndex.forEach(function(item) {
+        const searchContent = (item.title + ' ' + item.content).toLowerCase();
+        if (searchContent.includes(searchTerm)) {
+          matchingUrls.add(item.url);
+        }
+      });
+
+      // Show/hide links based on content matches
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        const href = link.getAttribute('href');
+        const relativePath = href.replace(/^.*\//, ''); // Get just the filename part
+
+        let isMatch = false;
+        matchingUrls.forEach(function(url) {
+          if (url.includes(relativePath)) {
+            isMatch = true;
+          }
+        });
+
+        // Also check link text for simple matches
+        if (!isMatch && link.textContent.toLowerCase().includes(searchTerm)) {
+          isMatch = true;
+        }
+
+        link.style.display = isMatch ? 'block' : 'none';
+      });
+    } else {
+      // Fallback to simple name-based search
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        const linkText = link.textContent.toLowerCase();
+        link.style.display = linkText.includes(searchTerm) ? 'block' : 'none';
+      });
+    }
+
+    // Show/hide entire submenus if no visible links
+    document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
+      const visibleLinks = submenu.querySelectorAll('a[style*="display: block"]');
+      const label = submenu.querySelector('label');
+
+      // Don't hide the Home submenu
+      if (label && label.textContent.includes('Home')) {
+        return;
+      }
+
+      submenu.style.display = visibleLinks.length > 0 ? 'block' : 'none';
+    });
+  });
+});
+</script></div>
+</div>
+</div>
+</body></html>
+

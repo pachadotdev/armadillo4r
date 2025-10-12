@@ -15,6 +15,9 @@ knitr::opts_chunk$set(
 )
 ```
 
+**Adapted from the official Armadillo
+[documentation](https://arma.sourceforge.net/docs.html).**
+
 If you vendor `armadillo4r`, Armadillo options on C++ side can be configured via editing the file `include/armadillo/config.hpp`.
 
 Specific functionality can be enabled or disabled by uncommenting or commenting out a particular `#define`, listed below.
@@ -71,5 +74,3 @@ Some options can also be specified by explicitly defining them before including 
 | `ARMA_COUT_STREAM` | The default stream used for printing matrices and cubes by `.print()`. Must be always enabled. By default defined to `std::cout` |
 | `ARMA_CERR_STREAM` | The default stream used for printing warnings and errors. Must be always enabled. By default defined to `std::cerr` |
 | `ARMA_WARN_LEVEL` | The level of warning messages printed to `ARMA_CERR_STREAM`. Must be an integer ≥ 0. By default defined to 2.<br>0 = no warnings; generally not recommended.<br>1 = only critical warnings about arguments and/or data which are likely to lead to incorrect results.<br>2 = as per level 1, and warnings about poorly conditioned systems (low `rcond`) detected by `solve()`, `spsolve()`, etc.<br>3 = as per level 2, and warnings about failed decompositions, failed saving / loading, etc. |
-
-# References

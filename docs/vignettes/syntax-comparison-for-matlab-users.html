@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>armadillo_version • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Syntax comparison for MATLAB/Octave users • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)'], ['$', '$']],
@@ -75,20 +75,127 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1>Get Armadillo version</h1>
-<h2>Usage</h2><pre class="ref-usage">
-armadillo_version()
-</pre>
-<h2>Value</h2><p>
-A string with the Armadillo version name and number
-</p>
-<h2>Description</h2><p>
-Provides the Armadillo C++ library version name and number included in the
-package.
-</p>
-<h2>Examples</h2><pre><code>armadillo_version()</code></pre>
+<h1>Syntax comparison for MATLAB/Octave users</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<div id="matlaboctave-syntax-and-corresponding-armadillo-syntax" class="section level1">
+<h1>Matlab/Octave syntax and corresponding Armadillo syntax</h1>
+<p>The following table uses <code>V</code> for vectors, <code>M</code>
+for matrices, <code>Q</code> for cubes and <code>F</code> for fields.
+For operations, <code>A</code>, <code>B</code> and <code>C</code> denote
+matrices. Because MATLAB indexes from 1 (as R does), the k-th column in
+MATLAB has index <code>k</code> but in C++ it has index
+<code>k-1</code>.</p>
+<table><colgroup><col width="25%"><col width="26%"><col width="48%"></colgroup><thead><tr class="header"><th>Matlab/Octave</th>
+<th>Armadillo</th>
+<th>Notes</th>
+</tr></thead><tbody><tr class="odd"><td><code>M(1, 1)</code></td>
+<td><code>M(0, 0)</code></td>
+<td>indexing in C++ starts at 0</td>
+</tr><tr class="even"><td><code>M(k, k)</code></td>
+<td><code>M(k-1, k-1)</code></td>
+<td>indexing in C++ starts at 0</td>
+</tr><tr class="odd"><td><code>size(M,1)</code></td>
+<td><code>M.n_rows</code></td>
+<td>read only</td>
+</tr><tr class="even"><td><code>size(M,2)</code></td>
+<td><code>M.n_cols</code></td>
+<td>read only</td>
+</tr><tr class="odd"><td><code>size(Q,3)</code></td>
+<td><code>Q.n_slices</code></td>
+<td></td>
+</tr><tr class="even"><td><code>numel(A)</code></td>
+<td><code>M.n_elem</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M(:, k)</code></td>
+<td><code>M.col(k-1)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M(k, :)</code></td>
+<td><code>M.row(k)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M(:, p:q)</code></td>
+<td><code>M.cols(p, q)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M(p:q, :)</code></td>
+<td><code>M.rows(p, q)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M(p:q, r:s)</code></td>
+<td><code>M(span(p,q), span(r,s))</code></td>
+<td></td>
+</tr><tr class="even"><td><code>Q(:, :, k)</code></td>
+<td><code>Q.slice(k)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>Q(:, :, t:u)</code></td>
+<td><code>Q.slices(t, u)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>Q(p:q, r:s, t:u)</code></td>
+<td><code>Q( span(p,q), span(r,s), span(t,u))</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M'</code></td>
+<td><code>M.t()</code> or <code>trans(M)</code></td>
+<td>matrix transpose / Hermitian transpose (for complex matrices, the
+conjugate of each element is taken)</td>
+</tr><tr class="even"><td><code>M = zeros(size(M))</code></td>
+<td><code>M.zeros()</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M = ones(size(M))</code></td>
+<td><code>M.ones()</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M = zeros(k)</code></td>
+<td><code>M = zeros&lt;mat&gt;(k,k)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M = ones(k)</code></td>
+<td><code>M = ones&lt;mat&gt;(k,k)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>C = complex(A,B)</code></td>
+<td><code>cx_mat C = cx_mat(A,B)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>A .* B</code></td>
+<td><code>A % B</code></td>
+<td>element-wise multiplication</td>
+</tr><tr class="even"><td><code>A ./ B</code></td>
+<td><code>A / B</code></td>
+<td>element-wise division</td>
+</tr><tr class="odd"><td><code>A \ B</code></td>
+<td><code>solve(A,B)</code></td>
+<td>more efficient than <code>inv(A)*B</code></td>
+</tr><tr class="even"><td><code>M = M + 1</code></td>
+<td><code>M++</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M = M - 1</code></td>
+<td><code>M--</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M = [1 2; 3 4;]</code></td>
+<td><code>M = {{1, 2}, {3, 4}}</code></td>
+<td>element initialization</td>
+</tr><tr class="odd"><td><code>M = A(:)</code></td>
+<td><code>M = vectorise(A)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M = [A  B]</code></td>
+<td><code>M = join_horiz(A,B)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M = [A; B]</code></td>
+<td><code>M = join_vert(A,B)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M</code></td>
+<td><code>cout &lt;&lt; M &lt;&lt; endl</code> or
+<code>M.print("M =")</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>A = randn(2,3)</code></td>
+<td><code>mat A = randn(2,3)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>B = randn(4,5)</code></td>
+<td><code>mat B = randn(4,5)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>F = {A; B}</code></td>
+<td><code>field&lt;mat&gt; F(2,1)</code>, <code>F(0,0) = A</code> or
+<code>F(1,0) = B</code></td>
+<td>fields store arbitrary objects, such as matrices</td>
+</tr></tbody></table></div>
 </div>
-<footer><p>Last updated: 2025-10-12 11:46:24</p>
+<footer><p>Last updated: 2025-10-12 11:46:29</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>armadillo_version • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sparse matrices • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)'], ['$', '$']],
@@ -75,20 +75,46 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1>Get Armadillo version</h1>
-<h2>Usage</h2><pre class="ref-usage">
-armadillo_version()
-</pre>
-<h2>Value</h2><p>
-A string with the Armadillo version name and number
-</p>
-<h2>Description</h2><p>
-Provides the Armadillo C++ library version name and number included in the
-package.
-</p>
-<h2>Examples</h2><pre><code>armadillo_version()</code></pre>
+<h1>Sparse matrices</h1>
+
+
+
+<div id="limited-support" class="section level1">
+<h1>Limited support</h1>
+<p><code>armadillo4r</code>, as of v0.5.0, supports the
+<code>dgCMatrix</code> class from the <code>Matrix</code> package. This
+class is a sparse matrix class that stores the matrix in a compressed
+column format.</p>
+<p>The strategy for an efficient conversion from R to C++ and vice versa
+is to create an indexing of the non-zero elements of the input matrix
+and then use this indexing to create <code>dgCMatrix</code> (R) or
+<code>SpMat</code> (Armadillo/C++) object.</p>
+<p>Note that <code>cpp4r</code> does not provide sparse matrices as it
+is the case for the dense data types <code>doubles_matrix&lt;&gt;</code>
+or <code>integers_matrix&lt;&gt;</code>. <code>armadillo4r</code> uses
+<code>SEXP</code> to provide a method to convert <code>dgCMatrix</code>
+objects to <code>SpMat</code> objects and vice versa using some
+properties of S4 objects.</p>
+<p>Here is an example of how to convert a <code>dgCMatrix</code> object
+to a <code>SpMat</code> object and re-import it to R:</p>
+<pre class="cpp"><code>[[cpp4r::register]] SEXP sum_matrices_(SEXP x) {
+  // Convert from dgCMatrix to SpMat
+  SpMat&lt;double&gt; A = as_SpMat(x);
+
+  // Create a matrix B with a diagonal of random numbers
+  SpMat&lt;double&gt; B(A.n_rows, A.n_cols);
+  for (uword i = 0; i &lt; A.n_rows; ++i) {
+    B(i, i) = randu&lt;double&gt;();
+  }
+
+  A += B; // Add the two matrices
+
+  // Convert back to dgCMatrix and return
+  return as_dgCMatrix(A);
+}</code></pre>
 </div>
-<footer><p>Last updated: 2025-10-12 11:46:24</p>
+</div>
+<footer><p>Last updated: 2025-10-12 11:46:29</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality

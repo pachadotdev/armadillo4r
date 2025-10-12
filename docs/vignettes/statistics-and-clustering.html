@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Statistics and clustering • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      svg: {
+        fontCache: 'global',
+        scale: 1.5,  /* Scale SVG math to 150% */
+        minScale: 0.5,
+        mtextInheritFont: false,
+        merrorInheritFont: true,
+        mathmlSpacing: false,
+        exFactor: 0.5  /* Adjust baseline for better alignment */
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <h1>armadillo4r Documentation</h1>
+  </div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."><button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">💡</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>Functions</label>
+    <a href="../reference/armadillo_version.html">armadillo_version</a>
+    <a href="../reference/armadillo4r-package.html">armadillo4r-package</a>
+    <a href="../reference/check_cpp4r.html">check_cpp4r</a>
+    <a href="../reference/pkg_template.html">pkg_template</a>
+    <a href="../reference/unvendor.html">unvendor</a>
+    <a href="../reference/vendor.html">vendor</a>
+  </div>
+
+  <div class="submenu">
+    <label>Vignettes</label>
+    <a href="../vignettes/basic-usage.html">Basic 'armadillo4r' usage</a>
+    <a href="../vignettes/configuration.html">Armadillo configuration</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-dense.html">Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-sparse.html">Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
+    <a href="../vignettes/functions-of-vector-matrices-cubes.html">Functions of vectors, matrices, and cubes</a>
+    <a href="../vignettes/generated-vectors-matrices-cubes.html">Generated vectors, matrices, and cubes</a>
+    <a href="../vignettes/linear-model.html">Fitting regressions with Armadillo</a>
+    <a href="../vignettes/matrix-vector-cube-and-field-classes.html">Matrix, vector, cube and field classes</a>
+    <a href="../vignettes/member-functions-and-variables.html">Member functions and variables</a>
+    <a href="../vignettes/miscellaneous.html">Miscellaneous</a>
+    <a href="../vignettes/save-load.html">Saving and loading Armadillo objects on C++ side</a>
+    <a href="../vignettes/signal-and-image-processing.html">Signal and image processing</a>
+    <a href="../vignettes/sparse-matrices.html">Sparse matrices</a>
+    <a href="../vignettes/statistics-and-clustering.html">Statistics and clustering</a>
+    <a href="../vignettes/syntax-comparison-for-matlab-users.html">Syntax comparison for MATLAB/Octave users</a>
+    <a href="../vignettes/using-sexp-cpp.html">Using SEXP and cpp conversions</a>
+  </div>
+
+  <div class="submenu">
+    <label>News</label>
+    <a href="../news/index.html">Changelog</a>
+  </div>
+</div>
+<div id="content">
+<div class="content-wrapper">
+<div class="content-main">
+<h1>Statistics and clustering</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<div id="mean" class="section level1">
+<h1>Mean</h1>
+<p>The <code>mean</code> function computes the mean of a vector, matrix,
+or cube. For a vector argument, the mean is calculated using all the
+elements of the vector. For a matrix argument, the mean is calculated
+for each column by default (<code>dim = 0</code>), or for each row
+(<code>dim = 1</code>). For a cube argument, the mean is calculated
+along the specified dimension (same as for matrices plus
+<code>dim = 2</code> for slices).</p>
+<p>Usage:</p>
+<pre class="cpp"><code>mean(V)
+
+mean(M)
+mean(M, dim)
+
+mean(Q)
+mean(Q, dim)</code></pre>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list mean1_(const doubles_matrix&lt;&gt;&amp; X,
+  const doubles_matrix&lt;&gt;&amp; Y) {
+  mat A = as_Mat(X);
+  mat B = as_Mat(Y);
+
+  // create a cube with 3 copies of B + random noise
+  cube C(B.n_rows, B.n_cols, 3);
+  C.slice(0) = B + 0.1 * randn&lt;mat&gt;(B.n_rows, B.n_cols);
+  C.slice(1) = B + 0.2 * randn&lt;mat&gt;(B.n_rows, B.n_cols);
+  C.slice(2) = B + 0.3 * randn&lt;mat&gt;(B.n_rows, B.n_cols);
+
+  vec D = mean(A).t();
+  vec E = mean(A, 1);
+  vec F = mean(mean(B, 1), 1);
+
+  writable::list res(3);
+  res[0] = as_doubles(D);
+  res[1] = as_doubles(E);
+  res[2] = as_doubles(F);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="median" class="section level1">
+<h1>Median</h1>
+<p>The <code>median</code> function computes the median of a vector or
+matrix. For a vector argument, the median is calculated using all the
+elements of the vector. For a matrix argument, the median is calculated
+for each column by default (<code>dim = 0</code>), or for each row
+(<code>dim = 1</code>).</p>
+<p>Usage:</p>
+<pre class="cpp"><code>median(V)
+
+median(M)
+median(M, dim)</code></pre>
+<div id="examples-1" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list median1_(const doubles_matrix&lt;&gt;&amp; X,
+  const doubles_matrix&lt;&gt;&amp; Y) {
+  mat A = as_Mat(X);
+  mat B = as_Mat(Y);
+
+  vec C = median(A).t();
+  vec D = median(A, 1);
+  vec E = median(median(B, 1), 1);
+
+  writable::list res(3);
+  res[0] = as_doubles(C);
+  res[1] = as_doubles(D);
+  res[2] = as_doubles(E);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="stddev" class="section level1">
+<h1>Standard deviation</h1>
+<p>The <code>stddev</code> function computes the standard deviation of a
+vector or matrix. For a vector argument, the standard deviation is
+calculated using all the elements of the vector. For a matrix argument,
+the standard deviation is calculated for each column by default
+(<code>dim = 0</code>), or for each row (<code>dim = 1</code>).</p>
+<p>The <code>norm_type</code> argument is optional; by default
+<code>norm_type = 0</code> is used. The <code>norm_type</code> argument
+controls the type of normalization used, with <code>N</code> denoting
+the number of observations:</p>
+<ul><li>for <code>norm_type = 0</code>, normalization is done using
+<code>N-1</code>, providing the best unbiased estimation of the standard
+deviation (if the observations are from a normal distribution).</li>
+<li>for <code>norm_type = 1</code>, normalization is done using
+<code>N</code>, which provides the second moment of the observations
+about their mean.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>stddev(V)
+stddev(V, norm_type)
+
+stddev(M)
+stddev(M, norm_type)
+stddev(M, norm_type, dim)</code></pre>
+<div id="examples-2" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list stddev1_(const doubles_matrix&lt;&gt;&amp; X,
+  const doubles_matrix&lt;&gt;&amp; Y) {
+  mat A = as_Mat(X);
+  mat B = as_Mat(Y);
+
+  vec C = stddev(A).t();
+  vec D = stddev(A, 1).t();
+  vec E = stddev(A, 1, 1);
+
+  writable::list res(3);
+  res[0] = as_doubles(C);
+  res[1] = as_doubles(D);
+  res[2] = as_doubles(E);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="var" class="section level1">
+<h1>Variance</h1>
+<p>The <code>var</code> function computes the variance of a vector or
+matrix. For a vector argument, the variance is calculated using all the
+elements of the vector. For a matrix argument, the variance is
+calculated for each column by default (<code>dim = 0</code>), or for
+each row (<code>dim = 1</code>).</p>
+<p>The <code>norm_type</code> argument is optional; by default
+<code>norm_type = 0</code> is used. The <code>norm_type</code> argument
+controls the type of normalization used, with <code>N</code> denoting
+the number of observations:</p>
+<ul><li>for <code>norm_type = 0</code>, normalization is done using
+<code>N-1</code>, providing the best unbiased estimation of the standard
+deviation (if the observations are from a normal distribution).</li>
+<li>for <code>norm_type = 1</code>, normalization is done using
+<code>N</code>, which provides the second moment of the observations
+about their mean.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>var(V)
+var(V, norm_type)
+
+var(M)
+var(M, norm_type)
+var(M, norm_type, dim)</code></pre>
+<div id="examples-3" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list var1_(const doubles_matrix&lt;&gt;&amp; X,
+  const doubles_matrix&lt;&gt;&amp; Y) {
+  mat A = as_Mat(X);
+  mat B = as_Mat(Y);
+
+  vec C = var(A).t();
+  vec D = var(A, 1).t();
+  vec E = var(A, 1, 1);
+
+  writable::list res(3);
+  res[0] = as_doubles(C);
+  res[1] = as_doubles(D);
+  res[2] = as_doubles(E);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="range" class="section level1">
+<h1>Range</h1>
+<p>The <code>range</code> function computes the range of a vector or
+matrix. For a vector argument, the range is calculated using all the
+elements of the vector. For a matrix argument, the range is calculated
+for each column by default (<code>dim = 0</code>), or for each row
+(<code>dim = 1</code>).</p>
+<p>Usage:</p>
+<pre class="cpp"><code>range(V)
+
+range(M)
+range(M, dim)</code></pre>
+<div id="examples-4" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list range1_(const doubles_matrix&lt;&gt;&amp; X,
+  const doubles_matrix&lt;&gt;&amp; Y) {
+  mat A = as_Mat(X);
+  mat B = as_Mat(Y);
+
+  vec C = range(A).t();
+  vec D = range(A, 1);
+
+  writable::list res(2);
+  res[0] = as_doubles(C);
+  res[1] = as_doubles(D);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="cov" class="section level1">
+<h1>Covariance</h1>
+<p>The <code>cov</code> function computes the covariance between two
+matrices or vectors. If each row of <code>X</code> and <code>Y</code> is
+an observation and each column is a variable, the <code>(i,j)</code>-th
+entry of <code>cov(X,Y)</code> is the covariance between the
+<code>i</code>-th variable in <code>X</code> and the <code>j</code>-th
+variable in <code>Y</code>.</p>
+<p>For two matrix arguments <code>X</code> and <code>Y</code>, the
+<code>cov(X,Y)</code> function computes the covariance between the two
+matrices. For vector arguments, the type of vector is ignored and each
+element in the vector is treated as an observation. The
+<code>cov(X)</code> function is equivalent to
+<code>cov(X, X)</code>.</p>
+<p>The <code>norm_type</code> argument is optional; by default
+<code>norm_type = 0</code> is used. The <code>norm_type</code> argument
+controls the type of normalization used, with <code>N</code> denoting
+the number of observations:</p>
+<ul><li>for <code>norm_type = 0</code>, normalization is done using
+<code>N-1</code>, providing the best unbiased estimation of the
+covariance matrix (if the observations are from a normal
+distribution).</li>
+<li>for <code>norm_type = 1</code>, normalization is done using
+<code>N</code>, which provides the second moment matrix of the
+observations about their mean.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>cov(X, Y, norm_type)
+
+cov(X)
+cov(X, norm_type)</code></pre>
+<div id="examples-5" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list cov1_(const doubles_matrix&lt;&gt;&amp; X,
+  const doubles_matrix&lt;&gt;&amp; Y) {
+  mat A = as_Mat(X);
+  mat B = as_Mat(Y);
+
+  mat C = cov(A, B);
+  mat D = cov(A, B, 1);
+
+  writable::list res(2);
+  res[0] = as_doubles_matrix(C);
+  res[1] = as_doubles_matrix(D);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="cor" class="section level1">
+<h1>Correlation</h1>
+<p>The <code>cor</code> function computes the correlation coefficient
+between two matrices or vectors. If each row of <code>X</code> and
+<code>Y</code> is an observation and each column is a variable, the
+<code>(i,j)</code>-th entry of <code>cor(X,Y)</code> is the correlation
+coefficient between the <code>i</code>-th variable in <code>X</code> and
+the <code>j</code>-th variable in <code>Y</code>.</p>
+<p>For two matrix arguments <code>X</code> and <code>Y</code>, the
+<code>cor(X,Y)</code> function computes the correlation coefficient
+between the two matrices. For vector arguments, the type of vector is
+ignored and each element in the vector is treated as an observation.</p>
+<p>The <code>norm_type</code> argument is optional; by default
+<code>norm_type = 0</code> is used. The <code>norm_type</code> argument
+controls the type of normalization used, with <code>N</code> denoting
+the number of observations:</p>
+<ul><li>for <code>norm_type = 0</code>, normalization is done using
+<code>N-1</code>.</li>
+<li>for <code>norm_type = 1</code>, normalization is done using
+<code>N</code>.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>cor(X, Y)
+cor(X, Y, norm_type)
+
+cor(X)
+cor(X, norm_type)</code></pre>
+<div id="examples-6" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list cor1_(const doubles_matrix&lt;&gt;&amp; X,
+  const doubles_matrix&lt;&gt;&amp; Y) {
+  mat A = as_Mat(X);
+  mat B = as_Mat(Y);
+
+  mat C = cor(A, B);
+  mat D = cor(A, B, 1);
+
+  writable::list res(2);
+  res[0] = as_doubles_matrix(C);
+  res[1] = as_doubles_matrix(D);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="hist" class="section level1">
+<h1>Histogram</h1>
+<p>The <code>hist</code> function computes a histogram of counts for a
+vector or matrix. For a vector argument, the histogram is calculated
+using all the elements of the vector. For a matrix argument, the
+histogram is calculated for each column by default
+(<code>dim = 0</code>), or for each row (<code>dim = 1</code>).</p>
+<p>The bin centers can be automatically determined from the data, with
+the number of bins specified via <code>n_bins</code> (the default is
+10). The range of the bins is determined by the range of the data. The
+bin centers can be explicitly specified in the <code>centers</code>
+vector, which must contain monotonically increasing values.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>hist(V)
+hist(V, n_bins)
+hist(V, centers)
+
+hist(M, centers)
+hist(M, centers, dim)</code></pre>
+<div id="examples-7" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list hist1_(const int&amp; n) {
+  vec A = randu&lt;vec&gt;(n);
+
+  uvec h1 = hist(A, 11);
+  uvec h2 = hist(A, linspace&lt;vec&gt;(-2, 2, 11));
+
+  writable::list res(2);
+  res[0] = as_integers(h1);
+  res[1] = as_integers(h2);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="histc" class="section level1">
+<h1>Histogram of counts with user specified edges</h1>
+<p>The <code>histc</code> function computes a histogram of counts for a
+vector or matrix. For a vector argument, the histogram is calculated
+using all the elements of the vector. For a matrix argument, the
+histogram is calculated for each column by default
+(<code>dim = 0</code>), or for each row (<code>dim = 1</code>).</p>
+<p>The bin edges have to be specified and contain monotonically
+increasing values.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>histc(V)
+histc(V, edges)
+
+hist(M, edges)
+hist(M, edges, dim)</code></pre>
+<div id="examples-8" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] integers histc1_(const int&amp; n) {
+  vec A = randu&lt;vec&gt;(n);
+
+  uvec h = histc(A, linspace&lt;vec&gt;(-2,2,11));
+
+  return as_integers(h);
+}</code></pre>
+</div>
+</div>
+<div id="quantile" class="section level1">
+<h1>Quantiles of a dataset</h1>
+<p>The <code>quantile</code> function computes the quantiles
+corresponding to the cumulative probability values for a vector or
+matrix. For a vector argument, the quantiles are calculated using all
+the elements of the vector. For a matrix argument, the quantiles are
+calculated for each column by default (<code>dim = 0</code>), or for
+each row (<code>dim = 1</code>).</p>
+<p>The probabilities have to be specified as a second argument
+<code>P</code>.</p>
+<p>The algorithm for calculating the quantiles is based on Definition 5
+in: <em>Rob J. Hyndman and Yanan Fan. Sample Quantiles in Statistical
+Packages. The American Statistician, 50(4), 361-365, 1996. DOI:
+10.2307/2684934</em></p>
+<p>Usage:</p>
+<pre class="cpp"><code>quantile(V, P)
+
+quantile(M, P)
+quantile(M, P, dim)</code></pre>
+<div id="examples-9" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles quantile1_(const int&amp; n) {
+  vec A = randu&lt;vec&gt;(n);
+
+  vec P = {0.0, 0.25, 0.50, 0.75, 1.0};
+  vec Q = quantile(A, P);
+
+  return as_doubles(Q);
+}</code></pre>
+</div>
+</div>
+<div id="princomp" class="section level1">
+<h1>Principal component analysis (PCA)</h1>
+<p>TODO: This needs a custom method.</p>
+</div>
+<div id="normpdf" class="section level1">
+<h1>Probability density function of normal distribution</h1>
+<p>The <code>normpdf</code> function computes the probability density
+function of a normal distribution for a scalar, vector, or matrix. For
+each scalar <code>x</code> in <code>X</code>, the probability density
+function is computed according to a Gaussian (normal) distribution using
+the corresponding mean value <code>m</code> in <code>M</code> and the
+corresponding standard deviation value <code>s</code> in
+<code>S</code>.</p>
+<p><span class="math display">\[
+y = \frac{1}{s \sqrt{2\pi}} \exp\left[-\frac{(x - m)^2}{2s^2}\right]
+\]</span></p>
+<ul><li><code>X</code> can be a scalar, vector, or matrix.</li>
+<li><code>M</code> and <code>S</code> can jointly be either scalars,
+vectors, or matrices.</li>
+<li>If <code>M</code> and <code>S</code> are omitted, their values are
+assumed to be 0 and 1, respectively.</li>
+</ul><div id="caveat" class="section level2">
+<h2>Caveat</h2>
+<p>To reduce the incidence of numerical underflows, consider using
+<code>log_normpdf()</code>.</p>
+</div>
+<div id="examples-10" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list normpdf1_(const int&amp; n) {
+  vec X = randu&lt;vec&gt;(n);
+  vec M = randu&lt;vec&gt;(n);
+  vec S = randu&lt;vec&gt;(n);
+
+  vec P1 = normpdf(X);
+  vec P2 = normpdf(X, M, S);
+  vec P3 = normpdf(1.23, M, S);
+  vec P4 = normpdf(X, 4.56, 7.89);
+  double P5 = normpdf(1.23, 4.56, 7.89);
+
+  writable::list res(5);
+
+  res[0] = as_doubles(P1);
+  res[1] = as_doubles(P2);
+  res[2] = as_doubles(P3);
+  res[3] = as_doubles(P4);
+  res[4] = as_doubles({P5});
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="log_normpdf" class="section level1">
+<h1>Probability density function of log-normal distribution</h1>
+<p>The <code>log_normpdf</code> function computes the probability
+density function of a log-normal distribution for a scalar, vector, or
+matrix. For each scalar <code>x</code> in <code>X</code>, the
+probability density function is computed according to a log-normal
+distribution using the corresponding mean value <code>m</code> in
+<code>M</code> and the corresponding standard deviation value
+<code>s</code> in <code>S</code>.</p>
+<p><span class="math display">\[
+y = \log\left[\frac{1}{x s \sqrt{2\pi}} \exp\left[-\frac{(\log(x) -
+m)^2}{2s^2}\right]\right]
+\]</span></p>
+<ul><li><code>X</code> can be a scalar, vector, or matrix.</li>
+<li><code>M</code> and <code>S</code> can jointly be either scalars,
+vectors, or matrices.</li>
+<li>If <code>M</code> and <code>S</code> are omitted, their values are
+assumed to be 0 and 1, respectively.</li>
+</ul><div id="examples-11" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list lognormpdf1_(const int&amp; n) {
+  vec X = randu&lt;vec&gt;(n);
+  vec M = randu&lt;vec&gt;(n);
+  vec S = randu&lt;vec&gt;(n);
+
+  vec P1 = log_normpdf(X);
+  vec P2 = log_normpdf(X, M, S);
+  vec P3 = log_normpdf(1.23, M, S);
+  vec P4 = log_normpdf(X, 4.56, 7.89);
+  double P5 = log_normpdf(1.23, 4.56, 7.89);
+
+  writable::list res(5);
+
+  res[0] = as_doubles(P1);
+  res[1] = as_doubles(P2);
+  res[2] = as_doubles(P3);
+  res[3] = as_doubles(P4);
+  res[4] = as_doubles({P5});
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="normcdf" class="section level1">
+<h1>Cumulative distribution function of normal distribution</h1>
+<p>For each scalar <code>x</code> in <code>X</code>, compute its
+cumulative distribution function according to a Gaussian (normal)
+distribution using the corresponding mean value <code>m</code> in
+<code>M</code> and the corresponding standard deviation value
+<code>s</code> in <code>S</code>.</p>
+<ul><li><code>X</code> can be a scalar, vector, or matrix.</li>
+<li><code>M</code> and <code>S</code> can jointly be either scalars,
+vectors, or matrices.</li>
+<li>If <code>M</code> and <code>S</code> are omitted, their values are
+assumed to be 0 and 1, respectively.</li>
+</ul><div id="examples-12" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list normcdf1_(const int&amp; n) {
+  vec X = randu&lt;vec&gt;(n);
+  vec M = randu&lt;vec&gt;(n);
+  vec S = randu&lt;vec&gt;(n);
+
+  vec P1 = normcdf(X);
+  vec P2 = normcdf(X, M, S);
+  vec P3 = normcdf(1.23, M, S);
+  vec P4 = normcdf(X, 4.56, 7.89);
+  double P5 = normcdf(1.23, 4.56, 7.89);
+
+  writable::list res(5);
+
+  res[0] = as_doubles(P1);
+  res[1] = as_doubles(P2);
+  res[2] = as_doubles(P3);
+  res[3] = as_doubles(P4);
+  res[4] = as_doubles({P5});
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="mvnrnd" class="section level1">
+<h1>Random vectors from multivariate normal distribution</h1>
+<p>Generate a matrix with random column vectors from a multivariate
+Gaussian (normal) distribution with parameters <code>M</code> and
+<code>C</code>.</p>
+<ul><li><code>M</code> is the mean and it must be a column vector.</li>
+<li><code>C</code> is the covariance matrix and it must be symmetric
+positive semi-definite (ideally positive definite).</li>
+<li><code>N</code> is the number of column vectors to generate. If
+<code>N</code> is omitted, it is assumed to be 1.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>X = mvnrnd(M, C)
+mvnrnd(X, M, C)
+mvnrnd(X. M. C. N)</code></pre>
+<p>The first form returns an error if the generation fails. The second
+and third form reset <code>X</code> and return a boolean set to
+<code>false</code> without error if the generation fails.</p>
+<div id="examples-13" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; mvnrnd1_(const int&amp; n, const int&amp;m) {
+  vec M = randu&lt;vec&gt;(n);
+
+  mat B = randu&lt;mat&gt;(n, n);
+  mat C = B.t() * B;
+
+  mat X = mvnrnd(M, C, m);
+
+  return as_doubles_matrix(X);
+}</code></pre>
+</div>
+</div>
+<div id="chi2rnd" class="section level1">
+<h1>Random numbers from chi-squared distribution</h1>
+<p>Generate a random scalar, vector, or matrix with elements sampled
+from a chi-squared distribution with the degrees of freedom specified by
+parameter <code>DF</code> or <code>DF_scalar</code>.</p>
+<ul><li><code>DF</code> is a vector or matrix, while <code>DF_scalar</code>
+is a scalar.</li>
+<li>For the <code>chi2rnd(DF)</code> form, the output vector or matrix
+has the same size and type as <code>DF</code>.</li>
+<li>Each value in <code>DF</code> and <code>DF_scalar</code> must be
+greater than zero.</li>
+<li>Each element in <code>DF</code> specifies a separate degree of
+freedom.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>v = chi2rnd(DF)
+X = chi2rnd(DF)
+
+double s = chi2rnd&lt;double&gt;(DF_scalar) // float also works
+vec v = chi2rnd&lt;vec&gt;(DF_scalar, n_elem)
+mat X = chi2rnd&lt;mat&gt;(DF_scalar, n_rows, n_cols)
+mat Y = chi2rnd&lt;mat&gt;(DF_scalar, size(X))</code></pre>
+<div id="examples-14" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list chi2rnd1_(const int&amp; n, const int&amp; m) {
+  mat X = chi2rnd(2, n, m);
+  mat Y = randi&lt;mat&gt;(n, m, distr_param(1, 10));
+  mat Z = chi2rnd(Y);
+
+  writable::list res(2);
+  res[0] = as_doubles_matrix(X);
+  res[1] = as_doubles_matrix(Z);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="wishrnd" class="section level1">
+<h1>Random matrix from Wishart distribution</h1>
+<p>Generate a random matrix sampled from the Wishart distribution with
+parameters <code>S</code> and <code>df</code>.</p>
+<ul><li><code>S</code> is a symmetric positive definite matrix (e.g., a
+covariance matrix).</li>
+<li><code>df</code> is a scalar specifying the degrees of freedom; it
+can be a non-integer value.</li>
+<li><code>D</code> is an optional argument to specify the Cholesky
+decomposition of <code>S</code>.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>W = wishrnd(S, df)
+wishrnd(W, S, df)</code></pre>
+<p>The first form returns an error if the generation fails. The second
+form resets <code>W</code> and returns a boolean set to
+<code>false</code> without error if the generation fails.</p>
+<div id="examples-15" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; wishrnd1_(const int&amp; n) {
+  mat X = randu&lt;mat&gt;(n, n);
+  mat S = X.t() * X;
+
+  mat W = wishrnd(S, 6.7);
+
+  return as_doubles_matrix(W);
+}</code></pre>
+</div>
+</div>
+<div id="iwishrnd" class="section level1">
+<h1>Random matrix from inverse Wishart distribution</h1>
+<p>Generate a random matrix sampled from the inverse Wishart
+distribution with parameters <code>T</code> and <code>df</code>.</p>
+<ul><li><code>T</code> is a symmetric positive definite matrix.</li>
+<li><code>df</code> is a scalar specifying the degrees of freedom; it
+can be a non-integer value.</li>
+<li><code>Dinv</code> is an optional argument; it specifies the Cholesky
+decomposition of the inverse of <code>T</code>. If <code>Dinv</code> is
+provided, <code>T</code> is ignored. Using <code>Dinv</code> is more
+efficient if <code>iwishrnd()</code> needs to be used many times for the
+same <code>T</code> matrix.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>W = iwishrnd(T, df)
+iwishrnd(W, T, df)</code></pre>
+<p>The first form returns an error if the generation fails. The second
+form resets <code>W</code> and returns a boolean set to
+<code>false</code> without error if the generation fails.</p>
+<div id="examples-16" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; iwishrnd1_(const int&amp; n, const double&amp; d) {
+  mat X = randu&lt;mat&gt;(n, n);
+  mat T = X.t() * X;
+
+  mat W = iwishrnd(T, d);
+
+  return as_doubles_matrix(W);
+}</code></pre>
+</div>
+</div>
+<div id="kmeans" class="section level1">
+<h1>Cluster data into disjoint sets</h1>
+<p>Cluster given data into <code>k</code> disjoint sets.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>kmeans(means, data, k, seed_mode, n_iter, print_mode)</code></pre>
+<ul><li>The <code>means</code> parameter is the output matrix for storing
+the resulting centroids of the sets, with each centroid stored as a
+column vector. If the clustering fails, the <code>means</code> matrix is
+reset and set to <code>false</code>.</li>
+<li>The <code>data</code> parameter is the input data matrix, with each
+sample stored as a column vector. The <code>k</code> parameter indicates
+the number of centroids.</li>
+<li>The <code>seed_mode</code> parameter specifies how the initial
+centroids are seeded. It is one of:
+<ul><li><code>keep_existing</code>: use the centroids specified in the
+<code>means</code> matrix as the starting point.</li>
+<li><code>static_subset</code>: use a subset of the data vectors
+(repeatable).</li>
+<li><code>random_subset</code>: use a subset of the data vectors
+(random).</li>
+<li><code>static_spread</code>: use a maximally spread subset of data
+vectors (repeatable).</li>
+<li><code>random_spread</code>: use a maximally spread subset of data
+vectors (random start).</li>
+</ul></li>
+<li>The <code>n_iter</code> parameter specifies the number of clustering
+iterations. This is data dependent, but about 10 is typically
+sufficient.</li>
+<li>The <code>print_mode</code> parameter is either <code>true</code> or
+<code>false</code>, indicating whether progress is printed during
+clustering.</li>
+</ul><div id="caveats" class="section level2">
+<h2>Caveats</h2>
+<ul><li>The number of samples in the data matrix should be larger than
+<code>k</code>.</li>
+<li>Works much faster with OpenMP enabled in the compiler (e.g.,
+<code>-fopenmp</code> in GCC and clang). armadillo4r finds OpenMP and
+uses it by default.</li>
+<li>For probabilistic clustering, use the <code>gmm_diag</code> or
+<code>gmm_full</code> classes instead.</li>
+</ul></div>
+<div id="examples-17" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list kmeans1_(const int&amp; n, const int&amp; d) {
+  mat data(d, n, fill::randu);
+
+  mat means;
+
+  bool status = kmeans(means, data, 2, random_subset, 10, true);
+
+  if (status == false) {
+    stop("clustering failed");
+  }
+
+  writable::list res(2);
+
+  res[0] = writable::logicals({status});
+  res[1] = as_doubles_matrix(means);
+
+  return res;
+}</code></pre>
+</div>
+</div>
+<div id="gmm_diag-gmm_full" class="section level1">
+<h1>Probabilistic clustering and likelihood calculation via mixture of
+Gaussians</h1>
+<p><code>gmm_diag</code> and <code>gmm_full</code> are classes for
+multi-variate probabilistic clustering and likelihood calculation via
+Gaussian Mixture Models (GMMs). The implementation details are available
+in <span class="citation">Sanderson and Curtin (2017)</span>.</p>
+<p>The distribution of data is modelled as:</p>
+<p><span class="math display">\[
+p(x) = \sum_{g=0}^{n_{\text{gaus}}-1} h_g N(x \mid m_g, C_g)
+\]</span></p>
+<p>where:</p>
+<ul><li><span class="math inline">\(x\)</span> is a column vector.</li>
+<li><span class="math inline">\(n_{\text{gaus}}\)</span> is the number
+of Gaussians; <span class="math inline">\(n_{\text{gaus}} \geq
+1\)</span>.</li>
+<li><span class="math inline">\(N(x \mid m_g, C_g)\)</span> represents a
+Gaussian (normal) distribution.</li>
+<li>Each Gaussian <span class="math inline">\(g\)</span> has the
+following parameters:
+<ul><li><span class="math inline">\(h_g\)</span> is the heft (weight), with
+constraints <span class="math inline">\(h_g \geq 0\)</span> and <span class="math inline">\(\sum h_g = 1\)</span>.</li>
+<li><span class="math inline">\(m_g\)</span> is the mean vector
+(centroid) with dimensionality <span class="math inline">\(n_{\text{dims}}\)</span>.</li>
+<li><span class="math inline">\(C_g\)</span> is the covariance matrix
+(either diagonal or full).</li>
+</ul></li>
+</ul><p>Both <code>gmm_diag</code> and <code>gmm_full</code> include tailored
+k-means and Expectation Maximisation algorithms for learning model
+parameters from training data.</p>
+<p>For an instance of <code>gmm_diag</code> or <code>gmm_full</code>
+named as <code>M</code>, the member functions and variables are:</p>
+<ul><li><code>M.log_p(V)</code>: return a scalar representing the
+log-likelihood of vector <code>V</code> (of type <code>vec</code>).</li>
+<li><code>M.log_p(V, g)</code>: return a scalar representing the
+log-likelihood of vector <code>V</code> (of type <code>vec</code>),
+according to Gaussian with index <code>g</code>.</li>
+<li><code>M.log_p(X)</code>: return a row vector (of type
+<code>rowvec</code>) containing log-likelihoods of each column vector in
+matrix <code>X</code> (of type <code>mat</code>).</li>
+<li><code>M.log_p(X, g)</code>: return a row vector (of type
+<code>rowvec</code>) containing log-likelihoods of each column vector in
+matrix <code>X</code> (of type <code>mat</code>), according to Gaussian
+with index <code>g</code>.</li>
+<li><code>M.sum_log_p(X)</code>: return a scalar representing the sum of
+log-likelihoods for all column vectors in matrix <code>X</code> (of type
+<code>mat</code>).</li>
+<li><code>M.sum_log_p(X, g)</code>: return a scalar representing the sum
+of log-likelihoods for all column vectors in matrix <code>X</code> (of
+type <code>mat</code>), according to Gaussian with index
+<code>g</code>.</li>
+<li><code>M.avg_log_p(X)</code>: return a scalar representing the
+average log-likelihood of all column vectors in matrix <code>X</code>
+(of type <code>mat</code>).</li>
+<li><code>M.avg_log_p(X, g)</code>: return a scalar representing the
+average log-likelihood of all column vectors in matrix <code>X</code>
+(of type <code>mat</code>), according to Gaussian with index
+<code>g</code>.</li>
+<li><code>M.assign(V, dist_mode)</code>: return the index of the closest
+mean (or Gaussian) to vector <code>V</code> (of type <code>vec</code>);
+parameter <code>dist_mode</code> is one of:
+<ul><li><code>eucl_dist</code>: Euclidean distance (takes only means into
+account).</li>
+<li><code>prob_dist</code>: probabilistic “distance”, defined as the
+inverse likelihood (takes into account means, covariances, and
+hefts).</li>
+</ul></li>
+<li><code>M.assign(X, dist_mode)</code>: return a row vector (of type
+<code>urowvec</code>) containing the indices of the closest means (or
+Gaussians) to each column vector in matrix <code>X</code> (of type
+<code>mat</code>); parameter <code>dist_mode</code> is either
+<code>eucl_dist</code> or <code>prob_dist</code> (as per the
+<code>.assign()</code> function above).</li>
+<li><code>M.raw_hist(X, dist_mode)</code>: return a row vector (of type
+<code>urowvec</code>) representing the raw histogram of counts; each
+entry is the number of counts corresponding to a Gaussian; each count is
+the number times the corresponding Gaussian was the closest to each
+column vector in matrix <code>X</code>; parameter <code>dist_mode</code>
+is either <code>eucl_dist</code> or <code>prob_dist</code> (as per the
+<code>.assign()</code> function above).</li>
+<li><code>M.norm_hist(X, dist_mode)</code>: similar to the
+<code>.raw_hist()</code> function above; return a row vector (of type
+<code>rowvec</code>) containing normalised counts; the vector sums to
+one; parameter <code>dist_mode</code> is either <code>eucl_dist</code>
+or <code>prob_dist</code> (as per the <code>.assign()</code> function
+above).</li>
+<li><code>M.generate()</code>: return a column vector (of type
+<code>vec</code>) representing a random sample generated according to
+the model’s parameters.</li>
+<li><code>M.generate(N)</code>: return a matrix (of type
+<code>mat</code>) containing <code>N</code> column vectors, with each
+vector representing a random sample generated according to the model’s
+parameters.</li>
+<li>M.save(filename): save the model to a file and return a bool
+indicating either success (true) or failure (false).</li>
+<li>M.load(filename): load the model from a file and return a bool
+indicating either success (true) or failure (false).</li>
+<li>M.n_gaus(): return the number of means/Gaussians in the model.</li>
+<li>M.n_dims(): return the dimensionality of the means/Gaussians in the
+model.</li>
+<li>M.reset(n_dims, n_gaus): set the model to have dimensionality
+<code>n_dims</code>, with <code>n_gaus</code> number of Gaussians; all
+the means are set to zero, all covariance matrix representations are
+equivalent to the identity matrix, and all the hefts (weights) are set
+to be uniform.</li>
+<li>M.hefts: read-only row vector (of type <code>rowvec</code>)
+containing the hefts (weights).</li>
+<li>M.means: read-only matrix (of type <code>mat</code>) containing the
+means (centroids), stored as column vectors.</li>
+<li>M.dcovs: read-only matrix (of type <code>mat</code>) containing the
+representation of diagonal covariance matrices, with the set of diagonal
+covariances for each Gaussian stored as a column vector; applicable only
+to the <code>gmm_diag</code> class.</li>
+<li>M.fcovs: read-only cube containing the full covariance matrices,
+with each covariance matrix stored as a slice within the cube;
+applicable only to the <code>gmm_full</code> class.</li>
+<li>M.set_hefts(V): set the hefts (weights) of the model to be as
+specified in row vector <code>V</code> (of type <code>rowvec</code>);
+the number of hefts must match the existing model.</li>
+<li>M.set_means(X): set the means to be as specified in matrix
+<code>X</code> (of type <code>mat</code>); the number of means and their
+dimensionality must match the existing model.</li>
+<li>M.set_dcovs(X): set the diagonal covariances matrices to be as
+specified in matrix <code>X</code> (of type <code>mat</code>), with the
+set of diagonal covariances for each Gaussian stored as a column vector;
+the number of covariance matrices and their dimensionality must match
+the existing model; applicable only to the <code>gmm_diag</code>
+class.</li>
+<li>M.set_fcovs(X): set the full covariances matrices to be as specified
+in cube <code>X</code>, with each covariance matrix stored as a slice
+within the cube; the number of covariance matrices and their
+dimensionality must match the existing model; applicable only to the
+<code>gmm_full</code> class.</li>
+<li>M.set_params(means, covs, hefts): set all the parameters at the same
+time; the type and layout of the parameters is as per the
+<code>.set_hefts()</code>, <code>.set_means()</code>,
+<code>.set_dcovs()</code>, and <code>.set_fcovs()</code> functions
+above; the number of Gaussians and dimensionality can be different from
+the existing model.</li>
+<li>M.learn(data, n_gaus, dist_mode, seed_mode, km_iter, em_iter,
+var_floor, print_mode): learn the model parameters via multi-threaded
+k-means and/or EM algorithms; return a bool value, with true indicating
+success, and false indicating failure; the parameters have the following
+meanings:
+<ul><li><code>data</code>: matrix (of type <code>mat</code>) containing
+training samples; each sample is stored as a column vector.</li>
+<li><code>n_gaus</code>: set the number of Gaussians to
+<code>n_gaus</code>; to help convergence, it is recommended that the
+given data matrix (above) contains at least 10 samples for each
+Gaussian.</li>
+<li><code>dist_mode</code>: specifies the distance used during the
+seeding of initial means and k-means clustering:
+<ul><li><code>eucl_dist</code>: Euclidean distance.</li>
+<li><code>maha_dist</code>: Mahalanobis distance, which uses a global
+diagonal covariance matrix estimated from the training samples; this is
+recommended for probabilistic applications.</li>
+</ul></li>
+<li><code>seed_mode</code>: specifies how the initial means are seeded
+prior to running k-means and/or EM algorithms:
+<ul><li><code>keep_existing</code>: keep the existing model (do not modify
+the means, covariances, and hefts).</li>
+<li><code>static_subset</code>: a subset of the training samples
+(repeatable).</li>
+<li><code>random_subset</code>: a subset of the training samples
+(random).</li>
+<li><code>static_spread</code>: a maximally spread subset of training
+samples (repeatable).</li>
+<li><code>random_spread</code>: a maximally spread subset of training
+samples (random start).</li>
+<li>Caveat: seeding the initial means with <code>static_spread</code>
+and <code>random_spread</code> can be much more time consuming than with
+<code>static_subset</code> and <code>random_subset</code>.</li>
+</ul></li>
+<li><code>km_iter</code>: the number of iterations of the k-means
+algorithm; this is data dependent, but typically 10 iterations are
+sufficient.</li>
+<li><code>em_iter</code>: the number of iterations of the EM algorithm;
+this is data dependent, but typically 5 to 10 iterations are
+sufficient.</li>
+<li><code>var_floor</code>: the variance floor (smallest allowed value)
+for the diagonal covariances; setting this to a small non-zero value can
+help with convergence and/or better quality parameter estimates.</li>
+<li><code>print_mode</code>: either <code>true</code> or
+<code>false</code>; enable or disable printing of progress during the
+k-means and EM algorithms.</li>
+</ul></li>
+</ul><div id="caveats-1" class="section level2">
+<h2>Caveats</h2>
+<ul><li><code>gmm_diag</code> is tailored for diagonal covariance
+matrices.</li>
+<li><code>gmm_full</code> is tailored for full covariance matrices.</li>
+<li><code>gmm_diag</code> is considerably faster than
+<code>gmm_full</code>, at the cost of some reduction in modelling
+accuracy.</li>
+<li>For faster execution on multi-core machines, enable OpenMP in your
+compiler (e.g., <code>-fopenmp</code> in GCC and clang). armadillo4r
+finds OpenMP and uses it by default.</li>
+</ul></div>
+<div id="examples-18" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list gmm1_(const int&amp; n, const int&amp; d) {
+  // create synthetic data with 2 Gaussians
+
+  mat data(d, n, fill::zeros);
+
+  vec mean0 = linspace&lt;vec&gt;(1, d, d);
+  vec mean1 = mean0 + 2;
+
+  int i = 0;
+
+  while (i &lt; n) {
+    if (i &lt; n) {
+      data.col(i) = mean0 + randn&lt;vec&gt;(d);
+      ++i;
+    }
+    if (i &lt; n) {
+      data.col(i) = mean0 + randn&lt;vec&gt;(d);
+      ++i;
+    }
+    if (i &lt; n) {
+      data.col(i) = mean1 + randn&lt;vec&gt;(d);
+      ++i;
+    }
+  }
+
+  // model the data as a diagonal GMM with 2 Gaussians
+
+  gmm_diag model;
+
+  bool status = model.learn(data, 2, maha_dist, random_subset, 10, 5, 1e-5,
+    true);
+
+  if (status == false) {
+    stop("learning failed");
+  }
+
+  model.means.print("means:");
+
+  double scalar_likelihood = model.log_p(data.col(0));
+  rowvec set_likelihood = model.log_p(data.cols(0, 9));
+
+  double overall_likelihood = model.avg_log_p(data);
+
+  uword gaus_id = model.assign(data.col(0), eucl_dist);
+  urowvec gaus_ids = model.assign(data.cols(0, 9), prob_dist);
+
+  rowvec hist1 = model.norm_hist(data, eucl_dist);
+  urowvec hist2 = model.raw_hist(data, prob_dist);
+
+  writable::list res(9);
+
+  res[0] = writable::logicals({status});
+  res[1] = as_doubles_matrix(model.means);
+  res[2] = as_doubles({scalar_likelihood});
+  res[3] = as_doubles(set_likelihood.t());
+  res[4] = as_doubles({overall_likelihood});
+  res[5] = as_integers(gaus_id);
+  res[6] = as_integers(gaus_ids.t());
+  res[7] = as_doubles(hist1.t());
+  res[8] = as_integers(hist2.t());
+
+  return res;
+}</code></pre>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Sanderson2017" class="csl-entry">
+Sanderson, Conrad, and Ryan Curtin. 2017. <span>“An Open Source
+<span>C</span>++ Implementation of Multi-Threaded <span>Gaussian</span>
+Mixture Models, k-Means and Expectation Maximisation.”</span> In
+<em>2017 11th <span>International</span> <span>Conference</span> on
+<span>Signal</span> <span>Processing</span> and
+<span>Communication</span> <span>Systems</span>
+(<span>ICSPCS</span>)</em>, 1–8. <a href="https://doi.org/10.1109/ICSPCS.2017.8270510">https://doi.org/10.1109/ICSPCS.2017.8270510</a>.
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer><p>Last updated: 2025-10-12 11:46:29</p>
+</footer><script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('theme-toggle');
+  const currentTheme = localStorage.getItem('theme') || 'light';
+
+  // Apply saved theme
+  document.documentElement.setAttribute('data-theme', currentTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+  }
+
+  // Search functionality
+  const searchBox = document.getElementById('search-box');
+  if (!searchBox) return;
+
+  let searchIndex = [];
+
+  // Load search index
+  fetch('../search.json')
+    .then(response => response.json())
+    .then(data => {
+      searchIndex = data;
+    })
+    .catch(error => {
+      console.log('Search index not available, falling back to simple search');
+    });
+
+  searchBox.addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase().trim();
+
+    if (searchTerm === '') {
+      // Show all items when search is empty
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        link.style.display = 'block';
+      });
+      document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
+        submenu.style.display = 'block';
+      });
+      return;
+    }
+
+    // Content-based search using search index
+    if (searchIndex.length > 0) {
+      const matchingUrls = new Set();
+
+      searchIndex.forEach(function(item) {
+        const searchContent = (item.title + ' ' + item.content).toLowerCase();
+        if (searchContent.includes(searchTerm)) {
+          matchingUrls.add(item.url);
+        }
+      });
+
+      // Show/hide links based on content matches
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        const href = link.getAttribute('href');
+        const relativePath = href.replace(/^.*\//, ''); // Get just the filename part
+
+        let isMatch = false;
+        matchingUrls.forEach(function(url) {
+          if (url.includes(relativePath)) {
+            isMatch = true;
+          }
+        });
+
+        // Also check link text for simple matches
+        if (!isMatch && link.textContent.toLowerCase().includes(searchTerm)) {
+          isMatch = true;
+        }
+
+        link.style.display = isMatch ? 'block' : 'none';
+      });
+    } else {
+      // Fallback to simple name-based search
+      document.querySelectorAll('#menu .submenu a').forEach(function(link) {
+        const linkText = link.textContent.toLowerCase();
+        link.style.display = linkText.includes(searchTerm) ? 'block' : 'none';
+      });
+    }
+
+    // Show/hide entire submenus if no visible links
+    document.querySelectorAll('#menu .submenu').forEach(function(submenu) {
+      const visibleLinks = submenu.querySelectorAll('a[style*="display: block"]');
+      const label = submenu.querySelector('label');
+
+      // Don't hide the Home submenu
+      if (label && label.textContent.includes('Home')) {
+        return;
+      }
+
+      submenu.style.display = visibleLinks.length > 0 ? 'block' : 'none';
+    });
+  });
+});
+</script></div>
+</div>
+</div>
+</body></html>
+

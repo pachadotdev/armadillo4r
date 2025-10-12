@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-**This vignette is adapted from the official Armadillo
+**Adapted from the official Armadillo
 [documentation](https://arma.sourceforge.net/docs.html).**
 
 # Matlab/Octave syntax and corresponding Armadillo syntax

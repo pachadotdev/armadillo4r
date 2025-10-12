@@ -15,8 +15,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-This vignette is adapted from the official Armadillo
-[documentation](https://arma.sourceforge.net/docs.html).
+**Adapted from the official Armadillo
+[documentation](https://arma.sourceforge.net/docs.html).**
 
 # Cholesky decomposition of symmetric matrix {#chol}
 
@@ -999,3 +999,5 @@ If no solution is found:
   return as_doubles_matrix(X);
 }
 ```
+
+# References

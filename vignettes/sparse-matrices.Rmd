@@ -50,5 +50,3 @@ and re-import it to R:
   return as_dgCMatrix(A);
 }
 ```
-
-# References
