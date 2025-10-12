@@ -83,13 +83,18 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
+          # Save the badge file before switching branches
+          cp badges/coverage.svg /tmp/coverage.svg
+          
           # Create or switch to coverage branch
           git checkout -B coverage
           
-          # Remove everything except the badge
+          # Remove everything except .git
           git rm -rf . || true
+          
+          # Restore just the badge
           mkdir -p badges
-          cp badges/coverage.svg badges/coverage.svg
+          cp /tmp/coverage.svg badges/coverage.svg
           git add badges/coverage.svg
           
           if ! git diff --staged --quiet; then
