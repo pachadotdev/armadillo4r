@@ -33,8 +33,9 @@ jobs:
       - name: Install package
         run: |
           options(warn = 2)
-          pak::local_install_dev_deps(".", dependencies = TRUE)
-          pak::pkg_install(".", dependencies = TRUE)
+          pak::pkg_install("pachadotdev/cpp4r", dependencies = TRUE)
+          pak::local_install_dev_deps("armadillo4rtest", dependencies = TRUE)
+          install.packages("armadillo4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
         shell: Rscript {0}
 
       - name: Test coverage
