@@ -8,1801 +8,1801 @@
 // 01_ols.cpp
 doubles_matrix<> ols_mat(const doubles_matrix<>& y, const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_ols_mat(SEXP y, SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(ols_mat(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(y), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 01_ols.cpp
 doubles ols_dbl(const doubles_matrix<>& y, const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_ols_dbl(SEXP y, SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(ols_dbl(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(y), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 02_eigen.cpp
 doubles_matrix<> eigen_sym_mat(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_eigen_sym_mat(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eigen_sym_mat(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 02_eigen.cpp
 doubles eigen_sym_dbl(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_eigen_sym_dbl(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eigen_sym_dbl(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 02_eigen.cpp
 list eigen_gen_mat(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_eigen_gen_mat(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eigen_gen_mat(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 02_eigen.cpp
 complexes_matrix<> eigen_gen_mat_complex_wrapper(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_eigen_gen_mat_complex_wrapper(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eigen_gen_mat_complex_wrapper(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 02_eigen.cpp
-list eigen_gen_dbl_complex_wrapper(const doubles_matrix<>& x);
+complexes eigen_gen_dbl_complex_wrapper(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_eigen_gen_dbl_complex_wrapper(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eigen_gen_dbl_complex_wrapper(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 02_eigen.cpp
 list eigen_gen_no_wrapper(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_eigen_gen_no_wrapper(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eigen_gen_no_wrapper(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 03_chol.cpp
 doubles_matrix<> chol_mat(const doubles_matrix<>& x, std::string type);
 extern "C" SEXP _armadillo4rtest_chol_mat(SEXP x, SEXP type) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(chol_mat(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<std::string>>(type)));
-  END_cpp4r
+  END_CPP4R
 }
 // 04_qr.cpp
 doubles_matrix<> ols_qr_mat(const doubles_matrix<>& y, const doubles_matrix<>& x, const bool econ);
 extern "C" SEXP _armadillo4rtest_ols_qr_mat(SEXP y, SEXP x, SEXP econ) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(ols_qr_mat(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(y), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const bool>>(econ)));
-  END_cpp4r
+  END_CPP4R
 }
 // 04_qr.cpp
 doubles ols_qr_dbl(const doubles_matrix<>& y, const doubles_matrix<>& x, const bool econ);
 extern "C" SEXP _armadillo4rtest_ols_qr_dbl(SEXP y, SEXP x, SEXP econ) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(ols_qr_dbl(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(y), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const bool>>(econ)));
-  END_cpp4r
+  END_CPP4R
 }
 // 05_capm.cpp
 doubles_matrix<> capm(const doubles_matrix<>& r, const doubles_matrix<>& m, double f);
 extern "C" SEXP _armadillo4rtest_capm(SEXP r, SEXP m, SEXP f) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(capm(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(r), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(m), cpp4r::as_cpp<cpp4r::decay_t<double>>(f)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 doubles typedef_Col_double(const doubles& x);
 extern "C" SEXP _armadillo4rtest_typedef_Col_double(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_Col_double(cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 integers typedef_Col_int(const integers& x);
 extern "C" SEXP _armadillo4rtest_typedef_Col_int(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_Col_int(cpp4r::as_cpp<cpp4r::decay_t<const integers&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 integers typedef_uvec(const integers& x);
 extern "C" SEXP _armadillo4rtest_typedef_uvec(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_uvec(cpp4r::as_cpp<cpp4r::decay_t<const integers&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 doubles_matrix<> typedef_Mat_double(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_typedef_Mat_double(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_Mat_double(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 integers_matrix<> typedef_Mat_int(const integers_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_typedef_Mat_int(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_Mat_int(cpp4r::as_cpp<cpp4r::decay_t<const integers_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 doubles_matrix<> typedef_SpMat_double(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_typedef_SpMat_double(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_SpMat_double(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 integers_matrix<> typedef_SpMat_int(const integers_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_typedef_SpMat_int(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_SpMat_int(cpp4r::as_cpp<cpp4r::decay_t<const integers_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 list typedef_dblmat_exchangeability(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_typedef_dblmat_exchangeability(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_dblmat_exchangeability(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 list typedef_spmat_exchangeability(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_typedef_spmat_exchangeability(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_spmat_exchangeability(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 06_typedefs.cpp
 list typedef_spmat_int_exchangeability(const integers_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_typedef_spmat_int_exchangeability(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(typedef_spmat_int_exchangeability(cpp4r::as_cpp<cpp4r::decay_t<const integers_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 07_reproducibility.cpp
 integers_matrix<> random_matrix_nxn(const int& n);
 extern "C" SEXP _armadillo4rtest_random_matrix_nxn(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(random_matrix_nxn(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> matrix1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_matrix1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(matrix1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list matrix2_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_matrix2_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(matrix2_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles column1_(const doubles& x, const doubles& y);
 extern "C" SEXP _armadillo4rtest_column1_(SEXP x, SEXP y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(column1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles row1_(const doubles& x, const doubles& y);
 extern "C" SEXP _armadillo4rtest_row1_(SEXP x, SEXP y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(row1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> cube1_(const doubles_matrix<>& a, const doubles_matrix<>& b);
 extern "C" SEXP _armadillo4rtest_cube1_(SEXP a, SEXP b) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(cube1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(b)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> field1_(const doubles_matrix<>& a, const doubles_matrix<>& b);
 extern "C" SEXP _armadillo4rtest_field1_(SEXP a, SEXP b) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(field1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(b)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers attr1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_attr1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(attr1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> access1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_access1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(access1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> initialization1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_initialization1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(initialization1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> zeros1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_zeros1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(zeros1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> ones1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_ones1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(ones1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> eye1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_eye1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eye1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> randu1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_randu1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(randu1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> randn1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_randn1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(randn1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> randu2_(const int& n);
 extern "C" SEXP _armadillo4rtest_randu2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(randu2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> randn2_(const int& n);
 extern "C" SEXP _armadillo4rtest_randn2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(randn2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> fill1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_fill1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(fill1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> imbue1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_imbue1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(imbue1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> imbue2_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_imbue2_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(imbue2_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> clean1_(const int& n);
 extern "C" SEXP _armadillo4rtest_clean1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(clean1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> replace1_(const int& n);
 extern "C" SEXP _armadillo4rtest_replace1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(replace1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> clamp1_(const int& n);
 extern "C" SEXP _armadillo4rtest_clamp1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(clamp1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> transform1_(const int& n);
 extern "C" SEXP _armadillo4rtest_transform1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(transform1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> for_each1_(const int& n);
 extern "C" SEXP _armadillo4rtest_for_each1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(for_each1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles set_size1_(const int& n);
 extern "C" SEXP _armadillo4rtest_set_size1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(set_size1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> reshape1_(const int& n);
 extern "C" SEXP _armadillo4rtest_reshape1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(reshape1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> resize1_(const int& n);
 extern "C" SEXP _armadillo4rtest_resize1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(resize1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers copy_size1_(const int& n);
 extern "C" SEXP _armadillo4rtest_copy_size1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(copy_size1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers reset1_(const int& n);
 extern "C" SEXP _armadillo4rtest_reset1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(reset1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> subview1_(const int& n);
 extern "C" SEXP _armadillo4rtest_subview1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(subview1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> subview2_(const int& n);
 extern "C" SEXP _armadillo4rtest_subview2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(subview2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles diagonal1_(const int& n);
 extern "C" SEXP _armadillo4rtest_diagonal1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(diagonal1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> each_col1_(const int& n);
 extern "C" SEXP _armadillo4rtest_each_col1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(each_col1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> each_row1_(const int& n);
 extern "C" SEXP _armadillo4rtest_each_row1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(each_row1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> each_slice1_(const int& n);
 extern "C" SEXP _armadillo4rtest_each_slice1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(each_slice1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 complexes_matrix<> set_real1_(const int& n);
 extern "C" SEXP _armadillo4rtest_set_real1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(set_real1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 complexes_matrix<> set_real2_(const int& n);
 extern "C" SEXP _armadillo4rtest_set_real2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(set_real2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 complexes_matrix<> set_imag1_(const int& n);
 extern "C" SEXP _armadillo4rtest_set_imag1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(set_imag1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> insert_columns1_(const int& n);
 extern "C" SEXP _armadillo4rtest_insert_columns1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(insert_columns1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> insert_rows1_(const int& n);
 extern "C" SEXP _armadillo4rtest_insert_rows1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(insert_rows1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> insert_slices1_(const int& n);
 extern "C" SEXP _armadillo4rtest_insert_slices1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(insert_slices1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> shed_columns1_(const int& n);
 extern "C" SEXP _armadillo4rtest_shed_columns1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(shed_columns1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> shed_rows1_(const int& n);
 extern "C" SEXP _armadillo4rtest_shed_rows1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(shed_rows1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> shed_slices1_(const int& n);
 extern "C" SEXP _armadillo4rtest_shed_slices1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(shed_slices1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> swap_columns1_(const int& n);
 extern "C" SEXP _armadillo4rtest_swap_columns1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(swap_columns1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> swap_rows1_(const int& n);
 extern "C" SEXP _armadillo4rtest_swap_rows1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(swap_rows1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> swap1_(const int& n);
 extern "C" SEXP _armadillo4rtest_swap1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(swap1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> memptr1_(const int& n);
 extern "C" SEXP _armadillo4rtest_memptr1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(memptr1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> colptr1_(const int& n);
 extern "C" SEXP _armadillo4rtest_colptr1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(colptr1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> iterators1_(const int& n);
 extern "C" SEXP _armadillo4rtest_iterators1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(iterators1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> iterators2_(const int& n);
 extern "C" SEXP _armadillo4rtest_iterators2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(iterators2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> iterators3_(const int& n);
 extern "C" SEXP _armadillo4rtest_iterators3_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(iterators3_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> iterators4_(const int& n);
 extern "C" SEXP _armadillo4rtest_iterators4_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(iterators4_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles compatibility1_(const int& n);
 extern "C" SEXP _armadillo4rtest_compatibility1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(compatibility1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers compatibility2_(const int& n);
 extern "C" SEXP _armadillo4rtest_compatibility2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(compatibility2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles as_col1_(const int& n);
 extern "C" SEXP _armadillo4rtest_as_col1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(as_col1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles as_row1_(const int& n);
 extern "C" SEXP _armadillo4rtest_as_row1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(as_row1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list col_as_mat1_(const int& n);
 extern "C" SEXP _armadillo4rtest_col_as_mat1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(col_as_mat1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list row_as_mat1_(const int& n);
 extern "C" SEXP _armadillo4rtest_row_as_mat1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(row_as_mat1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles as_dense1_(const int& n);
 extern "C" SEXP _armadillo4rtest_as_dense1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(as_dense1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> transpose1_(const int& n);
 extern "C" SEXP _armadillo4rtest_transpose1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(transpose1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> transpose2_(const int& n);
 extern "C" SEXP _armadillo4rtest_transpose2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(transpose2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles inverse1_(const doubles_matrix<>& a, const doubles b);
 extern "C" SEXP _armadillo4rtest_inverse1_(SEXP a, SEXP b) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(inverse1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a), cpp4r::as_cpp<cpp4r::decay_t<const doubles>>(b)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles maxmin1_(const int& n);
 extern "C" SEXP _armadillo4rtest_maxmin1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(maxmin1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles index_maxmin1_(const int& n);
 extern "C" SEXP _armadillo4rtest_index_maxmin1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(index_maxmin1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals in_range1_(const int& n);
 extern "C" SEXP _armadillo4rtest_in_range1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(in_range1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_empty1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_empty1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_empty1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_vec1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_vec1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_vec1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_sorted1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_sorted1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_sorted1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_triangular1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_triangular1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_triangular1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_diagonal1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_diagonal1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_diagonal1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_square1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_square1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_square1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_symmetric1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_symmetric1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_symmetric1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_hermitian1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_hermitian1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_hermitian1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_sympd1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_sympd1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_sympd1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_zero1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_zero1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_zero1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals is_finite1_(const int& n);
 extern "C" SEXP _armadillo4rtest_is_finite1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(is_finite1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals has_inf1_(const int& n);
 extern "C" SEXP _armadillo4rtest_has_inf1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(has_inf1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals has_nan1_(const int& n);
 extern "C" SEXP _armadillo4rtest_has_nan1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(has_nan1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles linspace1_(const int& n);
 extern "C" SEXP _armadillo4rtest_linspace1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(linspace1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles logspace1_(const int& n);
 extern "C" SEXP _armadillo4rtest_logspace1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(logspace1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles regspace1_(const double& delta);
 extern "C" SEXP _armadillo4rtest_regspace1_(SEXP delta) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(regspace1_(cpp4r::as_cpp<cpp4r::decay_t<const double&>>(delta)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers randperm1_(const int& n, const int& m);
 extern "C" SEXP _armadillo4rtest_randperm1_(SEXP n, SEXP m) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(randperm1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(m)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> eye2_(const int& n);
 extern "C" SEXP _armadillo4rtest_eye2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eye2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> ones2_(const int& n);
 extern "C" SEXP _armadillo4rtest_ones2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(ones2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> zeros2_(const int& n);
 extern "C" SEXP _armadillo4rtest_zeros2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(zeros2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> randu3_(const int& n);
 extern "C" SEXP _armadillo4rtest_randu3_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(randu3_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> randn3_(const int& n);
 extern "C" SEXP _armadillo4rtest_randn3_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(randn3_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> randg3_(const int& n);
 extern "C" SEXP _armadillo4rtest_randg3_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(randg3_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> speye1_(const int& n);
 extern "C" SEXP _armadillo4rtest_speye1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(speye1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> spones1_(const int& n);
 extern "C" SEXP _armadillo4rtest_spones1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(spones1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> sprandu1_(const int& n);
 extern "C" SEXP _armadillo4rtest_sprandu1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sprandu1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> sprandn1_(const int& n);
 extern "C" SEXP _armadillo4rtest_sprandn1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sprandn1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> toeplitz1_(const int& n);
 extern "C" SEXP _armadillo4rtest_toeplitz1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(toeplitz1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> abs1_(const int& n);
 extern "C" SEXP _armadillo4rtest_abs1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(abs1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 double accu1_(const int& n);
 extern "C" SEXP _armadillo4rtest_accu1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(accu1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles affmul1_(const int& n);
 extern "C" SEXP _armadillo4rtest_affmul1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(affmul1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals all1_(const int& n);
 extern "C" SEXP _armadillo4rtest_all1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(all1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 logicals any1_(const int& n);
 extern "C" SEXP _armadillo4rtest_any1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(any1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 bool approx_equal1_(const int& n);
 extern "C" SEXP _armadillo4rtest_approx_equal1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(approx_equal1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> arg1_(const int& n);
 extern "C" SEXP _armadillo4rtest_arg1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(arg1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 double as_scalar1_(const int& n);
 extern "C" SEXP _armadillo4rtest_as_scalar1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(as_scalar1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> clamp2_(const int& n);
 extern "C" SEXP _armadillo4rtest_clamp2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(clamp2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 double cond1_(const int& n);
 extern "C" SEXP _armadillo4rtest_cond1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(cond1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 complexes_matrix<> conj1_(const int& n);
 extern "C" SEXP _armadillo4rtest_conj1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(conj1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles conv_to1_(const int& n);
 extern "C" SEXP _armadillo4rtest_conv_to1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(conv_to1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles cross1_(const int& n);
 extern "C" SEXP _armadillo4rtest_cross1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(cross1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles cumsum1_(const int& n);
 extern "C" SEXP _armadillo4rtest_cumsum1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(cumsum1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles cumprod1_(const int& n);
 extern "C" SEXP _armadillo4rtest_cumprod1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(cumprod1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles det1_(const int& n);
 extern "C" SEXP _armadillo4rtest_det1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(det1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> diagmat1_(const int& n);
 extern "C" SEXP _armadillo4rtest_diagmat1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(diagmat1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles diagvec1_(const int& n);
 extern "C" SEXP _armadillo4rtest_diagvec1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(diagvec1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> diags1_(const int& n);
 extern "C" SEXP _armadillo4rtest_diags1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(diags1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> spdiags1_(const int& n);
 extern "C" SEXP _armadillo4rtest_spdiags1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(spdiags1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> diff1_(const int& n);
 extern "C" SEXP _armadillo4rtest_diff1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(diff1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles dot1_(const int& n);
 extern "C" SEXP _armadillo4rtest_dot1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(dot1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> eps1_(const int& n);
 extern "C" SEXP _armadillo4rtest_eps1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eps1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> expmat1_(const int& n);
 extern "C" SEXP _armadillo4rtest_expmat1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(expmat1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> expmat_sym1_(const int& n);
 extern "C" SEXP _armadillo4rtest_expmat_sym1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(expmat_sym1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list find1_(const int& n);
 extern "C" SEXP _armadillo4rtest_find1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(find1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers find_finite1_(const int& n);
 extern "C" SEXP _armadillo4rtest_find_finite1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(find_finite1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers find_nonfinite1_(const int& n);
 extern "C" SEXP _armadillo4rtest_find_nonfinite1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(find_nonfinite1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers find_nan1_(const int& n);
 extern "C" SEXP _armadillo4rtest_find_nan1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(find_nan1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers find_unique1_(const int& n);
 extern "C" SEXP _armadillo4rtest_find_unique1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(find_unique1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list flip1_(const int& n);
 extern "C" SEXP _armadillo4rtest_flip1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(flip1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list imag1_(const int& n);
 extern "C" SEXP _armadillo4rtest_imag1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(imag1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list ind2sub1_(const int& n);
 extern "C" SEXP _armadillo4rtest_ind2sub1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(ind2sub1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles index_min1_(const int& n);
 extern "C" SEXP _armadillo4rtest_index_min1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(index_min1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> inplace_trans1_(const int& n);
 extern "C" SEXP _armadillo4rtest_inplace_trans1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(inplace_trans1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 complexes_matrix<> inplace_strans1_(const int& n);
 extern "C" SEXP _armadillo4rtest_inplace_strans1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(inplace_strans1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers intersect1_(const int& n);
 extern "C" SEXP _armadillo4rtest_intersect1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(intersect1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list join_rows1_(const int& n);
 extern "C" SEXP _armadillo4rtest_join_rows1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(join_rows1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list join_cubes1_(const int& n);
 extern "C" SEXP _armadillo4rtest_join_cubes1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(join_cubes1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> kron1_(const int& n);
 extern "C" SEXP _armadillo4rtest_kron1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(kron1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list log_det1_(const int& n);
 extern "C" SEXP _armadillo4rtest_log_det1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(log_det1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list log_det_sympd1_(const int& n);
 extern "C" SEXP _armadillo4rtest_log_det_sympd1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(log_det_sympd1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 complexes_matrix<> logmat1_(const int& n);
 extern "C" SEXP _armadillo4rtest_logmat1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(logmat1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list logmat_sympd1_(const int& n);
 extern "C" SEXP _armadillo4rtest_logmat_sympd1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(logmat_sympd1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list max1_(const int& n);
 extern "C" SEXP _armadillo4rtest_max1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(max1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles nonzeros1_(const int& n);
 extern "C" SEXP _armadillo4rtest_nonzeros1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(nonzeros1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles norm1_(const int& n);
 extern "C" SEXP _armadillo4rtest_norm1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(norm1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles norm2est1_(const int& n);
 extern "C" SEXP _armadillo4rtest_norm2est1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(norm2est1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list normalise1_(const int& n);
 extern "C" SEXP _armadillo4rtest_normalise1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(normalise1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list pow1_(const int& n);
 extern "C" SEXP _armadillo4rtest_pow1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(pow1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list powmat1_(const int& n);
 extern "C" SEXP _armadillo4rtest_powmat1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(powmat1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list prod1_(const int& n);
 extern "C" SEXP _armadillo4rtest_prod1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(prod1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list rank1_(const int& n);
 extern "C" SEXP _armadillo4rtest_rank1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(rank1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles rcond1_(const int& n);
 extern "C" SEXP _armadillo4rtest_rcond1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(rcond1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list repelem1_(const int& n);
 extern "C" SEXP _armadillo4rtest_repelem1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(repelem1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list repmat1_(const int& n);
 extern "C" SEXP _armadillo4rtest_repmat1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(repmat1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list reshape2_(const int& n);
 extern "C" SEXP _armadillo4rtest_reshape2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(reshape2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list resize2_(const int& n);
 extern "C" SEXP _armadillo4rtest_resize2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(resize2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list reverse1_(const int& n);
 extern "C" SEXP _armadillo4rtest_reverse1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(reverse1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
-list roots1_(const int& n);
+complexes roots1_(const int& n);
 extern "C" SEXP _armadillo4rtest_roots1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(roots1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list shift1_(const int& n);
 extern "C" SEXP _armadillo4rtest_shift1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(shift1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list shuffle1_(const int& n);
 extern "C" SEXP _armadillo4rtest_shuffle1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(shuffle1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list size1_(const int& n);
 extern "C" SEXP _armadillo4rtest_size1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(size1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list sort1_(const int& n);
 extern "C" SEXP _armadillo4rtest_sort1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sort1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list sort_index1_(const int& n);
 extern "C" SEXP _armadillo4rtest_sort_index1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sort_index1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list sqrtmat1_(const int& n);
 extern "C" SEXP _armadillo4rtest_sqrtmat1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sqrtmat1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> sqrtmat_sympd1_(const int& n);
 extern "C" SEXP _armadillo4rtest_sqrtmat_sympd1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sqrtmat_sympd1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list sum1_(const int& n);
 extern "C" SEXP _armadillo4rtest_sum1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sum1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list sum2_(const int& n);
 extern "C" SEXP _armadillo4rtest_sum2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sum2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers sub2ind1_(const int& n);
 extern "C" SEXP _armadillo4rtest_sub2ind1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(sub2ind1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> symmatu1_(const int& n);
 extern "C" SEXP _armadillo4rtest_symmatu1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(symmatu1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles trace1_(const int& n);
 extern "C" SEXP _armadillo4rtest_trace1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(trace1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list trans1_(const int& n);
 extern "C" SEXP _armadillo4rtest_trans1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(trans1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> trapz1_(const int& n);
 extern "C" SEXP _armadillo4rtest_trapz1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(trapz1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> trimatu1_(const int& n);
 extern "C" SEXP _armadillo4rtest_trimatu1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(trimatu1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers trimatu_ind1_(const int& n);
 extern "C" SEXP _armadillo4rtest_trimatu_ind1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(trimatu_ind1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles unique1_(const int& n);
 extern "C" SEXP _armadillo4rtest_unique1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(unique1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list vecnorm1_(const int& n);
 extern "C" SEXP _armadillo4rtest_vecnorm1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(vecnorm1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles vectorise1_(const int& n);
 extern "C" SEXP _armadillo4rtest_vectorise1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(vectorise1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list misc1_(const int& n);
 extern "C" SEXP _armadillo4rtest_misc1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(misc1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list trig1_(const int& n);
 extern "C" SEXP _armadillo4rtest_trig1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(trig1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list mean1_(const doubles_matrix<>& X, const doubles_matrix<>& Y);
 extern "C" SEXP _armadillo4rtest_mean1_(SEXP X, SEXP Y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(mean1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(X), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(Y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list median1_(const doubles_matrix<>& X, const doubles_matrix<>& Y);
 extern "C" SEXP _armadillo4rtest_median1_(SEXP X, SEXP Y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(median1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(X), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(Y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list stddev1_(const doubles_matrix<>& X, const doubles_matrix<>& Y);
 extern "C" SEXP _armadillo4rtest_stddev1_(SEXP X, SEXP Y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(stddev1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(X), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(Y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list var1_(const doubles_matrix<>& X, const doubles_matrix<>& Y);
 extern "C" SEXP _armadillo4rtest_var1_(SEXP X, SEXP Y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(var1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(X), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(Y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list range1_(const doubles_matrix<>& X, const doubles_matrix<>& Y);
 extern "C" SEXP _armadillo4rtest_range1_(SEXP X, SEXP Y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(range1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(X), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(Y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list cov1_(const doubles_matrix<>& X, const doubles_matrix<>& Y);
 extern "C" SEXP _armadillo4rtest_cov1_(SEXP X, SEXP Y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(cov1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(X), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(Y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list cor1_(const doubles_matrix<>& X, const doubles_matrix<>& Y);
 extern "C" SEXP _armadillo4rtest_cor1_(SEXP X, SEXP Y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(cor1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(X), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(Y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list hist1_(const int& n);
 extern "C" SEXP _armadillo4rtest_hist1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(hist1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 integers histc1_(const int& n);
 extern "C" SEXP _armadillo4rtest_histc1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(histc1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles quantile1_(const int& n);
 extern "C" SEXP _armadillo4rtest_quantile1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(quantile1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list normpdf1_(const int& n);
 extern "C" SEXP _armadillo4rtest_normpdf1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(normpdf1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list lognormpdf1_(const int& n);
 extern "C" SEXP _armadillo4rtest_lognormpdf1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(lognormpdf1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list normcdf1_(const int& n);
 extern "C" SEXP _armadillo4rtest_normcdf1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(normcdf1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> mvnrnd1_(const int& n, const int& m);
 extern "C" SEXP _armadillo4rtest_mvnrnd1_(SEXP n, SEXP m) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(mvnrnd1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(m)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list chi2rnd1_(const int& n, const int& m);
 extern "C" SEXP _armadillo4rtest_chi2rnd1_(SEXP n, SEXP m) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(chi2rnd1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(m)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> wishrnd1_(const int& n);
 extern "C" SEXP _armadillo4rtest_wishrnd1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(wishrnd1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> iwishrnd1_(const int& n, const double& d);
 extern "C" SEXP _armadillo4rtest_iwishrnd1_(SEXP n, SEXP d) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(iwishrnd1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const double&>>(d)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list kmeans1_(const int& n, const int& d);
 extern "C" SEXP _armadillo4rtest_kmeans1_(SEXP n, SEXP d) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(kmeans1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(d)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list gmm1_(const int& n, const int& d);
 extern "C" SEXP _armadillo4rtest_gmm1_(SEXP n, SEXP d) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(gmm1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(d)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 int saveload1_(const int& n);
 extern "C" SEXP _armadillo4rtest_saveload1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(saveload1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 int saveload2_(const int& n, const int& m);
 extern "C" SEXP _armadillo4rtest_saveload2_(SEXP n, SEXP m) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(saveload2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(m)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list conv1_(const doubles& x, const doubles& y);
 extern "C" SEXP _armadillo4rtest_conv1_(SEXP x, SEXP y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(conv1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list conv2_(const doubles_matrix<>& x, const doubles_matrix<>& y);
 extern "C" SEXP _armadillo4rtest_conv2_(SEXP x, SEXP y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(conv2_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles interp1_(const int& n);
 extern "C" SEXP _armadillo4rtest_interp1_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(interp1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> interp2_(const int& n);
 extern "C" SEXP _armadillo4rtest_interp2_(SEXP n) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(interp2_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list fft1_(const doubles& x);
 extern "C" SEXP _armadillo4rtest_fft1_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(fft1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list fft2_(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_fft2_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(fft2_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles polyfit1_(const int& n, const int& m);
 extern "C" SEXP _armadillo4rtest_polyfit1_(SEXP n, SEXP m) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(polyfit1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(m)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles polyval1_(const int& n, const int& m);
 extern "C" SEXP _armadillo4rtest_polyval1_(SEXP n, SEXP m) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(polyval1_(cpp4r::as_cpp<cpp4r::decay_t<const int&>>(n), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(m)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list chol1_(const doubles_matrix<>& x, const char* layout, const char* output);
 extern "C" SEXP _armadillo4rtest_chol1_(SEXP x, SEXP layout, SEXP output) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(chol1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const char*>>(layout), cpp4r::as_cpp<cpp4r::decay_t<const char*>>(output)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list eig_sym1_(const doubles_matrix<>& x, const char* method);
 extern "C" SEXP _armadillo4rtest_eig_sym1_(SEXP x, SEXP method) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eig_sym1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const char*>>(method)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list eig_gen1_(const doubles_matrix<>& x, const char* balance);
 extern "C" SEXP _armadillo4rtest_eig_gen1_(SEXP x, SEXP balance) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eig_gen1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const char*>>(balance)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list eig_pair1_(const doubles_matrix<>& a, const doubles_matrix<>& b);
 extern "C" SEXP _armadillo4rtest_eig_pair1_(SEXP a, SEXP b) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eig_pair1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(b)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list hess1_(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_hess1_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(hess1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list inv1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_inv1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(inv1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list inv_sympd1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_inv_sympd1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(inv_sympd1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list lu1_(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_lu1_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(lu1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list null1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_null1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(null1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list orth1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_orth1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(orth1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list pinv1_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_pinv1_(SEXP a) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(pinv1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list qr1_(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_qr1_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(qr1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list qr_econ1_(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_qr_econ1_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(qr_econ1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list qz1_(const doubles_matrix<>& a, const doubles_matrix<>& b, const char* select);
 extern "C" SEXP _armadillo4rtest_qz1_(SEXP a, SEXP b, SEXP select) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(qz1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(b), cpp4r::as_cpp<cpp4r::decay_t<const char*>>(select)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list schur1_(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_schur1_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(schur1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> solve1_(const doubles_matrix<>& a, const doubles_matrix<>& b);
 extern "C" SEXP _armadillo4rtest_solve1_(SEXP a, SEXP b) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(solve1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(b)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list svd1_(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_svd1_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(svd1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list svd_econ1_(const doubles_matrix<>& x);
 extern "C" SEXP _armadillo4rtest_svd_econ1_(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(svd_econ1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles_matrix<> syl1_(const doubles_matrix<>& a, const doubles_matrix<>& b, const doubles_matrix<>& c);
 extern "C" SEXP _armadillo4rtest_syl1_(SEXP a, SEXP b, SEXP c) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(syl1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(b), cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(c)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list eig_sym2_(const doubles_matrix<>& x, const char* method, const int& k);
 extern "C" SEXP _armadillo4rtest_eig_sym2_(SEXP x, SEXP method, SEXP k) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eig_sym2_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const char*>>(method), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(k)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list eig_gen2_(const doubles_matrix<>& x, const char* method, const int& k);
 extern "C" SEXP _armadillo4rtest_eig_gen2_(SEXP x, SEXP method, SEXP k) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(eig_gen2_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const char*>>(method), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(k)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 list svds1_(const doubles_matrix<>& x, const int& k);
 extern "C" SEXP _armadillo4rtest_svds1_(SEXP x, SEXP k) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(svds1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const int&>>(k)));
-  END_cpp4r
+  END_CPP4R
 }
 // 08_official_documentation_adapted.cpp
 doubles spsolve1_(const doubles_matrix<>& a, const doubles& b, const char* method);
 extern "C" SEXP _armadillo4rtest_spsolve1_(SEXP a, SEXP b, SEXP method) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(spsolve1_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a), cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(b), cpp4r::as_cpp<cpp4r::decay_t<const char*>>(method)));
-  END_cpp4r
+  END_CPP4R
 }
 // 09_regression.cpp
 doubles ols_(const doubles_matrix<>& x, const doubles& y);
 extern "C" SEXP _armadillo4rtest_ols_(SEXP x, SEXP y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(ols_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 09_regression.cpp
 doubles poisson_(const doubles_matrix<>& x, const doubles& y);
 extern "C" SEXP _armadillo4rtest_poisson_(SEXP x, SEXP y) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(poisson_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
-  END_cpp4r
+  END_CPP4R
 }
 // 10_sparse_matrices.cpp
 SEXP test_dgCMatrix_to_SpMat(SEXP x);
 extern "C" SEXP _armadillo4rtest_test_dgCMatrix_to_SpMat(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(test_dgCMatrix_to_SpMat(cpp4r::as_cpp<cpp4r::decay_t<SEXP>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 11_sexp_conversion.cpp
 SEXP implicit_conversion_double(SEXP x);
 extern "C" SEXP _armadillo4rtest_implicit_conversion_double(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(implicit_conversion_double(cpp4r::as_cpp<cpp4r::decay_t<SEXP>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 11_sexp_conversion.cpp
 SEXP implicit_conversion_float(SEXP x);
 extern "C" SEXP _armadillo4rtest_implicit_conversion_float(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(implicit_conversion_float(cpp4r::as_cpp<cpp4r::decay_t<SEXP>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 11_sexp_conversion.cpp
 SEXP implicit_conversion_int(SEXP x);
 extern "C" SEXP _armadillo4rtest_implicit_conversion_int(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(implicit_conversion_int(cpp4r::as_cpp<cpp4r::decay_t<SEXP>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 // 11_sexp_conversion.cpp
 SEXP implicit_conversion_uint(SEXP x);
 extern "C" SEXP _armadillo4rtest_implicit_conversion_uint(SEXP x) {
-  BEGIN_cpp4r
+  BEGIN_CPP4R
     return cpp4r::as_sexp(implicit_conversion_uint(cpp4r::as_cpp<cpp4r::decay_t<SEXP>>(x)));
-  END_cpp4r
+  END_CPP4R
 }
 
 extern "C" {
