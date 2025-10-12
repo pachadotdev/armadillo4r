@@ -22,3 +22,4 @@ inst/paper
 ^inst/include/update_instructions\.md$
 ^softwarex-article$
 ^vignettes$
+^badges$

@@ -33,9 +33,8 @@ jobs:
       - name: Install package
         run: |
           options(warn = 2)
-          pak::pkg_install("pachadotdev/cpp4r", dependencies = TRUE)
-          pak::local_install_dev_deps("armadillo4rtest", dependencies = TRUE)
-          install.packages("armadillo4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
+          pak::local_install_dev_deps(".", dependencies = TRUE)
+          pak::pkg_install(".", dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Test coverage
@@ -82,12 +81,22 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Create or switch to coverage branch
+          git checkout -B coverage
+          
+          # Remove everything except the badge
+          git rm -rf . || true
+          mkdir -p badges
+          cp badges/coverage.svg badges/coverage.svg
           git add badges/coverage.svg
+          
           if ! git diff --staged --quiet; then
-            # Amend the last commit to include the updated badge, preserving its message
-            git commit --amend --no-edit
-            # Safely update the remote with force-with-lease to avoid clobbering concurrent changes
-            git push --force-with-lease origin main
+            git commit -m "Update coverage badge"
+            git push --force origin coverage
           else
             echo "No changes to commit"
           fi
+          
+          # Switch back to main
+          git checkout main
