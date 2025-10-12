@@ -23,8 +23,6 @@
 #' # vendor the armadillo4r headers into the directory
 #' vendor(dir)
 #'
-#' list.files(file.path(dir, "src", "vendor"))
-#'
 #' # cleanup
 #' unlink(dir, recursive = TRUE)
 vendor <- function(path = "./src/vendor") {

@@ -34,8 +34,6 @@ dir.create(dir, recursive = TRUE)
 # vendor the armadillo4r headers into the directory
 vendor(dir)
 
-list.files(file.path(dir, "src", "vendor"))
-
 # cleanup
 unlink(dir, recursive = TRUE)
 }

@@ -3,7 +3,7 @@ local_package <- function() {
   if (!dir.exists(dir)) {
     dir.create(dir)
   }
-  
+
   withr::defer(unlink(dir, recursive = TRUE), parent.frame())
 
   writeLines("Package: testPkg", file.path(dir, "DESCRIPTION"))

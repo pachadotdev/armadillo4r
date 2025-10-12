@@ -28,7 +28,7 @@ describe("vendor", {
     expect_true(file.exists(file.path(p, "cpp4r.hpp")))
     expect_true(file.exists(file.path(p, "cpp4r", "declarations.hpp")))
 
-    expect_invisible(unvendor())
+    expect_invisible(unvendor(p))
   })
 })
 
