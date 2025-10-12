@@ -81,20 +81,15 @@ dir.create(dir, recursive = TRUE)</code></pre></div>
 <div class="output"><pre><code>## [1] TRUE</code></pre></div>
 <div class="sourceCode"><pre><code># vendor the armadillo4r headers into the directory
 vendor(dir)</code></pre></div>
-<div class="output"><pre><code>## [1] "/tmp/RtmpnQH1Y0/20251012194314232503"</code></pre></div>
+<div class="error"><pre><code>## Error: could not find function "vendor"</code></pre></div>
 <div class="sourceCode"><pre><code># just a preview as Armadillo has over 100 files
 head(list.files(dir, recursive = TRUE))</code></pre></div>
-<div class="output"><pre><code>## [1] "00-cpp4r-vendoring-info.txt"
-## [2] "armadillo4r.hpp"
-## [3] "armadillo4r/00-armadillo4r-vendoring-info.txt"
-## [4] "armadillo4r/armadillo.hpp"
-## [5] "armadillo4r/armadillo/access.hpp"
-## [6] "armadillo4r/armadillo/arma_cmath.hpp"         </code></pre></div>
+<div class="output"><pre><code>## character(0)</code></pre></div>
 <div class="sourceCode"><pre><code># cleanup
 unlink(dir, recursive = TRUE)</code></pre></div>
 <div class="output"><pre><code>## [1] 0</code></pre></div>
 </div>
-<footer><p>Last updated: 2025-10-12 19:43:14</p>
+<footer><p>Last updated: 2025-10-12 19:44:41</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality
