@@ -72,18 +72,20 @@
 <div id="content">
 <div class="content-wrapper">
 <div class="content-main">
-<h1></h1>
+<h1>Start a new project with the armadillo4r package template</h1>
 <h2>Arguments</h2>
-<table class="ref-arguments"><tbody><tr><td><strong>path</strong></td><td>Path to the new project</td></tr><tr><td><strong>pkgname</strong></td><td>Name of the new package</td></tr></tbody></table><h2>Examples</h2>
+<table class="ref-arguments"><tbody><tr><td><strong>path</strong></td><td>Path to the new project</td></tr><tr><td><strong>pkgname</strong></td><td>Name of the new package</td></tr></tbody></table><h2>Return</h2>
+<p>The file path to the copied template (invisibly).</p>
+<h2>Examples</h2>
 <div class="sourceCode"><pre><code># create a new directory
 dir &lt;- tempdir()
 dir.create(dir)</code></pre></div>
 <div class="output"><pre><code>## [1] FALSE</code></pre></div>
 <div class="sourceCode"><pre><code># copy the package template into the directory
 pkg_template(dir, "mynewpkg")</code></pre></div>
-<div class="error"><pre><code>## Error: could not find function "pkg_template"</code></pre></div>
+<div class="output"><pre><code>## [1] "/tmp/RtmpXU10wP"</code></pre></div>
 </div>
-<footer><p>Last updated: 2025-10-12 19:44:41</p>
+<footer><p>Last updated: 2025-10-12 22:29:20</p>
 </footer><script>
 document.addEventListener('DOMContentLoaded', function() {
   // Theme toggle functionality
