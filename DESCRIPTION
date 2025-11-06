@@ -3,8 +3,8 @@ Type: Package
 Title: An 'Armadillo' Interface
 Description: Provides function declarations and inline function definitions that
     facilitate communication between R and the 'Armadillo' 'C++' library for
-    linear algebra and scientific computing. This implementation is detailed
-    in Vargas Sepulveda and Schneider Malamud (2024)
+    linear algebra and scientific computing. This implementation is derived
+    from Vargas Sepulveda and Schneider Malamud (2024)
     <doi:10.1016/j.softx.2025.102087>.
 Version: 0.6.0
 Authors@R: c(
@@ -35,7 +35,6 @@ License: Apache License (>= 2)
 BugReports: https://github.com/pachadotdev/armadillo4r/issues
 URL: https://pacha.dev/armadillo4r/,
     https://github.com/pachadotdev/armadillo4r
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Encoding: UTF-8
 Config/testthat/edition: 3
-Remotes: pachadotdev/cpp4r

@@ -4,10 +4,11 @@
 \alias{vendor}
 \title{Vendor the cpp4r and armadillo4r headers}
 \usage{
-vendor(path = "./src/vendor")
+vendor(path = NULL)
 }
 \arguments{
-\item{path}{The directory to vendor the headers into}
+\item{path}{The directory with the vendored headers. It is recommended to use `"./src/vendor"`.
+The default is `NULL`.}
 }
 \value{
 The path to the vendored code (invisibly).
@@ -15,8 +16,7 @@ The path to the vendored code (invisibly).
 \description{
 Vendoring is the act of making your own copy of the 3rd party packages your
 project is using. It is often used in the go language community.
-}
-\details{
+
 This function vendors armadillo4r into your package by copying the armadillo4r
 headers into the `inst/include` folder of your package and adding
 'armadillo4r version: XYZ' to the top of the files, where XYZ is the version of

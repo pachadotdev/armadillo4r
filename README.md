@@ -4,6 +4,7 @@
 # armadillo4r
 
 <!-- badges: start -->
+
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/pachadotdev/armadillo4r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pachadotdev/armadillo4r/actions/workflows/R-CMD-check.yaml)
@@ -33,8 +34,8 @@ to R with the proper data structures.
 popular R package used by over 1200 CRAN packages as of 2024-12-13.
 RcppArmadillo uses the GPL-3 license.
 
-armadillo4r has different internals, even when the goal is the same, and
-it aims to:
+armadillo4r has different internals, even when the shared goal is to use
+Armadillo functions from R, and it aims to:
 
 - Enforcing copy-on-write semantics.
 - Improving the safety of using the R API from C++ code.
@@ -56,8 +57,10 @@ armadillo4r:
   with no internet access or where IT restricts the installation of
   packages).
 
-This is expanded in our article [armadillo4r: An R package to use the
-Armadillo C++ library](https://dx.doi.org/10.1016/j.softx.2025.102087).
+A previous package, cpp11armadillo, expands on these details
+
+**[cpp11armadillo: An R package to use the Armadillo C++
+library](https://dx.doi.org/10.1016/j.softx.2025.102087).**
 
 If this software is useful to you, please consider donating on [Buy Me A
 Coffee](https://buymeacoffee.com/pacha). All donations will be used to
@@ -77,14 +80,6 @@ GitHub:
 ``` r
 remotes::install_github("pachadotdev/armadillo4r")
 ```
-
-## Who uses armadillo4r?
-
-armadillo4r is used by the following packages:
-
-- [lotri](https://github.com/nlmixr2/lotri), created by Dr. Matt Fidler.
-- [economiccomplexity](https://github.com/pachadotdev/economiccomplexity),
-  created by me.
 
 ## Examples
 

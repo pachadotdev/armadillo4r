@@ -4,10 +4,11 @@
 \alias{unvendor}
 \title{Unvendor the armadillo4r headers}
 \usage{
-unvendor(path = "./src/vendor")
+unvendor(path = NULL)
 }
 \arguments{
-\item{path}{The directory with the vendored headers}
+\item{path}{The directory with the vendored headers. It is recommended to use `"./src/vendor"`.
+The default is `NULL`.}
 }
 \value{
 The path to the unvendored code (invisibly).

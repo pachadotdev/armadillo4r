@@ -8,7 +8,7 @@
 #' @examples
 #' armadillo_version()
 armadillo_version <- function() {
-  # finp <- system.file("include/armadillo/arma_version.hpp", package = "cpp4rarmadillo")
+  # finp <- "./inst/include/armadillo4r/armadillo/arma_version.hpp"
   # lines <- readLines(finp)
 
   # number <- c(
@@ -23,5 +23,5 @@ armadillo_version <- function() {
 
   # paste(name, paste(number, collapse = "."))
 
-  return("Stochastic Parrot 14.2.2")
+  return("Medium Roast Deluxe 15.2.1")
 }

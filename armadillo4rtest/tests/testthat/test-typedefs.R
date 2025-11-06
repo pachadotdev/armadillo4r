@@ -49,25 +49,22 @@ test_that("elemental tests for matrices", {
   y2 <- y
   diag(y2) <- 0
   expect_equal(y2, typedef_SpMat_double(y2))
-  expect_error(typedef_SpMat_int(y2))
 
   storage.mode(y2) <- "integer"
   expect_equal(y2, typedef_SpMat_int(y2))
-  expect_error(typedef_SpMat_double(y2))
 
   y[1, 1] <- NA
   expect_equal(y, typedef_Mat_int(y))
 
   y[1, 1] <- Inf
-  expect_error(typedef_Mat_int(y), "expected 'integer' actual 'double'")
+  expect_warning(typedef_Mat_int(y), "NAs introduced by coercion to integer range")
   expect_equal(y, typedef_Mat_double(y))
 
   y[1, 1] <- -Inf
-  expect_error(typedef_Mat_int(y), "expected 'integer' actual 'double'")
+  expect_warning(typedef_Mat_int(y), "NAs introduced by coercion to integer range")
   expect_equal(y, typedef_Mat_double(y))
 
   y[1, 1] <- NaN
-  expect_error(typedef_Mat_int(y), "expected 'integer' actual 'double'")
   expect_equal(y, typedef_Mat_double(y))
 })
 

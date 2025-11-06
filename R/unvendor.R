@@ -3,7 +3,8 @@
 #' This function removes the vendored armadillo4r headers from your package by
 #' automatically finding the vendored headers.
 #'
-#' @param path The directory with the vendored headers
+#' @param path The directory with the vendored headers. It is recommended to use `"./src/vendor"`.
+#' The default is `NULL`.
 #' @return The path to the unvendored code (invisibly).
 #' @export
 #' @examples
@@ -19,7 +20,9 @@
 #'
 #' # cleanup
 #' unlink(dir, recursive = TRUE)
-unvendor <- function(path = "./src/vendor") {
+unvendor <- function(path = NULL) {
+  stopifnot(!is.null(path), dir.exists(path))
+
   # Unvendor cpp4r headers
   cpp4r::unvendor(path)
 

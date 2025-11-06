@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
-//
-// Copyright 2008-2016 Conrad Sanderson (http://conradsanderson.id.au)
+// 
+// Copyright 2008-2016 Conrad Sanderson (https://conradsanderson.id.au)
 // Copyright 2008-2016 National ICT Australia (NICTA)
-//
+// 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// http://www.apache.org/licenses/LICENSE-2.0
-//
+// https://www.apache.org/licenses/LICENSE-2.0
+// 
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,20 +15,17 @@
 // limitations under the License.
 // ------------------------------------------------------------------------
 
+
 #ifndef ARMA_INCLUDES
 #define ARMA_INCLUDES
 
-// WARNING: the documentation (docs.html) describes the public API (functions, classes,
-// constants); WARNING: any functionality which is _not explicitly_ described in the
-// documentation WARNING: is considered as internal implementation detail, and may be
-// changed or removed without notice.
-
-// clang-format off
-// workaround to avoid R check() notes about std::cerr
-#include "r_messages.hpp"
+// WARNING: the documentation (docs.html) describes the public API (functions, classes, constants);
+// WARNING: any functionality which is _not explicitly_ described in the documentation
+// WARNING: is considered as internal implementation detail, and may be changed or removed without notice.
 
 #include "armadillo/config.hpp"
 #include "armadillo/compiler_check.hpp"
+#include "r_messages.hpp"
 
 #include <cstdlib>
 #include <cstddef>
@@ -58,13 +55,32 @@
 #include <atomic>
 
 #if defined(ARMA_USE_STD_MUTEX)
-  #include <mutex>
+  #if defined(__has_include)
+    #if __has_include(<mutex>)
+      #include <mutex>
+    #else
+      #undef ARMA_USE_STD_MUTEX
+      #pragma message ("WARNING: use of std::mutex disabled; mutex header not found")
+    #endif
+  #else
+    #include <mutex>
+  #endif
 #endif
 
 // #if defined(ARMA_HAVE_CXX17)
 //   #include <charconv>
 //   #include <system_error>
 // #endif
+
+#if defined(ARMA_HAVE_CXX23)
+  #if defined(__has_include)
+    #if __has_include(<stdfloat>)
+      #include <stdfloat>
+    #endif
+  #else
+    #include <stdfloat>
+  #endif
+#endif
 
 #if ( defined(__unix__) || defined(__unix) || defined(_POSIX_C_SOURCE) || (defined(__APPLE__) && defined(__MACH__)) ) && !defined(_WIN32)
   #include <unistd.h>
@@ -143,6 +159,7 @@ namespace arma
   #include "armadillo/constants_old.hpp"
   #include "armadillo/mp_misc.hpp"
   #include "armadillo/arma_rel_comparators.hpp"
+  #include "armadillo/cond_rel.hpp"
   #include "armadillo/fill.hpp"
   
   #if defined(ARMA_RNG_ALT)
@@ -175,7 +192,6 @@ namespace arma
   #include "armadillo/translate_superlu.hpp"
   #include "armadillo/translate_fftw3.hpp"
   
-  #include "armadillo/cond_rel_bones.hpp"
   #include "armadillo/arrayops_bones.hpp"
   #include "armadillo/podarray_bones.hpp"
   #include "armadillo/auxlib_bones.hpp"
@@ -279,7 +295,7 @@ namespace arma
   #include "armadillo/op_resize_bones.hpp"
   #include "armadillo/op_cov_bones.hpp"
   #include "armadillo/op_cor_bones.hpp"
-  #include "armadillo/op_shift_bones.hpp"
+  #include "armadillo/op_circshift_bones.hpp"
   #include "armadillo/op_shuffle_bones.hpp"
   #include "armadillo/op_prod_bones.hpp"
   #include "armadillo/op_pinv_bones.hpp"
@@ -287,7 +303,7 @@ namespace arma
   #include "armadillo/op_flip_bones.hpp"
   #include "armadillo/op_reverse_bones.hpp"
   #include "armadillo/op_princomp_bones.hpp"
-  #include "armadillo/op_misc_bones.hpp"
+  #include "armadillo/op_elem_bones.hpp"
   #include "armadillo/op_orth_null_bones.hpp"
   #include "armadillo/op_relational_bones.hpp"
   #include "armadillo/op_find_bones.hpp"
@@ -308,6 +324,7 @@ namespace arma
   #include "armadillo/op_clamp_bones.hpp"
   #include "armadillo/op_expmat_bones.hpp"
   #include "armadillo/op_nonzeros_bones.hpp"
+  #include "armadillo/op_omit_bones.hpp"
   #include "armadillo/op_diff_bones.hpp"
   #include "armadillo/op_norm_bones.hpp"
   #include "armadillo/op_vecnorm_bones.hpp"
@@ -324,6 +341,7 @@ namespace arma
   #include "armadillo/op_rank_bones.hpp"
   #include "armadillo/op_row_as_mat_bones.hpp"
   #include "armadillo/op_col_as_mat_bones.hpp"
+  #include "armadillo/op_accu_bones.hpp"
   #include "armadillo/op_sp_plus_bones.hpp"
   #include "armadillo/op_sp_minus_bones.hpp"
   #include "armadillo/op_sp_sum_bones.hpp"
@@ -379,8 +397,10 @@ namespace arma
   #include "armadillo/spop_repmat_bones.hpp"
   #include "armadillo/spop_vectorise_bones.hpp"
   #include "armadillo/spop_norm_bones.hpp"
-  #include "armadillo/spop_shift_bones.hpp"
+  #include "armadillo/spop_circshift_bones.hpp"
   #include "armadillo/spop_relational_bones.hpp"
+  #include "armadillo/spop_omit_bones.hpp"
+  #include "armadillo/spop_accu_bones.hpp"
   
   #include "armadillo/spglue_plus_bones.hpp"
   #include "armadillo/spglue_minus_bones.hpp"
@@ -527,10 +547,9 @@ namespace arma
   #include "armadillo/fn_resize.hpp"
   #include "armadillo/fn_cov.hpp"
   #include "armadillo/fn_cor.hpp"
-  #include "armadillo/fn_shift.hpp"
+  #include "armadillo/fn_circshift.hpp"
   #include "armadillo/fn_shuffle.hpp"
   #include "armadillo/fn_prod.hpp"
-  #include "armadillo/fn_eps.hpp"
   #include "armadillo/fn_pinv.hpp"
   #include "armadillo/fn_rank.hpp"
   #include "armadillo/fn_kron.hpp"
@@ -563,11 +582,13 @@ namespace arma
   #include "armadillo/fn_inplace_trans.hpp"
   #include "armadillo/fn_randi.hpp"
   #include "armadillo/fn_randg.hpp"
+  #include "armadillo/fn_rande.hpp"
   #include "armadillo/fn_cond_rcond.hpp"
   #include "armadillo/fn_normalise.hpp"
   #include "armadillo/fn_clamp.hpp"
   #include "armadillo/fn_expmat.hpp"
   #include "armadillo/fn_nonzeros.hpp"
+  #include "armadillo/fn_omit.hpp"
   #include "armadillo/fn_interp1.hpp"
   #include "armadillo/fn_interp2.hpp"
   #include "armadillo/fn_qz.hpp"
@@ -594,6 +615,7 @@ namespace arma
   #include "armadillo/fn_powmat.hpp"
   #include "armadillo/fn_powext.hpp"
   #include "armadillo/fn_diags_spdiags.hpp"
+  #include "armadillo/fn_balance.hpp"
   
   #include "armadillo/fn_speye.hpp"
   #include "armadillo/fn_spones.hpp"
@@ -662,7 +684,6 @@ namespace arma
   #include "armadillo/eop_core_meat.hpp"
   #include "armadillo/eglue_core_meat.hpp"
   
-  #include "armadillo/cond_rel_meat.hpp"
   #include "armadillo/arrayops_meat.hpp"
   #include "armadillo/podarray_meat.hpp"
   #include "armadillo/auxlib_meat.hpp"
@@ -733,7 +754,7 @@ namespace arma
   #include "armadillo/op_resize_meat.hpp"
   #include "armadillo/op_cov_meat.hpp"
   #include "armadillo/op_cor_meat.hpp"
-  #include "armadillo/op_shift_meat.hpp"
+  #include "armadillo/op_circshift_meat.hpp"
   #include "armadillo/op_shuffle_meat.hpp"
   #include "armadillo/op_prod_meat.hpp"
   #include "armadillo/op_pinv_meat.hpp"
@@ -741,7 +762,7 @@ namespace arma
   #include "armadillo/op_flip_meat.hpp"
   #include "armadillo/op_reverse_meat.hpp"
   #include "armadillo/op_princomp_meat.hpp"
-  #include "armadillo/op_misc_meat.hpp"
+  #include "armadillo/op_elem_meat.hpp"
   #include "armadillo/op_orth_null_meat.hpp"
   #include "armadillo/op_relational_meat.hpp"
   #include "armadillo/op_find_meat.hpp"
@@ -762,6 +783,7 @@ namespace arma
   #include "armadillo/op_clamp_meat.hpp"
   #include "armadillo/op_expmat_meat.hpp"
   #include "armadillo/op_nonzeros_meat.hpp"
+  #include "armadillo/op_omit_meat.hpp"
   #include "armadillo/op_diff_meat.hpp"
   #include "armadillo/op_norm_meat.hpp"
   #include "armadillo/op_vecnorm_meat.hpp"
@@ -778,6 +800,7 @@ namespace arma
   #include "armadillo/op_rank_meat.hpp"
   #include "armadillo/op_row_as_mat_meat.hpp"
   #include "armadillo/op_col_as_mat_meat.hpp"
+  #include "armadillo/op_accu_meat.hpp"
   #include "armadillo/op_sp_plus_meat.hpp"
   #include "armadillo/op_sp_minus_meat.hpp"
   #include "armadillo/op_sp_sum_meat.hpp"
@@ -833,8 +856,10 @@ namespace arma
   #include "armadillo/spop_repmat_meat.hpp"
   #include "armadillo/spop_vectorise_meat.hpp"
   #include "armadillo/spop_norm_meat.hpp"
-  #include "armadillo/spop_shift_meat.hpp"
+  #include "armadillo/spop_circshift_meat.hpp"
   #include "armadillo/spop_relational_meat.hpp"
+  #include "armadillo/spop_omit_meat.hpp"
+  #include "armadillo/spop_accu_meat.hpp"
   
   #include "armadillo/spglue_plus_meat.hpp"
   #include "armadillo/spglue_minus_meat.hpp"

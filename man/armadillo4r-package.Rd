@@ -6,7 +6,7 @@
 \alias{armadillo4r-package}
 \title{armadillo4r: An 'Armadillo' Interface}
 \description{
-Provides function declarations and inline function definitions that facilitate communication between R and the 'Armadillo' 'C++' library for linear algebra and scientific computing. This implementation is detailed in Vargas Sepulveda and Schneider Malamud (2024) \doi{10.1016/j.softx.2025.102087}.
+Provides function declarations and inline function definitions that facilitate communication between R and the 'Armadillo' 'C++' library for linear algebra and scientific computing. This implementation is derived from Vargas Sepulveda and Schneider Malamud (2024) \doi{10.1016/j.softx.2025.102087}.
 }
 \seealso{
 Useful links:

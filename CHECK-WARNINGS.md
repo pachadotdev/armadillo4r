@@ -1,0 +1,4 @@
+   Found the following significant warnings:
+     08_official_documentation_adapted.cpp:3195:14: warning: ‘arma::Mat<typename T1::elem_type> arma::syl(const Base<typename T1::elem_type, T1>&, const Base<typename T1::elem_type, T2>&, const Base<typename parent::elem_type, T2>&, const typename arma_blas_real_or_cx_only<typename T1::elem_type>::result*) [with T1 = Mat<double>; T2 = Mat<double>; T3 = Mat<double>; typename T1::elem_type = double; typename T1::elem_type = double; typename parent::elem_type = double; typename arma_blas_real_or_cx_only<typename T1::elem_type>::result = double; typename T1::elem_type = double]’ is deprecated: use sylvester() instead [-Wdeprecated-declarations]
+   See ‘/tmp/RtmpUKu0WJ/file5e49429a5dd8/armadillo4rtest.Rcheck/00install.out’ for details.
+   

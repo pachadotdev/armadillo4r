@@ -3192,7 +3192,7 @@
   mat B = as_mat(b);
   mat C = as_mat(c);
 
-  mat X = syl(A, B, C);
+  mat X = sylvester(A, B, C);
 
   return as_doubles_matrix(X);
 }
