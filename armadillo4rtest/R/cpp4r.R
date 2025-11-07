@@ -1118,3 +1118,44 @@ implicit_conversion_int <- function(x) {
 implicit_conversion_uint <- function(x) {
 	.Call(`_armadillo4rtest_implicit_conversion_uint`, x)
 }
+
+ols_traditional_ <- function(x, y) {
+	storage.mode(x) <- "double"
+	.Call(`_armadillo4rtest_ols_traditional_`, x, y)
+}
+
+ols_simplified_ <- function(x, y) {
+	storage.mode(x) <- "double"
+	.Call(`_armadillo4rtest_ols_simplified_`, x, y)
+}
+
+matrix_add_ <- function(a, b) {
+	storage.mode(a) <- "double"
+	storage.mode(b) <- "double"
+	.Call(`_armadillo4rtest_matrix_add_`, a, b)
+}
+
+integer_transpose_ <- function(x) {
+	storage.mode(x) <- "integer"
+	.Call(`_armadillo4rtest_integer_transpose_`, x)
+}
+
+uvec_example_ <- function(x) {
+	storage.mode(x) <- "integer"
+	.Call(`_armadillo4rtest_uvec_example_`, x)
+}
+
+fmat_example_ <- function(x) {
+	storage.mode(x) <- "double"
+	.Call(`_armadillo4rtest_fmat_example_`, x)
+}
+
+complex_multiply_ <- function(a, b) {
+	.Call(`_armadillo4rtest_complex_multiply_`, a, b)
+}
+
+generic_multiply_ <- function(a, b) {
+	storage.mode(a) <- "double"
+	storage.mode(b) <- "double"
+	.Call(`_armadillo4rtest_generic_multiply_`, a, b)
+}
