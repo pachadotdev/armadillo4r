@@ -18,6 +18,14 @@ test_that("OLS simplified approach works", {
   result <- ols_simplified_(X, y)
   expect_true(is.numeric(result))
   expect_equal(length(result), 3)
+
+  result <- ols_simplified2_(X, y)
+  expect_true(is.matrix(result))
+  expect_equal(nrow(result), 3)
+
+  result <- ols_simplified3_(X, y)
+  expect_true(is.numeric(result))
+  expect_equal(length(result), 3)
 })
 
 test_that("Both OLS approaches give same results", {

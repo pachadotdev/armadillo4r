@@ -1129,6 +1129,16 @@ ols_simplified_ <- function(x, y) {
 	.Call(`_armadillo4rtest_ols_simplified_`, x, y)
 }
 
+ols_simplified2_ <- function(x, y) {
+	storage.mode(x) <- "double"
+	.Call(`_armadillo4rtest_ols_simplified2_`, x, y)
+}
+
+ols_simplified3_ <- function(x, y) {
+	storage.mode(x) <- "double"
+	.Call(`_armadillo4rtest_ols_simplified3_`, x, y)
+}
+
 matrix_add_ <- function(a, b) {
 	storage.mode(a) <- "double"
 	storage.mode(b) <- "double"

@@ -31,8 +31,29 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
                                             const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
+
+  // vec result = ols_fit2(X, Y);
+  // return as_doubles(result);
+
+  return as_doubles(ols_fit2(X, Y));
+}
+
+[[cpp4r::register]] doubles_matrix<> ols_simplified2_(const doubles_matrix<>& x,
+                                            const doubles& y) {
+  mat X = as_mat(x);
+  vec Y = as_Col(y);
+  mat result = ols_fit2(X, Y);
+  doubles_matrix<> output = cpp4r::as_sexp(result);
+  return output;
+}
+
+[[cpp4r::register]] doubles ols_simplified3_(const doubles_matrix<>& x,
+                                            const doubles& y) {
+  mat X = as_mat(x);
+  vec Y = as_Col(y);
   vec result = ols_fit2(X, Y);
-  return as_doubles(result);
+  doubles output = cpp4r::as_sexp(result);
+  return output;
 }
 
 // Example 3: Matrix operations

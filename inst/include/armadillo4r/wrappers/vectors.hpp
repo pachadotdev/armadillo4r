@@ -163,13 +163,15 @@ inline U Col_to_dblint_matrix_(const Col<T>& x) {
                                 writable::doubles_matrix<>,
                                 writable::integers_matrix<>>::type;
 
-  using dblint =
-      typename std::conditional<std::is_same<U, cpp4r::writable::doubles_matrix<>>::value,
-                                double, int>::type;
-
   dblint_matrix y(n, m);
 
-  std::memcpy(y.data(), x.memptr(), n * m * sizeof(dblint));
+  if (std::is_same<U, doubles_matrix<>>::value) {
+    double* y_data = REAL(y);
+    std::memcpy(y_data, x.memptr(), n * m * sizeof(double));
+  } else {
+    int* y_data = INTEGER(y);
+    std::memcpy(y_data, x.memptr(), n * m * sizeof(int));
+  }
 
   return y;
 }

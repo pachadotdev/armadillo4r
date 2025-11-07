@@ -1819,6 +1819,20 @@ extern "C" SEXP _armadillo4rtest_ols_simplified_(SEXP x, SEXP y) {
   END_CPP4R
 }
 // 12_implicit_conversion.cpp
+doubles_matrix<> ols_simplified2_(const doubles_matrix<>& x, const doubles& y);
+extern "C" SEXP _armadillo4rtest_ols_simplified2_(SEXP x, SEXP y) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(ols_simplified2_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
+  END_CPP4R
+}
+// 12_implicit_conversion.cpp
+doubles ols_simplified3_(const doubles_matrix<>& x, const doubles& y);
+extern "C" SEXP _armadillo4rtest_ols_simplified3_(SEXP x, SEXP y) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(ols_simplified3_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
+  END_CPP4R
+}
+// 12_implicit_conversion.cpp
 doubles_matrix<> matrix_add_(const doubles_matrix<>& a, const doubles_matrix<>& b);
 extern "C" SEXP _armadillo4rtest_matrix_add_(SEXP a, SEXP b) {
   BEGIN_CPP4R
@@ -2020,6 +2034,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_ols_mat",                           (DL_FUNC) &_armadillo4rtest_ols_mat,                           2},
     {"_armadillo4rtest_ols_qr_dbl",                        (DL_FUNC) &_armadillo4rtest_ols_qr_dbl,                        3},
     {"_armadillo4rtest_ols_qr_mat",                        (DL_FUNC) &_armadillo4rtest_ols_qr_mat,                        3},
+    {"_armadillo4rtest_ols_simplified2_",                  (DL_FUNC) &_armadillo4rtest_ols_simplified2_,                  2},
+    {"_armadillo4rtest_ols_simplified3_",                  (DL_FUNC) &_armadillo4rtest_ols_simplified3_,                  2},
     {"_armadillo4rtest_ols_simplified_",                   (DL_FUNC) &_armadillo4rtest_ols_simplified_,                   2},
     {"_armadillo4rtest_ols_traditional_",                  (DL_FUNC) &_armadillo4rtest_ols_traditional_,                  2},
     {"_armadillo4rtest_ones1_",                            (DL_FUNC) &_armadillo4rtest_ones1_,                            1},
