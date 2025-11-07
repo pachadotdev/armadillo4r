@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Syntax comparison for MATLAB/Octave users • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>Functions</label>
+    <a href="../reference/pkg_template.html">pkg_template</a>
+    <a href="../reference/unvendor.html">unvendor</a>
+    <a href="../reference/vendor.html">vendor</a>
+    <a href="../reference/armadillo_version.html">armadillo_version</a>
+  </div>
+
+  <div class="submenu">
+    <label>Vignettes</label>
+    <a href="../vignettes/basic-usage.html">Basic 'armadillo4r' usage</a>
+    <a href="../vignettes/configuration.html">Armadillo configuration</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-dense.html">Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-sparse.html">Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
+    <a href="../vignettes/functions-of-vector-matrices-cubes.html">Functions of vectors, matrices, and cubes</a>
+    <a href="../vignettes/generated-vectors-matrices-cubes.html">Generated vectors, matrices, and cubes</a>
+    <a href="../vignettes/linear-model.html">Fitting regressions with Armadillo</a>
+    <a href="../vignettes/matrix-vector-cube-and-field-classes.html">Matrix, vector, cube and field classes</a>
+    <a href="../vignettes/member-functions-and-variables.html">Member functions and variables</a>
+    <a href="../vignettes/miscellaneous.html">Miscellaneous</a>
+    <a href="../vignettes/save-load.html">Saving and loading Armadillo objects on C++ side</a>
+    <a href="../vignettes/signal-and-image-processing.html">Signal and image processing</a>
+    <a href="../vignettes/sparse-matrices.html">Sparse matrices</a>
+    <a href="../vignettes/statistics-and-clustering.html">Statistics and clustering</a>
+    <a href="../vignettes/syntax-comparison-for-matlab-users.html">Syntax comparison for MATLAB/Octave users</a>
+    <a href="../vignettes/using-sexp-cpp.html">Using SEXP and cpp conversions</a>
+  </div>
+
+  <div class="submenu">
+    <label>News</label>
+    <a href="../news/index.html">Changelog</a>
+  </div>
+</div>
+<div id="content">
+<div class="content-wrapper">
+        <div class="content-main">
+          <h1>Syntax comparison for MATLAB/Octave users</h1>
+<script src="libs/header-attrs-2.30/header-attrs.js"></script><h1 class="title toc-ignore">Syntax comparison for MATLAB/Octave
+users</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<div id="matlaboctave-syntax-and-corresponding-armadillo-syntax" class="section level1">
+<h1>Matlab/Octave syntax and corresponding Armadillo syntax</h1>
+<p>The following table uses <code>V</code> for vectors, <code>M</code>
+for matrices, <code>Q</code> for cubes and <code>F</code> for fields.
+For operations, <code>A</code>, <code>B</code> and <code>C</code> denote
+matrices. Because MATLAB indexes from 1 (as R does), the k-th column in
+MATLAB has index <code>k</code> but in C++ it has index
+<code>k-1</code>.</p>
+<table><colgroup><col width="25%"><col width="26%"><col width="48%"></colgroup><thead><tr class="header"><th>Matlab/Octave</th>
+<th>Armadillo</th>
+<th>Notes</th>
+</tr></thead><tbody><tr class="odd"><td><code>M(1, 1)</code></td>
+<td><code>M(0, 0)</code></td>
+<td>indexing in C++ starts at 0</td>
+</tr><tr class="even"><td><code>M(k, k)</code></td>
+<td><code>M(k-1, k-1)</code></td>
+<td>indexing in C++ starts at 0</td>
+</tr><tr class="odd"><td><code>size(M,1)</code></td>
+<td><code>M.n_rows</code></td>
+<td>read only</td>
+</tr><tr class="even"><td><code>size(M,2)</code></td>
+<td><code>M.n_cols</code></td>
+<td>read only</td>
+</tr><tr class="odd"><td><code>size(Q,3)</code></td>
+<td><code>Q.n_slices</code></td>
+<td></td>
+</tr><tr class="even"><td><code>numel(A)</code></td>
+<td><code>M.n_elem</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M(:, k)</code></td>
+<td><code>M.col(k-1)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M(k, :)</code></td>
+<td><code>M.row(k)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M(:, p:q)</code></td>
+<td><code>M.cols(p, q)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M(p:q, :)</code></td>
+<td><code>M.rows(p, q)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M(p:q, r:s)</code></td>
+<td><code>M(span(p,q), span(r,s))</code></td>
+<td></td>
+</tr><tr class="even"><td><code>Q(:, :, k)</code></td>
+<td><code>Q.slice(k)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>Q(:, :, t:u)</code></td>
+<td><code>Q.slices(t, u)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>Q(p:q, r:s, t:u)</code></td>
+<td><code>Q( span(p,q), span(r,s), span(t,u))</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M'</code></td>
+<td><code>M.t()</code> or <code>trans(M)</code></td>
+<td>matrix transpose / Hermitian transpose (for complex matrices, the
+conjugate of each element is taken)</td>
+</tr><tr class="even"><td><code>M = zeros(size(M))</code></td>
+<td><code>M.zeros()</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M = ones(size(M))</code></td>
+<td><code>M.ones()</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M = zeros(k)</code></td>
+<td><code>M = zeros&lt;mat&gt;(k,k)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M = ones(k)</code></td>
+<td><code>M = ones&lt;mat&gt;(k,k)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>C = complex(A,B)</code></td>
+<td><code>cx_mat C = cx_mat(A,B)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>A .* B</code></td>
+<td><code>A % B</code></td>
+<td>element-wise multiplication</td>
+</tr><tr class="even"><td><code>A ./ B</code></td>
+<td><code>A / B</code></td>
+<td>element-wise division</td>
+</tr><tr class="odd"><td><code>A \ B</code></td>
+<td><code>solve(A,B)</code></td>
+<td>more efficient than <code>inv(A)*B</code></td>
+</tr><tr class="even"><td><code>M = M + 1</code></td>
+<td><code>M++</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M = M - 1</code></td>
+<td><code>M--</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M = [1 2; 3 4;]</code></td>
+<td><code>M = {{1, 2}, {3, 4}}</code></td>
+<td>element initialization</td>
+</tr><tr class="odd"><td><code>M = A(:)</code></td>
+<td><code>M = vectorise(A)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M = [A  B]</code></td>
+<td><code>M = join_horiz(A,B)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>M = [A; B]</code></td>
+<td><code>M = join_vert(A,B)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>M</code></td>
+<td><code>cout &lt;&lt; M &lt;&lt; endl</code> or
+<code>M.print("M =")</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>A = randn(2,3)</code></td>
+<td><code>mat A = randn(2,3)</code></td>
+<td></td>
+</tr><tr class="even"><td><code>B = randn(4,5)</code></td>
+<td><code>mat B = randn(4,5)</code></td>
+<td></td>
+</tr><tr class="odd"><td><code>F = {A; B}</code></td>
+<td><code>field&lt;mat&gt; F(2,1)</code>, <code>F(0,0) = A</code> or
+<code>F(1,0) = B</code></td>
+<td>fields store arbitrary objects, such as matrices</td>
+</tr></tbody></table></div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script></div>
+        <footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
+</div>
+</div>
+</body></html>
+

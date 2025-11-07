@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Saving and loading Armadillo objects on C++ side • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>Functions</label>
+    <a href="../reference/pkg_template.html">pkg_template</a>
+    <a href="../reference/unvendor.html">unvendor</a>
+    <a href="../reference/vendor.html">vendor</a>
+    <a href="../reference/armadillo_version.html">armadillo_version</a>
+  </div>
+
+  <div class="submenu">
+    <label>Vignettes</label>
+    <a href="../vignettes/basic-usage.html">Basic 'armadillo4r' usage</a>
+    <a href="../vignettes/configuration.html">Armadillo configuration</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-dense.html">Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-sparse.html">Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
+    <a href="../vignettes/functions-of-vector-matrices-cubes.html">Functions of vectors, matrices, and cubes</a>
+    <a href="../vignettes/generated-vectors-matrices-cubes.html">Generated vectors, matrices, and cubes</a>
+    <a href="../vignettes/linear-model.html">Fitting regressions with Armadillo</a>
+    <a href="../vignettes/matrix-vector-cube-and-field-classes.html">Matrix, vector, cube and field classes</a>
+    <a href="../vignettes/member-functions-and-variables.html">Member functions and variables</a>
+    <a href="../vignettes/miscellaneous.html">Miscellaneous</a>
+    <a href="../vignettes/save-load.html">Saving and loading Armadillo objects on C++ side</a>
+    <a href="../vignettes/signal-and-image-processing.html">Signal and image processing</a>
+    <a href="../vignettes/sparse-matrices.html">Sparse matrices</a>
+    <a href="../vignettes/statistics-and-clustering.html">Statistics and clustering</a>
+    <a href="../vignettes/syntax-comparison-for-matlab-users.html">Syntax comparison for MATLAB/Octave users</a>
+    <a href="../vignettes/using-sexp-cpp.html">Using SEXP and cpp conversions</a>
+  </div>
+
+  <div class="submenu">
+    <label>News</label>
+    <a href="../news/index.html">Changelog</a>
+  </div>
+</div>
+<div id="content">
+<div class="content-wrapper">
+        <div class="content-main">
+          <h1>Saving and loading Armadillo objects on C++ side</h1>
+<script src="libs/header-attrs-2.30/header-attrs.js"></script><h1 class="title toc-ignore">Saving and loading Armadillo objects on C++
+side</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<div id="saving-and-loading-matrices-and-cubes" class="section level1">
+<h1>Saving and loading matrices and cubes</h1>
+<p>Armadillo provides functions to save and load matrices and cubes to
+and from files. The following file types are supported:</p>
+<ul><li><code>arma_binary</code>: Numerical data stored in machine dependent
+binary format, with a simple header to speed up loading. The header
+indicates the type and size of matrix/cube.</li>
+<li><code>arma_ascii</code>: Numerical data stored in human readable
+text format, with a simple header to speed up loading. The header
+indicates the type and size of matrix/cube.</li>
+<li><code>raw_binary</code>: Numerical data stored in machine dependent
+raw binary format, without a header. Matrices are loaded to have one
+column, while cubes are loaded to have one slice with one column. The
+<code>.reshape()</code> function can be used to alter the size of the
+loaded matrix/cube without losing data.</li>
+<li><code>raw_ascii</code>: Numerical data stored in raw ASCII format,
+without a header. The numbers are separated by whitespace. The number of
+columns must be the same in each row. Cubes are loaded as one slice.
+Data which was saved in Matlab/Octave using the <code>-ascii</code>
+option can be read in Armadillo, except for complex numbers. Complex
+numbers are stored in standard C++ notation, which is a tuple surrounded
+by brackets: eg. <code>(1.23,4.56)</code> indicates 1.24 + 4.56i.</li>
+<li><code>csv_ascii</code>: Numerical data stored in comma separated
+value (CSV) text format, without a header. To save/load with a header,
+use the <code>csv_name(filename, header)</code> specification instead.
+Handles complex numbers stored in the compound form of
+<code>1.24+4.56i</code>. Applicable to <code>Mat</code> and
+<code>SpMat</code>.</li>
+<li><code>coord_ascii</code>: Numerical data stored as a text file in
+coordinate list format, without a header. Only non-zero values are
+stored. For real matrices, each line contains information in the
+following format: <code>row column value</code>. For complex matrices,
+each line contains information in the following format:
+<code>row column real_value imag_value</code>. The rows and columns
+start at zero. Applicable to <code>Mat</code> and
+<code>SpMat</code>.</li>
+<li><code>pgm_binary</code>: Image data stored in Portable Gray Map
+(PGM) format. Applicable to <code>Mat</code> only. Saving int, float or
+double matrices is a lossy operation, as each element is copied and
+converted to an 8 bit representation. As such the matrix should have
+values in the <code>[0,255]</code> interval, otherwise the resulting
+image may not display correctly.</li>
+<li><code>ppm_binary</code>: Image data stored in Portable Pixel Map
+(PPM) format. Applicable to <code>Cube</code> only. Saving int, float or
+double matrices is a lossy operation, as each element is copied and
+converted to an 8 bit representation. As such the cube/field should have
+values in the <code>[0,255]</code> interval, otherwise the resulting
+image may not display correctly.</li>
+<li><code>hdf5_binary</code>: Numerical data stored in portable HDF5
+binary format. For saving, the default dataset name within the HDF5 file
+is <code>"dataset"</code>. For loading, the order of operations is: (1)
+try loading a dataset named <code>"dataset"</code>, (2) try loading a
+dataset named <code>"value"</code>, (3) try loading the first available
+dataset. To explicitly control the dataset name, specify it via the
+<code>hdf5_name(filename, dataset)</code> argument. HDF5 support can be
+enabled by defining <code>ARMA_USE_HDF5</code> before including the
+Armadillo header.</li>
+</ul><p>The following file types are supported for fields:</p>
+<ul><li><code>arma_binary</code>: See above.</li>
+<li><code>ppm_binary</code>: See above.</li>
+</ul><p>Usage:</p>
+<pre class="cpp"><code>.save(filename)
+.load(filename)
+
+.save(filename, file_type)
+.load(filename, file_type)
+
+.save(stream)
+.load(stream)
+
+.save(stream, file_type)
+.load(stream, file_type)
+
+.save(hdf5_name(filename, dataset))
+.load(hdf5_name(filename, dataset))
+
+.save(hdf5_name(filename, dataset, settings))
+.load(hdf5_name(filename, dataset, settings))
+
+.save(csv_name(filename, header))
+.load(csv_name(filename, header))
+
+.save(csv_name(filename, header, settings))
+.load(csv_name(filename, header, settings))</code></pre>
+<p>By providing either <code>hdf5_name(filename, dataset)</code> or
+<code>hdf5_name(filename, dataset, settings)</code>, the
+<code>file_type</code> type is assumed to be <code>hdf5_binary</code>.
+The <code>dataset</code> argument specifies an HDF5 dataset name (eg.
+<code>"my_dataset"</code>) that can include a full path (eg.
+<code>"/group_name/my_dataset"</code>); if a blank dataset name is
+specified (ie. <code>""</code>), it is assumed to be
+<code>"dataset"</code>. The <code>settings</code> argument is optional;
+it is one of the following, or a combination thereof</p>
+<ul><li><code>hdf5_opts::trans</code>: Save/load the data with columns
+transposed to rows (and vice versa).</li>
+<li><code>hdf5_opts::append</code>: Instead of overwriting the file,
+append the specified dataset to the file; the specified dataset must not
+already exist in the file.</li>
+<li><code>hdf5_opts::replace</code>: Instead of overwriting the file,
+replace the specified dataset in the file.</li>
+<li>These settings can be combined using the <code>+</code> operator
+(e.g., <code>hdf5_opts::trans + hdf5_opts::append</code>)</li>
+</ul><p>By providing either <code>csv_name(filename, header)</code> or
+<code>csv_name(filename, header, settings)</code>, the file is assumed
+to have data in comma separated value (CSV) text format. The
+<code>header</code> argument specifies the object which stores the
+separate elements of the header line; it must have the type
+<code>field&lt;std::string&gt;</code>. The optional
+<code>settings</code> argument is one of the following, or a combination
+thereof</p>
+<ul><li><code>csv_opts::trans</code>: Save/load the data with columns
+transposed to rows (and vice versa).</li>
+<li><code>csv_opts::no_header</code>: Assume there is no header line;
+the header argument is not referenced.</li>
+<li><code>csv_opts::semicolon</code>: Use semicolon (<code>;</code>)
+instead of comma (<code>,</code>) as the separator character.</li>
+<li><code>csv_opts::strict</code>: Interpret missing values as
+<code>NaN</code> (not applicable to sparse matrices).</li>
+<li>These settings can be combined using the <code>+</code> operator
+(e.g., <code>csv_opts::trans + csv_opts::no_header</code>)</li>
+</ul><div id="caveats" class="section level2">
+<h2>Caveats</h2>
+<ul><li>For saving/loading HDF5 files, support for HDF5 must be enabled
+within Armadillo’s configuration. The <code>hdf5.h</code> header file
+must be available on your system and you will need to link with the HDF5
+library (eg. <code>-lhdf5</code>). HDF5 support can be enabled by
+defining <code>ARMA_USE_HDF5</code> before including the Armadillo
+header.</li>
+<li>Enabling HD5 requires to vendor armadillo4r in orderto adhere to
+CRAN compliance.</li>
+<li>Armadillo save and load methods are only accessible from C++
+side.</li>
+<li>Once an object is exported to R, it is more efficient to load/save
+using <code>saveRDS()</code> and <code>readRDS()</code>.</li>
+</ul></div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<p>Save and load matrices:</p>
+<pre class="cpp"><code>[[cpp4r::register]] int saveload1_(const int&amp; n) {
+  arma::mat A(n, n, fill::randu);
+
+  // default save format is arma_binary
+  A.save("A.bin");
+
+  // save in raw_ascii format
+  A.save("A.txt", arma::raw_ascii);
+
+  // save in CSV format without a header
+  A.save("A.csv", arma::csv_ascii);
+
+  // save in CSV format with a header
+  arma::field&lt;std::string&gt; header(A.n_cols);
+  header(0) = "foo";
+  header(1) = "bar";  // etc
+  A.save(arma::csv_name("A.csv", header));
+
+  // save in HDF5 format with internal dataset named as "my_data"
+  // see the caveats
+  // A.save(arma::hdf5_name("A.h5", "my_data"));
+
+  // automatically detect format type while loading
+  arma::mat B;
+  B.load("A.bin");
+
+  // force loading in arma_ascii format
+  arma::mat C;
+  C.load("A.txt", arma::arma_ascii);
+
+  // example of testing for success
+  arma::mat D;
+  bool ok = D.load("A.bin");
+
+  if(ok == true) {
+    message("Matrix loaded successfully");
+  } else {
+    stop("Problem with loading");
+  }
+
+  return 0;
+}</code></pre>
+<p>Save and load fields:</p>
+<pre class="cpp"><code>[[cpp4r::register]] int saveload2_(const int&amp; n) {
+  arma::field&lt;arma::mat&gt; F(n);
+
+  for (int i = 0; i &lt; n; i++) {
+    F(i) = arma::mat(n, n, fill::randu);
+  }
+
+  // default save format is arma_binary
+  F.save("F.bin");
+
+  // save in PPM format
+  F.save("F.ppm", arma::ppm_binary);
+
+  // automatically detect format type while loading
+  arma::field&lt;arma::mat&gt; G;
+  G.load("F.bin");
+
+  return 0;
+}</code></pre>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script></div>
+        <footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
+</div>
+</div>
+</body></html>
+

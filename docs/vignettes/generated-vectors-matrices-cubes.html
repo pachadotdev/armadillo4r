@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Generated vectors, matrices, and cubes • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>Functions</label>
+    <a href="../reference/pkg_template.html">pkg_template</a>
+    <a href="../reference/unvendor.html">unvendor</a>
+    <a href="../reference/vendor.html">vendor</a>
+    <a href="../reference/armadillo_version.html">armadillo_version</a>
+  </div>
+
+  <div class="submenu">
+    <label>Vignettes</label>
+    <a href="../vignettes/basic-usage.html">Basic 'armadillo4r' usage</a>
+    <a href="../vignettes/configuration.html">Armadillo configuration</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-dense.html">Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-sparse.html">Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
+    <a href="../vignettes/functions-of-vector-matrices-cubes.html">Functions of vectors, matrices, and cubes</a>
+    <a href="../vignettes/generated-vectors-matrices-cubes.html">Generated vectors, matrices, and cubes</a>
+    <a href="../vignettes/linear-model.html">Fitting regressions with Armadillo</a>
+    <a href="../vignettes/matrix-vector-cube-and-field-classes.html">Matrix, vector, cube and field classes</a>
+    <a href="../vignettes/member-functions-and-variables.html">Member functions and variables</a>
+    <a href="../vignettes/miscellaneous.html">Miscellaneous</a>
+    <a href="../vignettes/save-load.html">Saving and loading Armadillo objects on C++ side</a>
+    <a href="../vignettes/signal-and-image-processing.html">Signal and image processing</a>
+    <a href="../vignettes/sparse-matrices.html">Sparse matrices</a>
+    <a href="../vignettes/statistics-and-clustering.html">Statistics and clustering</a>
+    <a href="../vignettes/syntax-comparison-for-matlab-users.html">Syntax comparison for MATLAB/Octave users</a>
+    <a href="../vignettes/using-sexp-cpp.html">Using SEXP and cpp conversions</a>
+  </div>
+
+  <div class="submenu">
+    <label>News</label>
+    <a href="../news/index.html">Changelog</a>
+  </div>
+</div>
+<div id="content">
+<div class="content-wrapper">
+        <div class="content-main">
+          <h1>Generated vectors, matrices, and cubes</h1>
+<script src="libs/header-attrs-2.30/header-attrs.js"></script><h1 class="title toc-ignore">Generated vectors, matrices, and cubes</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<div id="linspace" class="section level1">
+<h1>Generate vector with linearly spaced elements</h1>
+<p>The <code>linspace()</code> function generates a vector of linearly
+spaced values from <code>start</code> to <code>end</code> (it includes
+<code>end</code>). The arguments can be <code>start, end</code> or
+<code>start, end, N</code>, where <code>N</code> is optional and
+indicates the number of elements in the vector (<code>N</code> is 100 by
+default).</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>vec v = linspace(start, end, N)
+vector_type v = linspace&lt;vector_type&gt;(start, end, N)</code></pre>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles linspace1_(const int&amp; n) {
+  vec a = linspace(1, 2, n);
+  rowvec b = linspace&lt;rowvec&gt;(3, 4, n);
+
+  vec res = a + b.t();
+
+  return as_doubles(res);
+}</code></pre>
+</div>
+<div id="caveat" class="section level2">
+<h2>Caveat</h2>
+<p>For <code>N = 1</code>, the generated vector will have a single
+element equal to end.</p>
+</div>
+</div>
+<div id="logspace" class="section level1">
+<h1>Generate vector with logarithmically spaced elements</h1>
+<p>The <code>logspace()</code> function generates a vector of
+logarithmically spaced values from <code>10^start</code> to
+<code>10^end</code> (it includes <code>10^end</code>). The arguments can
+be <code>start, end</code> or <code>start, end, N</code>, where
+<code>N</code> is optional and indicates the number of elements in the
+vector (<code>N</code> is 50 by default).</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>vec v = logspace(start, end, N)
+vector_type v = logspace&lt;vector_type&gt;(start, end, N)</code></pre>
+<div id="examples-1" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles logspace1_(const int&amp; n) {
+  vec a = logspace(1, 2, n);
+  rowvec b = logspace&lt;rowvec&gt;(3, 4, n);
+
+  vec res = a + b.t();
+
+  return as_doubles(res);
+}</code></pre>
+</div>
+</div>
+<div id="regspace" class="section level1">
+<h1>Generate vector with regularly spaced elements</h1>
+<p>The <code>regspace()</code> function generates a vector of regularly
+spaced values
+<code>start, start + delta, start + 2*delta, ..., start + M * delta</code>
+where <code>M</code> is <code>M = floor((end - start) / delta)</code>.
+The arguments can be <code>start, end</code> or
+<code>start, delta, end</code>, where <code>delta</code> is optional
+(<code>delta = 1</code> if <code>start &lt;= end</code> and
+<code>delta = -1</code> if <code>start &gt; end</code> by default).</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>vec v = regspace(start, end)
+vec v = regspace(start, delta, end)
+vector_type v = regspace&lt;vector_type&gt;(start, end)
+vector_type v = regspace&lt;vector_type&gt;(start, delta, end)</code></pre>
+<p>The output vector will be empty if any of the following conditions
+are met:</p>
+<ul><li><code>start &lt; end</code> and <code>delta &lt; 0</code></li>
+<li><code>start &gt; end</code> and <code>delta &gt; 0</code></li>
+<li><code>delta = 0</code></li>
+</ul><div id="examples-2" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles regspace1_(const double&amp; delta) {
+  vec a = regspace(1, delta, 2);
+  rowvec b = regspace&lt;rowvec&gt;(3, delta, 4);
+
+  vec res = a + b.t();
+
+  return as_doubles(res);
+}</code></pre>
+</div>
+<div id="caveats" class="section level2">
+<h2>Caveats</h2>
+<ul><li>This is different from Matlab/Octave.</li>
+<li>Do not use <code>regspace()</code> to specify ranges for contiguous
+submatrix views, use <code>span()</code> instead.</li>
+</ul></div>
+</div>
+<div id="randperm" class="section level1">
+<h1>Generate vector with random permutation of a sequence of
+integers</h1>
+<p>The <code>randperm()</code> function generates a vector of
+permutation of integers from <code>0</code> to <code>N-1</code>. The
+argument can be empty, <code>N</code>, or <code>N, M</code>, where
+<code>N</code> (<code>N = 10</code> by default) is the range of integers
+and <code>M</code> (<code>M = N</code> by default) is the length of the
+output.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>uvec v = randperm(N)
+uvec v = randperm(N, M)</code></pre>
+<div id="examples-3" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] integers randperm1_(const int&amp; n, const int&amp; m) {
+  uvec a = randperm(n);
+  uvec b = randperm(n, m);
+
+  uvec res = a + b;
+
+  return as_integers(res);
+}</code></pre>
+</div>
+</div>
+<div id="eye" class="section level1">
+<h1>Generate identity matrix</h1>
+<p>The <code>eye()</code> function generates a matrix of size
+<code>n x m</code>. The argument can be <code>n_rows, n_cols</code> or
+<code>size(X)</code>. When <code>n_rows = n_cols</code>, the output is
+an identity matrix.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>mat X = eye(n_rows, n_cols)
+matrix_type X = eye&lt;matrix_type&gt;(n_rows, n_cols)
+matrix_type X = eye&lt;matrix_type&gt;(size(X))</code></pre>
+<div id="examples-4" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; eye1_(const int&amp; n) {
+  mat A = eye(5,5);  // or:  mat A(5,5,fill::eye);
+
+  fmat B = 123.0 * eye&lt;fmat&gt;(5,5);
+
+cx_mat C = eye&lt;cx_mat&gt;( size(B) );
+
+  return as_doubles(res);
+}</code></pre>
+</div>
+</div>
+<div id="ones" class="section level1">
+<h1>Generate object filled with ones</h1>
+<p>The <code>ones()</code> function generates a vector, matrix or cube.
+The arguments can be <code>n_elem</code>, <code>n_rows, n_cols</code>,
+<code>n_rows, n_cols, n_slices</code>, or <code>size(X)</code>. The</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>vector_type v = ones&lt;vector_type&gt;(n_elem)
+matrix_type X = ones&lt;matrix_type&gt;(n_rows, n_cols)
+matrix_type Y = ones&lt;matrix_type&gt;(size(X))
+cube_type Q = ones&lt;cube_type&gt;(n_rows, n_cols, n_slices)
+cube_type R = ones&lt;cube_type&gt;(size(Q))</code></pre>
+<div id="examples-5" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; ones2_(const int&amp; n) {
+  vec v = ones(n);  // or: vec v(10, fill::ones);
+  uvec u = ones&lt;uvec&gt;(n);
+  rowvec r = ones&lt;rowvec&gt;(n);
+
+  mat A = ones(n, n);  // or: mat A(n, n, fill::ones);
+  fmat B = ones&lt;fmat&gt;(n, n);
+
+  cube Q = ones(n, n, n + 1);  // or: cube Q(n, n, n + 1, fill::ones);
+
+  mat res = diagmat(v) + diagmat(conv_to&lt;vec&gt;::from(u)) + diagmat(r) + A + B +
+    Q.slice(0);
+
+  return as_doubles_matrix(res);
+}</code></pre>
+</div>
+<div id="caveat-1" class="section level2">
+<h2>Caveat</h2>
+<p>Specifying <code>fill::ones</code> during object construction is more
+compact. For example, <code>mat A(5, 6, fill::ones)</code>.</p>
+</div>
+</div>
+<div id="zeros" class="section level1">
+<h1>Generate object filled with zeros</h1>
+<p>The <code>zeros()</code> function generates a vector, matrix or cube.
+The arguments can be <code>n_elem</code>, <code>n_rows, n_cols</code>,
+<code>n_rows, n_cols, n_slices</code>, or <code>size(X)</code>.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>vector_type v = zeros&lt;vector_type&gt;(n_elem)
+matrix_type X = zeros&lt;matrix_type&gt;(n_rows, n_cols)
+matrix_type Y = zeros&lt;matrix_type&gt;(size(X))
+cube_type Q = zeros&lt;cube_type&gt;(n_rows, n_cols, n_slices)
+cube_type R = zeros&lt;cube_type&gt;(size(Q))</code></pre>
+<div id="examples-6" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; zeros2_(const int&amp; n) {
+  vec v = zeros(n);  // or: vec v(10, fill::zeros);
+  uvec u = zeros&lt;uvec&gt;(n);
+  rowvec r = zeros&lt;rowvec&gt;(n);
+
+  mat A = zeros(n, n);  // or: mat A(n, n, fill::zeros);
+  fmat B = zeros&lt;fmat&gt;(n, n);
+
+  cube Q = zeros(n, n, n + 1);  // or: cube Q(n, n, n + 1, fill::zeros);
+
+  mat res = diagmat(v) + diagmat(conv_to&lt;vec&gt;::from(u)) + diagmat(r) + A + B +
+    Q.slice(0);
+
+  return as_doubles_matrix(res);
+}</code></pre>
+</div>
+<div id="caveat-2" class="section level2">
+<h2>Caveat</h2>
+<p>Specifying <code>fill::zeros</code> during object construction is
+more compact. For example, <code>mat A(5, 6, fill::zeros)</code>.</p>
+</div>
+</div>
+<div id="randu" class="section level1">
+<h1>Generate object with random values from a uniform distribution</h1>
+<p>The <code>randu()</code> function generates a vector, matrix or cube
+with the elements set to random floating point values uniformly
+distributed in the <code>[a,b]</code> interval. The arguments can be
+<code>distr_param(a,b)</code>, <code>n_elem</code>,
+<code>n_elem, distr_param(a,b)</code>, <code>n_rows, n_cols</code>,
+<code>n_rows, n_cols, distr_param(a,b)</code>,
+<code>n_rows, n_cols, n_slices</code>,
+<code>n_rows, n_cols, n_slices, distr_param(a,b)</code>,
+<code>size(X)</code>, or <code>size(X), distr_param(a,b)</code>.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>// the scalar type can be: float, double, cx_float, or cx_double
+
+scalar_type s = randu&lt;scalar_type&gt;()
+scalar_type s = randu&lt;scalar_type&gt;(distr_param(a,b))
+
+vector_type v = randu&lt;vector_type&gt;(n_elem)
+vector_type v = randu&lt;vector_type&gt;(n_elem, distr_param(a,b))
+
+matrix_type X = randu&lt;matrix_type&gt;(n_rows, n_cols)
+matrix_type X = randu&lt;matrix_type&gt;(n_rows, n_cols, distr_param(a,b))
+
+cube_type Q = randu&lt;cube_type&gt;(n_rows, n_cols, n_slices)
+cube_type Q = randu&lt;cube_type&gt;(n_rows, n_cols, n_slices, distr_param(a,b))</code></pre>
+<div id="examples-7" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; randu3_(const int&amp; n) {
+  double a = randu();
+  double b = randu(distr_param(10, 20));
+
+  vec v1 = randu(n);  // or vec v1(n, fill::randu);
+  vec v2 = randu(n, distr_param(10, 20));
+
+  rowvec r1 = randu&lt;rowvec&gt;(n);
+  rowvec r2 = randu&lt;rowvec&gt;(n, distr_param(10, 20));
+
+  mat A1 = randu(n, n);  // or mat A1(n, n, fill::randu);
+  mat A2 = randu(n, n, distr_param(10, 20));
+
+  fmat B1 = randu&lt;fmat&gt;(n, n);
+  fmat B2 = randu&lt;fmat&gt;(n, n, distr_param(10, 20));
+
+  mat res = diagmat(v1) + diagmat(v2) + diagmat(r1) + diagmat(r2) + A1 + A2 +
+    B1 + B2;
+
+  res.each_col([a](vec&amp; x) { x += a; });
+  res.each_row([b](rowvec&amp; y) { y /= b; });
+
+  return as_doubles_matrix(res);
+}</code></pre>
+</div>
+<div id="caveat-3" class="section level2">
+<h2>Caveat</h2>
+<p>To generate a matrix with random integer values instead of floating
+point values, use <code>randi()</code> instead.</p>
+</div>
+</div>
+<div id="randn" class="section level1">
+<h1>Generate object with random values from a normal/gaussian
+distribution</h1>
+<p>The <code>randn()</code> function generates a vector, matrix or cube
+with the elements set to random floating point values normally
+distributed with mean <code>0</code> and standard deviation
+<code>1</code>. The arguments can be
+<code>n_elem, distr_param(mean, stddev)</code>, <code>n_elem</code>,
+<code>n_elem, distr_param(mean, stddev)</code>,
+<code>n_rows, n_cols</code>,
+<code>n_rows, n_cols, distr_param(mean, stddev)</code>,
+<code>n_rows, n_cols, n_slices</code>,
+<code>n_rows, n_cols, n_slices, distr_param(mean, stddev)</code>,
+<code>size(X)</code>, or
+<code>size(X), distr_param(mean, stddev)</code>.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>// the scalar type can be: float, double, cx_float, or cx_double
+
+scalar_type s = randn&lt;scalar_type&gt;()
+scalar_type s = randn&lt;scalar_type&gt;(distr_param(mean, stddev))
+
+vector_type v = randn&lt;vector_type&gt;(n_elem)
+vector_type v = randn&lt;vector_type&gt;(n_elem, distr_param(mean, stddev))
+
+matrix_type X = randn&lt;matrix_type&gt;(n_rows, n_cols)
+matrix_type X = randn&lt;matrix_type&gt;(n_rows, n_cols, distr_param(mean, stddev))
+
+cube_type Q = randn&lt;cube_type&gt;(n_rows, n_cols, n_slices)
+cube_type Q = randn&lt;cube_type&gt;(n_rows, n_cols, n_slices, distr_param(mean, stddev))</code></pre>
+<div id="examples-8" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; randn3_(const int&amp; n) {
+  vec v1 = randn(n);  // or vec v1(n, fill::randn);
+  vec v2 = randn(n, distr_param(10, 20));
+
+  rowvec r1 = randn&lt;rowvec&gt;(n);
+  rowvec r2 = randn&lt;rowvec&gt;(n, distr_param(10, 20));
+
+  mat A1 = randn(n, n);  // or mat A1(n, n, fill::randn);
+  mat A2 = randn(n, n, distr_param(10, 20));
+
+  fmat B1 = randn&lt;fmat&gt;(n, n);
+  fmat B2 = randn&lt;fmat&gt;(n, n, distr_param(10, 20));
+
+  mat res = diagmat(v1) + diagmat(v2) + diagmat(r1) + diagmat(r2) + A1 + A2 +
+    B1 + B2;
+
+  return as_doubles_matrix(res);
+}</code></pre>
+</div>
+</div>
+<div id="randg" class="section level1">
+<h1>Generate object with random values from a gamma distribution</h1>
+<p>The <code>randg()</code> function generates a vector, matrix or cube
+with the elements set to random floating point values gamma distributed
+with shape <code>a</code> and scale <code>b</code>. The arguments can be
+<code>distr_param(a, b)</code>, <code>n_elem</code>,
+<code>n_elem, distr_param(a, b)</code>, <code>n_rows, n_cols</code>,
+<code>n_rows, n_cols, distr_param(a, b)</code>,
+<code>n_rows, n_cols, n_slices</code>,
+<code>n_rows, n_cols, n_slices, distr_param(a, b)</code>,
+<code>size(X)</code>, or <code>size(X), distr_param(a, b)</code>.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>// the scalar type can be: float, double, cx_float, or cx_double
+
+scalar_type s = randg&lt;scalar_type&gt;()
+scalar_type s = randg&lt;scalar_type&gt;(distr_param(a, b))
+
+vector_type v = randg&lt;vector_type&gt;(n_elem)
+vector_type v = randg&lt;vector_type&gt;(n_elem, distr_param(a, b))
+
+matrix_type X = randg&lt;matrix_type&gt;(n_rows, n_cols)
+matrix_type X = randg&lt;matrix_type&gt;(n_rows, n_cols, distr_param(a, b))
+
+cube_type Q = randg&lt;cube_type&gt;(n_rows, n_cols, n_slices)
+cube_type Q = randg&lt;cube_type&gt;(n_rows, n_cols, n_slices, distr_param(a, b))</code></pre>
+<div id="examples-9" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; randg3_(const int&amp; n) {
+  int a = randi();
+  int b = randi(distr_param(-10, +20));
+
+  imat A1 = randi(n, n);
+  imat A2 = randi(n, n, distr_param(-10, +20));
+
+  mat B1 = randi&lt;mat&gt;(n, n);
+  mat B2 = randi&lt;mat&gt;(n, n, distr_param(-10, +20));
+
+  mat res = A1 + A2 + B1 + B2;
+
+  res.each_col([a](vec&amp; x) { x *= a; });
+  res.each_row([b](rowvec&amp; y) { y -= b; });
+
+  return as_doubles_matrix(res);
+}</code></pre>
+</div>
+</div>
+<div id="randi" class="section level1">
+<h1>Generate object with random integer values in specified
+interval</h1>
+<p>The <code>randi()</code> function generates a vector, matrix or cube
+with the elements set to random integer values uniformly distributed in
+the <code>[a,b]</code> interval. The arguments can be
+<code>distr_param(a, b)</code>, <code>n_elem</code>,
+<code>n_elem, distr_param(a, b)</code>, <code>n_rows, n_cols</code>,
+<code>n_rows, n_cols, distr_param(a, b)</code>,
+<code>n_rows, n_cols, n_slices</code>,
+<code>n_rows, n_cols, n_slices, distr_param(a, b)</code>,
+<code>size(X)</code>, or <code>size(X), distr_param(a, b)</code>. The
+default values are <code>a = 0</code> and
+<code>b = maximum_int</code>.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>scalar_type s = randi&lt;scalar_type&gt;()
+scalar_type s = randi&lt;scalar_type&gt;(distr_param(a, b))
+
+vector_type v = randi&lt;vector_type&gt;(n_elem)
+vector_type v = randi&lt;vector_type&gt;(n_elem, distr_param(a, b))
+
+matrix_type X = randi&lt;matrix_type&gt;(n_rows, n_cols)
+matrix_type X = randi&lt;matrix_type&gt;(n_rows, n_cols, distr_param(a, b))
+
+cube_type Q = randi&lt;cube_type&gt;(n_rows, n_cols, n_slices)
+cube_type Q = randi&lt;cube_type&gt;(n_rows, n_cols, n_slices, distr_param(a, b))</code></pre>
+<div id="examples-10" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] integers_matrix&lt;&gt; randi3_(const int&amp; n) {
+  uvec v1 = randi(n);  // or uvec v1(n, fill::randi);
+  uvec v2 = randi(n, distr_param(10, 20));
+
+  umat A1 = randi(n, n);  // or umat A1(n, n, fill::randi);
+  umat A2 = randi(n, n, distr_param(10, 20));
+
+  icube Q1 = randi(icube(n, n, n + 1));  // or icube Q1(n, n, n + 1, fill::randi);
+  icube Q2 = randi(icube(n, n, n + 1), distr_param(10, 20));
+
+  mat res = diagmat(conv_to&lt;vec&gt;::from(v1)) + diagmat(conv_to&lt;vec&gt;::from(v2)) +
+    A1 + A2 + Q1.slice(0) + Q2.slice(0);
+
+  return as_integers_matrix(res);
+}</code></pre>
+</div>
+<div id="caveat-4" class="section level2">
+<h2>Caveat</h2>
+<p>To generate a matrix with random floating point values (e.g., float
+or double) instead of integers, use <code>randu()</code> instead.</p>
+</div>
+</div>
+<div id="speye" class="section level1">
+<h1>Generate sparse identity matrix</h1>
+<p>The <code>speye()</code> function generates a sparse matrix of size
+<code>n x n</code> with the elements on the diagonal set to
+<code>1</code> and the remaining elements set to <code>0</code>. The
+argument can be <code>n_rows, n_cols</code> or <code>size(X)</code>. An
+identity matrix is generated when <code>n_rows = n_cols</code>.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>sparse_matrix_type X = speye(n_rows, n_cols)
+sparse_matrix_type X = speye&lt;sparse_matrix_type&gt;(size(X))</code></pre>
+<div id="examples-11" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; speye1_(const int&amp; n) {
+  sp_mat A = speye&lt;sp_mat&gt;(n, n);
+  mat B = mat(A);
+  return as_doubles_matrix(B);
+}</code></pre>
+</div>
+</div>
+<div id="spones" class="section level1">
+<h1>Generate sparse matrix with non-zero elements set to one</h1>
+<p>The <code>spones(X)</code> function generates a sparse matrix with
+the same size as <code>X</code> and all the non-zero elements set to
+<code>1</code>.</p>
+<div id="examples-12" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; spones1_(const int&amp; n) {
+  sp_mat A = sprandu&lt;sp_mat&gt;(n, n, 0.1);
+  sp_mat B = spones(A);
+  mat C = mat(B);
+  return as_doubles_matrix(C);
+}</code></pre>
+</div>
+</div>
+<div id="sprandu" class="section level1">
+<h1>Generate sparse matrix with non-zero elements set to random values
+from a uniform distribution</h1>
+<p>The <code>sprandu()</code> function generates a sparse matrix of size
+<code>n_rows x n_cols</code> with random floating point values uniformly
+distributed in the <code>[0,1]</code> interval. The arguments can be
+<code>n_rows, n_cols, density</code> or
+<code>size(X), density</code>.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>sparse_matrix_type X = sprandu&lt;sparse_matrix_type&gt;(n_rows, n_cols, density)
+sparse_matrix_type X = sprandu&lt;sparse_matrix_type&gt;(size(X), density)</code></pre>
+<div id="examples-13" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; sprandu1_(const int&amp; n) {
+  sp_mat A = sprandu&lt;sp_mat&gt;(n, n, 0.05);
+  mat B = mat(A);
+  return as_doubles_matrix(B);
+}</code></pre>
+</div>
+</div>
+<div id="sprandn" class="section level1">
+<h1>Generate sparse matrix with non-zero elements set to random values
+from a normal/gaussian distribution</h1>
+<p>The <code>sprandn()</code> function generates a sparse matrix of size
+<code>n_rows x n_cols</code> with random floating point values normally
+distributed with mean <code>0</code> and standard deviation
+<code>1</code>. The arguments can be
+<code>n_rows, n_cols, density</code> or
+<code>size(X), density</code>.</p>
+<p>The usage is:</p>
+<pre class="cpp"><code>sparse_matrix_type X = sprandn&lt;sparse_matrix_type&gt;(n_rows, n_cols, density)
+sparse_matrix_type X = sprandn&lt;sparse_matrix_type&gt;(size(X), density)</code></pre>
+<div id="examples-14" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; sprandn1_(const int&amp; n) {
+  sp_mat A = sprandn&lt;sp_mat&gt;(n, n, 0.05);
+  mat B = mat(A);
+  return as_doubles_matrix(B);
+}</code></pre>
+</div>
+</div>
+<div id="toeplitz" class="section level1">
+<h1>Generate Toeplitz matrix</h1>
+<p>The <code>toeplitz()</code> function generates a toeplitz matrix. The
+arguments can be <code>a</code> or <code>a, b</code>, where
+<code>a</code> is a vector that determines the first column and
+<code>b</code> is an optional vector that determines the first row.</p>
+<p>Alternatively, <code>circ_toeplitz()</code> generates a circulant
+toeplitz matrix.</p>
+<div id="examples-15" class="section level2">
+<h2>Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; toeplitz1_() {
+  vec a = linspace(1, 5, 5);
+  vec b = linspace(1, 5, 5);
+
+  mat A = toeplitz(a, b);
+  mat B = circ_toeplitz(a);
+
+  return as_doubles_matrix(A + B);
+}</code></pre>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script></div>
+        <footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
+</div>
+</div>
+</body></html>
+

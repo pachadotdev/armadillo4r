@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>unvendor • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sparse matrices • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)'], ['$', '$']],
@@ -68,56 +68,77 @@
 <div id="content">
 <div class="content-wrapper">
         <div class="content-main">
-
-<table style="width: 100%;"><tr><td>unvendor {armadillo4r}</td><td style="text-align: right;">R Documentation</td></tr></table><h2>Unvendor the armadillo4r headers</h2>
-
-<h3>Description</h3>
-
-<p>This function removes the vendored armadillo4r headers from your package by
-automatically finding the vendored headers.
-</p>
+          <h1>Sparse matrices</h1>
+<script src="libs/header-attrs-2.30/header-attrs.js"></script><h1 class="title toc-ignore">Sparse matrices</h1>
 
 
-<h3>Usage</h3>
 
-<pre><code class="language-R">unvendor(path = NULL)
-</code></pre>
+<div id="limited-support" class="section level1">
+<h1>Limited support</h1>
+<p><code>armadillo4r</code>, as of v0.5.0, supports the
+<code>dgCMatrix</code> class from the <code>Matrix</code> package. This
+class is a sparse matrix class that stores the matrix in a compressed
+column format.</p>
+<p>The strategy for an efficient conversion from R to C++ and vice versa
+is to create an indexing of the non-zero elements of the input matrix
+and then use this indexing to create <code>dgCMatrix</code> (R) or
+<code>SpMat</code> (Armadillo/C++) object.</p>
+<p>Note that <code>cpp4r</code> does not provide sparse matrices as it
+is the case for the dense data types <code>doubles_matrix&lt;&gt;</code>
+or <code>integers_matrix&lt;&gt;</code>. <code>armadillo4r</code> uses
+<code>SEXP</code> to provide a method to convert <code>dgCMatrix</code>
+objects to <code>SpMat</code> objects and vice versa using some
+properties of S4 objects.</p>
+<p>Here is an example of how to convert a <code>dgCMatrix</code> object
+to a <code>SpMat</code> object and re-import it to R:</p>
+<pre class="cpp"><code>[[cpp4r::register]] SEXP sum_matrices_(SEXP x) {
+``````cpp
+  // Convert from dgCMatrix to SpMat
+``````cpp
+  SpMat&lt;double&gt; A = as_SpMat(x);
+``````cpp
 
+``````cpp
+  // Create a matrix B with a diagonal of random numbers
+``````cpp
+  SpMat&lt;double&gt; B(A.n_rows, A.n_cols);
+``````cpp
+  for (uword i = 0; i &lt; A.n_rows; ++i) {
+``````cpp
+    B(i, i) = randu&lt;double&gt;();
+``````cpp
+  }
+``````cpp
 
-<h3>Arguments</h3>
+``````cpp
+  A += B; // Add the two matrices
+``````cpp
 
-<table role="presentation"><tr><td><code id="path">path</code></td>
-<td>
-The directory with the vendored headers. It is recommended to use '"./src/vendor"'.
-The default is 'NULL'.
-</td></tr></table><h3>Value</h3>
-
-<p>The path to the unvendored code (invisibly).
-</p>
-
-
-<h3>Examples</h3>
-
-<pre><code class="language-R"># create a new directory
-dir &lt;- paste0(tempdir(), "/", gsub("\\s+|[[:punct:]]", "", Sys.time()))
-dir.create(dir, recursive = TRUE)
-
-# vendor the armadillo4r headers into the directory
-vendor(dir)
-
-# unvendor the armadillo4r headers from the directory
-unvendor(dir)
-
-# cleanup
-unlink(dir, recursive = TRUE)
-</code></pre>
-
-
+``````cpp
+  // Convert back to dgCMatrix and return
+``````cpp
+  return as_dgCMatrix(A);
+``````cpp
+}</code></pre>
 </div>
-        </div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script></div>
         <footer><p id="last-updated">Loading...</p>
 </footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
 </div>
-
+</div>
 </body></html>
 

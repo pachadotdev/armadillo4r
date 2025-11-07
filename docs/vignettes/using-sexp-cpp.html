@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>unvendor • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Using SEXP and cpp conversions • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)'], ['$', '$']],
@@ -68,56 +68,70 @@
 <div id="content">
 <div class="content-wrapper">
         <div class="content-main">
-
-<table style="width: 100%;"><tr><td>unvendor {armadillo4r}</td><td style="text-align: right;">R Documentation</td></tr></table><h2>Unvendor the armadillo4r headers</h2>
-
-<h3>Description</h3>
-
-<p>This function removes the vendored armadillo4r headers from your package by
-automatically finding the vendored headers.
-</p>
+          <h1>Using SEXP and cpp conversions</h1>
+<script src="libs/header-attrs-2.30/header-attrs.js"></script><h1 class="title toc-ignore">Using SEXP and cpp conversions</h1>
 
 
-<h3>Usage</h3>
 
-<pre><code class="language-R">unvendor(path = NULL)
-</code></pre>
+<p><code>as_sexp()</code> allows to pass objects from Armadillo to R
+while <code>as_cpp&lt;&gt;</code> allows to pass objects from R to
+Armadillo. <code>as_sexp()</code> allows to convert <code>mat</code> to
+<code>doubles_matrix&lt;&gt;</code> and <code>imat</code> to
+<code>integers_matrix&lt;&gt;</code>. <code>as_cpp&lt;&gt;</code> allows
+to convert <code>doubles_matrix&lt;&gt;</code> to <code>mat</code> and
+<code>integers_matrix&lt;&gt;</code> to <code>mat</code>.</p>
+<p>The following functions illustrate this:</p>
+<pre class="cpp"><code>[[cpp4r::register]] SEXP implicit_conversion_double(SEXP x) {
+  mat y = as_cpp&lt;mat&gt;(x);
+  return as_sexp(y);
+}
+
+[[cpp4r::register]] SEXP implicit_conversion_int(SEXP x) {
+  imat y = as_cpp&lt;imat&gt;(x);
+  return as_sexp(y);
+}</code></pre>
+<p>Both of these would work if we pass a matrix <span class="math inline">\(M\)</span> defined in any of the following
+ways:</p>
+<pre class="r"><code>M &lt;- matrix(1:4, nrow = 4, ncol = 4)
+storage.mode(M)
+# &gt; [1] "integer"
+
+implicit_conversion_double(M)
+
+storage.mode(M) &lt;- "double"
+implicit_conversion_int(M)</code></pre>
+<p>It is similar for other Armadillo types, such as <code>fmat</code>,
+<code>imat</code> and <code>umat</code> with both <code>as_sexp()</code>
+and <code>as_cpp&lt;&gt;</code>.</p>
+<p>Besides <code>SEXP</code> conversions, <code>armadillo4r</code>
+enforces strict types when using <code>doubles_matrix&lt;&gt;</code> and
+<code>integers_matrix&lt;&gt;</code>. For example, the following
+function would only work if we pass a matrix of doubles to it:</p>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; strict_conversion_double(doubles_matrix&lt;&gt; x) {
+  mat y = as_mat(x);
+  return as_doubles_matrix(y);
+}</code></pre>
+<p>Otherwise, when passing a matrix of integers to it, we would get an
+error:</p>
+<pre class="r"><code>Error: Invalid input type, expected 'double' actual 'integer'</code></pre>
 
 
-<h3>Arguments</h3>
 
-<table role="presentation"><tr><td><code id="path">path</code></td>
-<td>
-The directory with the vendored headers. It is recommended to use '"./src/vendor"'.
-The default is 'NULL'.
-</td></tr></table><h3>Value</h3>
-
-<p>The path to the unvendored code (invisibly).
-</p>
+<!-- code folding -->
 
 
-<h3>Examples</h3>
-
-<pre><code class="language-R"># create a new directory
-dir &lt;- paste0(tempdir(), "/", gsub("\\s+|[[:punct:]]", "", Sys.time()))
-dir.create(dir, recursive = TRUE)
-
-# vendor the armadillo4r headers into the directory
-vendor(dir)
-
-# unvendor the armadillo4r headers from the directory
-unvendor(dir)
-
-# cleanup
-unlink(dir, recursive = TRUE)
-</code></pre>
-
-
-</div>
-        </div>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script></div>
         <footer><p id="last-updated">Loading...</p>
 </footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
 </div>
-
+</div>
 </body></html>
 

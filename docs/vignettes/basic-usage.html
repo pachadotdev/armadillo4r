@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Basic 'armadillo4r' usage • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>Functions</label>
+    <a href="../reference/pkg_template.html">pkg_template</a>
+    <a href="../reference/unvendor.html">unvendor</a>
+    <a href="../reference/vendor.html">vendor</a>
+    <a href="../reference/armadillo_version.html">armadillo_version</a>
+  </div>
+
+  <div class="submenu">
+    <label>Vignettes</label>
+    <a href="../vignettes/basic-usage.html">Basic 'armadillo4r' usage</a>
+    <a href="../vignettes/configuration.html">Armadillo configuration</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-dense.html">Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
+    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-sparse.html">Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
+    <a href="../vignettes/functions-of-vector-matrices-cubes.html">Functions of vectors, matrices, and cubes</a>
+    <a href="../vignettes/generated-vectors-matrices-cubes.html">Generated vectors, matrices, and cubes</a>
+    <a href="../vignettes/linear-model.html">Fitting regressions with Armadillo</a>
+    <a href="../vignettes/matrix-vector-cube-and-field-classes.html">Matrix, vector, cube and field classes</a>
+    <a href="../vignettes/member-functions-and-variables.html">Member functions and variables</a>
+    <a href="../vignettes/miscellaneous.html">Miscellaneous</a>
+    <a href="../vignettes/save-load.html">Saving and loading Armadillo objects on C++ side</a>
+    <a href="../vignettes/signal-and-image-processing.html">Signal and image processing</a>
+    <a href="../vignettes/sparse-matrices.html">Sparse matrices</a>
+    <a href="../vignettes/statistics-and-clustering.html">Statistics and clustering</a>
+    <a href="../vignettes/syntax-comparison-for-matlab-users.html">Syntax comparison for MATLAB/Octave users</a>
+    <a href="../vignettes/using-sexp-cpp.html">Using SEXP and cpp conversions</a>
+  </div>
+
+  <div class="submenu">
+    <label>News</label>
+    <a href="../news/index.html">Changelog</a>
+  </div>
+</div>
+<div id="content">
+<div class="content-wrapper">
+        <div class="content-main">
+          <h1>Basic 'armadillo4r' usage</h1>
+<script src="libs/header-attrs-2.30/header-attrs.js"></script><h1 class="title toc-ignore">Basic ‘armadillo4r’ usage</h1>
+
+
+
+<div id="ordinary-least-squares" class="section level1">
+<h1>Ordinary Least Squares</h1>
+<p>The Ordinary Least Squares (OLS) estimator is <span class="math inline">\(\hat{\beta} = (X^tX)^{-1}(X^tY)\)</span> for a
+design matrix <span class="math inline">\(X\)</span> and an outcome
+vector <span class="math inline">\(Y\)</span> <span class="citation">(Hansen 2022)</span>.</p>
+<p>The following code shows how to compute the OLS estimator using
+Armadillo and sending data from R to C++ and viceversa using
+<code>cpp4r</code> and <code>armadillo4r</code> <span class="citation">(Sanderson and Curtin 2016)</span>:</p>
+<pre class="cpp"><code>#include &lt;cpp4r.hpp&gt;
+#include &lt;armadillo4r.hpp&gt;
+
+using namespace arma;
+using namespace cpp4r;
+
+[[cpp4r::register]] doubles_matrix&lt;&gt; ols_mat_(const doubles_matrix&lt;&gt;&amp; x) {
+  // Convert from R to C++
+  Mat&lt;double&gt; Y = as_Mat(y);  // Col&lt;double&gt; Y = as_Col(y); also works
+  Mat&lt;double&gt; X = as_Mat(x);
+
+  // Armadillo operations
+  Mat&lt;double&gt; XtX = X.t() * X;             // X'X
+  Mat&lt;double&gt; XtX_inv = inv(XtX);          // (X'X)^(-1)
+  Mat&lt;double&gt; beta = XtX_inv * X.t() * Y;  // (X'X)^(-1)(X'Y)
+
+  // Convert from C++ to R
+  return as_doubles_matrix(beta);
+}</code></pre>
+<p>The previous code includes the <code>cpp4r</code> and
+<code>armadillo4r</code> libraries (armadillo4r calls Armadillo) to
+allow interfacing C++ with R. It also loads the corresponding namespaces
+in order to simplify the notation (i.e., using <code>Mat</code> instead
+of <code>arma::Mat</code>), and the function <code>as_Mat()</code> and
+<code>as_doubles_mat()</code> are provided by <code>armadillo4r</code>
+to pass a <code>matrix</code> object from R to C++ and that Armadillo
+can read and then pass it back to R.</p>
+<p>The use of <code>const</code> and <code>&amp;</code> are specific to
+the C++ language and allow to pass data from R to C++ without copying
+the data, and therefore saving time and memory.</p>
+<p><code>armadillo4r</code> provides flexibility and in the case of the
+resulting vector of OLS coefficients, it can be returned as a matrix or
+a vector. The following code shows how to create three functions to
+compute the OLS estimator and return the result as a matrix or a vector
+avoiding repeated code:</p>
+<pre class="cpp"><code>Mat&lt;double&gt; ols_(const doubles_matrix&lt;&gt;&amp; y, const doubles_matrix&lt;&gt;&amp; x) {
+  Mat&lt;double&gt; Y = as_Mat(y);  // Col&lt;double&gt; Y = as_Col(y); also works
+  Mat&lt;double&gt; X = as_Mat(x);
+
+  Mat&lt;double&gt; XtX = X.t() * X;             // X'X
+  Mat&lt;double&gt; XtX_inv = inv(XtX);          // (X'X)^(-1)
+  Mat&lt;double&gt; beta = XtX_inv * X.t() * Y;  // (X'X)^(-1)(X'Y)
+
+  return beta;
+}
+
+[[cpp4r::register]] doubles_matrix&lt;&gt; ols_mat_(const doubles_matrix&lt;&gt;&amp; y,
+                                              const doubles_matrix&lt;&gt;&amp; x) {
+  Mat&lt;double&gt; beta = ols_(y, x);
+  return as_doubles_matrix(beta);
+}
+
+[[cpp4r::register]] doubles ols_dbl_(const doubles_matrix&lt;&gt;&amp; y,
+                                     const doubles_matrix&lt;&gt;&amp; x) {
+  Mat&lt;double&gt; beta = ols_(y, x);
+  return as_doubles(beta);
+}</code></pre>
+<p>In the previous code, the <code>ols_mat_()</code> function receives
+inputs from R and calls <code>ols_()</code> to do the computation on C++
+side, and <code>ols_dbl_()</code> does the same but it returns a vector
+instead of a matrix.</p>
+</div>
+<div id="additional-examples" class="section level1">
+<h1>Additional Examples</h1>
+<p>The package repository includes the directory
+<code>armadillo4rtest</code>, which contains an R package that uses
+Armadillo, and that provides additional examples for eigenvalues,
+Cholesky and QR decomposition, and linear models.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Hansen2022" class="csl-entry">
+Hansen, Bruce. 2022. <em>Econometrics</em>. Princeton University Press.
+</div>
+<div id="ref-Sanderson2016" class="csl-entry">
+Sanderson, Conrad, and Ryan Curtin. 2016. <span>“Armadillo: A
+Template-Based c++ Library for Linear Algebra.”</span> <em>Journal of
+Open Source Software</em> 1 (2): 26. <a href="https://doi.org/10.21105/joss.00026">https://doi.org/10.21105/joss.00026</a>.
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script></div>
+        <footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
+</div>
+</div>
+</body></html>
+
