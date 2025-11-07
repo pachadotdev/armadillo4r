@@ -1,5 +1,0 @@
-template:
-  bootstrap: 5
-
-url: ../armadillo4r/
-destination: docs

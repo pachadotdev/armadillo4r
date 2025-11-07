@@ -23,3 +23,5 @@ inst/paper
 ^softwarex-article$
 ^vignettes$
 ^badges$
+^scripts$
+^check-results\.md$

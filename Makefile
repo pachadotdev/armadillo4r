@@ -1,24 +1,30 @@
 clean:
-	@Rscript -e 'devtools::clean_dll()'
-	@Rscript -e 'devtools::clean_dll("armadillo4rtest")'
-
-test:
-	@echo "Testing R code"
-	@Rscript -e 'devtools::document(); devtools::test(); devtools::install()'
-	@echo "Testing C++ code"
-	@Rscript -e 'devtools::clean_dll("armadillo4rtest"); devtools::load_all("armadillo4rtest"); devtools::test("armadillo4rtest")'
-
-check:
-	@echo "Local"
-	@Rscript -e 'devtools::document(); devtools::install()'
-	@Rscript -e 'devtools::check(); cpp4r::register("armadillo4rtest"); devtools::check("armadillo4rtest")'
-
-site:
-	@Rscript -e 'devtools::document()'
-	@Rscript -e 'pkgdown::build_site()'
+	@Rscript -e 'devtools::clean_dll("armadillo4rtest"); cpp4r::register("armadillo4rtest")'
 
 install:
-	@Rscript -e 'devtools::install()'
+	@Rscript -e 'devtools::clean_dll("armadillo4rtest"); devtools::install()'
+
+docs:
+	@Rscript -e 'devtools::document(); pkgsite::build_site()'
+
+test:
+	@clear
+	@echo "==============================="
+	@echo "Testing R code"
+	@Rscript -e 'devtools::document(); devtools::test(); devtools::install()'
+	@echo "==============================="
+	@/bin/bash -euo pipefail -c './scripts/test_loop.sh'
+
+check:
+	@clear
+	@echo "==============================="
+	@echo "Checking R code"
+	@Rscript -e 'devtools::install(); devtools::check(error_on = "error")'
+	@clear
+	@echo "==============================="
+	@echo "Checking C++ code"
+	@export -p USE_CLANG; /bin/bash -euo pipefail -c './scripts/check_loop.sh'
+	@echo "==============================="
 
 clang_format=`which clang-format-18`
 

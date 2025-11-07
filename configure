@@ -19,6 +19,34 @@ echo "cpp4r_INCLUDE_PATH: ${cpp4r_INCLUDE_PATH}"
 echo "INST_INCLUDE_PATH: ${INST_INCLUDE_PATH}"
 echo "PKG_CPPFLAGS: ${PKG_CPPFLAGS}"
 
+# Check C++ standard version
+echo "======================================"
+echo " Checking C++ Standard Version        "
+echo " "
+
+# Create a temporary C++ file to test C++14 support
+cat <<EOF> conftest_cxx14.cpp
+#if __cplusplus < 201402L
+#error "C++14 or newer is required"
+#endif
+int main() {
+  return 0;
+}
+EOF
+
+# Test C++14 support
+if ! PKG_CPPFLAGS="${PKG_CPPFLAGS}" "${R_HOME}/bin/R" CMD SHLIB conftest_cxx14.cpp 2>/dev/null
+then
+  echo "Error: C++14 or newer is required to build this package."
+  echo "Your current C++ compiler does not support C++14 or newer."
+  echo "Please update your compiler or ensure R is configured to use C++14 or newer."
+  rm -f conftest_cxx14.cpp conftest_cxx14.o conftest_cxx14.so
+  exit 1
+else
+  echo "C++ compiler supports C++14 or newer."
+  rm -f conftest_cxx14.cpp conftest_cxx14.o conftest_cxx14.so
+fi
+
 # Create a temporary C++ file to test the compatibility with Armadillo
 cat <<EOF> conftest.cpp
 #include <armadillo.hpp>
