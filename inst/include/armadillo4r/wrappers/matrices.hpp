@@ -72,7 +72,9 @@ inline TargetMatType as_target_mat(const integers_matrix<>& x) {
   typename TargetMatType::elem_type* dst = y.memptr();
 
 // Copy all entries in one flat loop (faster than y(i,j) indexing)
+#ifdef _OPENMP
 #pragma omp parallel for if (nm > 10000)
+#endif
   for (uword idx = 0; idx < nm; ++idx) {
     dst[idx] = static_cast<typename TargetMatType::elem_type>(src[idx]);
   }

@@ -46,7 +46,7 @@ vec poisson_fit(const Mat<double>& X, const Col<double>& Y) {
   vec betas, res;
   double rss2;
 
-  while (abs(dif) > tol) {
+  while (std::abs(dif) > tol) {
     W = MU;  // Weights are the current estimates of MU
     betas = ols_weighted_fit(X, Z, W);
     ETA = X * betas;

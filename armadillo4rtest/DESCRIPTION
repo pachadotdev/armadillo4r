@@ -21,7 +21,7 @@ Description: Testing armadillo4r. I run this within a tiny package to test
 License: Apache License (>= 2)
 BugReports: https://github.com/pachadotdev/armadillo4r/issues
 URL: https://github.com/pachadotdev/armadillo4r
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Encoding: UTF-8
 NeedsCompilation: yes
 VignetteBuilder: knitr

@@ -2651,7 +2651,7 @@
 
   writable::list res(2);
 
-  res[0] = writable::logicals({status});
+  res[0] = logicals({status});
   res[1] = as_doubles_matrix(means);
 
   return res;
@@ -2707,7 +2707,7 @@
 
   writable::list res(9);
 
-  res[0] = writable::logicals({status});
+  res[0] = logicals({status});
   res[1] = as_doubles_matrix(model.means);
   res[2] = as_doubles({scalar_likelihood});
   res[3] = as_doubles(set_likelihood.t());

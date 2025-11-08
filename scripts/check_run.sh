@@ -7,7 +7,7 @@ if [ -n "${USE_CLANG:-}" ]; then
 fi
 
 # Run the bench script (will exit on error)
-Rscript -e 'armadillo4r::register("armadillo4rtest")'
+Rscript -e 'cpp4r::register("armadillo4rtest")'
 Rscript -e 'devtools::document("armadillo4rtest")'
 PACKAGE="armadillo4rtest"
 LOG="${PACKAGE}-check.log"
