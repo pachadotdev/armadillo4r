@@ -1,42 +1,39 @@
-// Example 1: Traditional approach
+// Example 1: vec to doubles
 
 [[cpp4r::register]] doubles ols_traditional_(const doubles_matrix<>& x,
                                              const doubles& y) {
   mat X = as_Mat(x);
   vec Y = as_Col(y);
-
   vec result = ols_fit(X, Y);
   return as_doubles(result);
 }
 
-// Example 2: Simplified with as_doubles for return
+// Example 2: vec to doubles using as_sexp
 
 [[cpp4r::register]] doubles ols_simplified_(const doubles_matrix<>& x, const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
-
-  // vec result = ols_fit(X, Y);
-  // return as_doubles(result);
-
-  return as_doubles(ols_fit(X, Y));
+  return cpp4r::as_sexp(ols_fit(X, Y));
 }
+
+// Example 3: mat to doubles_matrix<> using as_sexp
 
 [[cpp4r::register]] doubles_matrix<> ols_simplified2_(const doubles_matrix<>& x,
                                                       const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
   mat result = ols_fit(X, Y);
-  doubles_matrix<> output = cpp4r::as_sexp(result);
-  return output;
+  return cpp4r::as_sexp(result);
 }
+
+// Example 4: vec to doubles using as_sexp
 
 [[cpp4r::register]] doubles ols_simplified3_(const doubles_matrix<>& x,
                                              const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
   vec result = ols_fit(X, Y);
-  doubles output = cpp4r::as_sexp(result);
-  return output;
+  return cpp4r::as_sexp(result);
 }
 
 // Example 3: Matrix operations
@@ -113,3 +110,33 @@ T element_wise_multiply(const T& A, const T& B) {
   mat C = element_wise_multiply(A, B);
   return cpp4r::as_sexp(C);
 }
+
+// Summary of cpp4r::as_sexp() behavior:
+//
+// INPUT TYPE           OUTPUT TYPE          NOTES
+// -----------          -----------          -----
+// arma::vec            doubles              Returns R vector
+// arma::mat            doubles_matrix<>     Returns R matrix
+// arma::ivec           integers             Returns R integer vector
+// arma::imat           integers_matrix<>    Returns R integer matrix
+// arma::uvec           integers             Returns R integer vector (converted)
+// arma::umat           integers_matrix<>    Returns R integer matrix (converted)
+// arma::rowvec         doubles_matrix<>     Returns R matrix (1 row x N cols)
+//
+// Key principle: The return type is determined by the INPUT Armadillo type,
+// not by the C++ function's return type declaration.
+//
+// To return a vector as a matrix:
+//   vec v = ...;
+//   mat m = v;  // Convert vec to mat (single column)
+//   return cpp4r::as_sexp(m);  // Returns doubles_matrix<>
+//
+// To return a single-column matrix as a vector:
+//   mat m = ...;  // Single column matrix
+//   vec v = m;    // Convert mat to vec
+//   return cpp4r::as_sexp(v);  // Returns doubles
+//
+// Alternative: Use explicit conversion functions
+//   return as_doubles(vec_or_mat);  // Always returns R vector
+//   return as_doubles_matrix(vec_or_mat);  // Always returns R matrix
+

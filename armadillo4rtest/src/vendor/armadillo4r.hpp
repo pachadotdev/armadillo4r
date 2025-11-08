@@ -34,9 +34,13 @@
 // - as_doubles_matrix(mat/fmat) -> doubles_matrix<>
 // - as_integers_matrix(imat/umat) -> integers_matrix<>
 // - as_complexes_matrix(cx_mat) -> complexes_matrix<>
-// - as_doubles(vec) -> doubles
-// - as_integers(ivec/uvec) -> integers
+// - as_doubles(vec) -> doubles (R vector, not matrix)
+// - as_integers(ivec/uvec) -> integers (R vector, not matrix)
 // - cpp4r::as_sexp() - generic conversion to SEXP
+//   * For vec/ivec/uvec/fvec -> returns R vector (doubles/integers)
+//   * For mat/imat/umat/fmat -> returns R matrix (doubles_matrix/integers_matrix)
+//   * For rowvec/irowvec/urowvec/frowvec -> returns R matrix (1xN)
+//   * For cx_mat/cx_vec -> use as_complexes_matrix() or as_complexes() explicitly
 
 #pragma once
 
@@ -337,24 +341,24 @@ inline SEXP as_sexp(const arma::umat& x) {
 
 template <>
 inline SEXP as_sexp(const arma::vec& x) {
-  return ::as_doubles_matrix(x);
+  return ::as_doubles(x);
 }
 
 template <>
 inline SEXP as_sexp(const arma::ivec& x) {
-  return ::as_integers_matrix(x);
+  return ::as_integers(x);
 }
 
 template <>
 inline SEXP as_sexp(const arma::uvec& x) {
   arma::Col<int> temp = arma::conv_to<arma::Col<int>>::from(x);
-  return ::as_integers_matrix(temp);
+  return ::as_integers(temp);
 }
 
 template <>
 inline SEXP as_sexp(const arma::fvec& x) {
   arma::vec temp = arma::conv_to<arma::vec>::from(x);
-  return ::as_doubles_matrix(temp);
+  return ::as_doubles(temp);
 }
 
 template <>
