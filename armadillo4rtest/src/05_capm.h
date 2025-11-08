@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 [[cpp4r::register]] doubles_matrix<> capm(const doubles_matrix<>& r,
                                           const doubles_matrix<>& m, double f) {
   Mat<double> R = as_Mat(r);

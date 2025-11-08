@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 [[cpp4r::register]] doubles_matrix<> chol_mat(const doubles_matrix<>& x,
                                               std::string type) {
   Mat<double> X = as_Mat(x);

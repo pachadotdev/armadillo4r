@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 [[cpp4r::register]] doubles_matrix<> matrix1_(const doubles_matrix<>& a) {
   mat A = as_Mat(a);  // convert from R to C++
 
@@ -2921,7 +2919,7 @@
 
   writable::list out(2);
   bool ok = chol(R, P, Y, layout, output);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(R);
 
   return out;
@@ -2936,7 +2934,7 @@
   bool ok = eig_sym(eigval, eigvec, X, method);
 
   writable::list out(3);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles(eigval);
   out[2] = as_doubles_matrix(eigvec);
 
@@ -2952,7 +2950,7 @@
   bool ok = eig_gen(eigval, eigvec, X, balance);
 
   writable::list out(3);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_complexes(eigval);
   out[2] = as_complexes_matrix(eigvec);
 
@@ -2970,7 +2968,7 @@
   bool ok = eig_pair(eigval, eigvec, A, B);
 
   writable::list out(3);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_complexes(eigval);
   out[2] = as_complexes_matrix(eigvec);
 
@@ -2984,7 +2982,7 @@
   bool ok = hess(H, X);
 
   writable::list out(2);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(H);
 
   return out;
@@ -2997,7 +2995,7 @@
   bool ok = inv(B, A, inv_opts::allow_approx);
 
   writable::list out(2);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(B);
 
   return out;
@@ -3010,7 +3008,7 @@
   bool ok = inv_sympd(B, A, inv_opts::allow_approx);
 
   writable::list out(2);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(B);
 
   return out;
@@ -3024,7 +3022,7 @@
   bool ok = lu(L, U, P, X);
 
   writable::list out(4);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(L);
   out[2] = as_doubles_matrix(U);
   out[3] = as_doubles_matrix(P);
@@ -3042,7 +3040,7 @@
   bool ok = null(B, A);
 
   writable::list out(2);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(B);
 
   return out;
@@ -3055,7 +3053,7 @@
   bool ok = orth(B, A);
 
   writable::list out(2);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(B);
 
   return out;
@@ -3083,7 +3081,7 @@
 
   // writable::list out(4);
   writable::list out(3);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(Q);
   out[2] = as_doubles_matrix(R);
   // out[3] = as_integers_matrix(P);
@@ -3099,7 +3097,7 @@
   bool ok = qr_econ(Q, R, X);
 
   writable::list out(3);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(Q);
   out[2] = as_doubles_matrix(R);
 
@@ -3116,7 +3114,7 @@
   bool ok = qz(AA, BB, Q, Z, A, B, select);
 
   writable::list out(5);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(AA);
   out[2] = as_doubles_matrix(BB);
   out[3] = as_doubles_matrix(Q);
@@ -3133,7 +3131,7 @@
   bool ok = schur(U, S, X);
 
   writable::list out(3);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(U);
   out[2] = as_doubles_matrix(S);
 
@@ -3160,7 +3158,7 @@
   bool ok = svd(U, s, V, X);
 
   writable::list out(4);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles_matrix(U);
   out[2] = as_doubles(s);
   out[3] = as_doubles_matrix(V);
@@ -3211,7 +3209,7 @@
   bool ok = eigs_sym(eigval, eigvec, Y, k, method, opts);
 
   writable::list out(3);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles(eigval);
   out[2] = as_doubles_matrix(eigvec);
 
@@ -3231,7 +3229,7 @@
   bool ok = eigs_gen(eigval, eigvec, X, k, method, opts);
 
   writable::list out(3);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_complexes(eigval);
   out[2] = as_complexes_matrix(eigvec);
 
@@ -3251,7 +3249,7 @@
   bool ok = svds(U, s, V, X, k);
 
   writable::list out(4);
-  out[0] = writable::logicals({ok});
+  out[0] = logicals({ok});
   out[1] = as_doubles(s);
   out[2] = as_doubles_matrix(U);
   out[3] = as_doubles_matrix(V);

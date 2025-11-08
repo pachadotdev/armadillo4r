@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 [[cpp4r::register]] SEXP test_dgCMatrix_to_SpMat(SEXP x) {
   // Convert from dgCMatrix to SpMat
   SpMat<double> A = as_SpMat(x);

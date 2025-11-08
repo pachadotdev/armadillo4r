@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 [[cpp4r::register]] SEXP implicit_conversion_double(SEXP x) {
   arma::mat result = cpp4r::as_cpp<arma::mat>(x);
   return cpp4r::as_sexp(result);

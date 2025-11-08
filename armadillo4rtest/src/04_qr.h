@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 // The same example from the first script but using QR instead of directly
 // obtaining the inverse
 

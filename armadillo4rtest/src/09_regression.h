@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 vec ols_fit(const Mat<double>& X, const Col<double>& Y) {
   // QR decomposition
   mat Q, R;

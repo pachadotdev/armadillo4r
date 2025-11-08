@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 Mat<double> ols_(const doubles_matrix<>& y, const doubles_matrix<>& x) {
   Mat<double> Y = as_Mat(y);  // Col<double> Y = as_Col(y); also works
   Mat<double> X = as_Mat(x);

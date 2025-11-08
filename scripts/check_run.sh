@@ -6,6 +6,11 @@ if [ -n "${USE_CLANG:-}" ]; then
   export USE_CLANG
 fi
 
+# Accept std and compiler from positional args or environment; avoid unbound var with set -u
+# Priority: positional args > existing environment variables > safe defaults
+std="${1:-${std:-CXX14}}"
+compiler="${2:-${compiler:-gcc}}"
+
 # Run the bench script (will exit on error)
 Rscript -e 'cpp4r::register("armadillo4rtest")'
 Rscript -e 'devtools::document("armadillo4rtest")'

@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 // Symmetric case
 
 Mat<double> eigen_sym_(const doubles_matrix<>& x) {

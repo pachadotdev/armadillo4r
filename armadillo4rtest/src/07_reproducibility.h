@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 [[cpp4r::register]] integers_matrix<> random_matrix_nxn(const int& n) {
   GetRNGstate();  // Ensure R's RNG state is synchronized
   arma::Mat<int> y(n, n);

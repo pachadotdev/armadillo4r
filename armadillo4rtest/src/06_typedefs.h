@@ -1,5 +1,3 @@
-#include "00_main.h"
-
 // vec = colvec = Col<double>
 
 [[cpp4r::register]] doubles typedef_Col_double(const doubles& x) {

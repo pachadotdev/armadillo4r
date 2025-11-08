@@ -25,4 +25,4 @@ inst/paper
 ^badges$
 ^scripts$
 ^check-results\.md$
-^*\.log$
+^.*\.log$
