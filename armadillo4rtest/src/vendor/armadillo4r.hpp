@@ -1,20 +1,4 @@
-// IMPORTANT: Conversion function usage guidelines
-//
-// The conversion functions (as_Mat, as_Col, as_imat, etc.) create Armadillo
-// objects that may reference R's memory directly (no-copy for performance).
-//
-// RECOMMENDED PATTERN - Always assign to named variables:
-//
-//    [[cpp4r::register]] doubles ols_(const doubles_matrix<>& x, const doubles& y) {
-//      mat X = as_Mat(x);  // Assign to named variable
-//      vec Y = as_Col(y);  // Assign to named variable
-//      return cpp4r::as_sexp(ols_fit(X, Y));
-//    }
-//
-// AVOID - Passing conversion results directly as temporaries:
-//
-//    // DON'T DO THIS - may cause segfaults due to temporary lifetime issues
-//    return cpp4r::as_sexp(ols_fit(as_Mat(x), as_Col(y)));
+// Conversion function usage guidelines
 //
 // Available conversion functions (from armadillo4r/wrappers/):
 //
@@ -34,13 +18,12 @@
 // - as_doubles_matrix(mat/fmat) -> doubles_matrix<>
 // - as_integers_matrix(imat/umat) -> integers_matrix<>
 // - as_complexes_matrix(cx_mat) -> complexes_matrix<>
-// - as_doubles(vec) -> doubles (R vector, not matrix)
-// - as_integers(ivec/uvec) -> integers (R vector, not matrix)
+// - as_doubles(vec) -> doubles
+// - as_integers(ivec/uvec) -> integers
 // - cpp4r::as_sexp() - generic conversion to SEXP
-//   * For vec/ivec/uvec/fvec -> returns R vector (doubles/integers)
-//   * For mat/imat/umat/fmat -> returns R matrix (doubles_matrix/integers_matrix)
-//   * For rowvec/irowvec/urowvec/frowvec -> returns R matrix (1xN)
-//   * For cx_mat/cx_vec -> use as_complexes_matrix() or as_complexes() explicitly
+//   * vec/ivec/uvec/fvec -> doubles/integers
+//   * mat/imat/umat/fmat -> doubles_matrix<>/integers_matrix<>
+//   * rowvec/irowvec/urowvec/frowvec -> doubles_matrix<>/integers_matrix<>
 
 #pragma once
 

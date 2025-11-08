@@ -1139,6 +1139,16 @@ ols_simplified3_ <- function(x, y) {
 	.Call(`_armadillo4rtest_ols_simplified3_`, x, y)
 }
 
+ols_simplified4_ <- function(x, y) {
+	storage.mode(x) <- "double"
+	.Call(`_armadillo4rtest_ols_simplified4_`, x, y)
+}
+
+ols_simplified5_ <- function(x, y) {
+	storage.mode(x) <- "double"
+	.Call(`_armadillo4rtest_ols_simplified5_`, x, y)
+}
+
 matrix_add_ <- function(a, b) {
 	storage.mode(a) <- "double"
 	storage.mode(b) <- "double"
@@ -1158,14 +1168,4 @@ uvec_example_ <- function(x) {
 fmat_example_ <- function(x) {
 	storage.mode(x) <- "double"
 	.Call(`_armadillo4rtest_fmat_example_`, x)
-}
-
-complex_multiply_ <- function(a, b) {
-	.Call(`_armadillo4rtest_complex_multiply_`, a, b)
-}
-
-generic_multiply_ <- function(a, b) {
-	storage.mode(a) <- "double"
-	storage.mode(b) <- "double"
-	.Call(`_armadillo4rtest_generic_multiply_`, a, b)
 }

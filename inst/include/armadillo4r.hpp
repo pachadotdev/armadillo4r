@@ -1,20 +1,4 @@
-// IMPORTANT: Conversion function usage guidelines
-//
-// The conversion functions (as_Mat, as_Col, as_imat, etc.) create Armadillo
-// objects that may reference R's memory directly (no-copy for performance).
-//
-// RECOMMENDED PATTERN - Always assign to named variables:
-//
-//    [[cpp4r::register]] doubles ols_(const doubles_matrix<>& x, const doubles& y) {
-//      mat X = as_Mat(x);  // Assign to named variable
-//      vec Y = as_Col(y);  // Assign to named variable
-//      return cpp4r::as_sexp(ols_fit(X, Y));
-//    }
-//
-// AVOID - Passing conversion results directly as temporaries:
-//
-//    // DON'T DO THIS - may cause segfaults due to temporary lifetime issues
-//    return cpp4r::as_sexp(ols_fit(as_Mat(x), as_Col(y)));
+// Conversion function usage guidelines
 //
 // Available conversion functions (from armadillo4r/wrappers/):
 //
@@ -37,6 +21,9 @@
 // - as_doubles(vec) -> doubles
 // - as_integers(ivec/uvec) -> integers
 // - cpp4r::as_sexp() - generic conversion to SEXP
+//   * vec/ivec/uvec/fvec -> doubles/integers
+//   * mat/imat/umat/fmat -> doubles_matrix<>/integers_matrix<>
+//   * rowvec/irowvec/urowvec/frowvec -> doubles_matrix<>/integers_matrix<>
 
 #pragma once
 
@@ -337,24 +324,24 @@ inline SEXP as_sexp(const arma::umat& x) {
 
 template <>
 inline SEXP as_sexp(const arma::vec& x) {
-  return ::as_doubles_matrix(x);
+  return ::as_doubles(x);
 }
 
 template <>
 inline SEXP as_sexp(const arma::ivec& x) {
-  return ::as_integers_matrix(x);
+  return ::as_integers(x);
 }
 
 template <>
 inline SEXP as_sexp(const arma::uvec& x) {
   arma::Col<int> temp = arma::conv_to<arma::Col<int>>::from(x);
-  return ::as_integers_matrix(temp);
+  return ::as_integers(temp);
 }
 
 template <>
 inline SEXP as_sexp(const arma::fvec& x) {
   arma::vec temp = arma::conv_to<arma::vec>::from(x);
-  return ::as_doubles_matrix(temp);
+  return ::as_doubles(temp);
 }
 
 template <>
