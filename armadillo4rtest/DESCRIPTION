@@ -1,6 +1,6 @@
 Package: armadillo4rtest
 Type: Package
-Title: Testing armadillo4r
+Title: Testing 'armadillo4r'
 Version: 0.1
 Authors@R: c(
     person(
@@ -16,7 +16,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 Depends: R(>= 3.5.0)
-Description: Testing armadillo4r. I run this within a tiny package to test
+Description: Testing 'armadillo4r'. I run this within a tiny package to test
     the compiled code.
 License: Apache License (>= 2)
 BugReports: https://github.com/pachadotdev/armadillo4r/issues
@@ -25,6 +25,5 @@ RoxygenNote: 7.3.3
 Encoding: UTF-8
 NeedsCompilation: yes
 VignetteBuilder: knitr
-LinkingTo: cpp4r, armadillo4r
 Config/testthat/edition: 3
 LazyData: true

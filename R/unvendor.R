@@ -36,27 +36,32 @@ unvendor <- function(path = NULL) {
     return(invisible(NULL))
   }
 
-  # The info file is in the armadillo4r directory, so dirname gives us the armadillo4r directory
-  armadillo4r_dir <- dirname(info_file)
-  # The parent of the armadillo4r directory is where armadillo4r.hpp should be
-  parent_dir <- dirname(armadillo4r_dir)
+  # The info file is in the same level as armadillo4r
+  parent_dir <- dirname(info_file)
+  armadillo4r_dir <- file.path(parent_dir, "armadillo4r")
+  cpp4r_dir <- file.path(parent_dir, "cpp4r")
 
-  # Remove the armadillo4r directory
   unlink(armadillo4r_dir, recursive = TRUE)
+  unlink(cpp4r_dir, recursive = TRUE)
 
   # Remove armadillo4r.hpp from the parent directory
   armadillo4r_hpp_path <- file.path(parent_dir, "armadillo4r.hpp")
+  cpp4r_hpp_path <- file.path(parent_dir, "cpp4r.hpp")
+
   if (file.exists(armadillo4r_hpp_path)) {
     unlink(armadillo4r_hpp_path)
   }
 
-  # Use the parent directory from the first info file for the message
-  final_parent_dir <- dirname(dirname(info_file[1]))
-
-  if (is_interactive()) {
-    message("Unvendored armadillo4r from '", final_parent_dir, "'")
-    message("DESCRIPTION should link to cpp4r and armadillo4r (e.g., 'LinkingTo: cpp4r, armadillo4r')")
+  if (file.exists(cpp4r_hpp_path)) {
+    unlink(cpp4r_hpp_path)
   }
 
-  invisible(final_parent_dir)
+  if (is_interactive()) {
+    message("Unvendored cpp4r and armadillo4r from '", parent_dir, "'")
+    message("\nDESCRIPTION should link to cpp4r and armadillo4r (e.g., 'LinkingTo: cpp4r, armadillo4r')")
+  }
+
+  unlink(info_file)
+
+  invisible(TRUE)
 }

@@ -36,7 +36,7 @@ vendor <- function(path = NULL) {
 
   # Vendor cpp4r ----
 
-  cpp4r::vendor(path)
+  suppressMessages(cpp4r::vendor(path))
 
   # Vendor armadillo4r ----
 
@@ -69,7 +69,7 @@ vendor <- function(path = NULL) {
       armadillo4r_version,
       Sys.Date()
     ),
-    file.path(path2, "00-armadillo4r-vendoring-info.txt")
+    file.path(path, "00-armadillo4r-vendoring-info.txt")
   )
 
   file.copy(
@@ -88,14 +88,14 @@ vendor <- function(path = NULL) {
   )
 
   if (is_interactive()) {
-    message("Vendored armadillo4r to '", path, "'")
+    message("Vendored cpp4r and armadillo4r to '", path, "'")
 
     message(paste(
-      "Makevars.in and/or Makevars.win should have a line such as",
+      "\nMakevars.in and/or Makevars.win should have a line such as",
       "'PKG_CPPFLAGS = -I vendor/' (default) or 'PKG_CPPFLAGS = -I ../inst/include/'"
     ))
 
-    message("DESCRIPTION should not link to armadillo4r or armadillo4r (e.g., 'LinkingTo: armadillo4r, armadillo4r') or the build will ignore the vendored code")
+    message("\nDESCRIPTION should not link to armadillo4r or armadillo4r (e.g., 'LinkingTo: armadillo4r, armadillo4r') or the build will ignore the vendored code")
   }
 
   invisible(path)

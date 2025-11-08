@@ -4,9 +4,9 @@
 \name{armadillo4rtest-package}
 \alias{armadillo4rtest}
 \alias{armadillo4rtest-package}
-\title{armadillo4rtest: Testing armadillo4r}
+\title{armadillo4rtest: Testing 'armadillo4r'}
 \description{
-Testing armadillo4r. I run this within a tiny package to test the compiled code.
+Testing 'armadillo4r'. I run this within a tiny package to test the compiled code.
 }
 \seealso{
 Useful links:

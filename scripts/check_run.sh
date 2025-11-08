@@ -14,7 +14,7 @@ compiler="${2:-${compiler:-gcc}}"
 # Run the bench script (will exit on error)
 Rscript -e 'cpp4r::register("armadillo4rtest")'
 Rscript -e 'devtools::document("armadillo4rtest")'
-LOG="devtools-check-${std}-${compiler}.log"
+LOG="check-${std}-${compiler}.log"
 
 # Build package tarball first (devtools::build returns path)
 TARBALL=$(Rscript -e 'cat(devtools::build("armadillo4rtest", quiet = TRUE))' 2>/dev/null)

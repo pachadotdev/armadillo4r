@@ -45,7 +45,7 @@ Mat<double> eigen_sym_(const doubles_matrix<>& x) {
 
 [[cpp4r::register]] complexes eigen_gen_dbl_complex_wrapper(const doubles_matrix<>& x) {
   Mat<double> X = as_Mat(x);
-  Col<std::complex<double>> y = eig_gen(X);
+  Mat<std::complex<double>> y = eig_gen(X);
   return as_complexes(y);
 }
 
