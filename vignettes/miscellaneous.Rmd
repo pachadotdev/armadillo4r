@@ -195,7 +195,7 @@ element type `std::complex<float>`.
 Example:
 
 ```cpp
-[[cpp4r::register]] list cx_double_example_() {
+[[cpp4r::register]] complexes cx_double_example_() {
   cx_double z(3.4, 5.6);
   return as_complex(z);
 }

@@ -38,8 +38,10 @@ EOF
 if ! PKG_CPPFLAGS="${PKG_CPPFLAGS}" "${R_HOME}/bin/R" CMD SHLIB conftest_cxx14.cpp 2>/dev/null
 then
   echo "Error: C++14 or newer is required to build this package."
-  echo "Your current C++ compiler does not support C++14 or newer."
-  echo "Please update your compiler or ensure R is configured to use C++14 or newer."
+  echo "Your current C++ compiler does not support C++14 or a newer standard."
+  echo "To install armadillo4r:"
+  echo " 1. Check your C++ configuration in ~/.R/Makevars to check for defined CXX flags."
+  echo " 2. Update your C++ compiler."
   rm -f conftest_cxx14.cpp conftest_cxx14.o conftest_cxx14.so
   exit 1
 else

@@ -23,6 +23,8 @@
 unvendor <- function(path = NULL) {
   stopifnot(!is.null(path), dir.exists(path))
 
+  path <- normalizePath(path)
+
   # Unvendor cpp4r headers
   cpp4r::unvendor(path)
 
@@ -36,28 +38,28 @@ unvendor <- function(path = NULL) {
     return(invisible(NULL))
   }
 
-  # The info file is in the same level as armadillo4r
-  parent_dir <- dirname(info_file)
-  armadillo4r_dir <- file.path(parent_dir, "armadillo4r")
-  cpp4r_dir <- file.path(parent_dir, "cpp4r")
+  armadillo4r_dir <- file.path(path, "armadillo4r")
 
   unlink(armadillo4r_dir, recursive = TRUE)
-  unlink(cpp4r_dir, recursive = TRUE)
 
   # Remove armadillo4r.hpp from the parent directory
-  armadillo4r_hpp_path <- file.path(parent_dir, "armadillo4r.hpp")
-  cpp4r_hpp_path <- file.path(parent_dir, "cpp4r.hpp")
+  armadillo4r_hpp_path <- file.path(path, "armadillo4r.hpp")
 
   if (file.exists(armadillo4r_hpp_path)) {
     unlink(armadillo4r_hpp_path)
   }
 
-  if (file.exists(cpp4r_hpp_path)) {
-    unlink(cpp4r_hpp_path)
+  unlink(info_file)
+
+  # If path does not contain any other files, remove the directory
+  remaining_files <- list.files(path, all.files = TRUE, no.. = TRUE)
+  if (length(remaining_files) == 0) {
+    message("here")
+    unlink(path, recursive = TRUE)
   }
 
   if (is_interactive()) {
-    message("Unvendored cpp4r and armadillo4r from '", parent_dir, "'")
+    message("Unvendored cpp4r and armadillo4r from '", path, "'")
     message("\nDESCRIPTION should link to cpp4r and armadillo4r (e.g., 'LinkingTo: cpp4r, armadillo4r')")
   }
 
