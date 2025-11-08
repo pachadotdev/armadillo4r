@@ -18,7 +18,7 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
                                              const doubles& y) {
   mat X = as_Mat(x);
   vec Y = as_Col(y);
-  
+
   vec result = ols_fit2(X, Y);
   return as_doubles(result);
 }
@@ -27,8 +27,7 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
 // Still assign to named variables first for safety
 // Note: cpp4r::as_sexp(vec) returns a matrix, not a vector, so use as_doubles
 
-[[cpp4r::register]] doubles ols_simplified_(const doubles_matrix<>& x,
-                                            const doubles& y) {
+[[cpp4r::register]] doubles ols_simplified_(const doubles_matrix<>& x, const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
 
@@ -39,7 +38,7 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
 }
 
 [[cpp4r::register]] doubles_matrix<> ols_simplified2_(const doubles_matrix<>& x,
-                                            const doubles& y) {
+                                                      const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
   mat result = ols_fit2(X, Y);
@@ -48,7 +47,7 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
 }
 
 [[cpp4r::register]] doubles ols_simplified3_(const doubles_matrix<>& x,
-                                            const doubles& y) {
+                                             const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
   vec result = ols_fit2(X, Y);
@@ -58,8 +57,8 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
 
 // Example 3: Matrix operations
 
-[[cpp4r::register]] doubles_matrix<> matrix_add_(
-    const doubles_matrix<>& a, const doubles_matrix<>& b) {
+[[cpp4r::register]] doubles_matrix<> matrix_add_(const doubles_matrix<>& a,
+                                                 const doubles_matrix<>& b) {
   Mat<double> A = as_Mat(a);
   mat B = as_mat(b);
   mat C = A + B;
@@ -68,8 +67,7 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
 
 // Example 4: Integer matrix operations using as_imat
 
-[[cpp4r::register]] integers_matrix<> integer_transpose_(
-    const integers_matrix<>& x) {
+[[cpp4r::register]] integers_matrix<> integer_transpose_(const integers_matrix<>& x) {
   imat X = as_imat(x);
   imat Y = X.t();
   return cpp4r::as_sexp(Y);
@@ -94,8 +92,8 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
 
 // Example 7: Complex matrix operations
 
-[[cpp4r::register]] complexes_matrix<> complex_multiply_(
-    const complexes_matrix<>& a, const complexes_matrix<>& b) {
+[[cpp4r::register]] complexes_matrix<> complex_multiply_(const complexes_matrix<>& a,
+                                                         const complexes_matrix<>& b) {
   // For complex matrices, manual conversion
   const int n = a.nrow();
   const int m = a.ncol();
@@ -105,14 +103,14 @@ vec ols_fit2(const Mat<double>& X, const Col<double>& Y) {
       A(i, j) = a(i, j);
     }
   }
-  
+
   cx_mat B(n, m);
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < m; ++j) {
       B(i, j) = b(i, j);
     }
   }
-  
+
   cx_mat C = A * B;
   return as_complexes_matrix(C);
 }
@@ -124,8 +122,8 @@ T element_wise_multiply(const T& A, const T& B) {
   return A % B;  // element-wise multiplication
 }
 
-[[cpp4r::register]] doubles_matrix<> generic_multiply_(
-    const doubles_matrix<>& a, const doubles_matrix<>& b) {
+[[cpp4r::register]] doubles_matrix<> generic_multiply_(const doubles_matrix<>& a,
+                                                       const doubles_matrix<>& b) {
   mat A = as_Mat(a);
   mat B = as_Mat(b);
   mat C = element_wise_multiply(A, B);

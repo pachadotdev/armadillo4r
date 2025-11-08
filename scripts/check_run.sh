@@ -9,13 +9,12 @@ fi
 # Run the bench script (will exit on error)
 Rscript -e 'cpp4r::register("armadillo4rtest")'
 Rscript -e 'devtools::document("armadillo4rtest")'
-PACKAGE="armadillo4rtest"
-LOG="${PACKAGE}-check.log"
+LOG="devtools-check-${std}-${compiler}.log"
 
 # Build package tarball first (devtools::build returns path)
 TARBALL=$(Rscript -e 'cat(devtools::build("armadillo4rtest", quiet = TRUE))' 2>/dev/null)
 if [ -z "${TARBALL}" ]; then
-	echo "Failed to build tarball for ${PACKAGE}."
+	echo "Failed to build tarball for armadillo4rtest."
 	exit 1
 fi
 

@@ -28,5 +28,3 @@ VignetteBuilder: knitr
 LinkingTo: cpp4r, armadillo4r
 Config/testthat/edition: 3
 LazyData: true
-Remotes:
-    pachadotdev/armadillo4r
