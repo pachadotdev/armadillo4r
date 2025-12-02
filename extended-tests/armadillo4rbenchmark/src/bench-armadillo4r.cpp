@@ -1,5 +1,5 @@
-#include <armadillo4r.hpp>
 #include <cpp4r.hpp>
+#include <armadillo4r.hpp>
 #include <cstring>
 #include <vector>
 
