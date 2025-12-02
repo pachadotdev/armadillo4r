@@ -57,7 +57,8 @@ test_that("Matrix addition works with a strict type", {
   A <- matrix(1:6, 2, 3)
   B <- matrix(7:12, 2, 3)
   
-  expect_error(matrix_add_(A, B))
+  # added implicit conversions to allow this
+  # expect_error(matrix_add_(A, B))
 
   storage.mode(A) <- "numeric"
   storage.mode(B) <- "numeric"
@@ -93,7 +94,8 @@ test_that("Unsigned integer matrix works with a strict type", {
 test_that("Float matrix conversion works", {
   X <- matrix(1:6, 2, 3)
   
-  expect_error(fmat_example_(X))
+  # added implicit conversions to allow this
+  # expect_error(fmat_example_(X))
 
   storage.mode(X) <- "numeric"
   result <- fmat_example_(X)

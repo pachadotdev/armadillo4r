@@ -1,9 +1,10 @@
-#include <armadillo4r.hpp>
 #include <cpp11.hpp>
+#include <cpp11armadillo.hpp>
 #include <cstring>
 #include <vector>
 
 using namespace cpp11;
+using namespace arma;
 
 [[cpp11::register]] doubles_matrix<> add_two_cpp11_(const doubles_matrix<>& a,
                                                     const doubles_matrix<>& b) {
@@ -68,7 +69,13 @@ using namespace cpp11;
   mat B = as_mat(b);
   mat C = as_mat(c);
 
-  mat Z = A.t() * inv(diagmat(B)) * C;
+  // Compute: t(A.col(0)) * inv(diagmat(B)) * C.col(0)
+  // This is equivalent to: sum(A[i,0] * (1/B[i,i]) * C[i,0]) for i in 0..n-1
+  vec a_col = A.col(0);
+  vec b_diag = B.diag();
+  vec c_col = C.col(0);
+
+  double Z = as_scalar(a_col.t() * (c_col / b_diag));
 
   return as_scalar(Z);
 }

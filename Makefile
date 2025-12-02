@@ -10,6 +10,7 @@ register:
 
 install:
 	@Rscript -e 'devtools::install("./")'
+	@Rscript -e 'armadillo4r::unvendor("./extended-tests/armadillo4rtest/src/vendor"); armadillo4r::vendor("./extended-tests/armadillo4rtest/src/vendor")'
 
 docs:
 	@Rscript -e 'devtools::document("./"); pkgsite::build_site("./")'
@@ -91,6 +92,6 @@ $(foreach comp,$(COMPILERS) glang,$(eval bench-cxx21-$(comp): bench-cxx11-$(comp
 clang_format=`which clang-format-18`
 
 format: $(shell find . -name '*.h' ! -path './inst/include/armadillo4r/armadillo/*' ! -path '*/vendor/*') \
-        $(shell find . -name '*.hpp' ! -path './inst/include/armadillo4r/armadillo/*' ! -path '*/vendor/*') \
+        $(shell find . -name '*.hpp' ! -path './inst/include/armadillo4r/armadillo/*' ! -path '*/vendor/*' ! -path './inst/include/armadillo4r/armadillo.hpp') \
         $(shell find . -name '*.cpp' ! -path './inst/include/armadillo4r/armadillo/*' ! -path '*/vendor/*')
 	@${clang_format} -i $?

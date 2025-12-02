@@ -2,6 +2,7 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <Rcpp.h>
+#include <RcppArmadillo.h>
 
 using namespace Rcpp;
 
@@ -11,8 +12,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // add_two_rcpp_
-NumericMatrix add_two_rcpp_(NumericMatrix a, NumericMatrix b);
-RcppExport SEXP _Rcppbenchmark_add_two_rcpp_(SEXP aSEXP, SEXP bSEXP) {
+arma::mat add_two_rcpp_(NumericMatrix a, NumericMatrix b);
+RcppExport SEXP _RcppArmadillobenchmark_add_two_rcpp_(SEXP aSEXP, SEXP bSEXP) {
   BEGIN_RCPP
   Rcpp::RObject rcpp_result_gen;
   Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,10 +24,10 @@ RcppExport SEXP _Rcppbenchmark_add_two_rcpp_(SEXP aSEXP, SEXP bSEXP) {
   END_RCPP
 }
 // add_four_rcpp_
-NumericMatrix add_four_rcpp_(NumericMatrix a, NumericMatrix b, NumericMatrix c,
-                             NumericMatrix d);
-RcppExport SEXP _Rcppbenchmark_add_four_rcpp_(SEXP aSEXP, SEXP bSEXP, SEXP cSEXP,
-                                              SEXP dSEXP) {
+arma::mat add_four_rcpp_(NumericMatrix a, NumericMatrix b, NumericMatrix c,
+                         NumericMatrix d);
+RcppExport SEXP _RcppArmadillobenchmark_add_four_rcpp_(SEXP aSEXP, SEXP bSEXP, SEXP cSEXP,
+                                                       SEXP dSEXP) {
   BEGIN_RCPP
   Rcpp::RObject rcpp_result_gen;
   Rcpp::RNGScope rcpp_rngScope_gen;
@@ -39,10 +40,10 @@ RcppExport SEXP _Rcppbenchmark_add_four_rcpp_(SEXP aSEXP, SEXP bSEXP, SEXP cSEXP
   END_RCPP
 }
 // multiply_four_rcpp_
-NumericMatrix multiply_four_rcpp_(NumericMatrix a, NumericMatrix b, NumericMatrix c,
-                                  NumericMatrix d);
-RcppExport SEXP _Rcppbenchmark_multiply_four_rcpp_(SEXP aSEXP, SEXP bSEXP, SEXP cSEXP,
-                                                   SEXP dSEXP) {
+arma::mat multiply_four_rcpp_(NumericMatrix a, NumericMatrix b, NumericMatrix c,
+                              NumericMatrix d);
+RcppExport SEXP _RcppArmadillobenchmark_multiply_four_rcpp_(SEXP aSEXP, SEXP bSEXP,
+                                                            SEXP cSEXP, SEXP dSEXP) {
   BEGIN_RCPP
   Rcpp::RObject rcpp_result_gen;
   Rcpp::RNGScope rcpp_rngScope_gen;
@@ -55,8 +56,9 @@ RcppExport SEXP _Rcppbenchmark_multiply_four_rcpp_(SEXP aSEXP, SEXP bSEXP, SEXP 
   END_RCPP
 }
 // submatrix_manipulation_rcpp_
-NumericMatrix submatrix_manipulation_rcpp_(NumericMatrix a, NumericMatrix b);
-RcppExport SEXP _Rcppbenchmark_submatrix_manipulation_rcpp_(SEXP aSEXP, SEXP bSEXP) {
+arma::mat submatrix_manipulation_rcpp_(NumericMatrix a, NumericMatrix b);
+RcppExport SEXP _RcppArmadillobenchmark_submatrix_manipulation_rcpp_(SEXP aSEXP,
+                                                                     SEXP bSEXP) {
   BEGIN_RCPP
   Rcpp::RObject rcpp_result_gen;
   Rcpp::RNGScope rcpp_rngScope_gen;
@@ -68,7 +70,8 @@ RcppExport SEXP _Rcppbenchmark_submatrix_manipulation_rcpp_(SEXP aSEXP, SEXP bSE
 }
 // multi_operation_rcpp_
 double multi_operation_rcpp_(NumericMatrix a, NumericMatrix b, NumericMatrix c);
-RcppExport SEXP _Rcppbenchmark_multi_operation_rcpp_(SEXP aSEXP, SEXP bSEXP, SEXP cSEXP) {
+RcppExport SEXP _RcppArmadillobenchmark_multi_operation_rcpp_(SEXP aSEXP, SEXP bSEXP,
+                                                              SEXP cSEXP) {
   BEGIN_RCPP
   Rcpp::RObject rcpp_result_gen;
   Rcpp::RNGScope rcpp_rngScope_gen;
@@ -81,17 +84,19 @@ RcppExport SEXP _Rcppbenchmark_multi_operation_rcpp_(SEXP aSEXP, SEXP bSEXP, SEX
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_Rcppbenchmark_add_two_rcpp_", (DL_FUNC)&_Rcppbenchmark_add_two_rcpp_, 2},
-    {"_Rcppbenchmark_add_four_rcpp_", (DL_FUNC)&_Rcppbenchmark_add_four_rcpp_, 4},
-    {"_Rcppbenchmark_multiply_four_rcpp_", (DL_FUNC)&_Rcppbenchmark_multiply_four_rcpp_,
-     4},
-    {"_Rcppbenchmark_submatrix_manipulation_rcpp_",
-     (DL_FUNC)&_Rcppbenchmark_submatrix_manipulation_rcpp_, 2},
-    {"_Rcppbenchmark_multi_operation_rcpp_",
-     (DL_FUNC)&_Rcppbenchmark_multi_operation_rcpp_, 3},
+    {"_RcppArmadillobenchmark_add_two_rcpp_",
+     (DL_FUNC)&_RcppArmadillobenchmark_add_two_rcpp_, 2},
+    {"_RcppArmadillobenchmark_add_four_rcpp_",
+     (DL_FUNC)&_RcppArmadillobenchmark_add_four_rcpp_, 4},
+    {"_RcppArmadillobenchmark_multiply_four_rcpp_",
+     (DL_FUNC)&_RcppArmadillobenchmark_multiply_four_rcpp_, 4},
+    {"_RcppArmadillobenchmark_submatrix_manipulation_rcpp_",
+     (DL_FUNC)&_RcppArmadillobenchmark_submatrix_manipulation_rcpp_, 2},
+    {"_RcppArmadillobenchmark_multi_operation_rcpp_",
+     (DL_FUNC)&_RcppArmadillobenchmark_multi_operation_rcpp_, 3},
     {NULL, NULL, 0}};
 
-RcppExport void R_init_Rcppbenchmark(DllInfo* dll) {
+RcppExport void R_init_RcppArmadillobenchmark(DllInfo* dll) {
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
 }

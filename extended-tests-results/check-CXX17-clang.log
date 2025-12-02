@@ -13,7 +13,7 @@ make[1]: Entering directory '/home/pacha/Documents/armadillo4r/extended-tests/ar
 clang++ -stdlib=libstdc++ -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/  -I/usr/local/include   -Wall -O0 -pedantic -fpic  -O3 -mtune=native -fPIC -UNDEBUG -Wall -pedantic -g -O0  -c cpp4r.cpp -o cpp4r.o
 clang++ -stdlib=libstdc++ -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
 make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/extended-tests/armadillo4rtest/src'
-installing to /tmp/RtmpqBCWl2/devtools_install_16d5d36e5b91/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+installing to /tmp/RtmpHlfjCd/devtools_install_5145c7ad35176/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
 ** checking absolute paths in shared objects and dynamic libraries
 * DONE (armadillo4rtest)
 Loading required package: usethis
@@ -31,7 +31,7 @@ Loading required package: usethis
 * checking extension type ... Package
 * this is package ‘armadillo4rtest’ version ‘0.1’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [4s/19s] NOTE
+* checking CRAN incoming feasibility ... [5s/18s] NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
 New submission
@@ -43,14 +43,15 @@ New submission
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [76s/76s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [97s/98s] OK
 * used C++ compiler: ‘clang version 20.1.8’
 * checking installed package size ... INFO
   installed size is 13.8Mb
   sub-directories of 1Mb or more:
     libs  13.7Mb
 * checking package directory ... OK
-* checking for future file timestamps ... OK
+* checking for future file timestamps ... NOTE
+unable to verify current time
 * checking ‘build’ directory ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
@@ -113,7 +114,7 @@ Non-portable flags in variable 'PKG_CXXFLAGS':
 * checking for detritus in the temp directory ... OK
 * DONE
 
-Status: 1 WARNING, 1 NOTE
+Status: 1 WARNING, 2 NOTEs
 See
   ‘/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00check.log’
 for details.

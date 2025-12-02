@@ -13,7 +13,7 @@
   return as_doubles_matrix(res);  // convert from C++ to R
 }
 
-[[cpp4r::register]] list matrix2_(const doubles_matrix<>& a) {
+[[cpp4r::register]] complexes_matrix<> matrix2_(const doubles_matrix<>& a) {
   mat A = as_Mat(a);
   mat B = A + A;
 
@@ -25,19 +25,25 @@
 
   mat::fixed<5, 6> F;  // fixed size matrix
 
-  double aux_mem[24];               // auxiliary memory
+  double aux_mem[24] = {};          // auxiliary memory (zero-initialized)
   mat H(&aux_mem[0], 4, 6, false);  // use auxiliary memory
 
   X = X + F.submat(0, 0, 1, 1) + H(1, 2);
 
-  Mat<double> res_real = real(X);
-  Mat<double> res_imag = imag(X);
+  // list of matrices output
 
-  writable::list res;
-  res.push_back({"real"_nm = as_doubles_matrix(res_real)});
-  res.push_back({"imag"_nm = as_doubles_matrix(res_imag)});
+  // Mat<double> res_real = real(X);
+  // Mat<double> res_imag = imag(X);
 
-  return res;
+  // writable::list res;
+  // res.push_back({"real"_nm = as_doubles_matrix(res_real)});
+  // res.push_back({"imag"_nm = as_doubles_matrix(res_imag)});
+
+  // return res;
+
+  // matrix output
+
+  return as_complexes_matrix(X);
 }
 
 [[cpp4r::register]] doubles column1_(const doubles& x, const doubles& y) {

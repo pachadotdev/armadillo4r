@@ -8,12 +8,9 @@ test_that("official documentation - 1", {
   expect_equal(dim(res1), c(2, 2))
 
   res2 <- matrix2_(a)
-  expect_type(res2, "list")
-  expect_type(res2[[1]], "double")
-  expect_type(res2[[2]], "double")
-  expect_equal(dim(res2[[1]]), c(2, 2))
-  expect_equal(dim(res2[[2]]), c(2, 2))
-
+  expect_type(res2, "complex")
+  expect_equal(dim(res2), c(2, 2))
+ 
   set.seed(123)
   x <- runif(10)
   y <- rep(1, 10)

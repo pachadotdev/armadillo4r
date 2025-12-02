@@ -174,7 +174,7 @@ extern "C" SEXP _armadillo4rtest_matrix1_(SEXP a) {
   END_CPP4R
 }
 // 08_official_documentation_adapted_01.h
-list matrix2_(const doubles_matrix<>& a);
+complexes_matrix<> matrix2_(const doubles_matrix<>& a);
 extern "C" SEXP _armadillo4rtest_matrix2_(SEXP a) {
   BEGIN_CPP4R
     return cpp4r::as_sexp(matrix2_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(a)));
