@@ -9,9 +9,8 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^README\.html$
-^armadillo4rtest$
-^econometrics$
-^pkgdown$
+^extended-tests$
+^extended-tests-results$
 ^Makefile$
 ^\.clang-format$
 ^CRAN-SUBMISSION$
@@ -19,8 +18,6 @@
 inst/arxiv_preprint
 inst/paper
 ^_pkgdown\.yml$
-^inst/include/update_instructions\.md$
-^softwarex-article$
 ^vignettes$
 ^badges$
 ^scripts$

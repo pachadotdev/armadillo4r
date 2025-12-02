@@ -1,0 +1,36 @@
+Loading required package: usethis
+* installing *source* package ‘armadillo4rtest’ ...
+** this is package ‘armadillo4rtest’ version ‘0.1’
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (GCC) 15.2.1 20250813’
+make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
+g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/  -I/usr/local/include   -Wall -O0 -pedantic -fpic  -O3 -mtune=native -fPIC  -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/  -I/usr/local/include   -Wall -O0 -pedantic -fpic  -O3 -mtune=native -fPIC  -c main.cpp -o main.o
+In file included from main.cpp:26:
+08_official_documentation_adapted_01.h: In function ‘cpp4r::list matrix2_(cpp4r::doubles_matrix<>&)’:
+08_official_documentation_adapted_01.h:31:35: warning: ‘aux_mem’ may be used uninitialized [-Wmaybe-uninitialized]
+   31 |   X = X + F.submat(0, 0, 1, 1) + H(1, 2);
+      |                                  ~^~~~~~
+08_official_documentation_adapted_01.h:28:10: note: ‘aux_mem’ declared here
+   28 |   double aux_mem[24];               // auxiliary memory
+      |          ^~~~~~~
+g++ -std=gnu++17 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
+make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
+make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
+make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
+installing to /home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4rtest)

@@ -1,30 +1,52 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Accept std and compiler as positional parameters
+std="$1"
+std=$(echo "$std" | tr '[:lower:]' '[:upper:]')
+compiler="$2"
+
 # Export USE_CLANG for R subprocesses if it's set
 if [ -n "${USE_CLANG:-}" ]; then
   export USE_CLANG
 fi
 
-# Accept std and compiler from positional args or environment; avoid unbound var with set -u
-# Priority: positional args > existing environment variables > safe defaults
-std="${1:-${std:-CXX14}}"
-compiler="${2:-${compiler:-gcc}}"
+# Export CXX_STD for configure script
+export CXX_STD="${std}"
+
+# Ensure results directory and set per-iteration log
+mkdir -p ./extended-tests-results
+LOG="./extended-tests-results/check-${std}-${compiler}.log"
+
+# clear previous log if it exists
+rm -f "${LOG}"
+
+# Capture everything (stdout+stderr) from this point into the per-iteration log
+# while still printing to the console via tee. This ensures all printed lines
+# (from Rscript, R CMD check and this script) are saved.
+exec > >(tee -a "${LOG}") 2>&1
 
 # Run the bench script (will exit on error)
-Rscript -e 'cpp4r::register("armadillo4rtest")'
-Rscript -e 'devtools::document("armadillo4rtest")'
-LOG="check-${std}-${compiler}.log"
+Rscript -e 'cpp4r::register("./extended-tests/armadillo4rtest")'
+Rscript -e 'devtools::document("./extended-tests/armadillo4rtest")'
 
 # Build package tarball first (devtools::build returns path)
-TARBALL=$(Rscript -e 'cat(devtools::build("armadillo4rtest", quiet = TRUE))' 2>/dev/null)
+TARBALL=$(Rscript -e 'cat(devtools::build("./extended-tests/armadillo4rtest", quiet = TRUE))')
 if [ -z "${TARBALL}" ]; then
 	echo "Failed to build tarball for armadillo4rtest."
 	exit 1
 fi
 
 # Run R CMD check on the tarball and capture output. Skip PDF/manual to avoid TeX font issues.
-R CMD check --as-cran --no-manual "${TARBALL}" &> "${LOG}" || true
+CXX_STD="${std}" R CMD check --as-cran --no-manual "${TARBALL}" || true
+
+# If there was an error, copy the install log to the results directory for inspection
+if [ -f "./armadillo4rtest.Rcheck/00install.out" ]; then
+	cp "./armadillo4rtest.Rcheck/00install.out" "./extended-tests-results/install-${std}-${compiler}.log"
+	echo "=== BEGIN 00install.out ==="
+	cat "./armadillo4rtest.Rcheck/00install.out"
+	echo "=== END 00install.out ==="
+fi
 
 # Inspect log for ERRORs only. Allow WARNINGs and NOTEs.
 if grep -q "\bERROR\b" "${LOG}"; then

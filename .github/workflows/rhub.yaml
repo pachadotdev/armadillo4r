@@ -1,169 +1,95 @@
-name: Simple Sanitizer Checks
+# R-hub's generic GitHub Actions workflow file. It's canonical location is at
+# https://github.com/r-hub/actions/blob/v1/workflows/rhub.yaml
+# You can update this file to a newer version using the rhub2 package:
+#
+# rhub::rhub_setup()
+#
+# It is unlikely that you need to modify this file manually.
+
+name: R-hub
+run-name: "${{ github.event.inputs.id }}: ${{ github.event.inputs.name || format('Manually run by {0}', github.triggering_actor) }}"
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-permissions: read-all
+  workflow_dispatch:
+    inputs:
+      config:
+        description: 'A comma separated list of R-hub platforms to use.'
+        type: string
+        default: 'linux,windows,macos'
+      name:
+        description: 'Run name. You can leave this empty now.'
+        type: string
+      id:
+        description: 'Unique ID. You can leave this empty now.'
+        type: string
 
 jobs:
-  sanitizer-checks:
+
+  setup:
     runs-on: ubuntu-latest
-    name: "${{ matrix.config.name }}"
-    
+    outputs:
+      containers: ${{ steps.rhub-setup.outputs.containers }}
+      platforms: ${{ steps.rhub-setup.outputs.platforms }}
+
+    steps:
+    # NO NEED TO CHECKOUT HERE
+    - uses: r-hub/actions/setup@v1
+      with:
+        config: ${{ github.event.inputs.config }}
+      id: rhub-setup
+
+  linux-containers:
+    needs: setup
+    if: ${{ needs.setup.outputs.containers != '[]' }}
+    runs-on: ubuntu-latest
+    name: ${{ matrix.config.label }}
     strategy:
       fail-fast: false
       matrix:
-        config:
-          - {name: 'ASAN', image: 'ghcr.io/r-hub/containers/clang-asan:latest'}
-          - {name: 'UBSAN', image: 'ghcr.io/r-hub/containers/clang-ubsan:latest'}
-        
+        config: ${{ fromJson(needs.setup.outputs.containers) }}
     container:
-      image: ${{ matrix.config.image }}
-      options: --cap-add=SYS_PTRACE
-      
-    env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      R_KEEP_PKG_SOURCE: yes
-      _R_CHECK_CRAN_INCOMING_: false
-      _R_CHECK_FORCE_SUGGESTS_: false
-      DEBIAN_FRONTEND: noninteractive
+      image: ${{ matrix.config.container }}
 
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Install system dependencies
-        run: |
-          # Update and install basic system dependencies
-          apt-get update -qq
-          apt-get install -y --no-install-recommends \
-            git \
-            wget \
-            ca-certificates \
-            libcurl4-openssl-dev \
-            libssl-dev \
-            libxml2-dev \
-            libfontconfig1-dev \
-            libharfbuzz-dev \
-            libfribidi-dev \
-            libfreetype6-dev \
-            libpng-dev \
-            libtiff5-dev \
-            libjpeg-dev \
-            make \
-            pandoc \
-            qpdf
-            
-      - name: Setup R profile for CRAN
-        run: |
-          # Use CRAN mirror
-          echo 'options(repos = c(CRAN = "https://cloud.r-project.org"))' >> ~/.Rprofile
-          echo 'options(download.file.method = "libcurl")' >> ~/.Rprofile
-          echo 'options(Ncpus = 2)' >> ~/.Rprofile
-          
-      - name: Install R packages
-        run: |
-          # Install packages step by step to handle failures
-          Rscript -e 'install.packages("remotes")'
-          Rscript -e 'install.packages("testthat")'
-          Rscript -e 'install.packages("rcmdcheck")'
-          
-          # Install dependencies for the main package
-          Rscript -e 'remotes::install_deps(".", dependencies = TRUE, upgrade = FALSE)'
-          
-          # Install armadillo4rtest dependencies if present
-          if [ -d "armadillo4rtest" ]; then
-            Rscript -e 'remotes::install_deps("armadillo4rtest", dependencies = TRUE, upgrade = FALSE)'
-          fi
-          
-      - name: Remove vignettes
-        run: |
-          # Remove vignettes to avoid pandoc issues
-          rm -rf vignettes
-          if [ -d "armadillo4rtest" ]; then
-            rm -rf armadillo4rtest/vignettes
-          fi
-          
-      - name: Build and check main package
-        run: |
-          # Build package
-          R CMD build --no-build-vignettes --no-manual .
-          PKG_TARBALL=$(ls -1t *.tar.gz | head -n 1)
-          R CMD check --no-manual --no-vignettes --no-build-vignettes "$PKG_TARBALL"
-          
-      - name: Install and test armadillo4rtest
-        if: always()
-        run: |
-          if [ -d "armadillo4rtest" ]; then
-            # Build armadillo4rtest
-            R CMD build --no-build-vignettes --no-manual armadillo4rtest
-            CPP11_TARBALL=$(ls -1t armadillo4rtest*.tar.gz | head -n 1)
-            
-            # Install with tests
-            R CMD INSTALL --install-tests "$CPP11_TARBALL"
-            
-            # Run tests with sanitizers
-            Rscript -e '
-              library(testthat)
-              library(armadillo4rtest)
-              
-              # Find test directory
-              pkg_path <- find.package("armadillo4rtest")
-              test_path <- file.path(pkg_path, "tests")
-              
-              if (dir.exists(test_path)) {
-                cat("Running tests from:", test_path, "\n")
-                
-                # Run tests
-                old_wd <- getwd()
-                setwd(test_path)
-                
-                result <- tryCatch({
-                  test_check("armadillo4rtest", reporter = "progress")
-                }, error = function(e) {
-                  cat("Test error:", conditionMessage(e), "\n")
-                  NULL
-                })
-                
-                setwd(old_wd)
-                
-                if (!is.null(result)) {
-                  print(result)
-                }
-              } else {
-                cat("Test directory not found at:", test_path, "\n")
-              }
-            '
-          fi
-          
-      - name: Check for sanitizer issues
-        if: always()
-        run: |
-          echo "=== Checking for sanitizer output ==="
-          
-          # Check all log files for sanitizer output
-          find . -name "*.Rout*" -o -name "*.log" | while read f; do
-            if grep -E "(ERROR: AddressSanitizer|ERROR: LeakSanitizer|runtime error:|ERROR SUMMARY:|definitely lost:|Invalid read|Invalid write)" "$f" 2>/dev/null; then
-              echo "=== Found sanitizer errors in $f ==="
-              cat "$f"
-            fi
-          done
-          
-          # Specifically check the package check directory
-          if [ -d *.Rcheck ]; then
-            find *.Rcheck -type f -name "*.Rout*" -exec grep -l "ERROR:" {} \; | while read f; do
-              echo "=== Errors in $f ==="
-              cat "$f"
-            done
-          fi
-          
-      - name: Upload check results
-        if: failure()
-        uses: actions/upload-artifact@v4
+      - uses: r-hub/actions/checkout@v1
+      - uses: r-hub/actions/platform-info@v1
         with:
-          name: ${{ matrix.config.name }}-results
-          path: |
-            *.Rcheck/
-            *.tar.gz
+          token: ${{ secrets.RHUB_TOKEN }}
+          job-config: ${{ matrix.config.job-config }}
+      - uses: r-hub/actions/setup-deps@v1
+        with:
+          token: ${{ secrets.RHUB_TOKEN }}
+          job-config: ${{ matrix.config.job-config }}
+      - uses: r-hub/actions/run-check@v1
+        with:
+          token: ${{ secrets.RHUB_TOKEN }}
+          job-config: ${{ matrix.config.job-config }}
+
+  other-platforms:
+    needs: setup
+    if: ${{ needs.setup.outputs.platforms != '[]' }}
+    runs-on: ${{ matrix.config.os }}
+    name: ${{ matrix.config.label }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config: ${{ fromJson(needs.setup.outputs.platforms) }}
+
+    steps:
+      - uses: r-hub/actions/checkout@v1
+      - uses: r-hub/actions/setup-r@v1
+        with:
+          job-config: ${{ matrix.config.job-config }}
+          token: ${{ secrets.RHUB_TOKEN }}
+      - uses: r-hub/actions/platform-info@v1
+        with:
+          token: ${{ secrets.RHUB_TOKEN }}
+          job-config: ${{ matrix.config.job-config }}
+      - uses: r-hub/actions/setup-deps@v1
+        with:
+          job-config: ${{ matrix.config.job-config }}
+          token: ${{ secrets.RHUB_TOKEN }}
+      - uses: r-hub/actions/run-check@v1
+        with:
+          job-config: ${{ matrix.config.job-config }}
+          token: ${{ secrets.RHUB_TOKEN }}

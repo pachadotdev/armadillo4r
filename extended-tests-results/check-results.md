@@ -1,0 +1,8 @@
+CXX23 + clang = ok
+CXX23 + gcc = ok
+CXX20 + clang = ok
+CXX20 + gcc = ok
+CXX17 + clang = ok
+CXX17 + gcc = ok
+CXX14 + clang = ok
+CXX14 + gcc = ok

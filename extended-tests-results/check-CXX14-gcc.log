@@ -1,0 +1,160 @@
+Loading required package: usethis
+Loading required package: usethis
+ℹ Updating armadillo4rtest documentation
+ℹ Loading armadillo4rtest
+ℹ Re-compiling armadillo4rtest (debug build)
+── R CMD INSTALL ───────────────────────────────────────────────────────────────
+* installing *source* package ‘armadillo4rtest’ ...
+** this is package ‘armadillo4rtest’ version ‘0.1’
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (GCC) 15.2.1 20250813’
+make[1]: Entering directory '/home/pacha/Documents/armadillo4r/extended-tests/armadillo4rtest/src'
+g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/  -I/usr/local/include   -Wall -O0 -pedantic -fpic  -O3 -mtune=native -fPIC -UNDEBUG -Wall -pedantic -g -O0  -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++17 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
+make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/extended-tests/armadillo4rtest/src'
+installing to /tmp/RtmpZ0pfJs/devtools_install_1a21a769dc4c5/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+** checking absolute paths in shared objects and dynamic libraries
+* DONE (armadillo4rtest)
+Loading required package: usethis
+Loading required package: usethis
+* using log directory ‘/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck’
+* using R version 4.5.1 (2025-06-13)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (GCC) 15.1.1 20250425
+    GNU Fortran (GCC) 15.1.1 20250425
+* running under: Manjaro Linux
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘armadillo4rtest’ version ‘0.1’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... [4s/17s] NOTE
+Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
+
+New submission
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [118s/119s] OK
+* used C++ compiler: ‘g++ (GCC) 15.2.1 20250813’
+* checking installed package size ... INFO
+  installed size is 20.7Mb
+  sub-directories of 1Mb or more:
+    libs  20.5Mb
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking line endings in shell scripts ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... WARNING
+Non-portable flags in variable 'PKG_CPPFLAGS':
+  -g
+Non-portable flags in variable 'PKG_CXXFLAGS':
+  -Wall -O0 -pedantic
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking use of PKG_*FLAGS in Makefiles ... OK
+* checking use of SHLIB_OPENMP_*FLAGS in Makefiles ... OK
+* checking pragmas in C/C++ headers and code ... OK
+* checking compilation flags used ... OK
+* checking compiled code ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... NONE
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ...
+  Running ‘testthat.R’
+ OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes ... OK
+* checking re-building of vignette outputs ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+
+Status: 1 WARNING, 1 NOTE
+See
+  ‘/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00check.log’
+for details.
+
+=== BEGIN 00install.out ===
+Loading required package: usethis
+* installing *source* package ‘armadillo4rtest’ ...
+** this is package ‘armadillo4rtest’ version ‘0.1’
+** using staged installation
+** libs
+using C++ compiler: ‘g++ (GCC) 15.2.1 20250813’
+make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
+g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/  -I/usr/local/include   -Wall -O0 -pedantic -fpic  -O3 -mtune=native -fPIC  -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/  -I/usr/local/include   -Wall -O0 -pedantic -fpic  -O3 -mtune=native -fPIC  -c main.cpp -o main.o
+In file included from main.cpp:26:
+08_official_documentation_adapted_01.h: In function ‘cpp4r::list matrix2_(cpp4r::doubles_matrix<>&)’:
+08_official_documentation_adapted_01.h:31:35: warning: ‘aux_mem’ may be used uninitialized [-Wmaybe-uninitialized]
+   31 |   X = X + F.submat(0, 0, 1, 1) + H(1, 2);
+      |                                  ~^~~~~~
+08_official_documentation_adapted_01.h:28:10: note: ‘aux_mem’ declared here
+   28 |   double aux_mem[24];               // auxiliary memory
+      |          ^~~~~~~
+g++ -std=gnu++17 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
+make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
+make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
+make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
+installing to /home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4rtest)
+=== END 00install.out ===
+R CMD check completed with no ERRORs. Warnings/Notes (if any) are allowed. See ./extended-tests-results/check-CXX14-gcc.log for full output.
+Run complete.
