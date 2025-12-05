@@ -30,7 +30,7 @@ test_that("official documentation - 10", {
   A <- matrix(rnorm(25), 5, 5)
   B <- matrix(rnorm(25), 5, 5)
   C <- matrix(rnorm(25), 5, 5)
-  res206 <- syl1_(A,B,C)
+  res206 <- syl1_(A, B, C)
   expect_type(res206, "double")
 
   res207 <- eig_sym2_(A, "lm", 3)

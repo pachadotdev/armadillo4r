@@ -6,48 +6,16 @@
 #include <R_ext/Visibility.h>
 
 // bench-cpp11armadillo.cpp
-doubles_matrix<> add_two_cpp11_(const doubles_matrix<>& a, const doubles_matrix<>& b);
-extern "C" SEXP _cpp11armadillobenchmark_add_two_cpp11_(SEXP a, SEXP b) {
+list rrc_cpp11_(const doubles_matrix<>& xtx, double tol);
+extern "C" SEXP _cpp11armadillobenchmark_rrc_cpp11_(SEXP xtx, SEXP tol) {
   BEGIN_CPP11
-    return cpp11::as_sexp(add_two_cpp11_(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(a), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(b)));
-  END_CPP11
-}
-// bench-cpp11armadillo.cpp
-doubles_matrix<> add_four_cpp11_(const doubles_matrix<>& a, const doubles_matrix<>& b, const doubles_matrix<>& c, const doubles_matrix<>& d);
-extern "C" SEXP _cpp11armadillobenchmark_add_four_cpp11_(SEXP a, SEXP b, SEXP c, SEXP d) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(add_four_cpp11_(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(a), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(b), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(c), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(d)));
-  END_CPP11
-}
-// bench-cpp11armadillo.cpp
-doubles_matrix<> multiply_four_cpp11_(const doubles_matrix<>& a, const doubles_matrix<>& b, const doubles_matrix<>& c, const doubles_matrix<>& d);
-extern "C" SEXP _cpp11armadillobenchmark_multiply_four_cpp11_(SEXP a, SEXP b, SEXP c, SEXP d) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(multiply_four_cpp11_(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(a), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(b), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(c), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(d)));
-  END_CPP11
-}
-// bench-cpp11armadillo.cpp
-doubles_matrix<> submatrix_manipulation_cpp11_(const doubles_matrix<>& a, const doubles_matrix<>& b);
-extern "C" SEXP _cpp11armadillobenchmark_submatrix_manipulation_cpp11_(SEXP a, SEXP b) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(submatrix_manipulation_cpp11_(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(a), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(b)));
-  END_CPP11
-}
-// bench-cpp11armadillo.cpp
-double multi_operation_cpp11_(const doubles_matrix<>& a, const doubles_matrix<>& b, const doubles_matrix<>& c);
-extern "C" SEXP _cpp11armadillobenchmark_multi_operation_cpp11_(SEXP a, SEXP b, SEXP c) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(multi_operation_cpp11_(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(a), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(b), cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(c)));
+    return cpp11::as_sexp(rrc_cpp11_(cpp11::as_cpp<cpp11::decay_t<const doubles_matrix<>&>>(xtx), cpp11::as_cpp<cpp11::decay_t<double>>(tol)));
   END_CPP11
 }
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
-    {"_cpp11armadillobenchmark_add_four_cpp11_",               (DL_FUNC) &_cpp11armadillobenchmark_add_four_cpp11_,               4},
-    {"_cpp11armadillobenchmark_add_two_cpp11_",                (DL_FUNC) &_cpp11armadillobenchmark_add_two_cpp11_,                2},
-    {"_cpp11armadillobenchmark_multi_operation_cpp11_",        (DL_FUNC) &_cpp11armadillobenchmark_multi_operation_cpp11_,        3},
-    {"_cpp11armadillobenchmark_multiply_four_cpp11_",          (DL_FUNC) &_cpp11armadillobenchmark_multiply_four_cpp11_,          4},
-    {"_cpp11armadillobenchmark_submatrix_manipulation_cpp11_", (DL_FUNC) &_cpp11armadillobenchmark_submatrix_manipulation_cpp11_, 2},
+    {"_cpp11armadillobenchmark_rrc_cpp11_", (DL_FUNC) &_cpp11armadillobenchmark_rrc_cpp11_, 2},
     {NULL, NULL, 0}
 };
 }

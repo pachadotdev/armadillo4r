@@ -6,96 +6,77 @@
 using namespace cpp4r;
 using namespace arma;
 
-/* roxygen
-@title Add Two Matrices
-@export
-*/
-[[cpp4r::register]] doubles_matrix<> add_two_cpp4r(const doubles_matrix<>& a,
-                                                   const doubles_matrix<>& b) {
-  mat A = as_mat(a);
-  mat B = as_mat(b);
+inline bool rrc_(uvec &excluded, const mat &XtX, double tol) {
+  const size_t p = XtX.n_cols;
+  excluded.zeros(p);
 
-  mat Z = A + B;
+  if (p == 0)
+    return true;
 
-  return as_doubles_matrix(Z);
+  mat R(p, p, fill::zeros);
+
+  double *R_ptr = R.memptr();
+  uword *excluded_ptr = excluded.memptr();
+  const double *XtX_ptr = XtX.memptr();
+
+  size_t n_excluded = 0;
+
+  for (size_t j = 0; j < p; ++j) {
+
+    double R_jj = XtX_ptr[j + j * p];
+
+    if (j > 0) {
+      const double *R_j_ptr = R_ptr + j * p;
+      for (size_t k = 0; k < j; ++k) {
+        if (excluded_ptr[k] == 0) {
+          double R_jk = R_j_ptr[k];
+          R_jj -= R_jk * R_jk;
+        }
+      }
+    }
+
+    if (R_jj < tol) {
+      excluded_ptr[j] = 1;
+      n_excluded++;
+      continue;
+    }
+
+    R_jj = std::sqrt(R_jj);
+    R_ptr[j + j * p] = R_jj;
+    const double inv_R_jj = 1.0 / R_jj;
+
+    for (size_t col = j + 1; col < p; ++col) {
+      double R_j_col = XtX_ptr[j + col * p];
+
+      const double *R_col_ptr = R_ptr + col * p;
+      const double *R_j_ptr = R_ptr + j * p;
+
+      for (size_t k = 0; k < j; ++k) {
+        if (excluded_ptr[k] == 0) {
+          R_j_col -= R_j_ptr[k] * R_col_ptr[k];
+        }
+      }
+
+      R_ptr[j + col * p] = R_j_col * inv_R_jj;
+    }
+  }
+
+  return n_excluded < p;
 }
 
 /* roxygen
-@title Add Four Matrices
+@title Rank-Revealing Cholesky
 @export
 */
-[[cpp4r::register]] doubles_matrix<> add_four_cpp4r(const doubles_matrix<>& a,
-                                                    const doubles_matrix<>& b,
-                                                    const doubles_matrix<>& c,
-                                                    const doubles_matrix<>& d) {
-  mat A = as_mat(a);
-  mat B = as_mat(b);
-  mat C = as_mat(c);
-  mat D = as_mat(d);
+[[cpp4r::register]] list rrc_cpp4r(const doubles_matrix<>& xtx,
+                                                       double tol) {
+  mat XtX = as_mat(xtx);
+  uvec excluded;
+  bool success = rrc_(excluded, XtX, tol);
 
-  mat Z = A + B + C + D;
+  writable::list result;
+  result.push_back({"excluded"_nm = as_integers(excluded)});
+  result.push_back({"success"_nm = success});
 
-  return as_doubles_matrix(Z);
-}
-
-/* roxygen
-@title Multiply Four Matrices
-@export
-*/
-[[cpp4r::register]] doubles_matrix<> multiply_four_cpp4r(const doubles_matrix<>& a,
-                                                         const doubles_matrix<>& b,
-                                                         const doubles_matrix<>& c,
-                                                         const doubles_matrix<>& d) {
-  mat A = as_mat(a);
-  mat B = as_mat(b);
-  mat C = as_mat(c);
-  mat D = as_mat(d);
-
-  uword n = A.n_cols;
-  uword n5 = n / 5;
-  uword n10 = n / 10;
-  uword n15 = n / 15;
-  uword n20 = n / 20;
-
-  mat Z = A.submat(0, 0, n5 - 1, n5 - 1) * B.submat(0, 0, n5 - 1, n10 - 1) *
-          C.submat(0, 0, n10 - 1, n15 - 1) * D.submat(0, 0, n15 - 1, n20 - 1);
-
-  return as_doubles_matrix(Z);
-}
-
-/* roxygen
-@title Submatrix Manipulation
-@export
-*/
-[[cpp4r::register]] doubles_matrix<> submatrix_manipulation_cpp4r(
-    const doubles_matrix<>& a, const doubles_matrix<>& b) {
-  mat A = as_mat(a);
-  mat B = as_mat(b);
-
-  mat Z = B;
-  Z.row(Z.n_rows - 1) = A.row(0);
-
-  return as_doubles_matrix(Z);
-}
-
-/* roxygen
-@title Multi-Operation Expression
-@export
-*/
-[[cpp4r::register]] double multi_operation_cpp4r(const doubles_matrix<>& a,
-                                                 const doubles_matrix<>& b,
-                                                 const doubles_matrix<>& c) {
-  mat A = as_mat(a);
-  mat B = as_mat(b);
-  mat C = as_mat(c);
-
-  // Compute: t(A.col(0)) * inv(diagmat(B)) * C.col(0)
-  // This is equivalent to: sum(A[i,0] * (1/B[i,i]) * C[i,0]) for i in 0..n-1
-  vec a_col = A.col(0);
-  vec b_diag = B.diag();
-  vec c_col = C.col(0);
-
-  double Z = as_scalar(a_col.t() * (c_col / b_diag));
-
-  return Z;
+  return result;
 }

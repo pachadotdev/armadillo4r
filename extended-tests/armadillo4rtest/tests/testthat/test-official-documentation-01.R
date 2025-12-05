@@ -10,7 +10,7 @@ test_that("official documentation - 1", {
   res2 <- matrix2_(a)
   expect_type(res2, "complex")
   expect_equal(dim(res2), c(2, 2))
- 
+
   set.seed(123)
   x <- runif(10)
   y <- rep(1, 10)

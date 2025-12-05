@@ -9,7 +9,7 @@ test_that("official documentation - 6", {
 
   res103 <- conj1_(2)
   expect_type(res103, "complex")
-    expect_equal(dim(res103), c(2, 2))
+  expect_equal(dim(res103), c(2, 2))
 
   res104 <- conv_to1_(2)
   expect_type(res104, "double")

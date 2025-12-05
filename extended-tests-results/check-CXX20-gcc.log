@@ -13,7 +13,7 @@ make[1]: Entering directory '/home/pacha/Documents/armadillo4r/extended-tests/ar
 g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/  -I/usr/local/include   -Wall -O0 -pedantic -fpic  -O3 -mtune=native -fPIC -UNDEBUG -Wall -pedantic -g -O0  -c cpp4r.cpp -o cpp4r.o
 g++ -std=gnu++17 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
 make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/extended-tests/armadillo4rtest/src'
-installing to /tmp/RtmpgJ0rwy/devtools_install_4fbc537b2bc37/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+installing to /tmp/RtmpPaQdFN/devtools_install_57b1511d50cf9/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
 ** checking absolute paths in shared objects and dynamic libraries
 * DONE (armadillo4rtest)
 Loading required package: usethis
@@ -31,7 +31,7 @@ Loading required package: usethis
 * checking extension type ... Package
 * this is package ‘armadillo4rtest’ version ‘0.1’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [6s/14s] NOTE
+* checking CRAN incoming feasibility ... [3s/35s] NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
 New submission
@@ -43,7 +43,7 @@ New submission
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [146s/147s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [94s/94s] OK
 * used C++ compiler: ‘g++ (GCC) 15.2.1 20250813’
 * checking installed package size ... INFO
   installed size is 20.7Mb

@@ -13,7 +13,7 @@ make[1]: Entering directory '/home/pacha/Documents/armadillo4r/extended-tests/ar
 clang++ -stdlib=libstdc++ -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/  -I/usr/local/include   -Wall -O0 -pedantic -fpic  -O3 -mtune=native -fPIC -UNDEBUG -Wall -pedantic -g -O0  -c cpp4r.cpp -o cpp4r.o
 clang++ -stdlib=libstdc++ -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
 make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/extended-tests/armadillo4rtest/src'
-installing to /tmp/RtmpQ6pQ7o/devtools_install_53e76432873ad/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+installing to /tmp/RtmpolRDOv/devtools_install_59da0664cc2b8/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
 ** checking absolute paths in shared objects and dynamic libraries
 * DONE (armadillo4rtest)
 Loading required package: usethis
@@ -31,26 +31,48 @@ Loading required package: usethis
 * checking extension type ... Package
 * this is package ‘armadillo4rtest’ version ‘0.1’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [5s/17s] NOTE
+* checking CRAN incoming feasibility ...Warning: unable to access index for repository https://CRAN.R-project.org/src/contrib:
+  cannot open URL 'https://CRAN.R-project.org/src/contrib/PACKAGES'
+Warning: unable to access index for repository https://bioconductor.org/packages/3.21/bioc/src/contrib:
+  cannot open URL 'https://bioconductor.org/packages/3.21/bioc/src/contrib/PACKAGES'
+Warning: unable to access index for repository https://bioconductor.org/packages/3.21/data/annotation/src/contrib:
+  cannot open URL 'https://bioconductor.org/packages/3.21/data/annotation/src/contrib/PACKAGES'
+Warning: unable to access index for repository https://bioconductor.org/packages/3.21/data/experiment/src/contrib:
+  cannot open URL 'https://bioconductor.org/packages/3.21/data/experiment/src/contrib/PACKAGES'
+Warning in url(sprintf("%s/src/contrib/PACKAGES.gz", u), "rb") :
+  URL 'https://CRAN.R-project.org/src/contrib/PACKAGES.gz': status was 'Could not resolve hostname'
+NB: need Internet access to use CRAN incoming checks
+ NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
-New submission
+Found the following (possibly) invalid URLs:
+  URL: https://orcid.org/0000-0003-1017-7574
+    From: man/armadillo4rtest-package.Rd
+    Status: Error
+    Message: libcurl error code 6:
+      	Could not resolve host: orcid.org
+
+Found the following (possibly) invalid ORCID iD:
+  iD: 0000-0003-1017-7574	(from: DESCRIPTION)
 * checking package namespace information ... OK
-* checking package dependencies ... OK
+* checking package dependencies ...Warning: unable to access index for repository https://cran.r-project.org/src/contrib:
+  cannot open URL 'https://cran.r-project.org/src/contrib/PACKAGES'
+ OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
 * checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [85s/85s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [62s/62s] OK
 * used C++ compiler: ‘clang version 20.1.8’
 * checking installed package size ... INFO
   installed size is 13.8Mb
   sub-directories of 1Mb or more:
     libs  13.7Mb
 * checking package directory ... OK
-* checking for future file timestamps ... OK
+* checking for future file timestamps ... NOTE
+unable to verify current time
 * checking ‘build’ directory ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
@@ -113,7 +135,7 @@ Non-portable flags in variable 'PKG_CXXFLAGS':
 * checking for detritus in the temp directory ... OK
 * DONE
 
-Status: 1 WARNING, 1 NOTE
+Status: 1 WARNING, 2 NOTEs
 See
   ‘/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00check.log’
 for details.

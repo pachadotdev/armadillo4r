@@ -106,7 +106,7 @@ package](https://pacha.dev/hansen/) expands on how to use armadillo4r
 for Econometric models.
 
 The
-[armadillo4rtest](https://github.com/pachadotdev/armadillo4r/tree/main/armadillo4rtest)
+[armadillo4rtest](https://github.com/pachadotdev/armadillo4r/tree/main/extended-tests/armadillo4rtest)
 directory contains a package that I use to test armadillo4r. It includes
 tests for OLS, eigenvalues, matrix decompositions (Cholesky and QR), the
 Capital Asset Pricing Model (CAPM), and data consistency between R and

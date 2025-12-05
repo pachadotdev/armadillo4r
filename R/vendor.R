@@ -23,7 +23,7 @@
 #'
 #' # vendor the armadillo4r headers into the directory
 #' vendor(dir)
-#' 
+#'
 #' # just a preview as Armadillo has over 100 files
 #' head(list.files(dir, recursive = TRUE))
 #'

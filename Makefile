@@ -1,33 +1,27 @@
 clean:
-	@Rscript -e 'devtools::clean_dll("extended-tests/armadillo4rtest");'
-	@Rscript -e 'devtools::clean_dll("extended-tests/cpp11armadillobenchmark")'
-	@Rscript -e 'devtools::clean_dll("extended-tests/armadillo4rbenchmark")'
-	@Rscript -e 'devtools::clean_dll("extended-tests/RcppArmadillobenchmark")'
-
-register:
-	@Rscript -e	'cpp4r::register("extended-tests/armadillo4rtest")'
-	@Rscript -e	'cpp4r::register("extended-tests/armadillo4rbenchmark")'
+	@Rscript --vanilla -e 'devtools::clean_dll("extended-tests/armadillo4rtest");'
+	@Rscript --vanilla -e 'devtools::clean_dll("extended-tests/cpp11armadillobenchmark")'
+	@Rscript --vanilla -e 'devtools::clean_dll("extended-tests/armadillo4rbenchmark")'
+	@Rscript --vanilla -e 'devtools::clean_dll("extended-tests/RcppArmadillobenchmark")'
 
 install:
-	@Rscript -e 'devtools::install("./")'
-	@Rscript -e 'armadillo4r::unvendor("./extended-tests/armadillo4rtest/src/vendor"); armadillo4r::vendor("./extended-tests/armadillo4rtest/src/vendor")'
+	@Rscript --vanilla -e 'devtools::install("./")'
+	@Rscript --vanilla -e 'armadillo4r::unvendor("./extended-tests/armadillo4rtest/src/vendor"); armadillo4r::vendor("./extended-tests/armadillo4rtest/src/vendor")'
 
 docs:
-	@Rscript -e 'devtools::document("./"); pkgsite::build_site("./")'
+	@Rscript --vanilla -e 'devtools::document("./"); pkgsite::build_site("./")'
 
 check:
 	@echo "==============================="
 	@echo "Checking R code"
 	@$(MAKE) clean
 	@$(MAKE) install
-	@$(MAKE) register
-	@Rscript -e 'devtools::check("./", error_on = "error")'
+	@Rscript --vanilla -e 'devtools::check("./", error_on = "error")'
 	@echo "==============================="
 	@echo "Checking C++ code"
 	@$(MAKE) install
 	@rm -f extended-tests-results/*.log
 	@rm -f extended-tests-results/check-results.md
-	@Rscript -e	'cpp4r::register("extended-tests/armadillo4rtest")'
 	@export -p USE_CLANG; /bin/bash -euo pipefail -c './scripts/check_loop.sh'
 	@echo "==============================="
 	
@@ -36,7 +30,6 @@ bench:
 	@rm -f extended-tests-results/bench_summary.md
 	@$(MAKE) clean
 	@$(MAKE) install
-	@$(MAKE) register
 	@export -p USE_CLANG; /bin/bash -euo pipefail -c './scripts/bench_loop.sh'
 	@Rscript './scripts/combine-benchmarks.R'
 

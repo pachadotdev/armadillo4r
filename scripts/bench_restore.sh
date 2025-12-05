@@ -30,13 +30,6 @@ for pkg in "${pkgs[@]}"; do
 	fi
 done
 
-# Restore benchmark.R placeholders
-if [ -f ./scripts/run-benchmark.R ]; then
-	echo "Reverting cpp_std and cpp_compiler assignments in benchmark.R to placeholders"
-	sed -E -i "s/^[[:space:]]*cpp_std[[:space:]]*<-[[:space:]]*\".*\"/cpp_std <- \"CXXNN\"/" ./scripts/run-benchmark.R || true
-	sed -E -i "s/^[[:space:]]*cpp_compiler[[:space:]]*<-[[:space:]]*\".*\"/cpp_compiler <- \"XYZ\"/" ./scripts/run-benchmark.R || true
-fi
-
 # Restore GCC by unsetting USE_CLANG
 echo "Unsetting USE_CLANG to restore GCC"
 unset USE_CLANG || true
