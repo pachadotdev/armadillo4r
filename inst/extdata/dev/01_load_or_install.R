@@ -8,7 +8,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 development <- TRUE
 
 devtools::clean_dll()
-cpp4r::cpp_register()
+cpp4r::register(".")
 devtools::document()
 
 if (isTRUE(development)) {

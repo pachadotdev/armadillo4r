@@ -1,3 +1,7 @@
+# armadillo4r 0.7.1
+
+* Minor update to the package template to reflect some changes to cpp4r.
+
 # armadillo4r 0.7.0
 
 * Using Armadillo 15.2.1 (Medium Roast Deluxe) thanks to @conradsnicta update notification.
