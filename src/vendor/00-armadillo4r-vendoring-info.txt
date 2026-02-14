@@ -1,0 +1,2 @@
+armadillo4r version: 0.7.1
+vendored on: 2026-02-14
