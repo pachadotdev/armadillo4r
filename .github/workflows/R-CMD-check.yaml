@@ -29,7 +29,6 @@ jobs:
           - {os: ubuntu-latest,   r: 'release', custom: 'clang-format'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release', name: "Ubuntu latest (R devel)"}
           - {os: ubuntu-latest,   r: 'release', custom: 'no-armadillo4rtest', name: "Ubuntu latest (no armadillo4rtest)"}
-          - {os: ubuntu-latest,   r: 'release', custom: 'cpp15', name: "Ubuntu latest (GCC15)"} # CRAN email Dec 7, 2024
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -64,9 +63,9 @@ jobs:
         if: matrix.config.custom != 'no-armadillo4rtest'
         run: |
           options(warn = 2)
-          pak::local_install_dev_deps("extended-tests/armadillo4rtest", dependencies = TRUE)
+          pak::local_install_dev_deps("armadillo4rtest", dependencies = TRUE)
           install.packages("./", repos = NULL, type = "source")
-          install.packages("extended-tests/armadillo4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
+          install.packages("armadillo4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
         shell: Rscript {0}
 
       - uses: r-lib/actions/check-r-package@v2
@@ -76,19 +75,7 @@ jobs:
       - name: Run armadillo4rtest tests
         if: matrix.config.custom != 'no-armadillo4rtest'
         run: |
-          setwd("extended-tests/armadillo4rtest/tests")
-          library(testthat)
-          library(armadillo4rtest)
-          test_check("armadillo4rtest", reporter = "progress")
-        shell: Rscript {0}
-
-      - name: Run armadillo4rtest tests (C++15)
-        if: matrix.config.custom == 'cpp15'
-        run: |
-          Sys.setenv(CXXFLAGS = "-std=c++15")
-          install.packages(".", repos = NULL, type = "source")
-          install.packages("extended-tests/armadillo4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
-          setwd("extended-tests/armadillo4rtest/tests")
+          setwd("armadillo4rtest/tests")
           library(testthat)
           library(armadillo4rtest)
           test_check("armadillo4rtest", reporter = "progress")

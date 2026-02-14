@@ -9,8 +9,7 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^README\.html$
-^extended-tests$
-^extended-tests-results$
+^armadillo4rtest$
 ^Makefile$
 ^\.clang-format$
 ^CRAN-SUBMISSION$
