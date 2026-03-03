@@ -145,8 +145,24 @@ inline doubles_matrix<> as_doubles_matrix(const Mat<double>& A) {
   return Mat_to_dblint_matrix_<double, doubles_matrix<>>(A);
 }
 
+// Accept any Armadillo double expression (lazy Glue<>, Op<>, etc.) and
+// materialise it before converting.  This resolves the ambiguity that arises
+// when passing an expression such as A * A.t() directly.
+template <typename Derived>
+inline doubles_matrix<> as_doubles_matrix(const Base<double, Derived>& expr) {
+  const Mat<double> A(expr.get_ref());
+  return Mat_to_dblint_matrix_<double, doubles_matrix<>>(A);
+}
+
 inline integers_matrix<> as_integers_matrix(const Mat<int>& A) {
   // Fast path: int to int
+  return Mat_to_dblint_matrix_<int, integers_matrix<>>(A);
+}
+
+// Expression-template overload for integer expressions
+template <typename Derived>
+inline integers_matrix<> as_integers_matrix(const Base<int, Derived>& expr) {
+  const Mat<int> A(expr.get_ref());
   return Mat_to_dblint_matrix_<int, integers_matrix<>>(A);
 }
 

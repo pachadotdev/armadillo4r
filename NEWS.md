@@ -1,6 +1,7 @@
 # armadillo4r 0.8.0
 
 * Adds templates to simplify cube/field data copying between R and Armadillo.
+* Adds templates to pass lazy `Glue<>` and `Base<>` expressions to `as_{{ R_TYPE }}()`.
 
 # armadillo4r 0.7.1
 

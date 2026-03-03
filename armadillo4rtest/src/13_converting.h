@@ -12,8 +12,7 @@ doubles_matrix<> mat_demo_(const doubles_matrix<>& x,
 
   (void)Ai; (void)Au; (void)Af;  // suppress unused warnings
 
-  mat result = A * A.t();
-  return as_doubles_matrix(result);
+  return as_doubles_matrix(A * A.t());
 }
 
 ////////////////////////////////////////////////////////////////
@@ -99,8 +98,7 @@ strings field_str_demo_(const strings& x) {
 [[cpp4r::register]]
 doubles_matrix<> mat_out_demo_(const doubles_matrix<>& x) {
   mat A = as_Mat(x);
-  mat B = A.t() * A;
-  return as_doubles_matrix(B);
+  return as_doubles_matrix(A.t() * A);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -109,9 +107,7 @@ doubles_matrix<> mat_out_demo_(const doubles_matrix<>& x) {
 
 [[cpp4r::register]]
 doubles vec_out_demo_(const doubles& y) {
-  vec v     = as_Col(y);
-  vec vnorm = normalise(v);
-  return as_doubles(vnorm);
+  return as_doubles(normalise(as_Col(y)));
 }
 
 ////////////////////////////////////////////////////////////////
@@ -151,7 +147,5 @@ list build_field_(const integers& sizes) {
 
 [[cpp4r::register]]
 SEXP as_sexp_demo_(const doubles& y) {
-  vec v = as_Col(y);
-  vec w = arma::sort(v);
-  return cpp4r::as_sexp(w);
+  return cpp4r::as_sexp(arma::sort(as_Col(y)));
 }

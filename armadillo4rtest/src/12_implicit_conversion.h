@@ -6,8 +6,7 @@
                                              const doubles& y) {
   mat X = as_Mat(x);
   vec Y = as_Col(y);
-  vec result = ols_fit(X, Y);
-  return as_doubles(result);
+  return as_doubles(ols_fit(X, Y));
 }
 
 // Example 2: vec to doubles using as_sexp()
@@ -24,8 +23,7 @@
                                                       const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
-  mat result = ols_fit(X, Y);
-  return cpp4r::as_sexp(result);
+  return cpp4r::as_sexp(ols_fit(X, Y));
 }
 
 // Example 4: vec to doubles using as_sexp()
@@ -34,8 +32,7 @@
                                              const doubles& y) {
   mat X = as_mat(x);
   vec Y = as_Col(y);
-  vec result = ols_fit(X, Y);
-  return cpp4r::as_sexp(result);
+  return cpp4r::as_sexp(ols_fit(X, Y));
 }
 
 // Example 4: vec to doubles using as_sexp()

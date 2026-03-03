@@ -11,12 +11,10 @@ Mat<double> ols_(const doubles_matrix<>& y, const doubles_matrix<>& x) {
 
 [[cpp4r::register]] doubles_matrix<> ols_mat(const doubles_matrix<>& y,
                                              const doubles_matrix<>& x) {
-  Mat<double> beta = ols_(y, x);
-  return as_doubles_matrix(beta);
+  return as_doubles_matrix(ols_(y, x));
 }
 
 [[cpp4r::register]] doubles ols_dbl(const doubles_matrix<>& y,
                                     const doubles_matrix<>& x) {
-  Mat<double> beta = ols_(y, x);
-  return as_doubles(beta);
+  return as_doubles(ols_(y, x));
 }

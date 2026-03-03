@@ -61,8 +61,7 @@ doubles_matrix<> mat_demo_(const doubles_matrix<>& x,
   fmat   Af = as_fmat(x);   // float matrix
 
   // use A, Ai, Au, Af ...
-  mat result = A * A.t();         // materialize before converting
-  return as_doubles_matrix(result);
+  return as_doubles_matrix(A * A.t());
 }
 ```
 
@@ -207,8 +206,7 @@ field_mat_demo_(mats)
 [[cpp4r::register]]
 doubles_matrix<> mat_out_demo_(const doubles_matrix<>& x) {
   mat A = as_Mat(x);
-  mat B = A.t() * A;            // A'A
-  return as_doubles_matrix(B);  // mat -> doubles_matrix<>
+  return as_doubles_matrix(A.t() * A);  // mat -> doubles_matrix<>
 }
 ```
 
@@ -228,9 +226,7 @@ mat_out_demo_(x)
 ```cpp
 [[cpp4r::register]]
 doubles vec_out_demo_(const doubles& y) {
-  vec v    = as_Col(y);
-  vec vnorm = normalise(v);     // L2-normalise
-  return as_doubles(vnorm);     // vec -> doubles
+  return as_doubles(normalise(as_Col(y)));  // vec -> doubles
 }
 ```
 
@@ -313,9 +309,7 @@ the appropriate conversion based on the Armadillo type:
 ```cpp
 [[cpp4r::register]]
 SEXP as_sexp_demo_(const doubles& y) {
-  vec v = as_Col(y);
-  vec w = sort(v);
-  return cpp4r::as_sexp(w);  // vec -> doubles (dispatched automatically)
+  return cpp4r::as_sexp(arma::sort(as_Col(y)));  // vec -> doubles (dispatched automatically)
 }
 ```
 

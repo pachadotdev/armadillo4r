@@ -381,4 +381,29 @@ inline SEXP as_sexp(const arma::frowvec& x) {
   return ::as_doubles_matrix(temp);
 }
 
+// Expression-template overloads: accept any lazy Armadillo double/int expression
+// (e.g. arma::sort(v), A * B, A.t()) and materialize before dispatching.
+
+template <typename Derived>
+inline SEXP as_sexp(const arma::Base<double, Derived>& expr) {
+  // Materializes as mat; rowvec expressions produce a 1-row mat, vec a n-row mat.
+  const arma::Mat<double> tmp(expr.get_ref());
+  if (tmp.n_cols == 1) {
+    // column vector → doubles
+    const arma::vec v(tmp);
+    return as_sexp(v);
+  }
+  return as_sexp(tmp);
+}
+
+template <typename Derived>
+inline SEXP as_sexp(const arma::Base<int, Derived>& expr) {
+  const arma::Mat<int> tmp(expr.get_ref());
+  if (tmp.n_cols == 1) {
+    const arma::ivec v(tmp);
+    return as_sexp(v);
+  }
+  return as_sexp(tmp);
+}
+
 }  // namespace cpp4r

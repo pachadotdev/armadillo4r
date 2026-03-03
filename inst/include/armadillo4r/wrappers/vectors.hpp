@@ -133,6 +133,13 @@ inline doubles as_doubles(const Col<double>& x) {
   return Col_to_dblint_<double, doubles>(x);
 }
 
+// Accept any Armadillo double column expression (e.g. normalise(v), v % v)
+template <typename Derived>
+inline doubles as_doubles(const Base<double, Derived>& expr) {
+  const Col<double> v(expr.get_ref());
+  return Col_to_dblint_<double, doubles>(v);
+}
+
 inline integers as_integers(const uvec& x) {
   const size_t n = x.n_elem;
 
