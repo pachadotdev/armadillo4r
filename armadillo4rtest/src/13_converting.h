@@ -3,14 +3,15 @@
 ////////////////////////////////////////////////////////////////
 
 [[cpp4r::register]]
-doubles_matrix<> mat_demo_(const doubles_matrix<>& x,
-                           const integers_matrix<>& xi) {
-  mat  A  = as_Mat(x);    // double matrix
+doubles_matrix<> mat_demo_(const doubles_matrix<>& x, const integers_matrix<>& xi) {
+  mat A = as_Mat(x);      // double matrix
   imat Ai = as_imat(xi);  // signed int matrix
   umat Au = as_umat(xi);  // unsigned int matrix
   fmat Af = as_fmat(x);   // float matrix
 
-  (void)Ai; (void)Au; (void)Af;  // suppress unused warnings
+  (void)Ai;
+  (void)Au;
+  (void)Af;  // suppress unused warnings
 
   return as_doubles_matrix(A * A.t());
 }
@@ -21,12 +22,12 @@ doubles_matrix<> mat_demo_(const doubles_matrix<>& x,
 
 [[cpp4r::register]]
 doubles vec_demo_(const doubles& y, const integers& yi) {
-  vec  v  = as_Col(y);    // double column vector
+  vec v = as_Col(y);      // double column vector
   uvec vu = as_uvec(yi);  // unsigned int column vector
 
   (void)vu;
 
-  return as_doubles(v % v);   // element-wise square
+  return as_doubles(v % v);  // element-wise square
 }
 
 ////////////////////////////////////////////////////////////////
