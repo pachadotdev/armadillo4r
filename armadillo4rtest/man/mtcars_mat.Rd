@@ -5,11 +5,11 @@
 \alias{mtcars_mat}
 \title{Mtcars dataset in matrix form}
 \format{
-A list with two matrices: `y` and `x`, where `y` is the `mpg`
-variable and `x` is a matrix with the rest of the dataset.
+A list with two matrices: \code{y} and \code{x}, where \code{y} is the \code{mpg}
+variable and \code{x} is a matrix with the rest of the dataset.
 }
 \source{
-R's `mtcars` dataset.
+R's \code{mtcars} dataset.
 }
 \usage{
 mtcars_mat

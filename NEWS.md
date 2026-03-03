@@ -1,3 +1,7 @@
+# armadillo4r 0.8.0
+
+* Adds templates to simplify cube/field data copying between R and Armadillo.
+
 # armadillo4r 0.7.1
 
 * Minor update to the package template to reflect some changes to cpp4r.

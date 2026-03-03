@@ -1874,6 +1874,97 @@ extern "C" SEXP _armadillo4rtest_fmat_example_(SEXP x) {
     return cpp4r::as_sexp(fmat_example_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
   END_CPP4R
 }
+// 13_converting.h
+doubles_matrix<> mat_demo_(const doubles_matrix<>& x, const integers_matrix<>& xi);
+extern "C" SEXP _armadillo4rtest_mat_demo_(SEXP x, SEXP xi) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(mat_demo_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x), cpp4r::as_cpp<cpp4r::decay_t<const integers_matrix<>&>>(xi)));
+  END_CPP4R
+}
+// 13_converting.h
+doubles vec_demo_(const doubles& y, const integers& yi);
+extern "C" SEXP _armadillo4rtest_vec_demo_(SEXP y, SEXP yi) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(vec_demo_(cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y), cpp4r::as_cpp<cpp4r::decay_t<const integers&>>(yi)));
+  END_CPP4R
+}
+// 13_converting.h
+doubles_matrix<> cube_col_means_(const list& slices);
+extern "C" SEXP _armadillo4rtest_cube_col_means_(SEXP slices) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(cube_col_means_(cpp4r::as_cpp<cpp4r::decay_t<const list&>>(slices)));
+  END_CPP4R
+}
+// 13_converting.h
+list field_mat_demo_(const list& mats);
+extern "C" SEXP _armadillo4rtest_field_mat_demo_(SEXP mats) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(field_mat_demo_(cpp4r::as_cpp<cpp4r::decay_t<const list&>>(mats)));
+  END_CPP4R
+}
+// 13_converting.h
+list field_imat_demo_(const list& mats);
+extern "C" SEXP _armadillo4rtest_field_imat_demo_(SEXP mats) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(field_imat_demo_(cpp4r::as_cpp<cpp4r::decay_t<const list&>>(mats)));
+  END_CPP4R
+}
+// 13_converting.h
+list field_vec_demo_(const list& vecs);
+extern "C" SEXP _armadillo4rtest_field_vec_demo_(SEXP vecs) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(field_vec_demo_(cpp4r::as_cpp<cpp4r::decay_t<const list&>>(vecs)));
+  END_CPP4R
+}
+// 13_converting.h
+strings field_str_demo_(const strings& x);
+extern "C" SEXP _armadillo4rtest_field_str_demo_(SEXP x) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(field_str_demo_(cpp4r::as_cpp<cpp4r::decay_t<const strings&>>(x)));
+  END_CPP4R
+}
+// 13_converting.h
+doubles_matrix<> mat_out_demo_(const doubles_matrix<>& x);
+extern "C" SEXP _armadillo4rtest_mat_out_demo_(SEXP x) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(mat_out_demo_(cpp4r::as_cpp<cpp4r::decay_t<const doubles_matrix<>&>>(x)));
+  END_CPP4R
+}
+// 13_converting.h
+doubles vec_out_demo_(const doubles& y);
+extern "C" SEXP _armadillo4rtest_vec_out_demo_(SEXP y) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(vec_out_demo_(cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
+  END_CPP4R
+}
+// 13_converting.h
+list random_cube_(const int n_rows, const int n_cols, const int n_slices);
+extern "C" SEXP _armadillo4rtest_random_cube_(SEXP n_rows, SEXP n_cols, SEXP n_slices) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(random_cube_(cpp4r::as_cpp<cpp4r::decay_t<const int>>(n_rows), cpp4r::as_cpp<cpp4r::decay_t<const int>>(n_cols), cpp4r::as_cpp<cpp4r::decay_t<const int>>(n_slices)));
+  END_CPP4R
+}
+// 13_converting.h
+list integer_cube_roundtrip_(const list& slices);
+extern "C" SEXP _armadillo4rtest_integer_cube_roundtrip_(SEXP slices) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(integer_cube_roundtrip_(cpp4r::as_cpp<cpp4r::decay_t<const list&>>(slices)));
+  END_CPP4R
+}
+// 13_converting.h
+list build_field_(const integers& sizes);
+extern "C" SEXP _armadillo4rtest_build_field_(SEXP sizes) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(build_field_(cpp4r::as_cpp<cpp4r::decay_t<const integers&>>(sizes)));
+  END_CPP4R
+}
+// 13_converting.h
+SEXP as_sexp_demo_(const doubles& y);
+extern "C" SEXP _armadillo4rtest_as_sexp_demo_(SEXP y) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(as_sexp_demo_(cpp4r::as_cpp<cpp4r::decay_t<const doubles&>>(y)));
+  END_CPP4R
+}
 
 extern "C" {
 static const R_CallMethodDef CallEntries[] = {
@@ -1889,7 +1980,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_as_dense1_",                        (DL_FUNC) &_armadillo4rtest_as_dense1_,                        1},
     {"_armadillo4rtest_as_row1_",                          (DL_FUNC) &_armadillo4rtest_as_row1_,                          1},
     {"_armadillo4rtest_as_scalar1_",                       (DL_FUNC) &_armadillo4rtest_as_scalar1_,                       1},
+    {"_armadillo4rtest_as_sexp_demo_",                     (DL_FUNC) &_armadillo4rtest_as_sexp_demo_,                     1},
     {"_armadillo4rtest_attr1_",                            (DL_FUNC) &_armadillo4rtest_attr1_,                            1},
+    {"_armadillo4rtest_build_field_",                      (DL_FUNC) &_armadillo4rtest_build_field_,                      1},
     {"_armadillo4rtest_capm",                              (DL_FUNC) &_armadillo4rtest_capm,                              3},
     {"_armadillo4rtest_chi2rnd1_",                         (DL_FUNC) &_armadillo4rtest_chi2rnd1_,                         2},
     {"_armadillo4rtest_chol1_",                            (DL_FUNC) &_armadillo4rtest_chol1_,                            3},
@@ -1912,6 +2005,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_cov1_",                             (DL_FUNC) &_armadillo4rtest_cov1_,                             2},
     {"_armadillo4rtest_cross1_",                           (DL_FUNC) &_armadillo4rtest_cross1_,                           1},
     {"_armadillo4rtest_cube1_",                            (DL_FUNC) &_armadillo4rtest_cube1_,                            2},
+    {"_armadillo4rtest_cube_col_means_",                   (DL_FUNC) &_armadillo4rtest_cube_col_means_,                   1},
     {"_armadillo4rtest_cumprod1_",                         (DL_FUNC) &_armadillo4rtest_cumprod1_,                         1},
     {"_armadillo4rtest_cumsum1_",                          (DL_FUNC) &_armadillo4rtest_cumsum1_,                          1},
     {"_armadillo4rtest_det1_",                             (DL_FUNC) &_armadillo4rtest_det1_,                             1},
@@ -1943,6 +2037,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_fft1_",                             (DL_FUNC) &_armadillo4rtest_fft1_,                             1},
     {"_armadillo4rtest_fft2_",                             (DL_FUNC) &_armadillo4rtest_fft2_,                             1},
     {"_armadillo4rtest_field1_",                           (DL_FUNC) &_armadillo4rtest_field1_,                           2},
+    {"_armadillo4rtest_field_imat_demo_",                  (DL_FUNC) &_armadillo4rtest_field_imat_demo_,                  1},
+    {"_armadillo4rtest_field_mat_demo_",                   (DL_FUNC) &_armadillo4rtest_field_mat_demo_,                   1},
+    {"_armadillo4rtest_field_str_demo_",                   (DL_FUNC) &_armadillo4rtest_field_str_demo_,                   1},
+    {"_armadillo4rtest_field_vec_demo_",                   (DL_FUNC) &_armadillo4rtest_field_vec_demo_,                   1},
     {"_armadillo4rtest_fill1_",                            (DL_FUNC) &_armadillo4rtest_fill1_,                            1},
     {"_armadillo4rtest_find1_",                            (DL_FUNC) &_armadillo4rtest_find1_,                            1},
     {"_armadillo4rtest_find_finite1_",                     (DL_FUNC) &_armadillo4rtest_find_finite1_,                     1},
@@ -1975,6 +2073,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_insert_columns1_",                  (DL_FUNC) &_armadillo4rtest_insert_columns1_,                  1},
     {"_armadillo4rtest_insert_rows1_",                     (DL_FUNC) &_armadillo4rtest_insert_rows1_,                     1},
     {"_armadillo4rtest_insert_slices1_",                   (DL_FUNC) &_armadillo4rtest_insert_slices1_,                   1},
+    {"_armadillo4rtest_integer_cube_roundtrip_",           (DL_FUNC) &_armadillo4rtest_integer_cube_roundtrip_,           1},
     {"_armadillo4rtest_integer_transpose_",                (DL_FUNC) &_armadillo4rtest_integer_transpose_,                1},
     {"_armadillo4rtest_interp1_",                          (DL_FUNC) &_armadillo4rtest_interp1_,                          1},
     {"_armadillo4rtest_interp2_",                          (DL_FUNC) &_armadillo4rtest_interp2_,                          1},
@@ -2010,6 +2109,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_lognormpdf1_",                      (DL_FUNC) &_armadillo4rtest_lognormpdf1_,                      1},
     {"_armadillo4rtest_logspace1_",                        (DL_FUNC) &_armadillo4rtest_logspace1_,                        1},
     {"_armadillo4rtest_lu1_",                              (DL_FUNC) &_armadillo4rtest_lu1_,                              1},
+    {"_armadillo4rtest_mat_demo_",                         (DL_FUNC) &_armadillo4rtest_mat_demo_,                         2},
+    {"_armadillo4rtest_mat_out_demo_",                     (DL_FUNC) &_armadillo4rtest_mat_out_demo_,                     1},
     {"_armadillo4rtest_matrix1_",                          (DL_FUNC) &_armadillo4rtest_matrix1_,                          1},
     {"_armadillo4rtest_matrix2_",                          (DL_FUNC) &_armadillo4rtest_matrix2_,                          1},
     {"_armadillo4rtest_matrix_add_",                       (DL_FUNC) &_armadillo4rtest_matrix_add_,                       2},
@@ -2056,6 +2157,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_randn1_",                           (DL_FUNC) &_armadillo4rtest_randn1_,                           1},
     {"_armadillo4rtest_randn2_",                           (DL_FUNC) &_armadillo4rtest_randn2_,                           1},
     {"_armadillo4rtest_randn3_",                           (DL_FUNC) &_armadillo4rtest_randn3_,                           1},
+    {"_armadillo4rtest_random_cube_",                      (DL_FUNC) &_armadillo4rtest_random_cube_,                      3},
     {"_armadillo4rtest_random_matrix_nxn",                 (DL_FUNC) &_armadillo4rtest_random_matrix_nxn,                 1},
     {"_armadillo4rtest_randperm1_",                        (DL_FUNC) &_armadillo4rtest_randperm1_,                        2},
     {"_armadillo4rtest_randu1_",                           (DL_FUNC) &_armadillo4rtest_randu1_,                           1},
@@ -2139,6 +2241,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_unique1_",                          (DL_FUNC) &_armadillo4rtest_unique1_,                          1},
     {"_armadillo4rtest_uvec_example_",                     (DL_FUNC) &_armadillo4rtest_uvec_example_,                     1},
     {"_armadillo4rtest_var1_",                             (DL_FUNC) &_armadillo4rtest_var1_,                             2},
+    {"_armadillo4rtest_vec_demo_",                         (DL_FUNC) &_armadillo4rtest_vec_demo_,                         2},
+    {"_armadillo4rtest_vec_out_demo_",                     (DL_FUNC) &_armadillo4rtest_vec_out_demo_,                     1},
     {"_armadillo4rtest_vecnorm1_",                         (DL_FUNC) &_armadillo4rtest_vecnorm1_,                         1},
     {"_armadillo4rtest_vectorise1_",                       (DL_FUNC) &_armadillo4rtest_vectorise1_,                       1},
     {"_armadillo4rtest_wishrnd1_",                         (DL_FUNC) &_armadillo4rtest_wishrnd1_,                         1},

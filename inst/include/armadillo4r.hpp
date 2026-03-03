@@ -13,6 +13,13 @@
 // - as_Col(integers) -> Col<int>
 // - as_col() - lowercase alias for as_Col()
 // - as_uvec(integers) -> uvec
+// - as_Cube(list<doubles_matrix<>>) -> Cube<double> / cube
+// - as_cube() - lowercase alias for as_Cube()
+// - as_icube(list<integers_matrix<>>) -> Cube<int> / icube
+// - as_field_mat(list<doubles_matrix<>>) -> field<mat>
+// - as_field_imat(list<integers_matrix<>>) -> field<imat>
+// - as_field_vec(list<doubles>) -> field<vec>
+// - as_field_str(strings) -> field<std::string>
 //
 // From Armadillo to cpp4r:
 // - as_doubles_matrix(mat/fmat) -> doubles_matrix<>
@@ -20,6 +27,12 @@
 // - as_complexes_matrix(cx_mat) -> complexes_matrix<>
 // - as_doubles(vec) -> doubles
 // - as_integers(ivec/uvec) -> integers
+// - as_doubles_matrix_list(cube) -> list<doubles_matrix<>>
+// - as_integers_matrix_list(icube/ucube) -> list<integers_matrix<>>
+// - as_doubles_matrix_field(field<mat>) -> list<doubles_matrix<>>
+// - as_integers_matrix_field(field<imat>) -> list<integers_matrix<>>
+// - as_doubles_field(field<vec>) -> list<doubles>
+// - as_strings_field(field<std::string>) -> strings
 // - cpp4r::as_sexp() - generic conversion to SEXP
 //   * vec/ivec/uvec/fvec -> doubles/integers
 //   * mat/imat/umat/fmat -> doubles_matrix<>/integers_matrix<>
@@ -40,6 +53,8 @@
 #include <armadillo4r/wrappers/matrices.hpp>
 #include <armadillo4r/wrappers/sparse_matrices.hpp>
 #include <armadillo4r/wrappers/vectors.hpp>
+#include <armadillo4r/wrappers/cubes.hpp>
+#include <armadillo4r/wrappers/fields.hpp>
 // clang-format on
 
 using mat = arma::mat;

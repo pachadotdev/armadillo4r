@@ -1,0 +1,128 @@
+#pragma once
+
+using namespace arma;
+using namespace cpp4r;
+
+#ifndef CUBES_HPP
+#define CUBES_HPP
+
+////////////////////////////////////////////////////////////////
+// R to Armadillo
+////////////////////////////////////////////////////////////////
+
+// Convert a cpp4r list of doubles_matrix<> to Cube<double>
+// All matrices in the list must have the same dimensions.
+
+template <typename T>
+inline Cube<T> list_to_Cube_(const list& x) {
+  const size_t n_slices = x.size();
+
+  if (n_slices == 0) {
+    throw std::runtime_error("Cannot convert empty list to Cube");
+  }
+
+  // Determine dimensions from the first element
+  size_t n_rows = 0;
+  size_t n_cols = 0;
+
+  if (std::is_same<T, double>::value) {
+    doubles_matrix<> first = x[0];
+    n_rows = first.nrow();
+    n_cols = first.ncol();
+  } else if (std::is_same<T, int>::value) {
+    integers_matrix<> first = x[0];
+    n_rows = first.nrow();
+    n_cols = first.ncol();
+  } else {
+    throw std::runtime_error("Unsupported element type for Cube conversion");
+  }
+
+  Cube<T> C(n_rows, n_cols, n_slices);
+
+  for (size_t s = 0; s < n_slices; ++s) {
+    if (std::is_same<T, double>::value) {
+      doubles_matrix<> m = x[s];
+      if ((size_t)m.nrow() != n_rows || (size_t)m.ncol() != n_cols) {
+        throw std::runtime_error(
+            "All matrices in the list must have the same dimensions to form a Cube");
+      }
+      std::memcpy(C.slice(s).memptr(), REAL(m.data()), n_rows * n_cols * sizeof(double));
+    } else {
+      integers_matrix<> m = x[s];
+      if ((size_t)m.nrow() != n_rows || (size_t)m.ncol() != n_cols) {
+        throw std::runtime_error(
+            "All matrices in the list must have the same dimensions to form a Cube");
+      }
+      const int* src = INTEGER(m.data());
+      T* dst = C.slice(s).memptr();
+      for (size_t idx = 0; idx < n_rows * n_cols; ++idx) {
+        dst[idx] = static_cast<T>(src[idx]);
+      }
+    }
+  }
+
+  return C;
+}
+
+inline Cube<double> as_Cube(const list& x) { return list_to_Cube_<double>(x); }
+
+inline Cube<int> as_icube(const list& x) { return list_to_Cube_<int>(x); }
+
+// Lowercase aliases
+
+inline Cube<double> as_cube(const list& x) { return as_Cube(x); }
+
+////////////////////////////////////////////////////////////////
+// Armadillo to R
+////////////////////////////////////////////////////////////////
+
+// Convert Cube<double> to a cpp4r list of doubles_matrix<>
+
+template <typename T, typename MatRType>
+inline list Cube_to_list_(const Cube<T>& C) {
+  const size_t n_slices = C.n_slices;
+  const size_t n_rows = C.n_rows;
+  const size_t n_cols = C.n_cols;
+
+  writable::list out(n_slices);
+
+  for (size_t s = 0; s < n_slices; ++s) {
+    if (std::is_same<MatRType, doubles_matrix<>>::value) {
+      writable::doubles_matrix<> m(n_rows, n_cols);
+      std::memcpy(REAL(m), C.slice(s).memptr(), n_rows * n_cols * sizeof(double));
+      out[s] = m;
+    } else {
+      writable::integers_matrix<> m(n_rows, n_cols);
+      const T* src = C.slice(s).memptr();
+      int* dst = INTEGER(m);
+      for (size_t idx = 0; idx < n_rows * n_cols; ++idx) {
+        dst[idx] = static_cast<int>(src[idx]);
+      }
+      out[s] = m;
+    }
+  }
+
+  return out;
+}
+
+inline list as_doubles_matrix_list(const Cube<double>& C) {
+  return Cube_to_list_<double, doubles_matrix<>>(C);
+}
+
+inline list as_integers_matrix_list(const Cube<int>& C) {
+  return Cube_to_list_<int, integers_matrix<>>(C);
+}
+
+inline list as_integers_matrix_list(const Cube<unsigned int>& C) {
+  return Cube_to_list_<unsigned int, integers_matrix<>>(C);
+}
+
+inline list as_integers_matrix_list(const ucube& C) {
+  return Cube_to_list_<uword, integers_matrix<>>(C);
+}
+
+inline list as_integers_matrix_list(const icube& C) {
+  return Cube_to_list_<sword, integers_matrix<>>(C);
+}
+
+#endif

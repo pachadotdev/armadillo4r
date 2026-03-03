@@ -1067,3 +1067,55 @@ uvec_example_ <- function(x) {
 fmat_example_ <- function(x) {
 	.Call(`_armadillo4rtest_fmat_example_`, x)
 }
+
+mat_demo_ <- function(x, xi) {
+	.Call(`_armadillo4rtest_mat_demo_`, x, xi)
+}
+
+vec_demo_ <- function(y, yi) {
+	.Call(`_armadillo4rtest_vec_demo_`, y, yi)
+}
+
+cube_col_means_ <- function(slices) {
+	.Call(`_armadillo4rtest_cube_col_means_`, slices)
+}
+
+field_mat_demo_ <- function(mats) {
+	.Call(`_armadillo4rtest_field_mat_demo_`, mats)
+}
+
+field_imat_demo_ <- function(mats) {
+	.Call(`_armadillo4rtest_field_imat_demo_`, mats)
+}
+
+field_vec_demo_ <- function(vecs) {
+	.Call(`_armadillo4rtest_field_vec_demo_`, vecs)
+}
+
+field_str_demo_ <- function(x) {
+	.Call(`_armadillo4rtest_field_str_demo_`, x)
+}
+
+mat_out_demo_ <- function(x) {
+	.Call(`_armadillo4rtest_mat_out_demo_`, x)
+}
+
+vec_out_demo_ <- function(y) {
+	.Call(`_armadillo4rtest_vec_out_demo_`, y)
+}
+
+random_cube_ <- function(n_rows, n_cols, n_slices) {
+	.Call(`_armadillo4rtest_random_cube_`, n_rows, n_cols, n_slices)
+}
+
+integer_cube_roundtrip_ <- function(slices) {
+	.Call(`_armadillo4rtest_integer_cube_roundtrip_`, slices)
+}
+
+build_field_ <- function(sizes) {
+	.Call(`_armadillo4rtest_build_field_`, sizes)
+}
+
+as_sexp_demo_ <- function(y) {
+	.Call(`_armadillo4rtest_as_sexp_demo_`, y)
+}

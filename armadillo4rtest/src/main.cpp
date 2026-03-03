@@ -37,3 +37,4 @@ using namespace arma;
 #include "10_sparse_matrices.h"
 #include "11_sexp_conversion.h"
 #include "12_implicit_conversion.h"
+#include "13_converting.h"
