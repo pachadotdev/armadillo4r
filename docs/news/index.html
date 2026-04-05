@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Changelog • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Changelog • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
     window.MathJax = {
       tex: {
         inlineMath: [['\\(', '\\)'], ['$', '$']],
@@ -44,6 +44,7 @@
     <label>Vignettes</label>
     <a href="../vignettes/basic-usage.html">Basic 'armadillo4r' usage</a>
     <a href="../vignettes/configuration.html">Armadillo configuration</a>
+    <a href="../vignettes/converting.html">Converting between R and Armadillo types</a>
     <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-dense.html">Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
     <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-sparse.html">Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
     <a href="../vignettes/functions-of-vector-matrices-cubes.html">Functions of vectors, matrices, and cubes</a>
@@ -72,6 +73,15 @@
 
 
 
+<div id="armadillo4r-0.8.0" class="section level1">
+<h1>armadillo4r 0.8.0</h1>
+<ul><li>Adds templates to simplify cube/field data copying between R and Armadillo.</li>
+<li>Adds templates to pass lazy <code>Glue&lt;&gt;</code> and <code>Base&lt;&gt;</code> expressions to <code>as_{{ R_TYPE }}()</code>.</li>
+</ul></div>
+<div id="armadillo4r-0.7.1" class="section level1">
+<h1>armadillo4r 0.7.1</h1>
+<ul><li>Minor update to the package template to reflect some changes to cpp4r.</li>
+</ul></div>
 <div id="armadillo4r-0.7.0" class="section level1">
 <h1>armadillo4r 0.7.0</h1>
 <ul><li>Using Armadillo 15.2.1 (Medium Roast Deluxe) thanks to <span class="citation">@conradsnicta</span> update notification.</li>

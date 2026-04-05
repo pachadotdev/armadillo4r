@@ -15,8 +15,7 @@ fi
 export CXX_STD="${std}"
 
 # Ensure results directory and set per-iteration log
-mkdir -p ./extended-tests-results
-LOG="./extended-tests-results/check-${std}-${compiler}.log"
+LOG="./checks/check-${std}-${compiler}.log"
 
 # clear previous log if it exists
 rm -f "${LOG}"
@@ -27,11 +26,11 @@ rm -f "${LOG}"
 exec > >(tee -a "${LOG}") 2>&1
 
 # Run the bench script (will exit on error)
-Rscript -e 'cpp4r::register("./extended-tests/armadillo4rtest")'
-Rscript -e 'devtools::document("./extended-tests/armadillo4rtest")'
+Rscript -e 'cpp4r::register("./armadillo4rtest")'
+Rscript -e 'devtools::document("./armadillo4rtest")'
 
 # Build package tarball first (devtools::build returns path)
-TARBALL=$(Rscript -e 'cat(devtools::build("./extended-tests/armadillo4rtest", quiet = TRUE))')
+TARBALL=$(Rscript -e 'cat(devtools::build("./armadillo4rtest", quiet = TRUE))')
 if [ -z "${TARBALL}" ]; then
 	echo "Failed to build tarball for armadillo4rtest."
 	exit 1
@@ -42,7 +41,7 @@ CXX_STD="${std}" R CMD check --as-cran --no-manual "${TARBALL}" || true
 
 # If there was an error, copy the install log to the results directory for inspection
 if [ -f "./armadillo4rtest.Rcheck/00install.out" ]; then
-	cp "./armadillo4rtest.Rcheck/00install.out" "./extended-tests-results/install-${std}-${compiler}.log"
+	cp "./armadillo4rtest.Rcheck/00install.out" "./checks/install-${std}-${compiler}.log"
 	echo "=== BEGIN 00install.out ==="
 	cat "./armadillo4rtest.Rcheck/00install.out"
 	echo "=== END 00install.out ==="

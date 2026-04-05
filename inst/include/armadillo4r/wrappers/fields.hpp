@@ -26,9 +26,9 @@ inline field<mat> as_field_mat(const list& x) {
     doubles_matrix<> m = x[i];
     const size_t nr = m.nrow();
     const size_t nc = m.ncol();
-    mat A(nr, nc);
-    std::memcpy(A.memptr(), REAL(m.data()), nr * nc * sizeof(double));
-    F(i) = A;
+    // Construct mat directly from R pointer with copy=true
+    // This is 1 copy vs the previous 2 (temp alloc + memcpy + assign)
+    F(i) = mat(REAL(m.data()), nr, nc, true, false);
   }
 
   return F;
@@ -49,13 +49,15 @@ inline field<imat> as_field_imat(const list& x) {
     integers_matrix<> m = x[i];
     const size_t nr = m.nrow();
     const size_t nc = m.ncol();
+    const size_t nm = nr * nc;
+    // imat uses sword, R uses int - need conversion
     imat A(nr, nc);
     const int* src = INTEGER(m.data());
     sword* dst = A.memptr();
-    for (size_t k = 0; k < nr * nc; ++k) {
+    for (size_t k = 0; k < nm; ++k) {
       dst[k] = static_cast<sword>(src[k]);
     }
-    F(i) = A;
+    F(i) = std::move(A);
   }
 
   return F;
@@ -75,9 +77,8 @@ inline field<vec> as_field_vec(const list& x) {
   for (size_t i = 0; i < n; ++i) {
     doubles v = x[i];
     const size_t nv = v.size();
-    vec a(nv);
-    std::memcpy(a.memptr(), REAL(v.data()), nv * sizeof(double));
-    F(i) = a;
+    // Construct vec directly from R pointer with copy=true
+    F(i) = vec(REAL(v.data()), nv, true, false);
   }
 
   return F;
@@ -131,10 +132,11 @@ inline list as_integers_matrix_field(const field<imat>& F) {
     const imat& A = F(i);
     const size_t nr = A.n_rows;
     const size_t nc = A.n_cols;
+    const size_t nm = nr * nc;
     writable::integers_matrix<> m(nr, nc);
     const sword* src = A.memptr();
     int* dst = INTEGER(m);
-    for (size_t k = 0; k < nr * nc; ++k) {
+    for (size_t k = 0; k < nm; ++k) {
       dst[k] = static_cast<int>(src[k]);
     }
     out[i] = m;

@@ -16,7 +16,7 @@ elif [ "$std" = "CXX23" ]; then cpp_std="C++23"
 else cpp_std="$std"; fi
 
 # Remove generated Makevars
-rm -f "./extended-tests/armadillo4rtest/src/Makevars"
+rm -f "./armadillo4rtest/src/Makevars"
 
 # Restore GCC by unsetting USE_CLANG
 unset USE_CLANG || true

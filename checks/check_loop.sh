@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-rm -f check-results.md
+rm -f ./checks/check-results.md
 
 for std in CXX23 CXX20 CXX17 CXX14; do
   for compiler in clang gcc; do
@@ -15,21 +15,21 @@ for std in CXX23 CXX20 CXX17 CXX14; do
       unset USE_CLANG || true
     fi
 
-    ./scripts/check_prepare.sh "$std" "$compiler"
+    ./checks/check_prepare.sh "$std" "$compiler"
 
-    touch ./extended-tests-results/check-results.md
+    touch ./checks/check-results.md
     
     # Run check, but don't exit on failure
     # Pass the current loop's std and compiler so `check_run.sh` can create
     # a per-iteration LOG file (avoids overwriting the previous run's log).
-    if ! ./scripts/check_run.sh "$std" "$compiler"; then
+    if ! ./checks/check_run.sh "$std" "$compiler"; then
       echo "WARNING: check_run.sh failed for $std standard with $compiler, continuing..."
-      echo "$std + $compiler = fail" >> ./extended-tests-results/check-results.md || true
+      echo "$std + $compiler = fail" >> ./check-results.md || true
     else 
-      echo "$std + $compiler = ok" >> ./extended-tests-results/check-results.md || true
+      echo "$std + $compiler = ok" >> ./check-results.md || true
     fi
 
-    ./scripts/check_restore.sh "$std" "$compiler"
+    ./checks/check_restore.sh "$std" "$compiler"
 
     echo "==============================="
     echo ""

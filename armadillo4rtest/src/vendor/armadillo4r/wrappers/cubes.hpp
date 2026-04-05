@@ -22,40 +22,40 @@ inline Cube<T> list_to_Cube_(const list& x) {
   }
 
   // Determine dimensions from the first element
-  size_t n_rows = 0;
-  size_t n_cols = 0;
+  size_t n_rows, n_cols;
 
-  if (std::is_same<T, double>::value) {
+  if constexpr (std::is_same<T, double>::value) {
     doubles_matrix<> first = x[0];
     n_rows = first.nrow();
     n_cols = first.ncol();
-  } else if (std::is_same<T, int>::value) {
+  } else {
     integers_matrix<> first = x[0];
     n_rows = first.nrow();
     n_cols = first.ncol();
-  } else {
-    throw std::runtime_error("Unsupported element type for Cube conversion");
   }
 
   Cube<T> C(n_rows, n_cols, n_slices);
+  const size_t slice_size = n_rows * n_cols;
 
   for (size_t s = 0; s < n_slices; ++s) {
-    if (std::is_same<T, double>::value) {
+    if constexpr (std::is_same<T, double>::value) {
       doubles_matrix<> m = x[s];
-      if ((size_t)m.nrow() != n_rows || (size_t)m.ncol() != n_cols) {
+      if (static_cast<size_t>(m.nrow()) != n_rows ||
+          static_cast<size_t>(m.ncol()) != n_cols) {
         throw std::runtime_error(
             "All matrices in the list must have the same dimensions to form a Cube");
       }
-      std::memcpy(C.slice(s).memptr(), REAL(m.data()), n_rows * n_cols * sizeof(double));
+      std::memcpy(C.slice(s).memptr(), REAL(m.data()), slice_size * sizeof(double));
     } else {
       integers_matrix<> m = x[s];
-      if ((size_t)m.nrow() != n_rows || (size_t)m.ncol() != n_cols) {
+      if (static_cast<size_t>(m.nrow()) != n_rows ||
+          static_cast<size_t>(m.ncol()) != n_cols) {
         throw std::runtime_error(
             "All matrices in the list must have the same dimensions to form a Cube");
       }
       const int* src = INTEGER(m.data());
       T* dst = C.slice(s).memptr();
-      for (size_t idx = 0; idx < n_rows * n_cols; ++idx) {
+      for (size_t idx = 0; idx < slice_size; ++idx) {
         dst[idx] = static_cast<T>(src[idx]);
       }
     }
@@ -83,19 +83,20 @@ inline list Cube_to_list_(const Cube<T>& C) {
   const size_t n_slices = C.n_slices;
   const size_t n_rows = C.n_rows;
   const size_t n_cols = C.n_cols;
+  const size_t slice_size = n_rows * n_cols;
 
   writable::list out(n_slices);
 
   for (size_t s = 0; s < n_slices; ++s) {
-    if (std::is_same<MatRType, doubles_matrix<>>::value) {
+    if constexpr (std::is_same<MatRType, doubles_matrix<>>::value) {
       writable::doubles_matrix<> m(n_rows, n_cols);
-      std::memcpy(REAL(m), C.slice(s).memptr(), n_rows * n_cols * sizeof(double));
+      std::memcpy(REAL(m), C.slice(s).memptr(), slice_size * sizeof(double));
       out[s] = m;
     } else {
       writable::integers_matrix<> m(n_rows, n_cols);
       const T* src = C.slice(s).memptr();
       int* dst = INTEGER(m);
-      for (size_t idx = 0; idx < n_rows * n_cols; ++idx) {
+      for (size_t idx = 0; idx < slice_size; ++idx) {
         dst[idx] = static_cast<int>(src[idx]);
       }
       out[s] = m;

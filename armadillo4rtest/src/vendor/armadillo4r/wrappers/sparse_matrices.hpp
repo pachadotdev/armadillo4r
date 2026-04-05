@@ -110,13 +110,16 @@ inline U SpMat_to_dblint_matrix_(const SpMat<T>& A) {
 
   dblint_matrix B(n, m);
 
-#ifdef _OPENMP
-#pragma omp parallel for collapse(2) schedule(static)
-#endif
-  for (size_t i = 0; i < n; ++i) {
-    for (size_t j = 0; j < m; ++j) {
-      B(i, j) = A(i, j);
-    }
+  // Initialize to zero
+  if constexpr (std::is_same<U, doubles_matrix<>>::value) {
+    std::memset(REAL(B), 0, n * m * sizeof(double));
+  } else {
+    std::memset(INTEGER(B), 0, n * m * sizeof(int));
+  }
+
+  // Only iterate non-zero elements - O(nnz) instead of O(n*m)
+  for (typename SpMat<T>::const_iterator it = A.begin(); it != A.end(); ++it) {
+    B(it.row(), it.col()) = *it;
   }
 
   return B;
@@ -143,17 +146,15 @@ inline complexes_matrix<> SpMat_to_complexes_matrix_(const SpMat<T>& A) {
   const size_t n = A.n_rows;
   const size_t m = A.n_cols;
 
-  // Create the cpp4r complex matrix directly
   writable::complexes_matrix<> B(n, m);
 
-  // Convert sparse matrix elements to complex matrix
-#ifdef _OPENMP
-#pragma omp parallel for collapse(2) schedule(static)
-#endif
-  for (size_t i = 0; i < n; ++i) {
-    for (size_t j = 0; j < m; ++j) {
-      B(i, j) = A(i, j);
-    }
+  // Initialize to zero
+  Rcomplex* B_data = COMPLEX(B);
+  std::memset(B_data, 0, n * m * sizeof(Rcomplex));
+
+  // Only iterate non-zero elements
+  for (typename SpMat<T>::const_iterator it = A.begin(); it != A.end(); ++it) {
+    B(it.row(), it.col()) = *it;
   }
 
   return B;
@@ -180,41 +181,39 @@ inline SpMat<double> as_SpMat(SEXP x) {
     stop("Input is not a dgCMatrix");
   }
 
-  // Extract the slots from dgCMatrix
-  SEXP i_slot = R_do_slot(x, Rf_mkString("i"));      // Row indices
-  SEXP p_slot = R_do_slot(x, Rf_mkString("p"));      // Column pointers
-  SEXP x_slot = R_do_slot(x, Rf_mkString("x"));      // Values
-  SEXP dim_slot = R_do_slot(x, Rf_mkString("Dim"));  // Dimensions
+  // Cache slot symbols to avoid repeated lookups
+  static SEXP i_sym = Rf_install("i");
+  static SEXP p_sym = Rf_install("p");
+  static SEXP x_sym = Rf_install("x");
+  static SEXP Dim_sym = Rf_install("Dim");
 
-  // Dimensions
-  int n_rows = INTEGER(dim_slot)[0];
-  int n_cols = INTEGER(dim_slot)[1];
+  // Extract the slots from dgCMatrix (direct pointer access)
+  const int* row_indices = INTEGER(R_do_slot(x, i_sym));
+  const int* col_ptrs = INTEGER(R_do_slot(x, p_sym));
+  const double* values = REAL(R_do_slot(x, x_sym));
+  const int* dims = INTEGER(R_do_slot(x, Dim_sym));
 
-  // Row indices, column pointers and values
-  int* row_indices = INTEGER(i_slot);
-  int* col_ptrs = INTEGER(p_slot);
-  double* values = REAL(x_slot);
+  const uword n_rows = static_cast<uword>(dims[0]);
+  const uword n_cols = static_cast<uword>(dims[1]);
+  const uword nnz = static_cast<uword>(col_ptrs[n_cols]);
 
-  // Number of non-zero elements
-  int nnz = LENGTH(x_slot);
-
-  // Create a temporary array for row indices and column pointers
-  arma::umat locations(2, nnz);
-  arma::vec vals(nnz);
-
-  // Convert CSC format to coordinate list format
-  int k = 0;
-  for (int j = 0; j < n_cols; j++) {
-    for (int p = col_ptrs[j]; p < col_ptrs[j + 1]; p++) {
-      locations(0, k) = row_indices[p];  // Row
-      locations(1, k) = j;               // Column
-      vals(k) = values[p];               // Value
-      k++;
-    }
+  // Convert to uvec/vec wrapping the data (zero-copy where possible)
+  // Note: row_indices are 0-based in dgCMatrix, same as Armadillo
+  uvec rowind(nnz);
+  for (uword i = 0; i < nnz; ++i) {
+    rowind[i] = static_cast<uword>(row_indices[i]);
   }
 
-  // Create sparse matrix from locations and values
-  return SpMat<double>(locations, vals, n_rows, n_cols);
+  uvec colptr(n_cols + 1);
+  for (uword j = 0; j <= n_cols; ++j) {
+    colptr[j] = static_cast<uword>(col_ptrs[j]);
+  }
+
+  // Values can be wrapped directly (same type)
+  vec vals(const_cast<double*>(values), nnz, false, false);
+
+  // Construct SpMat directly from CSC components
+  return SpMat<double>(rowind, colptr, vals, n_rows, n_cols);
 }
 
 ////////////////////////////////////////////////////////////////
@@ -222,40 +221,58 @@ inline SpMat<double> as_SpMat(SEXP x) {
 ////////////////////////////////////////////////////////////////
 
 inline SEXP as_dgCMatrix(const SpMat<double>& A) {
-  // Create data in triplet format (COO)
-  std::vector<int> i_vec, j_vec;
-  std::vector<double> x_vec;
+  const uword n_rows = A.n_rows;
+  const uword n_cols = A.n_cols;
+  const uword nnz = A.n_nonzero;
 
-  i_vec.reserve(A.n_nonzero);
-  j_vec.reserve(A.n_nonzero);
-  x_vec.reserve(A.n_nonzero);
+  // Armadillo SpMat is already in CSC format - direct access to internal arrays
+  // A.row_indices: row indices (0-based, same as dgCMatrix)
+  // A.col_ptrs: column pointers
+  // A.values: non-zero values
 
-  // Extract non-zero elements
-  for (uword col = 0; col < A.n_cols; col++) {
-    for (SpMat<double>::const_iterator it = A.begin_col(col); it != A.end_col(col);
-         ++it) {
-      i_vec.push_back(it.row() + 1);  // 1-based indexing for R
-      j_vec.push_back(col + 1);       // 1-based indexing for R
-      x_vec.push_back(*it);
-    }
+  // Create R vectors for dgCMatrix slots
+  SEXP i_sexp = PROTECT(Rf_allocVector(INTSXP, nnz));       // row indices
+  SEXP p_sexp = PROTECT(Rf_allocVector(INTSXP, n_cols + 1)); // column pointers
+  SEXP x_sexp = PROTECT(Rf_allocVector(REALSXP, nnz));      // values
+  SEXP Dim_sexp = PROTECT(Rf_allocVector(INTSXP, 2));       // dimensions
+
+  int* i_ptr = INTEGER(i_sexp);
+  int* p_ptr = INTEGER(p_sexp);
+  double* x_ptr = REAL(x_sexp);
+  int* Dim_ptr = INTEGER(Dim_sexp);
+
+  // Copy data directly from Armadillo's internal CSC storage
+  const uword* row_ind = A.row_indices;
+  const uword* col_ptr = A.col_ptrs;
+  const double* vals = A.values;
+
+  for (uword k = 0; k < nnz; ++k) {
+    i_ptr[k] = static_cast<int>(row_ind[k]);
+    x_ptr[k] = vals[k];
   }
 
-  // Create R vectors using cpp4r instead of low-level SEXP manipulation
-  writable::integers i(i_vec.begin(), i_vec.end());
-  writable::integers j(j_vec.begin(), j_vec.end());
-  writable::doubles x(x_vec.begin(), x_vec.end());
-  writable::integers dims = {static_cast<int>(A.n_rows), static_cast<int>(A.n_cols)};
+  for (uword j = 0; j <= n_cols; ++j) {
+    p_ptr[j] = static_cast<int>(col_ptr[j]);
+  }
 
-  // Get R functions from base environment
-  function getNamespace = function(Rf_findFun(Rf_install("getNamespace"), R_GlobalEnv));
-  SEXP Matrix_ns = getNamespace("Matrix");
+  Dim_ptr[0] = static_cast<int>(n_rows);
+  Dim_ptr[1] = static_cast<int>(n_cols);
 
-  function get = function(Rf_findFun(Rf_install("get"), R_GlobalEnv));
-  SEXP sparseMatrix_fn = get("sparseMatrix", Matrix_ns);
+  // Create S4 object directly
+  SEXP dgCMatrix_class = PROTECT(R_do_MAKE_CLASS("dgCMatrix"));
+  SEXP result = PROTECT(R_do_new_object(dgCMatrix_class));
 
-  function sparseMatrix = function(sparseMatrix_fn);
+  // Set slots using cached symbols
+  static SEXP i_sym = Rf_install("i");
+  static SEXP p_sym = Rf_install("p");
+  static SEXP x_sym = Rf_install("x");
+  static SEXP Dim_sym = Rf_install("Dim");
 
-  // Call sparseMatrix directly with named arguments
-  return sparseMatrix(named_arg("i") = i, named_arg("j") = j, named_arg("x") = x,
-                      named_arg("dims") = dims);
+  R_do_slot_assign(result, i_sym, i_sexp);
+  R_do_slot_assign(result, p_sym, p_sexp);
+  R_do_slot_assign(result, x_sym, x_sexp);
+  R_do_slot_assign(result, Dim_sym, Dim_sexp);
+
+  UNPROTECT(6);
+  return result;
 }

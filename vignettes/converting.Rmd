@@ -75,11 +75,11 @@ mat_demo_(x, xi)
 
 R vectors (`doubles` / `integers`) map to Armadillo column vectors:
 
-| cpp4r input | Function | Armadillo output | Notes |
-|-------------|----------|-----------------|-------|
-| `doubles` | `as_Col(x)` / `as_col(x)` | `Col<double>` (`vec`) | `as_col()` is a lowercase alias |
-| `integers` | `as_Col(x)` / `as_col(x)` | `Col<int>` | same alias applies |
-| `integers` | `as_uvec(x)` | `uvec` (`Col<uword>`) | copies element-by-element (no reinterpret) |
+| cpp4r input | Function                  | Armadillo output      | Notes                                      |
+|-------------|---------------------------|-----------------------|--------------------------------------------|
+| `doubles`   | `as_Col(x)` / `as_col(x)` | `Col<double>` (`vec`) | `as_col()` is a lowercase alias            |
+| `integers`  | `as_Col(x)` / `as_col(x)` | `Col<int>`            | same alias applies                         |
+| `integers`  | `as_uvec(x)`              | `uvec` (`Col<uword>`) | copies element-by-element (no reinterpret) |
 
 ```cpp
 [[cpp4r::register]]

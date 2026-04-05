@@ -1,86 +1,39 @@
 clean:
-	@Rscript --vanilla -e 'devtools::clean_dll("extended-tests/armadillo4rtest");'
-	@Rscript --vanilla -e 'devtools::clean_dll("extended-tests/cpp11armadillobenchmark")'
-	@Rscript --vanilla -e 'devtools::clean_dll("extended-tests/armadillo4rbenchmark")'
-	@Rscript --vanilla -e 'devtools::clean_dll("extended-tests/RcppArmadillobenchmark")'
+	@Rscript --vanilla -e 'devtools::clean_dll("armadillo4rtest");'
 
 install:
 	@Rscript --vanilla -e 'devtools::install("./")'
-	@Rscript --vanilla -e 'armadillo4r::unvendor("./extended-tests/armadillo4rtest/src/vendor"); armadillo4r::vendor("./extended-tests/armadillo4rtest/src/vendor")'
+	@Rscript --vanilla -e 'armadillo4r::unvendor("./armadillo4rtest/src/vendor"); armadillo4r::vendor("./armadillo4rtest/src/vendor")'
 
 docs:
 	@Rscript --vanilla -e 'devtools::document("./"); pkgsite::build_site("./")'
 
-check:
-	@echo "==============================="
-	@echo "Checking R code"
-	@$(MAKE) clean
-	@$(MAKE) install
-	@Rscript --vanilla -e 'devtools::check("./", error_on = "error")'
-	@echo "==============================="
-	@echo "Checking C++ code"
-	@$(MAKE) install
-	@rm -f extended-tests-results/*.log
-	@rm -f extended-tests-results/check-results.md
-	@export -p USE_CLANG; /bin/bash -euo pipefail -c './scripts/check_loop.sh'
-	@echo "==============================="
-	
-bench:
-	@rm -f extended-tests-results/*.rds
-	@rm -f extended-tests-results/bench_summary.md
-	@$(MAKE) clean
-	@$(MAKE) install
-	@export -p USE_CLANG; /bin/bash -euo pipefail -c './scripts/bench_loop.sh'
-	@Rscript './scripts/combine-benchmarks.R'
-
-STANDARDS := cxx14 cxx17 cxx20 cxx23
-COMPILERS := gcc clang
+STANDARDS := cxx20
+COMPILERS := gcc
 
 define run-check
 check-$(1)-$(2):
 	@echo "Checking C++ code with $(1) standard and $(2) compiler"
 	@$$(MAKE) install
 	@if [ "$(2)" = "clang" ]; then export USE_CLANG=1; else unset USE_CLANG; fi; \
-	./scripts/check_prepare.sh "$(1)" "$(2)"; \
-	if ! ./scripts/check_run.sh "$(1)" "$(2)"; then \
+	./checks/check_prepare.sh "$(1)" "$(2)"; \
+	if ! ./checks/check_run.sh "$(1)" "$(2)"; then \
 		echo "Check failed"; \
-		./scripts/check_restore.sh "$(1)" "$(2)"; \
+		./checks/check_restore.sh "$(1)" "$(2)"; \
 		exit 1; \
 	fi; \
-	./scripts/check_restore.sh "$(1)" "$(2)"
+	./checks/check_restore.sh "$(1)" "$(2)"
 endef
 
-define run-bench
-bench-$(1)-$(2):
-	@echo "Benchmarking C++ code with $(1) standard and $(2) compiler"
-	@$$(MAKE) install
-	@if [ "$(2)" = "clang" ]; then export USE_CLANG=1; else unset USE_CLANG; fi; \
-	if ! ./scripts/bench_prepare.sh "$(1)" "$(2)"; then \
-		echo "Prepare failed"; \
-		./scripts/bench_restore.sh "$(1)" "$(2)"; \
-		exit 1; \
-	fi; \
-	if ! ./scripts/bench_install.sh "$(1)"; then \
-		echo "Install failed"; \
-		./scripts/bench_restore.sh "$(1)" "$(2)"; \
-		exit 1; \
-	fi; \
-	if ! ./scripts/bench_run.sh "$(1)" "$(2)"; then \
-		echo "Run failed"; \
-		./scripts/bench_restore.sh "$(1)" "$(2)"; \
-		exit 1; \
-	fi; \
-	./scripts/bench_restore.sh "$(1)" "$(2)"
-endef
+# Generate all check-STANDARD-COMPILER targets
+$(foreach std,$(STANDARDS),$(foreach cc,$(COMPILERS),$(eval $(call run-check,$(std),$(cc)))))
 
-$(foreach std,$(STANDARDS),$(foreach comp,$(COMPILERS),$(eval $(call run-check,$(std),$(comp)))))
-$(foreach std,$(STANDARDS),$(foreach comp,$(COMPILERS),$(eval $(call run-bench,$(std),$(comp)))))
+# Run all checks
+check: $(foreach std,$(STANDARDS),$(foreach cc,$(COMPILERS),check-$(std)-$(cc)))
 
-# Aliases
-$(foreach std,$(STANDARDS),$(eval check-$(std)-glang: check-$(std)-clang))
-$(foreach std,$(STANDARDS),$(eval bench-$(std)-glang: bench-$(std)-clang))
-$(foreach comp,$(COMPILERS) glang,$(eval check-cxx21-$(comp): check-cxx11-$(comp)))
-$(foreach comp,$(COMPILERS) glang,$(eval bench-cxx21-$(comp): bench-cxx11-$(comp)))
+# Run checks for a single compiler
+check-gcc: $(foreach std,$(STANDARDS),check-$(std)-gcc)
+check-clang: $(foreach std,$(STANDARDS),check-$(std)-clang)
 
 clang_format=`which clang-format-18`
 
