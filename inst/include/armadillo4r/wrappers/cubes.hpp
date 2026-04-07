@@ -15,8 +15,9 @@ using namespace cpp4r;
 
 // Helper for list_to_Cube_ to get dimensions (doubles specialization)
 template <typename T>
-inline void list_get_dims_(const list& x, size_t& n_rows, size_t& n_cols,
-                          typename std::enable_if<std::is_same<T, double>::value>::type* = 0) {
+inline void list_get_dims_(
+    const list& x, size_t& n_rows, size_t& n_cols,
+    typename std::enable_if<std::is_same<T, double>::value>::type* = 0) {
   doubles_matrix<> first = x[0];
   n_rows = first.nrow();
   n_cols = first.ncol();
@@ -24,8 +25,9 @@ inline void list_get_dims_(const list& x, size_t& n_rows, size_t& n_cols,
 
 // Helper for list_to_Cube_ to get dimensions (integers specialization)
 template <typename T>
-inline void list_get_dims_(const list& x, size_t& n_rows, size_t& n_cols,
-                          typename std::enable_if<!std::is_same<T, double>::value>::type* = 0) {
+inline void list_get_dims_(
+    const list& x, size_t& n_rows, size_t& n_cols,
+    typename std::enable_if<!std::is_same<T, double>::value>::type* = 0) {
   integers_matrix<> first = x[0];
   n_rows = first.nrow();
   n_cols = first.ncol();
@@ -33,9 +35,9 @@ inline void list_get_dims_(const list& x, size_t& n_rows, size_t& n_cols,
 
 // Helper: copy slice for double type
 template <typename T>
-inline void list_copy_slice_(const list& x, Cube<T>& C, size_t s, size_t n_rows,
-                            size_t n_cols, size_t slice_size,
-                            typename std::enable_if<std::is_same<T, double>::value>::type* = 0) {
+inline void list_copy_slice_(
+    const list& x, Cube<T>& C, size_t s, size_t n_rows, size_t n_cols, size_t slice_size,
+    typename std::enable_if<std::is_same<T, double>::value>::type* = 0) {
   doubles_matrix<> m = x[s];
   if (static_cast<size_t>(m.nrow()) != n_rows ||
       static_cast<size_t>(m.ncol()) != n_cols) {
@@ -47,9 +49,9 @@ inline void list_copy_slice_(const list& x, Cube<T>& C, size_t s, size_t n_rows,
 
 // Helper: copy slice for non-double types
 template <typename T>
-inline void list_copy_slice_(const list& x, Cube<T>& C, size_t s, size_t n_rows,
-                            size_t n_cols, size_t slice_size,
-                            typename std::enable_if<!std::is_same<T, double>::value>::type* = 0) {
+inline void list_copy_slice_(
+    const list& x, Cube<T>& C, size_t s, size_t n_rows, size_t n_cols, size_t slice_size,
+    typename std::enable_if<!std::is_same<T, double>::value>::type* = 0) {
   integers_matrix<> m = x[s];
   if (static_cast<size_t>(m.nrow()) != n_rows ||
       static_cast<size_t>(m.ncol()) != n_cols) {
@@ -101,9 +103,10 @@ inline Cube<double> as_cube(const list& x) { return as_Cube(x); }
 
 // Helper: convert cube slice to R matrix (doubles specialization)
 template <typename T, typename MatRType>
-inline void cube_slice_to_r_(writable::list& out, const Cube<T>& C, size_t s,
-                            size_t n_rows, size_t n_cols, size_t slice_size,
-                            typename std::enable_if<std::is_same<MatRType, doubles_matrix<>>::value>::type* = 0) {
+inline void cube_slice_to_r_(
+    writable::list& out, const Cube<T>& C, size_t s, size_t n_rows, size_t n_cols,
+    size_t slice_size,
+    typename std::enable_if<std::is_same<MatRType, doubles_matrix<>>::value>::type* = 0) {
   writable::doubles_matrix<> m(n_rows, n_cols);
   std::memcpy(REAL(m), C.slice(s).memptr(), slice_size * sizeof(double));
   out[s] = m;
@@ -111,9 +114,11 @@ inline void cube_slice_to_r_(writable::list& out, const Cube<T>& C, size_t s,
 
 // Helper: convert cube slice to R matrix (integers specialization)
 template <typename T, typename MatRType>
-inline void cube_slice_to_r_(writable::list& out, const Cube<T>& C, size_t s,
-                            size_t n_rows, size_t n_cols, size_t slice_size,
-                            typename std::enable_if<!std::is_same<MatRType, doubles_matrix<>>::value>::type* = 0) {
+inline void cube_slice_to_r_(
+    writable::list& out, const Cube<T>& C, size_t s, size_t n_rows, size_t n_cols,
+    size_t slice_size,
+    typename std::enable_if<!std::is_same<MatRType, doubles_matrix<>>::value>::type* =
+        0) {
   writable::integers_matrix<> m(n_rows, n_cols);
   const T* src = C.slice(s).memptr();
   int* dst = INTEGER(m);
@@ -151,7 +156,8 @@ inline list as_integers_matrix_list(const Cube<unsigned int>& C) {
   return Cube_to_list_<unsigned int, integers_matrix<>>(C);
 }
 
-// Only define ucube/icube overloads on 64-bit where they differ from Cube<int>/Cube<unsigned int>
+// Only define ucube/icube overloads on 64-bit where they differ from
+// Cube<int>/Cube<unsigned int>
 #if defined(ARMA_64BIT_WORD) || (UINTPTR_MAX > 0xFFFFFFFF)
 inline list as_integers_matrix_list(const ucube& C) {
   return Cube_to_list_<uword, integers_matrix<>>(C);
