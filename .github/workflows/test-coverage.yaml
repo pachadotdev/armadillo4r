@@ -39,7 +39,7 @@ jobs:
       - name: Configure and install test package
         run: |
           options(warn = 2)
-          pak::local_install('./extended-tests/armadillo4rtest', dependencies = TRUE)
+          pak::local_install('./armadillo4rtest', dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Test coverage
