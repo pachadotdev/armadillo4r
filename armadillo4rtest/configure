@@ -1,9 +1,9 @@
 #!/bin/sh
-# Capybara's anticonf script by Pacha (2025)
+# armadillo4r's anticonf script by Pacha (2025)
 
 # Detect number of cores
-if [ -n "$CAPYBARA_NCORES" ]; then
-  num_cores="$CAPYBARA_NCORES"
+if [ -n "$ARMADILLO4R_NCORES" ]; then
+  num_cores="$ARMADILLO4R_NCORES"
 else
   num_cores=$(${R_HOME}/bin/Rscript -e "cat(as.integer(parallel::detectCores()/2))" 2>/dev/null || echo 0)
   if [ "$num_cores" = "0" ] || [ -z "$num_cores" ]; then
@@ -87,8 +87,9 @@ CXX=$(echo "$CXX" | sed -E 's/ *-std=[^ ]+//g')
 CXXFLAGS=$(echo "$CXXFLAGS" | sed -E 's/ *-std=[^ ]+//g')
 
 # C++ standard detection (must come after test_flag is defined)
-CXX_STD="CXX11"  # Default fallback
-STD_FLAG="-std=c++11"
+# Armadillo requires C++14 minimum
+CXX_STD=""
+STD_FLAG=""
 if test_flag "-std=c++20"; then
   CXX_STD="CXX20"
   STD_FLAG="-std=c++20"
@@ -98,6 +99,21 @@ elif test_flag "-std=c++17"; then
 elif test_flag "-std=c++14"; then
   CXX_STD="CXX14"
   STD_FLAG="-std=c++14"
+else
+  echo ""
+  echo "---------------------------------------------------------------------"
+  echo "ERROR: C++14 compiler required but not found."
+  echo ""
+  echo "The Armadillo C++ library requires C++14 or later."
+  echo "Your compiler does not appear to support C++14."
+  echo ""
+  echo "Possible solutions:"
+  echo "  - Upgrade your compiler (GCC >= 5, Clang >= 3.4, MSVC >= 2015)"
+  echo "  - On Windows, use R >= 4.2 with Rtools42 or later"
+  echo "  - Set CXX14 in ~/.R/Makevars to a C++14-compatible compiler"
+  echo "---------------------------------------------------------------------"
+  echo ""
+  exit 1
 fi
 
 # Add the detected standard to CXXFLAGS
@@ -105,7 +121,7 @@ CXXFLAGS="$CXXFLAGS $STD_FLAG"
 
 # High-performance optimization flags
 OPTFLAGS=""
-if [ "$CAPYBARA_OPTIMIZATIONS" = "yes" ]; then
+if [ "$ARMADILLO4R_OPTIMIZATIONS" = "yes" ]; then
   # Core optimization flags
   for flag in -O3 -ffast-math; do
     if test_flag "$flag"; then
@@ -161,15 +177,15 @@ ARMA_FLAGS="-DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP 
 # Add 64-bit word size for better SIMD alignment
 ARMA_FLAGS="$ARMA_FLAGS -DARMA_64BIT_WORD"
 
-# Debug flags: if CAPYBARA_DEBUG=yes, define C preprocessor macro for debug-only code
+# Debug flags: if ARMADILLO4R_DEBUG=yes, define C preprocessor macro for debug-only code
 DEBUG_FLAGS=""
-if [ "${CAPYBARA_DEBUG:-}" = "yes" ]; then
-  DEBUG_FLAGS="-DCAPYBARA_DEBUG"
+if [ "${ARMADILLO4R_DEBUG:-}" = "yes" ]; then
+  DEBUG_FLAGS="-DARMADILLO4R_DEBUG"
 else
   if [ -n "${R_HOME:-}" ]; then
-    debug_from_R=$(${R_HOME}/bin/Rscript -e 'cat(Sys.getenv("CAPYBARA_DEBUG"))' 2>/dev/null || true)
+    debug_from_R=$(${R_HOME}/bin/Rscript -e 'cat(Sys.getenv("ARMADILLO4R_DEBUG"))' 2>/dev/null || true)
     if [ "${debug_from_R}" = "yes" ]; then
-      DEBUG_FLAGS="-DCAPYBARA_DEBUG"
+      DEBUG_FLAGS="-DARMADILLO4R_DEBUG"
     fi
   fi
 fi
@@ -190,7 +206,7 @@ sed -e "s|@CXX_STD@|${CXX_STD}|g" \
 # Print summary
 cat <<EOF
 ==========================================================================
-Capybara configuration summary
+armadillo4r configuration summary
 
   C++ Compiler:           $CXX
   C++ Standard:           $CXX_STD
@@ -199,20 +215,20 @@ Capybara configuration summary
   SIMD Support:           ${SIMD_SUPPORT:-None}
   BLAS:                   $BLAS_LIBS
   LAPACK:                 $LAPACK_LIBS
-  High-Performance Mode:  ${CAPYBARA_OPTIMIZATIONS:-no}
+  High-Performance Mode:  ${ARMADILLO4R_OPTIMIZATIONS:-no}
   Optimization Flags:     $OPTFLAGS
   Debug Flags:            $DEBUG_FLAGS
 
 EOF
 echo "For faster computation"
 echo " "
-if [ "${CAPYBARA_OPTIMIZATIONS:-no}" != "yes" ]; then
+if [ "${ARMADILLO4R_OPTIMIZATIONS:-no}" != "yes" ]; then
   echo " Enable high-performance optimizations:"
-  echo " export CAPYBARA_OPTIMIZATIONS=yes"
+  echo " export ARMADILLO4R_OPTIMIZATIONS=yes"
   echo " "
 fi
 echo " Change thread count:"
-echo " export CAPYBARA_NCORES=<number>"
+echo " export ARMADILLO4R_NCORES=<number>"
 echo " "
 echo " Then reinstall the package"
 cat <<EOF
