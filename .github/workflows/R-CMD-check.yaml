@@ -12,11 +12,12 @@ on:
 
 name: R-CMD-check
 
-permissions: read-all
-
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
+    
+    permissions:
+      contents: write
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }}) ${{ matrix.config.custom }}
 
@@ -45,7 +46,7 @@ jobs:
       R_KEEP_PKG_SOURCE: yes
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pachadotdev/clang-format@main
         if: matrix.config.custom == 'clang-format'
