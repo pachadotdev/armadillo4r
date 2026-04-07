@@ -2,8 +2,8 @@
 # armadillo4r's anticonf script by Pacha (2025)
 
 # Detect number of cores
-if [ -n "$ARMADILLO4R_NCORES" ]; then
-  num_cores="$ARMADILLO4R_NCORES"
+if [ -n "$ARMADILLO4RTEST_NCORES" ]; then
+  num_cores="$ARMADILLO4RTEST_NCORES"
 else
   num_cores=$(${R_HOME}/bin/Rscript -e "cat(as.integer(parallel::detectCores()/2))" 2>/dev/null || echo 0)
   if [ "$num_cores" = "0" ] || [ -z "$num_cores" ]; then
@@ -121,7 +121,7 @@ CXXFLAGS="$CXXFLAGS $STD_FLAG"
 
 # High-performance optimization flags
 OPTFLAGS=""
-if [ "$ARMADILLO4R_OPTIMIZATIONS" = "yes" ]; then
+if [ "$ARMADILLO4RTEST_OPTIMIZATIONS" = "yes" ]; then
   # Core optimization flags
   for flag in -O3 -ffast-math; do
     if test_flag "$flag"; then
@@ -177,15 +177,15 @@ ARMA_FLAGS="-DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP 
 # Add 64-bit word size for better SIMD alignment
 ARMA_FLAGS="$ARMA_FLAGS -DARMA_64BIT_WORD"
 
-# Debug flags: if ARMADILLO4R_DEBUG=yes, define C preprocessor macro for debug-only code
+# Debug flags: if ARMADILLO4RTEST_DEBUG=yes, define C preprocessor macro for debug-only code
 DEBUG_FLAGS=""
-if [ "${ARMADILLO4R_DEBUG:-}" = "yes" ]; then
-  DEBUG_FLAGS="-DARMADILLO4R_DEBUG"
+if [ "${ARMADILLO4RTEST_DEBUG:-}" = "yes" ]; then
+  DEBUG_FLAGS="-DARMADILLO4RTEST_DEBUG"
 else
   if [ -n "${R_HOME:-}" ]; then
-    debug_from_R=$(${R_HOME}/bin/Rscript -e 'cat(Sys.getenv("ARMADILLO4R_DEBUG"))' 2>/dev/null || true)
+    debug_from_R=$(${R_HOME}/bin/Rscript -e 'cat(Sys.getenv("ARMADILLO4RTEST_DEBUG"))' 2>/dev/null || true)
     if [ "${debug_from_R}" = "yes" ]; then
-      DEBUG_FLAGS="-DARMADILLO4R_DEBUG"
+      DEBUG_FLAGS="-DARMADILLO4RTEST_DEBUG"
     fi
   fi
 fi
@@ -215,20 +215,20 @@ armadillo4r configuration summary
   SIMD Support:           ${SIMD_SUPPORT:-None}
   BLAS:                   $BLAS_LIBS
   LAPACK:                 $LAPACK_LIBS
-  High-Performance Mode:  ${ARMADILLO4R_OPTIMIZATIONS:-no}
+  High-Performance Mode:  ${ARMADILLO4RTEST_OPTIMIZATIONS:-no}
   Optimization Flags:     $OPTFLAGS
   Debug Flags:            $DEBUG_FLAGS
 
 EOF
 echo "For faster computation"
 echo " "
-if [ "${ARMADILLO4R_OPTIMIZATIONS:-no}" != "yes" ]; then
+if [ "${ARMADILLO4RTEST_OPTIMIZATIONS:-no}" != "yes" ]; then
   echo " Enable high-performance optimizations:"
-  echo " export ARMADILLO4R_OPTIMIZATIONS=yes"
+  echo " export ARMADILLO4RTEST_OPTIMIZATIONS=yes"
   echo " "
 fi
 echo " Change thread count:"
-echo " export ARMADILLO4R_NCORES=<number>"
+echo " export ARMADILLO4RTEST_NCORES=<number>"
 echo " "
 echo " Then reinstall the package"
 cat <<EOF

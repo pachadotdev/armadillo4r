@@ -100,15 +100,17 @@ inline SpMat<sword> as_sp_imat(const integers_matrix<>& x) {
 
 // Helper: initialize sparse matrix output to zero (doubles specialization)
 template <typename U>
-inline void spmat_init_zero_(writable::doubles_matrix<>& B, size_t n, size_t m,
-                            typename std::enable_if<std::is_same<U, doubles_matrix<>>::value>::type* = 0) {
+inline void spmat_init_zero_(
+    writable::doubles_matrix<>& B, size_t n, size_t m,
+    typename std::enable_if<std::is_same<U, doubles_matrix<>>::value>::type* = 0) {
   std::memset(REAL(B), 0, n * m * sizeof(double));
 }
 
 // Helper: initialize sparse matrix output to zero (integers specialization)
 template <typename U>
-inline void spmat_init_zero_(writable::integers_matrix<>& B, size_t n, size_t m,
-                            typename std::enable_if<std::is_same<U, integers_matrix<>>::value>::type* = 0) {
+inline void spmat_init_zero_(
+    writable::integers_matrix<>& B, size_t n, size_t m,
+    typename std::enable_if<std::is_same<U, integers_matrix<>>::value>::type* = 0) {
   std::memset(INTEGER(B), 0, n * m * sizeof(int));
 }
 
@@ -241,10 +243,10 @@ inline SEXP as_dgCMatrix(const SpMat<double>& A) {
   // A.values: non-zero values
 
   // Create R vectors for dgCMatrix slots
-  SEXP i_sexp = PROTECT(Rf_allocVector(INTSXP, nnz));       // row indices
-  SEXP p_sexp = PROTECT(Rf_allocVector(INTSXP, n_cols + 1)); // column pointers
-  SEXP x_sexp = PROTECT(Rf_allocVector(REALSXP, nnz));      // values
-  SEXP Dim_sexp = PROTECT(Rf_allocVector(INTSXP, 2));       // dimensions
+  SEXP i_sexp = PROTECT(Rf_allocVector(INTSXP, nnz));         // row indices
+  SEXP p_sexp = PROTECT(Rf_allocVector(INTSXP, n_cols + 1));  // column pointers
+  SEXP x_sexp = PROTECT(Rf_allocVector(REALSXP, nnz));        // values
+  SEXP Dim_sexp = PROTECT(Rf_allocVector(INTSXP, 2));         // dimensions
 
   int* i_ptr = INTEGER(i_sexp);
   int* p_ptr = INTEGER(p_sexp);
