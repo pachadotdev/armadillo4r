@@ -151,6 +151,8 @@ inline list as_integers_matrix_list(const Cube<unsigned int>& C) {
   return Cube_to_list_<unsigned int, integers_matrix<>>(C);
 }
 
+// Only define ucube/icube overloads on 64-bit where they differ from Cube<int>/Cube<unsigned int>
+#if defined(ARMA_64BIT_WORD) || (UINTPTR_MAX > 0xFFFFFFFF)
 inline list as_integers_matrix_list(const ucube& C) {
   return Cube_to_list_<uword, integers_matrix<>>(C);
 }
@@ -158,5 +160,6 @@ inline list as_integers_matrix_list(const ucube& C) {
 inline list as_integers_matrix_list(const icube& C) {
   return Cube_to_list_<sword, integers_matrix<>>(C);
 }
+#endif
 
 #endif
