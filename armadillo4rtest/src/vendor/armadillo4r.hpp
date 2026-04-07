@@ -400,8 +400,9 @@ template <typename Derived>
 inline SEXP as_sexp(const arma::Base<int, Derived>& expr) {
   const arma::Mat<int> tmp(expr.get_ref());
   if (tmp.n_cols == 1) {
-    // Use Col<int> directly since ivec is Col<sword> (long long) on 64-bit
-    const arma::Col<int> v(tmp.colptr(0), tmp.n_rows, false, false);
+    // Use Col<int> with copy constructor (const pointer requires copy)
+    arma::Col<int> v(tmp.n_rows);
+    std::memcpy(v.memptr(), tmp.memptr(), tmp.n_rows * sizeof(int));
     return as_sexp(v);
   }
   return as_sexp(tmp);
