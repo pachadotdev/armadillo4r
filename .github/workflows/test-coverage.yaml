@@ -45,7 +45,7 @@ jobs:
       - name: Test coverage
         run: |
           coverage <- covr::package_coverage(
-            "./extended-tests/armadillo4rtest",
+            "./armadillo4rtest",
             type = "all",
             quiet = FALSE
           )
