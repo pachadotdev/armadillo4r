@@ -1,4 +1,5 @@
 PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)
-PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS)  $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
+# Use full LAPACK from rtools (R's Rlapack is a subset missing some routines)
+PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) -llapack -lblas $(FLIBS)
 
 PKG_CPPFLAGS = -UDEBUG -g -I vendor/ -Wall -O2 -pedantic
