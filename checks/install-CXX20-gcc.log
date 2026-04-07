@@ -2,6 +2,27 @@ Loading required package: usethis
 * installing *source* package ‘armadillo4rtest’ ...
 ** this is package ‘armadillo4rtest’ version ‘0.1.0’
 ** using staged installation
+==========================================================================
+Capybara configuration summary
+
+  C++ Compiler:           g++
+  C++ Standard:           CXX20
+  OpenMP Support:         yes
+  OpenMP Threads:         4
+  SIMD Support:           AVX2
+  BLAS:                   -lblas
+  LAPACK:                 -llapack
+  High-Performance Mode:  yes
+  Optimization Flags:      -O3 -ffast-math -march=native -mtune=native -mavx -mavx2 -mfma -funroll-loops -fprefetch-loop-arrays -ftree-vectorize -ftree-slp-vectorize -flto
+  Debug Flags:            
+
+For faster computation
+ 
+ Change thread count:
+ export CAPYBARA_NCORES=<number>
+ 
+ Then reinstall the package
+==========================================================================
 ** libs
 using C++ compiler: ‘g++ (GCC) 15.2.1 20260209’
 make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'

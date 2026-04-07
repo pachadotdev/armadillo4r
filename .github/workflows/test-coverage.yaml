@@ -34,18 +34,12 @@ jobs:
         run: |
           options(warn = 2)
           pak::local_install("./", dependencies = TRUE)
-          
-          # Override Makevars to avoid _FORTIFY_SOURCE warning with -O0
-          # covr adds --coverage which needs -O0, but _FORTIFY_SOURCE needs -O
-          makevars_content <- paste(
-            "PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)",
-            "PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)",
-            sep = "\n"
-          )
-          writeLines(makevars_content, "./extended-tests/armadillo4rtest/src/Makevars")
-          
-          pak::local_install("./extended-tests/armadillo4rtest", dependencies = TRUE)
         shell: Rscript {0}
+
+      - name: Configure and install test package
+        run: |
+          options(warn = 2)
+          Rscript -e "pak::local_install('./extended-tests/armadillo4rtest', dependencies = TRUE)"
 
       - name: Test coverage
         run: |
