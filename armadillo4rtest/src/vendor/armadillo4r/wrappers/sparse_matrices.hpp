@@ -98,6 +98,20 @@ inline SpMat<sword> as_sp_imat(const integers_matrix<>& x) {
 
 // Double/Integer
 
+// Helper: initialize sparse matrix output to zero (doubles specialization)
+template <typename U>
+inline void spmat_init_zero_(writable::doubles_matrix<>& B, size_t n, size_t m,
+                            typename std::enable_if<std::is_same<U, doubles_matrix<>>::value>::type* = 0) {
+  std::memset(REAL(B), 0, n * m * sizeof(double));
+}
+
+// Helper: initialize sparse matrix output to zero (integers specialization)
+template <typename U>
+inline void spmat_init_zero_(writable::integers_matrix<>& B, size_t n, size_t m,
+                            typename std::enable_if<std::is_same<U, integers_matrix<>>::value>::type* = 0) {
+  std::memset(INTEGER(B), 0, n * m * sizeof(int));
+}
+
 template <typename T, typename U>
 inline U SpMat_to_dblint_matrix_(const SpMat<T>& A) {
   const size_t n = A.n_rows;
@@ -110,12 +124,8 @@ inline U SpMat_to_dblint_matrix_(const SpMat<T>& A) {
 
   dblint_matrix B(n, m);
 
-  // Initialize to zero
-  if constexpr (std::is_same<U, doubles_matrix<>>::value) {
-    std::memset(REAL(B), 0, n * m * sizeof(double));
-  } else {
-    std::memset(INTEGER(B), 0, n * m * sizeof(int));
-  }
+  // Initialize to zero using SFINAE helper
+  spmat_init_zero_<U>(B, n, m);
 
   // Only iterate non-zero elements - O(nnz) instead of O(n*m)
   for (typename SpMat<T>::const_iterator it = A.begin(); it != A.end(); ++it) {
