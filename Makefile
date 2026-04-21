@@ -3,7 +3,6 @@ clean:
 
 install:
 	@Rscript --vanilla -e 'devtools::install("./")'
-	@Rscript --vanilla -e 'armadillo4r::unvendor("./armadillo4rtest/src/vendor"); armadillo4r::vendor("./armadillo4rtest/src/vendor")'
 
 docs:
 	@Rscript --vanilla -e 'devtools::document("./"); pkgsite::build_site("./")'

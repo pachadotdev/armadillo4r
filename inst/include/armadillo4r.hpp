@@ -51,34 +51,15 @@
 #include <cpp4r.hpp>
 #include <armadillo4r/armadillo.hpp>
 #include <armadillo4r/wrappers/matrices.hpp>
-#include <armadillo4r/wrappers/sparse_matrices.hpp>
 #include <armadillo4r/wrappers/vectors.hpp>
 #include <armadillo4r/wrappers/cubes.hpp>
 #include <armadillo4r/wrappers/fields.hpp>
+
+#ifndef ARMADILLO4R_NO_SPARSE
+#include <armadillo4r/wrappers/sparse_matrices.hpp>
+#endif
+
 // clang-format on
-
-using mat = arma::mat;
-using fmat = arma::fmat;
-using imat = arma::imat;
-using umat = arma::umat;
-using vec = arma::vec;
-using ivec = arma::ivec;
-using uvec = arma::uvec;
-using fvec = arma::fvec;
-using rowvec = arma::rowvec;
-using irowvec = arma::irowvec;
-using urowvec = arma::urowvec;
-using frowvec = arma::frowvec;
-using cube = arma::cube;
-using icube = arma::icube;
-using ucube = arma::ucube;
-using fcube = arma::fcube;
-using cx_mat = arma::cx_mat;
-using cx_vec = arma::cx_vec;
-using cx_rowvec = arma::cx_rowvec;
-using cx_cube = arma::cx_cube;
-
-////////////////////////////////////////////////////////////////////////////////
 
 // Custom RNG class to ensure synchronization with R's RNG state
 
