@@ -34,7 +34,7 @@ check: $(foreach std,$(STANDARDS),$(foreach cc,$(COMPILERS),check-$(std)-$(cc)))
 check-gcc: $(foreach std,$(STANDARDS),check-$(std)-gcc)
 check-clang: $(foreach std,$(STANDARDS),check-$(std)-clang)
 
-clang_format=`which clang-format-18`
+clang_format=`which clang-format-21`
 
 format: $(shell find . -name '*.h' ! -path './inst/include/armadillo4r/armadillo/*' ! -path '*/vendor/*') \
         $(shell find . -name '*.hpp' ! -path './inst/include/armadillo4r/armadillo/*' ! -path '*/vendor/*' ! -path './inst/include/armadillo4r/armadillo.hpp') \
