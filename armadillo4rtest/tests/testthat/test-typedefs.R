@@ -74,6 +74,8 @@ test_that("elemental tests for sparse matrices", {
 })
 
 test_that("compatible casting for matrices", {
+  skip_if_no_sparse()
+
   set.seed(123)
   x <- round(matrix(rnorm(4), nrow = 2), 3)
   res <- typedef_dblmat_exchangeability(x)
@@ -81,10 +83,6 @@ test_that("compatible casting for matrices", {
   for (i in seq_len(n - 1)) {
     expect_true(all.equal(res[[n]], res[[i]]))
   }
-})
-
-test_that("compatible casting for matrices", {
-  skip_if_no_sparse()
   
   set.seed(200100)
   y <- matrix(rbinom(25, 1, 0.5), 5, 5)

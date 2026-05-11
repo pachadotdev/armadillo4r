@@ -33,9 +33,6 @@ test_that("official documentation - 10", {
   res206 <- syl1_(A, B, C)
   expect_type(res206, "double")
 
-  res208 <- eig_gen2_(A, "lm", 2)
-  expect_type(res208, "list")
-
   res209 <- svds1_(A, 2)
   expect_type(res209, "list")
 
@@ -52,4 +49,7 @@ test_that("official documentation - 10 (sparse)", {
   
   res207 <- eig_sym2_(A, "lm", 3)
   expect_type(res207, "list")
+
+  res208 <- eig_gen2_(A, "lm", 2)
+  expect_type(res208, "list")
 })
