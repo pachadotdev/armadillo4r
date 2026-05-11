@@ -1,8 +1,4 @@
 test_that("official documentation - 4", {
-  res61 <- transpose2_(2L)
-  expect_type(res61, "double")
-  expect_equal(dim(res61), c(3, 2))
-
   A <- matrix(c(1, 0, 0, 1, 1, 0, 0, 1, 1), nrow = 3, ncol = 3, byrow = TRUE)
   b <- c(6.50, 7.50, 8.50)
   res62 <- inverse1_(A, b)
@@ -69,6 +65,10 @@ test_that("official documentation - 4", {
 test_that("official documentation - 4 (sparse)", {
   skip_if_no_sparse()
 
+  res61 <- transpose2_(2L)
+  expect_type(res61, "double")
+  expect_equal(dim(res61), c(3, 2))
+  
   res75 <- is_zero1_(2)
   expect_type(res75, "logical")
   expect_equal(length(res75), 3)

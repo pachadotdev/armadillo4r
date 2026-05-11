@@ -33,9 +33,6 @@ test_that("official documentation - 10", {
   res206 <- syl1_(A, B, C)
   expect_type(res206, "double")
 
-  res207 <- eig_sym2_(A, "lm", 3)
-  expect_type(res207, "list")
-
   res208 <- eig_gen2_(A, "lm", 2)
   expect_type(res208, "list")
 
@@ -45,4 +42,14 @@ test_that("official documentation - 10", {
   set.seed(123)
   b <- rnorm(5)
   res210 <- spsolve1_(A, b, "lapack")
+})
+
+test_that("official documentation - 10 (sparse)", {
+  skip_if_no_sparse()
+
+  set.seed(123)
+  A <- matrix(rnorm(25), 5, 5)
+  
+  res207 <- eig_sym2_(A, "lm", 3)
+  expect_type(res207, "list")
 })
