@@ -1,9 +1,13 @@
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] doubles_matrix<> transpose2_(const int& n) {
   sp_mat A;
   A.sprandu(n, n + 1, 0.1);
   sp_mat B = A.t();
   return as_doubles_matrix(B);
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE
 
 [[cpp4r::register]] doubles inverse1_(const doubles_matrix<>& a, const doubles b) {
   mat A = as_Mat(a);
@@ -202,6 +206,8 @@
   return res;
 }
 
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] logicals is_zero1_(const int& n) {
   mat A(n, n, fill::randu);
   cube B(n, n, n, fill::zeros);
@@ -273,6 +279,8 @@
 
   return res;
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE
 
 [[cpp4r::register]] doubles linspace1_(const int& n) {
   vec a = linspace(1, 2, n);

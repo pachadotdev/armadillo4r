@@ -176,6 +176,8 @@
   return as_doubles_matrix(res);  // Convert from C++ to R
 }
 
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] doubles_matrix<> iterators3_(const int& n) {
   sp_mat X = sprandu<sp_mat>(n, n * 2, 0.1);
 
@@ -188,6 +190,8 @@
 
   return as_doubles_matrix(X);  // Convert from C++ to R
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE
 
 [[cpp4r::register]] doubles_matrix<> iterators4_(const int& n) {
   mat X(n, n, fill::randu);
@@ -267,6 +271,8 @@
   return res;
 }
 
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] doubles as_dense1_(const int& n) {
   sp_mat A;
   A.sprandu(n, n, 0.1);
@@ -279,6 +285,8 @@
 
   return as_doubles(c + r.t());
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE
 
 [[cpp4r::register]] doubles_matrix<> transpose1_(const int& n) {
   mat A(n, n + 1, fill::randu);

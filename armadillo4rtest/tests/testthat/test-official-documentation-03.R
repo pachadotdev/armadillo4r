@@ -43,10 +43,6 @@ test_that("official documentation - 3", {
   expect_type(res50, "double")
   expect_equal(dim(res50), c(2, 3))
 
-  res51 <- iterators3_(2L)
-  expect_type(res51, "double")
-  expect_equal(dim(res51), c(2, 4))
-
   res52 <- iterators4_(2L)
   expect_type(res52, "double")
   expect_equal(dim(res52), c(2, 2))
@@ -81,11 +77,19 @@ test_that("official documentation - 3", {
     res58[[4]][1, ]
   ), res58[[5]])
 
-  res59 <- as_dense1_(2L)
-  expect_type(res59, "double")
-  expect_equal(length(res59), 2)
-
   res60 <- transpose1_(2L)
   expect_type(res60, "double")
   expect_equal(dim(res60), c(3, 2))
+})
+
+test_that("official documentation - 3 (sparse)", {
+  skip_if_no_sparse()
+
+  res51 <- iterators3_(2L)
+  expect_type(res51, "double")
+  expect_equal(dim(res51), c(2, 4))
+
+  res59 <- as_dense1_(2L)
+  expect_type(res59, "double")
+  expect_equal(length(res59), 2)
 })

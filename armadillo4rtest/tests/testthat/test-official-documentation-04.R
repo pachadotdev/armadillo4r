@@ -57,6 +57,18 @@ test_that("official documentation - 4", {
   expect_type(res74, "logical")
   expect_equal(length(res74), 3)
 
+  res79 <- linspace1_(10)
+  expect_type(res79, "double")
+  expect_equal(length(res79), 10)
+
+  res80 <- logspace1_(10)
+  expect_type(res80, "double")
+  expect_equal(length(res80), 10)
+})
+
+test_that("official documentation - 4 (sparse)", {
+  skip_if_no_sparse()
+
   res75 <- is_zero1_(2)
   expect_type(res75, "logical")
   expect_equal(length(res75), 3)
@@ -72,12 +84,4 @@ test_that("official documentation - 4", {
   res78 <- has_nan1_(2)
   expect_type(res78, "logical")
   expect_equal(length(res78), 3)
-
-  res79 <- linspace1_(10)
-  expect_type(res79, "double")
-  expect_equal(length(res79), 10)
-
-  res80 <- logspace1_(10)
-  expect_type(res80, "double")
-  expect_equal(length(res80), 10)
 })
