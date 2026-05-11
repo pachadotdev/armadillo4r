@@ -171,6 +171,15 @@ if [ "$ARMADILLO4RTEST_OPTIMIZATIONS" = "yes" ]; then
   fi
 fi
 
+# Check if Matrix >= 1.6-2 C API headers are available
+SPARSE_FLAGS=""
+MATRIX_INCLUDE=$(${R_HOME}/bin/Rscript -e "cat(system.file('include', package='Matrix'))" 2>/dev/null || echo "")
+if [ -n "$MATRIX_INCLUDE" ] && [ -f "$MATRIX_INCLUDE/Matrix/Matrix.h" ]; then
+  SPARSE_FLAGS=""
+else
+  SPARSE_FLAGS="-DARMADILLO4R_NO_SPARSE"
+fi
+
 # Compose ARMA_FLAGS
 ARMA_FLAGS="-DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=$num_cores"
 
@@ -201,6 +210,7 @@ sed -e "s|@CXX_STD@|${CXX_STD}|g" \
     -e "s|@ARMA_FLAGS@|${ARMA_FLAGS}|g" \
     -e "s|@ncores@|${num_cores}|g" \
     -e "s|@DEBUG_FLAGS@|${DEBUG_FLAGS}|g" \
+    -e "s|@SPARSE_FLAGS@|${SPARSE_FLAGS}|g" \
   src/Makevars.in > src/Makevars
 
 # Print summary
@@ -213,6 +223,7 @@ armadillo4r configuration summary
   OpenMP Support:         $OPENMP_SUPPORT
   OpenMP Threads:         $num_cores
   SIMD Support:           ${SIMD_SUPPORT:-None}
+  Sparse Matrix Support:  $([ -z "$SPARSE_FLAGS" ] && echo "yes (Matrix >= 1.6-2)" || echo "no (Matrix < 1.6-2)")
   BLAS:                   $BLAS_LIBS
   LAPACK:                 $LAPACK_LIBS
   High-Performance Mode:  ${ARMADILLO4RTEST_OPTIMIZATIONS:-no}

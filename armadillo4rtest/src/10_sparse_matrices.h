@@ -1,3 +1,5 @@
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] SEXP test_dgCMatrix_to_SpMat(SEXP x) {
   // Convert from dgCMatrix to SpMat
   SpMat<double> A = as_SpMat(x);
@@ -25,3 +27,5 @@
   out[1] = static_cast<int>(A.n_cols);
   return out;
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE

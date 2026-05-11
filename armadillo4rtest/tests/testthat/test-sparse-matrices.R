@@ -1,7 +1,12 @@
-test_that("sparse matrices copy works", {
-  if (!requireNamespace("Matrix", quietly = TRUE)) {
-    skip("Matrix package is not available")
+skip_if_no_sparse <- function() {
+  skip_if_not_installed("Matrix", minimum_version = "1.6-2")
+  if (!exists("test_dgCMatrix_to_SpMat", mode = "function")) {
+    skip("sparse matrix support not compiled (Matrix < 1.6-2 at build time)")
   }
+}
+
+test_that("sparse matrices copy works", {
+  skip_if_no_sparse()
 
   M <- Matrix::Matrix(c(0, 0, 0, 2, 6, 0, -1, 5, 0, 4, 3, 0, 0, 0, 5, 0),
     nrow = 4, ncol = 4, sparse = TRUE
@@ -13,7 +18,7 @@ test_that("sparse matrices copy works", {
 })
 
 test_that("as_SpMat accepts CsparseMatrix subclasses", {
-  skip_if_not_installed("Matrix")
+  skip_if_no_sparse()
 
   vals <- c(0, 0, 0, 2, 6, 0, -1, 5, 0, 4, 3, 0, 0, 0, 5, 0)
   M <- Matrix::Matrix(vals, nrow = 4, ncol = 4, sparse = TRUE)
@@ -26,7 +31,7 @@ test_that("as_SpMat accepts CsparseMatrix subclasses", {
 })
 
 test_that("as_SpMat accepts RsparseMatrix and TsparseMatrix", {
-  skip_if_not_installed("Matrix")
+  skip_if_no_sparse()
 
   M <- Matrix::Matrix(c(0, 0, 0, 2, 6, 0, -1, 5, 0, 4, 3, 0, 0, 0, 5, 0),
     nrow = 4, ncol = 4, sparse = TRUE
@@ -40,7 +45,7 @@ test_that("as_SpMat accepts RsparseMatrix and TsparseMatrix", {
 })
 
 test_that("as_SpMat expands symmetric sparse matrices", {
-  skip_if_not_installed("Matrix")
+  skip_if_no_sparse()
 
   S <- Matrix::sparseMatrix(
     i = c(1L, 2L, 3L),
@@ -56,7 +61,7 @@ test_that("as_SpMat expands symmetric sparse matrices", {
 })
 
 test_that("as_SpMat materializes unit diagonal of triangular matrices", {
-  skip_if_not_installed("Matrix")
+  skip_if_no_sparse()
 
   # Strictly lower-triangular storage with diag = "U" means the diagonal is
   # implicitly 1; no diagonal entry may appear in `i`/`x` for the class to
