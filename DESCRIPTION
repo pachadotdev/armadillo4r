@@ -25,10 +25,10 @@ Authors@R: c(
         comment = "Armadillo library (C++)")
     )
 Imports: cpp4r
-LinkingTo: Matrix (>= 1.6-2)
+LinkingTo: Matrix
 Suggests: 
     desc,
-    Matrix (>= 1.6-2),
+    Matrix,
     mockery,
     testthat (>= 3.0.0),
     withr
