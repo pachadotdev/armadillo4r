@@ -398,6 +398,8 @@
   return as_doubles_matrix(X);
 }
 
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] list eig_sym2_(const doubles_matrix<>& x, const char* method,
                                    const int& k) {
   sp_mat X = as_SpMat(x);
@@ -469,3 +471,5 @@
 
   return as_doubles(X);
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE

@@ -10,6 +10,7 @@ armadillo4r configuration summary
   OpenMP Support:         yes
   OpenMP Threads:         4
   SIMD Support:           AVX2
+  Sparse Matrix Support:  yes (Matrix >= 1.6-2)
   BLAS:                   -lblas
   LAPACK:                 -llapack
   High-Performance Mode:  no

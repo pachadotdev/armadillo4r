@@ -46,13 +46,6 @@ test_that("elemental tests for matrices", {
   y <- matrix(rpois(4, 1), nrow = 2)
   expect_equal(y, typedef_Mat_int(y))
 
-  y2 <- y
-  diag(y2) <- 0
-  expect_equal(y2, typedef_SpMat_double(y2))
-
-  storage.mode(y2) <- "integer"
-  expect_equal(y2, typedef_SpMat_int(y2))
-
   y[1, 1] <- NA
   expect_equal(y, typedef_Mat_int(y))
 
@@ -68,6 +61,18 @@ test_that("elemental tests for matrices", {
   expect_equal(y, typedef_Mat_double(y))
 })
 
+test_that("elemental tests for sparse matrices", {
+  skip_if_no_sparse()
+
+  set.seed(1234)
+  y <- matrix(rpois(4, 1), nrow = 2)
+  diag(y) <- 0
+  expect_equal(y, typedef_SpMat_double(y))
+
+  storage.mode(y) <- "integer"
+  expect_equal(y, typedef_SpMat_int(y))
+})
+
 test_that("compatible casting for matrices", {
   set.seed(123)
   x <- round(matrix(rnorm(4), nrow = 2), 3)
@@ -76,7 +81,11 @@ test_that("compatible casting for matrices", {
   for (i in seq_len(n - 1)) {
     expect_true(all.equal(res[[n]], res[[i]]))
   }
+})
 
+test_that("compatible casting for matrices", {
+  skip_if_no_sparse()
+  
   set.seed(200100)
   y <- matrix(rbinom(25, 1, 0.5), 5, 5)
   storage.mode(y) <- "double"

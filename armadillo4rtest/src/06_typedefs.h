@@ -25,6 +25,8 @@
   return as_integers_matrix(y);
 }
 
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] doubles_matrix<> typedef_SpMat_double(const doubles_matrix<>& x) {
   SpMat<double> y = as_SpMat(x);
   return as_doubles_matrix(y);
@@ -118,3 +120,5 @@
 
   return res;
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE

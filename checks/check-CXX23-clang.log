@@ -15,6 +15,7 @@ armadillo4r configuration summary
   OpenMP Support:         yes
   OpenMP Threads:         4
   SIMD Support:           AVX2
+  Sparse Matrix Support:  yes (Matrix >= 1.6-2)
   BLAS:                   -lblas
   LAPACK:                 -llapack
   High-Performance Mode:  no
@@ -36,10 +37,13 @@ specified C++20
 using C++ compiler: ‘g++ (GCC) 15.2.1 20260209’
 using C++20
 make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest/src'
+make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest/src'
+make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest/src'
 g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/armadillo4r/include' -I'/usr/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3 -UNDEBUG -Wall -pedantic -g -O0  -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/armadillo4r/include' -I'/usr/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3 -UNDEBUG -Wall -pedantic -g -O0  -c main.cpp -o main.o
 g++ -std=gnu++20 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
 make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest/src'
-installing to /tmp/Rtmpjg1Q00/devtools_install_cdcb35c737066/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+installing to /tmp/RtmpDhy6WU/devtools_install_e55f723f94f7d/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
 ** checking absolute paths in shared objects and dynamic libraries
 * DONE (armadillo4rtest)
 Loading required package: usethis
@@ -52,22 +56,15 @@ Loading required package: usethis
     GNU Fortran (GCC) 15.2.1 20260209
 * running under: Manjaro Linux
 * using session charset: UTF-8
-* current time: 2026-05-11 15:07:03 UTC
+* current time: 2026-05-11 19:42:08 UTC
 * using options ‘--no-manual --as-cran’
 * checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
 * this is package ‘armadillo4rtest’ version ‘0.1.0’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [6s/106s] NOTE
+* checking CRAN incoming feasibility ... NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
 New submission
-
-Found the following (possibly) invalid URLs:
-  URL: https://orcid.org/0000-0003-1017-7574
-    From: man/armadillo4rtest-package.Rd
-    Status: Error
-    Message: libcurl error code 28:
-      	Operation timed out after 60000 milliseconds with 0 bytes received
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -76,7 +73,7 @@ Found the following (possibly) invalid URLs:
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [104s/105s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [137s/143s] OK
 * used C++ compiler: ‘g++ (GCC) 15.2.1 20260209’
 * checking C++ specification ... INFO
   specified C++20
@@ -153,6 +150,7 @@ armadillo4r configuration summary
   OpenMP Support:         yes
   OpenMP Threads:         4
   SIMD Support:           AVX2
+  Sparse Matrix Support:  yes (Matrix >= 1.6-2)
   BLAS:                   -lblas
   LAPACK:                 -llapack
   High-Performance Mode:  no
