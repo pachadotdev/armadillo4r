@@ -6,7 +6,7 @@ Description: Provides function declarations and inline function definitions that
     linear algebra and scientific computing. This implementation is derived
     from Vargas Sepulveda and Schneider Malamud (2024)
     <doi:10.1016/j.softx.2025.102087>.
-Version: 0.8.0
+Version: 0.9.0
 Authors@R: c(
     person(
         given = "Mauricio",
@@ -25,8 +25,10 @@ Authors@R: c(
         comment = "Armadillo library (C++)")
     )
 Imports: cpp4r
+LinkingTo: Matrix (>= 1.6-2)
 Suggests: 
     desc,
+    Matrix (>= 1.6-2),
     mockery,
     testthat (>= 3.0.0),
     withr
@@ -35,6 +37,6 @@ License: Apache License (>= 2)
 BugReports: https://github.com/pachadotdev/armadillo4r/issues
 URL: https://pacha.dev/armadillo4r/,
     https://github.com/pachadotdev/armadillo4r
-RoxygenNote: 7.3.3
 Encoding: UTF-8
 Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0

@@ -221,8 +221,7 @@ inline bool armadillo4r_is_(SEXP x, const char* klass) {
 // CsparseMatrix by calling methods::as() at the R level. The returned SEXP
 // is unprotected; the caller must PROTECT it.
 inline SEXP armadillo4r_as_CsparseMatrix_(SEXP x) {
-  SEXP call =
-      PROTECT(Rf_lang3(Rf_install("as"), x, Rf_mkString("CsparseMatrix")));
+  SEXP call = PROTECT(Rf_lang3(Rf_install("as"), x, Rf_mkString("CsparseMatrix")));
   SEXP methods_ns = PROTECT(R_FindNamespace(Rf_mkString("methods")));
   SEXP res = Rf_eval(call, methods_ns);
   UNPROTECT(2);
@@ -239,8 +238,7 @@ inline SpMat<double> as_SpMat_from_Csparse_(SEXP x) {
   cholmod_sparse chol_stack;
   // checkUnit = TRUE: materialize implicit unit diagonal for triangular
   // matrices. sortInPlace = FALSE: never mutate the caller's data.
-  CHM_SP A =
-      M_sexp_as_cholmod_sparse(&chol_stack, x, TRUE, FALSE);
+  CHM_SP A = M_sexp_as_cholmod_sparse(&chol_stack, x, TRUE, FALSE);
   if (A == nullptr) {
     stop("Could not interpret object as a CsparseMatrix");
   }
@@ -257,8 +255,7 @@ inline SpMat<double> as_SpMat_from_Csparse_(SEXP x) {
   CHM_SP A_owned = nullptr;
   CHM_SP A_use = A;
   if (A->stype != 0) {
-    A_owned = M_cholmod_copy(A, 0 /* stype = general */,
-                             1 /* mode = numeric */, c);
+    A_owned = M_cholmod_copy(A, 0 /* stype = general */, 1 /* mode = numeric */, c);
     if (A_owned == nullptr) {
       stop("CHOLMOD failed to expand symmetric sparse matrix");
     }
@@ -318,9 +315,9 @@ inline SEXP as_dgCMatrix(const SpMat<double>& A) {
   const uword nnz = A.n_nonzero;
 
   CHM_SP B = M_cholmod_allocate_sparse(
-      static_cast<size_t>(n_rows), static_cast<size_t>(n_cols),
-      static_cast<size_t>(nnz), 1 /* sorted */, 1 /* packed */,
-      0 /* stype = general */, CHOLMOD_REAL + CHOLMOD_DOUBLE, c);
+      static_cast<size_t>(n_rows), static_cast<size_t>(n_cols), static_cast<size_t>(nnz),
+      1 /* sorted */, 1 /* packed */, 0 /* stype = general */,
+      CHOLMOD_REAL + CHOLMOD_DOUBLE, c);
   if (B == nullptr) {
     stop("CHOLMOD failed to allocate sparse matrix");
   }
@@ -342,8 +339,8 @@ inline SEXP as_dgCMatrix(const SpMat<double>& A) {
   }
 
   // doFree = -1: free B with M_cholmod_free_sparse after the SEXP is built.
-  return M_cholmod_sparse_as_sexp(B, -1, 0 /* general */, 0 /* numeric */,
-                                  "" /* diag */, R_NilValue);
+  return M_cholmod_sparse_as_sexp(B, -1, 0 /* general */, 0 /* numeric */, "" /* diag */,
+                                  R_NilValue);
 }
 
 #endif

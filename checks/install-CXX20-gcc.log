@@ -27,11 +27,12 @@ For faster computation
  Then reinstall the package
 ==========================================================================
 ** libs
+specified C++20
 using C++ compiler: ‘g++ (GCC) 15.2.1 20260209’
 using C++20
 make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
-g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.5/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.5/armadillo4r/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3  -c cpp4r.cpp -o cpp4r.o
-g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.5/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.5/armadillo4r/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3  -c main.cpp -o main.o
+g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/armadillo4r/include' -I'/usr/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3  -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/armadillo4r/include' -I'/usr/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3  -c main.cpp -o main.o
 g++ -std=gnu++20 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
 make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
 make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'

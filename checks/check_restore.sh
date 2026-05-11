@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Accept std as first arg, default to CXX14
-std=${1:-CXX14}
+# Accept std as first arg, default to CXX20
+std=${1:-CXX20}
 std=$(echo "$std" | tr '[:lower:]' '[:upper:]')
 compiler=${2:-gcc}
 

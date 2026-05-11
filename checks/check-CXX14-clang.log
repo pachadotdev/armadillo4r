@@ -7,33 +7,57 @@ Loading required package: usethis
 * installing *source* package ‘armadillo4rtest’ ...
 ** this is package ‘armadillo4rtest’ version ‘0.1.0’
 ** using staged installation
+==========================================================================
+armadillo4r configuration summary
+
+  C++ Compiler:           g++
+  C++ Standard:           CXX20
+  OpenMP Support:         yes
+  OpenMP Threads:         4
+  SIMD Support:           AVX2
+  BLAS:                   -lblas
+  LAPACK:                 -llapack
+  High-Performance Mode:  no
+  Optimization Flags:     
+  Debug Flags:            
+
+For faster computation
+ 
+ Enable high-performance optimizations:
+ export ARMADILLO4RTEST_OPTIMIZATIONS=yes
+ 
+ Change thread count:
+ export ARMADILLO4RTEST_NCORES=<number>
+ 
+ Then reinstall the package
+==========================================================================
 ** libs
+specified C++20
 using C++ compiler: ‘g++ (GCC) 15.2.1 20260209’
+using C++20
 make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest/src'
+g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/armadillo4r/include' -I'/usr/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3 -UNDEBUG -Wall -pedantic -g -O0  -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++20 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
 make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest/src'
-make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest/src'
-g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/ -Wall -O2 -pedantic  -I/usr/local/include   -fopenmp  -DARMA_OPENMP_THREADS=4 -fpic  -O3 -UNDEBUG -Wall -pedantic -g -O0  -c cpp4r.cpp -o cpp4r.o
-g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/ -Wall -O2 -pedantic  -I/usr/local/include   -fopenmp  -DARMA_OPENMP_THREADS=4 -fpic  -O3 -UNDEBUG -Wall -pedantic -g -O0  -c main.cpp -o main.o
-g++ -std=gnu++17 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
-make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest/src'
-installing to /tmp/Rtmp0AJz0H/devtools_install_3d56f67f06d35/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+installing to /tmp/RtmptEgErN/devtools_install_c75fc5b0410c1/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
 ** checking absolute paths in shared objects and dynamic libraries
 * DONE (armadillo4rtest)
 Loading required package: usethis
 Loading required package: usethis
 * using log directory ‘/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck’
-* using R version 4.5.3 (2026-03-11)
+* using R version 4.6.0 (2026-04-24)
 * using platform: x86_64-pc-linux-gnu
 * R was compiled by
     gcc (GCC) 15.2.1 20260209
     GNU Fortran (GCC) 15.2.1 20260209
 * running under: Manjaro Linux
 * using session charset: UTF-8
+* current time: 2026-05-11 14:43:19 UTC
 * using options ‘--no-manual --as-cran’
 * checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
 * this is package ‘armadillo4rtest’ version ‘0.1.0’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... NOTE
+* checking CRAN incoming feasibility ... [5s/38s] NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
 New submission
@@ -45,15 +69,13 @@ New submission
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [116s/116s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [106s/107s] OK
 * used C++ compiler: ‘g++ (GCC) 15.2.1 20260209’
-* checking installed package size ... INFO
-  installed size is 21.0Mb
-  sub-directories of 1Mb or more:
-    libs  20.9Mb
+* checking C++ specification ... INFO
+  specified C++20
+* checking installed package size ... OK
 * checking package directory ... OK
-* checking for future file timestamps ... NOTE
-unable to verify current time
+* checking for future file timestamps ... OK
 * checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
 * checking for left-over files ... OK
@@ -89,9 +111,7 @@ unable to verify current time
 * checking line endings in shell scripts ... OK
 * checking line endings in C/C++/Fortran sources/headers ... OK
 * checking line endings in Makefiles ... OK
-* checking compilation flags in Makevars ... WARNING
-Non-portable flags in variable 'PKG_CPPFLAGS':
-  -g -Wall -O2 -pedantic
+* checking compilation flags in Makevars ... OK
 * checking for GNU extensions in Makefiles ... OK
 * checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
 * checking use of PKG_*FLAGS in Makefiles ... OK
@@ -108,7 +128,7 @@ Non-portable flags in variable 'PKG_CPPFLAGS':
 * checking for detritus in the temp directory ... OK
 * DONE
 
-Status: 1 WARNING, 2 NOTEs
+Status: 1 NOTE
 See
   ‘/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00check.log’
 for details.
@@ -118,12 +138,38 @@ Loading required package: usethis
 * installing *source* package ‘armadillo4rtest’ ...
 ** this is package ‘armadillo4rtest’ version ‘0.1.0’
 ** using staged installation
+==========================================================================
+armadillo4r configuration summary
+
+  C++ Compiler:           g++
+  C++ Standard:           CXX20
+  OpenMP Support:         yes
+  OpenMP Threads:         4
+  SIMD Support:           AVX2
+  BLAS:                   -lblas
+  LAPACK:                 -llapack
+  High-Performance Mode:  no
+  Optimization Flags:     
+  Debug Flags:            
+
+For faster computation
+ 
+ Enable high-performance optimizations:
+ export ARMADILLO4RTEST_OPTIMIZATIONS=yes
+ 
+ Change thread count:
+ export ARMADILLO4RTEST_NCORES=<number>
+ 
+ Then reinstall the package
+==========================================================================
 ** libs
+specified C++20
 using C++ compiler: ‘g++ (GCC) 15.2.1 20260209’
+using C++20
 make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
-g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/ -Wall -O2 -pedantic  -I/usr/local/include   -fopenmp  -DARMA_OPENMP_THREADS=4 -fpic  -O3  -c cpp4r.cpp -o cpp4r.o
-g++ -std=gnu++17 -I"/usr/include/R/" -DNDEBUG -UDEBUG -g -I vendor/ -Wall -O2 -pedantic  -I/usr/local/include   -fopenmp  -DARMA_OPENMP_THREADS=4 -fpic  -O3  -c main.cpp -o main.o
-g++ -std=gnu++17 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
+g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/armadillo4r/include' -I'/usr/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3  -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++20 -I"/usr/include/R/" -DNDEBUG  -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/cpp4r/include' -I'/home/pacha/R/x86_64-pc-linux-gnu-library/4.6/armadillo4r/include' -I'/usr/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -O3  -c main.cpp -o main.o
+g++ -std=gnu++20 -shared -L/usr/lib64/R/lib -Wl,-O1 -Wl,--sort-common -Wl,--as-needed -Wl,-z,relro -Wl,-z,now -Wl,-z,pack-relative-relocs -flto=auto -o armadillo4rtest.so cpp4r.o main.o -fopenmp -llapack -lblas -lgfortran -lm -lquadmath -L/usr/lib64/R/lib -lR
 make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
 make[1]: Entering directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'
 make[1]: Leaving directory '/home/pacha/Documents/armadillo4r/armadillo4rtest.Rcheck/00_pkg_src/armadillo4rtest/src'

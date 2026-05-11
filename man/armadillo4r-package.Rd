@@ -6,6 +6,8 @@
 \alias{armadillo4r-package}
 \title{armadillo4r: An 'Armadillo' Interface}
 \description{
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
+
 Provides function declarations and inline function definitions that facilitate communication between R and the 'Armadillo' 'C++' library for linear algebra and scientific computing. This implementation is derived from Vargas Sepulveda and Schneider Malamud (2024) \doi{10.1016/j.softx.2025.102087}.
 }
 \seealso{
@@ -22,6 +24,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Mauricio Vargas Sepulveda \email{m.vargas.sepulveda@gmail.com} (\href{https://orcid.org/0000-0003-1017-7574}{ORCID})
   \item Conrad Sanderson (Armadillo library (C++))
 }
 

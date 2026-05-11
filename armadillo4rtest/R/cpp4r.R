@@ -1012,6 +1012,14 @@ test_dgCMatrix_to_SpMat <- function(x) {
 	.Call(`_armadillo4rtest_test_dgCMatrix_to_SpMat`, x)
 }
 
+test_sparse_to_dgCMatrix <- function(x) {
+	.Call(`_armadillo4rtest_test_sparse_to_dgCMatrix`, x)
+}
+
+test_sparse_dims <- function(x) {
+	.Call(`_armadillo4rtest_test_sparse_dims`, x)
+}
+
 implicit_conversion_double <- function(x) {
 	.Call(`_armadillo4rtest_implicit_conversion_double`, x)
 }

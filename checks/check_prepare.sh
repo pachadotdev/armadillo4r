@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-std=${1:-CXX14}
+std=${1:-CXX20}
 std=$(echo "$std" | tr '[:lower:]' '[:upper:]')
 compiler=${2:-gcc}
 

@@ -73,6 +73,14 @@
 
 
 
+<div id="armadillo4r-0.9.0" class="section level1">
+<h1>armadillo4r 0.9.0</h1>
+<ul><li>Using Armadillo 15.2.6</li>
+<li><code>as_SpMat()</code> now accepts any sparse matrix class from the <code>Matrix</code> package, including <code>RsparseMatrix</code>
+and <code>TsparseMatrix</code> subclasses, symmetric (<code>dsCMatrix</code>), and unit-triangular (<code>dtCMatrix</code>) matrices, which are expanded to general form on conversion to <code>SpMat&lt;double&gt;</code>.</li>
+<li><code>as_SpMat()</code> and <code>as_dgCMatrix()</code> now use the <code>Matrix</code> package’s public C API (CHOLMOD bridge) via
+<code>LinkingTo: Matrix (&gt;= 1.6-2)</code> instead of reading S4 slots directly.</li>
+</ul></div>
 <div id="armadillo4r-0.8.0" class="section level1">
 <h1>armadillo4r 0.8.0</h1>
 <ul><li>Adds templates to simplify cube/field data copying between R and Armadillo.</li>

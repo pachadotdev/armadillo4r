@@ -7,8 +7,8 @@ install:
 docs:
 	@Rscript --vanilla -e 'devtools::document("./"); pkgsite::build_site("./")'
 
-STANDARDS := cxx20
-COMPILERS := gcc
+STANDARDS := cxx14 cxx17 cxx20 cxx23
+COMPILERS := gcc clang
 
 define run-check
 check-$(1)-$(2):

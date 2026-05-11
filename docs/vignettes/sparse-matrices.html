@@ -73,52 +73,53 @@
 
 
 
-<div id="limited-support" class="section level1">
-<h1>Limited support</h1>
-<p><code>armadillo4r</code>, as of v0.5.0, supports the
-<code>dgCMatrix</code> class from the <code>Matrix</code> package. This
-class is a sparse matrix class that stores the matrix in a compressed
-column format.</p>
-<p>The strategy for an efficient conversion from R to C++ and vice versa
-is to create an indexing of the non-zero elements of the input matrix
-and then use this indexing to create <code>dgCMatrix</code> (R) or
-<code>SpMat</code> (Armadillo/C++) object.</p>
+<div id="supported-sparse-matrix-classes" class="section level1">
+<h1>Supported sparse matrix classes</h1>
+<p>Since v0.9.0, <code>armadillo4r</code> links to the
+<code>Matrix</code> package and uses its public C API to convert between
+R sparse matrices and Armadillo <code>SpMat&lt;double&gt;</code>. The
+<code>as_SpMat(SEXP)</code> function accepts any sparse matrix class
+that the <code>Matrix</code> package can express:</p>
+<ul><li><code>CsparseMatrix</code> subclasses (<code>dgCMatrix</code>,
+<code>dsCMatrix</code>, <code>dtCMatrix</code>, <code>lgCMatrix</code>,
+…) – the fast path, read directly via the CHOLMOD bridge.</li>
+<li><code>RsparseMatrix</code> and <code>TsparseMatrix</code> subclasses
+– transparently coerced to <code>CsparseMatrix</code> first.</li>
+<li>Symmetric (<code>dsCMatrix</code>) matrices are expanded to general
+(both triangles populated) before constructing the
+<code>SpMat</code>.</li>
+<li>Unit-triangular (<code>dtCMatrix</code> with
+<code>diag = "U"</code>) matrices have their implicit unit diagonal
+materialized.</li>
+</ul><p><code>as_dgCMatrix(SpMat&lt;double&gt;)</code> always returns a
+general <code>dgCMatrix</code>.</p>
+<p>The strategy is to use Matrix’s <code>M_sexp_as_cholmod_sparse</code>
+to wrap the input without copying the slot data, then build the
+Armadillo <code>SpMat</code> from the CSC arrays. The output path uses
+<code>M_cholmod_sparse_as_sexp</code> to construct the returned
+<code>dgCMatrix</code>.</p>
 <p>Note that <code>cpp4r</code> does not provide sparse matrices as it
-is the case for the dense data types <code>doubles_matrix&lt;&gt;</code>
-or <code>integers_matrix&lt;&gt;</code>. <code>armadillo4r</code> uses
-<code>SEXP</code> to provide a method to convert <code>dgCMatrix</code>
-objects to <code>SpMat</code> objects and vice versa using some
-properties of S4 objects.</p>
+does for the dense data types <code>doubles_matrix&lt;&gt;</code> or
+<code>integers_matrix&lt;&gt;</code>. <code>armadillo4r</code> uses
+<code>SEXP</code> to provide a method to convert between R sparse
+classes and <code>SpMat</code> objects.</p>
 <p>Here is an example of how to convert a <code>dgCMatrix</code> object
-to a <code>SpMat</code> object and re-import it to R:</p>
+to a <code>SpMat</code> object and export the resulting operation to
+R:</p>
 <pre class="cpp"><code>[[cpp4r::register]] SEXP sum_matrices_(SEXP x) {
-``````cpp
-  // Convert from dgCMatrix to SpMat
-``````cpp
+  // Convert from any sparse Matrix object to SpMat
   SpMat&lt;double&gt; A = as_SpMat(x);
-``````cpp
 
-``````cpp
   // Create a matrix B with a diagonal of random numbers
-``````cpp
   SpMat&lt;double&gt; B(A.n_rows, A.n_cols);
-``````cpp
   for (uword i = 0; i &lt; A.n_rows; ++i) {
-``````cpp
     B(i, i) = randu&lt;double&gt;();
-``````cpp
   }
-``````cpp
 
-``````cpp
   A += B; // Add the two matrices
-``````cpp
 
-``````cpp
   // Convert back to dgCMatrix and return
-``````cpp
   return as_dgCMatrix(A);
-``````cpp
 }</code></pre>
 </div>
         </div>

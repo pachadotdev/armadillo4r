@@ -1776,6 +1776,20 @@ extern "C" SEXP _armadillo4rtest_test_dgCMatrix_to_SpMat(SEXP x) {
     return cpp4r::as_sexp(test_dgCMatrix_to_SpMat(cpp4r::as_cpp<cpp4r::decay_t<SEXP>>(x)));
   END_CPP4R
 }
+// 10_sparse_matrices.h
+SEXP test_sparse_to_dgCMatrix(SEXP x);
+extern "C" SEXP _armadillo4rtest_test_sparse_to_dgCMatrix(SEXP x) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(test_sparse_to_dgCMatrix(cpp4r::as_cpp<cpp4r::decay_t<SEXP>>(x)));
+  END_CPP4R
+}
+// 10_sparse_matrices.h
+SEXP test_sparse_dims(SEXP x);
+extern "C" SEXP _armadillo4rtest_test_sparse_dims(SEXP x) {
+  BEGIN_CPP4R
+    return cpp4r::as_sexp(test_sparse_dims(cpp4r::as_cpp<cpp4r::decay_t<SEXP>>(x)));
+  END_CPP4R
+}
 // 11_sexp_conversion.h
 SEXP implicit_conversion_double(SEXP x);
 extern "C" SEXP _armadillo4rtest_implicit_conversion_double(SEXP x) {
@@ -2218,6 +2232,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_armadillo4rtest_syl1_",                             (DL_FUNC) &_armadillo4rtest_syl1_,                             3},
     {"_armadillo4rtest_symmatu1_",                         (DL_FUNC) &_armadillo4rtest_symmatu1_,                         1},
     {"_armadillo4rtest_test_dgCMatrix_to_SpMat",           (DL_FUNC) &_armadillo4rtest_test_dgCMatrix_to_SpMat,           1},
+    {"_armadillo4rtest_test_sparse_dims",                  (DL_FUNC) &_armadillo4rtest_test_sparse_dims,                  1},
+    {"_armadillo4rtest_test_sparse_to_dgCMatrix",          (DL_FUNC) &_armadillo4rtest_test_sparse_to_dgCMatrix,          1},
     {"_armadillo4rtest_toeplitz1_",                        (DL_FUNC) &_armadillo4rtest_toeplitz1_,                        1},
     {"_armadillo4rtest_trace1_",                           (DL_FUNC) &_armadillo4rtest_trace1_,                           1},
     {"_armadillo4rtest_trans1_",                           (DL_FUNC) &_armadillo4rtest_trans1_,                           1},
