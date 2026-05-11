@@ -23,9 +23,12 @@
 // WARNING: any functionality which is _not explicitly_ described in the documentation
 // WARNING: is considered as internal implementation detail, and may be changed or removed without notice.
 
+#include "r_messages.hpp"
+#define ARMA_COUT_STREAM messagestream()
+#define ARMA_CERR_STREAM stopstream()
+
 #include "armadillo/config.hpp"
 #include "armadillo/compiler_check.hpp"
-#include "r_messages.hpp"
 
 #include <cstdlib>
 #include <cstddef>

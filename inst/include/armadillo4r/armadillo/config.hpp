@@ -221,13 +221,11 @@
 #endif
 
 #if !defined(ARMA_COUT_STREAM)
-  // #define ARMA_COUT_STREAM std::cout
-  #define ARMA_COUT_STREAM messagestream()  // hack
+  #define ARMA_COUT_STREAM std::cout
 #endif
 
 #if !defined(ARMA_CERR_STREAM)
-  // #define ARMA_CERR_STREAM std::cerr
-  #define ARMA_CERR_STREAM stopstream()  // hack
+  #define ARMA_CERR_STREAM std::cerr
 #endif
 
 #if !defined(ARMA_PRINT_EXCEPTIONS)
@@ -332,18 +330,6 @@
   #undef ARMA_OPTIMISE_POWEXPR
 #endif
 
-#if defined(ARMA_DONT_CHECK_CONFORMANCE)
-  #if defined(ARMA_CHECK_CONFORMANCE) && (ARMA_WARN_LEVEL >= 2)
-    #pragma message ("WARNING: conformance checks disabled")
-  #endif
-  
-  #undef ARMA_CHECK_CONFORMANCE
-#endif
-
-#if defined(ARMA_DONT_CHECK_NONFINITE)
-  #undef ARMA_CHECK_NONFINITE
-#endif
-
 #if defined(ARMA_NO_DEBUG)
   #undef ARMA_DEBUG
   #undef ARMA_EXTRA_DEBUG
@@ -361,6 +347,18 @@
   
   #undef  ARMA_WARN_LEVEL
   #define ARMA_WARN_LEVEL 3
+#endif
+
+#if defined(ARMA_DONT_CHECK_CONFORMANCE)
+  #if defined(ARMA_CHECK_CONFORMANCE) && (ARMA_WARN_LEVEL >= 2)
+    #pragma message ("WARNING: conformance checks disabled")
+  #endif
+  
+  #undef ARMA_CHECK_CONFORMANCE
+#endif
+
+#if defined(ARMA_DONT_CHECK_NONFINITE)
+  #undef ARMA_CHECK_NONFINITE
 #endif
 
 #if defined(ARMA_DONT_PRINT_EXCEPTIONS)

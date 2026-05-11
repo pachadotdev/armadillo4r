@@ -1,5 +1,17 @@
+Delete `inst/include/armadillo4r/armadillo/` and
+`inst/include/armadillo4r/armadillo.hpp`
+
+Replace with the files from `armadillo.x.y.z.tar.xz`:
+
+* `include/armadillo_bits` -> rename to `armadillo`
+* `include/armadillo` -> rename to `armadillo.hpp`
+
 After updating Armadillo version:
 
-1. `armadillo.hpp` includes a custom `r_messages.hpp` in line 28.
-2. `armadillo/arma_forward.hpp` omits `std::cout`/`std::cerr` in lines 18/19.
-3. `armadillo/config.hpp` calls custom message/error edirections in lines 225/230.
+In `armadillo.hpp`, before `#include "armadillo/config.hpp"`, add:
+
+```cpp
+#include "r_messages.hpp"
+#define ARMA_COUT_STREAM messagestream()
+#define ARMA_CERR_STREAM stopstream()
+```

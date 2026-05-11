@@ -1,10 +1,21 @@
 #pragma once
 
+#ifndef SPARSE_MATRICES_HPP
+#define SPARSE_MATRICES_HPP
+
+// Use the Matrix package's C API (LinkingTo: Matrix (>= 1.6-2)) to interoperate
+// with any sparse matrix class that Matrix can express. The stubs in
+// <Matrix/stubs.c> are declared as `static inline` so that this header may be
+// included from multiple translation units without multiple-definition errors.
+
+#ifndef R_MATRIX_INLINE
+#define R_MATRIX_INLINE static inline
+#endif
+#include <Matrix/Matrix.h>
+#include <Matrix/stubs.c>
+
 using namespace arma;
 using namespace cpp4r;
-
-#ifndef SPARSEMATRICES_HPP
-#define SPARSEMATRICES_HPP
 
 ////////////////////////////////////////////////////////////////
 // R to Armadillo
@@ -176,115 +187,163 @@ inline complexes_matrix<> as_complexes_matrix(const SpMat<std::complex<double>>&
   return SpMat_to_complexes_matrix_<std::complex<double>>(A);
 }
 
-#endif
-
 ////////////////////////////////////////////////////////////////
-// dgCMatrix to Armadillo
+// Matrix package sparse classes <-> Armadillo SpMat
 ////////////////////////////////////////////////////////////////
 
-// reference:
-// https://www.r-bloggers.com/2020/03/what-is-a-dgcmatrix-object-made-of-sparse-matrix-format-in-r/
-// http://adv-r.had.co.nz/OO-essentials.html#s4
+// Process-wide cholmod_common, lazily initialized. C++ guarantees that the
+// static local inside an inline function refers to a single object across
+// translation units.
+inline cholmod_common* armadillo4r_chm_common_() {
+  static cholmod_common c;
+  static bool initialized = false;
+  if (!initialized) {
+    M_cholmod_start(&c);
+    initialized = true;
+  }
+  return &c;
+}
+
+// Check S4 class inheritance by calling methods::is(x, klass). Rf_inherits
+// only matches exact strings in the "class" attribute and does not traverse
+// the S4 virtual class hierarchy (so e.g. it returns FALSE for a dgCMatrix
+// against "CsparseMatrix").
+inline bool armadillo4r_is_(SEXP x, const char* klass) {
+  SEXP call = PROTECT(Rf_lang3(Rf_install("is"), x, Rf_mkString(klass)));
+  SEXP methods_ns = PROTECT(R_FindNamespace(Rf_mkString("methods")));
+  SEXP res = PROTECT(Rf_eval(call, methods_ns));
+  const bool out = Rf_asLogical(res) == TRUE;
+  UNPROTECT(3);
+  return out;
+}
+
+// Coerce any sparse Matrix object (RsparseMatrix, TsparseMatrix, ...) to a
+// CsparseMatrix by calling methods::as() at the R level. The returned SEXP
+// is unprotected; the caller must PROTECT it.
+inline SEXP armadillo4r_as_CsparseMatrix_(SEXP x) {
+  SEXP call =
+      PROTECT(Rf_lang3(Rf_install("as"), x, Rf_mkString("CsparseMatrix")));
+  SEXP methods_ns = PROTECT(R_FindNamespace(Rf_mkString("methods")));
+  SEXP res = Rf_eval(call, methods_ns);
+  UNPROTECT(2);
+  return res;
+}
 
 inline bool is_dgCMatrix(SEXP x) { return Rf_inherits(x, "dgCMatrix"); }
 
-inline SpMat<double> as_SpMat(SEXP x) {
-  if (!is_dgCMatrix(x)) {
-    stop("Input is not a dgCMatrix");
+// Internal: build a SpMat<double> from a CsparseMatrix SEXP using the Matrix
+// CHOLMOD bridge. Handles symmetric (stype != 0) and unit-triangular inputs.
+inline SpMat<double> as_SpMat_from_Csparse_(SEXP x) {
+  cholmod_common* c = armadillo4r_chm_common_();
+
+  cholmod_sparse chol_stack;
+  // checkUnit = TRUE: materialize implicit unit diagonal for triangular
+  // matrices. sortInPlace = FALSE: never mutate the caller's data.
+  CHM_SP A =
+      M_sexp_as_cholmod_sparse(&chol_stack, x, TRUE, FALSE);
+  if (A == nullptr) {
+    stop("Could not interpret object as a CsparseMatrix");
   }
 
-  // Cache slot symbols to avoid repeated lookups
-  static SEXP i_sym = Rf_install("i");
-  static SEXP p_sym = Rf_install("p");
-  static SEXP x_sym = Rf_install("x");
-  static SEXP Dim_sym = Rf_install("Dim");
+  if (A->xtype != CHOLMOD_REAL || A->dtype != CHOLMOD_DOUBLE) {
+    stop("Sparse matrix must be real and double precision");
+  }
+  if (A->itype != CHOLMOD_INT) {
+    stop("Sparse matrix must use 32-bit integer indices");
+  }
 
-  // Extract the slots from dgCMatrix (direct pointer access)
-  const int* row_indices = INTEGER(R_do_slot(x, i_sym));
-  const int* col_ptrs = INTEGER(R_do_slot(x, p_sym));
-  const double* values = REAL(R_do_slot(x, x_sym));
-  const int* dims = INTEGER(R_do_slot(x, Dim_sym));
+  // For symmetric storage (stype != 0) expand to general form so the
+  // resulting SpMat has both triangles populated.
+  CHM_SP A_owned = nullptr;
+  CHM_SP A_use = A;
+  if (A->stype != 0) {
+    A_owned = M_cholmod_copy(A, 0 /* stype = general */,
+                             1 /* mode = numeric */, c);
+    if (A_owned == nullptr) {
+      stop("CHOLMOD failed to expand symmetric sparse matrix");
+    }
+    A_use = A_owned;
+  }
 
-  const uword n_rows = static_cast<uword>(dims[0]);
-  const uword n_cols = static_cast<uword>(dims[1]);
-  const uword nnz = static_cast<uword>(col_ptrs[n_cols]);
+  const uword n_rows = static_cast<uword>(A_use->nrow);
+  const uword n_cols = static_cast<uword>(A_use->ncol);
+  const int* Ap = static_cast<const int*>(A_use->p);
+  const int* Ai = static_cast<const int*>(A_use->i);
+  const double* Ax = static_cast<const double*>(A_use->x);
+  const uword nnz = static_cast<uword>(Ap[n_cols]);
 
-  // Convert to uvec/vec wrapping the data (zero-copy where possible)
-  // Note: row_indices are 0-based in dgCMatrix, same as Armadillo
   uvec rowind(nnz);
-  for (uword i = 0; i < nnz; ++i) {
-    rowind[i] = static_cast<uword>(row_indices[i]);
+  for (uword k = 0; k < nnz; ++k) {
+    rowind[k] = static_cast<uword>(Ai[k]);
   }
-
   uvec colptr(n_cols + 1);
   for (uword j = 0; j <= n_cols; ++j) {
-    colptr[j] = static_cast<uword>(col_ptrs[j]);
+    colptr[j] = static_cast<uword>(Ap[j]);
   }
+  vec vals(const_cast<double*>(Ax), nnz, true /* copy */, false);
 
-  // Values can be wrapped directly (same type)
-  vec vals(const_cast<double*>(values), nnz, false, false);
+  SpMat<double> out(rowind, colptr, vals, n_rows, n_cols);
 
-  // Construct SpMat directly from CSC components
-  return SpMat<double>(rowind, colptr, vals, n_rows, n_cols);
+  if (A_owned != nullptr) {
+    M_cholmod_free_sparse(&A_owned, c);
+  }
+  return out;
 }
 
-////////////////////////////////////////////////////////////////
-// SpMat to dgCMatrix
-////////////////////////////////////////////////////////////////
+// Accept any sparse Matrix object: CsparseMatrix subclasses go through the
+// CHOLMOD bridge directly; RsparseMatrix / TsparseMatrix are coerced to
+// CsparseMatrix at the R level first.
+inline SpMat<double> as_SpMat(SEXP x) {
+  if (armadillo4r_is_(x, "CsparseMatrix")) {
+    return as_SpMat_from_Csparse_(x);
+  }
+  if (armadillo4r_is_(x, "sparseMatrix")) {
+    SEXP coerced = PROTECT(armadillo4r_as_CsparseMatrix_(x));
+    SpMat<double> out = as_SpMat_from_Csparse_(coerced);
+    UNPROTECT(1);
+    return out;
+  }
+  stop(
+      "Input must be a sparse matrix from the 'Matrix' package "
+      "(CsparseMatrix, RsparseMatrix, or TsparseMatrix)");
+}
 
+// Convert SpMat<double> to a dgCMatrix via M_cholmod_sparse_as_sexp. The
+// uword -> int copy is unavoidable because dgCMatrix stores int indices.
 inline SEXP as_dgCMatrix(const SpMat<double>& A) {
+  cholmod_common* c = armadillo4r_chm_common_();
+
   const uword n_rows = A.n_rows;
   const uword n_cols = A.n_cols;
   const uword nnz = A.n_nonzero;
 
-  // Armadillo SpMat is already in CSC format - direct access to internal arrays
-  // A.row_indices: row indices (0-based, same as dgCMatrix)
-  // A.col_ptrs: column pointers
-  // A.values: non-zero values
+  CHM_SP B = M_cholmod_allocate_sparse(
+      static_cast<size_t>(n_rows), static_cast<size_t>(n_cols),
+      static_cast<size_t>(nnz), 1 /* sorted */, 1 /* packed */,
+      0 /* stype = general */, CHOLMOD_REAL + CHOLMOD_DOUBLE, c);
+  if (B == nullptr) {
+    stop("CHOLMOD failed to allocate sparse matrix");
+  }
 
-  // Create R vectors for dgCMatrix slots
-  SEXP i_sexp = PROTECT(Rf_allocVector(INTSXP, nnz));         // row indices
-  SEXP p_sexp = PROTECT(Rf_allocVector(INTSXP, n_cols + 1));  // column pointers
-  SEXP x_sexp = PROTECT(Rf_allocVector(REALSXP, nnz));        // values
-  SEXP Dim_sexp = PROTECT(Rf_allocVector(INTSXP, 2));         // dimensions
+  int* Bp = static_cast<int*>(B->p);
+  int* Bi = static_cast<int*>(B->i);
+  double* Bx = static_cast<double*>(B->x);
 
-  int* i_ptr = INTEGER(i_sexp);
-  int* p_ptr = INTEGER(p_sexp);
-  double* x_ptr = REAL(x_sexp);
-  int* Dim_ptr = INTEGER(Dim_sexp);
-
-  // Copy data directly from Armadillo's internal CSC storage
   const uword* row_ind = A.row_indices;
   const uword* col_ptr = A.col_ptrs;
   const double* vals = A.values;
 
   for (uword k = 0; k < nnz; ++k) {
-    i_ptr[k] = static_cast<int>(row_ind[k]);
-    x_ptr[k] = vals[k];
+    Bi[k] = static_cast<int>(row_ind[k]);
+    Bx[k] = vals[k];
   }
-
   for (uword j = 0; j <= n_cols; ++j) {
-    p_ptr[j] = static_cast<int>(col_ptr[j]);
+    Bp[j] = static_cast<int>(col_ptr[j]);
   }
 
-  Dim_ptr[0] = static_cast<int>(n_rows);
-  Dim_ptr[1] = static_cast<int>(n_cols);
-
-  // Create S4 object directly
-  SEXP dgCMatrix_class = PROTECT(R_do_MAKE_CLASS("dgCMatrix"));
-  SEXP result = PROTECT(R_do_new_object(dgCMatrix_class));
-
-  // Set slots using cached symbols
-  static SEXP i_sym = Rf_install("i");
-  static SEXP p_sym = Rf_install("p");
-  static SEXP x_sym = Rf_install("x");
-  static SEXP Dim_sym = Rf_install("Dim");
-
-  R_do_slot_assign(result, i_sym, i_sexp);
-  R_do_slot_assign(result, p_sym, p_sexp);
-  R_do_slot_assign(result, x_sym, x_sexp);
-  R_do_slot_assign(result, Dim_sym, Dim_sexp);
-
-  UNPROTECT(6);
-  return result;
+  // doFree = -1: free B with M_cholmod_free_sparse after the SEXP is built.
+  return M_cholmod_sparse_as_sexp(B, -1, 0 /* general */, 0 /* numeric */,
+                                  "" /* diag */, R_NilValue);
 }
+
+#endif
