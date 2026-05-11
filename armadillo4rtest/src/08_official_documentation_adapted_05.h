@@ -120,6 +120,8 @@
   return as_doubles_matrix(res);
 }
 
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] doubles_matrix<> speye1_(const int& n) {
   sp_mat A = speye<sp_mat>(n, n);
   mat B = mat(A);
@@ -144,6 +146,8 @@
   mat B = mat(A);
   return as_doubles_matrix(B);
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE
 
 [[cpp4r::register]] doubles_matrix<> toeplitz1_(const int& n) {
   vec a(n, fill::randu);

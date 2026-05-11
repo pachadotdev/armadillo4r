@@ -31,22 +31,6 @@ test_that("official documentation - 5", {
   expect_type(res88, "double")
   expect_equal(dim(res88), c(2, 2))
 
-  res89 <- speye1_(2)
-  expect_type(res89, "double")
-  expect_equal(dim(res89), c(2, 2))
-
-  res90 <- spones1_(2)
-  expect_type(res90, "double")
-  expect_equal(dim(res90), c(2, 2))
-
-  res91 <- sprandu1_(2)
-  expect_type(res91, "double")
-  expect_equal(dim(res91), c(2, 2))
-
-  res91 <- sprandn1_(2)
-  expect_type(res91, "double")
-  expect_equal(dim(res91), c(2, 2))
-
   res92 <- toeplitz1_(2)
   expect_type(res92, "double")
   expect_equal(dim(res92), c(2, 2))
@@ -82,4 +66,24 @@ test_that("official documentation - 5", {
   res100 <- as_scalar1_(2)
   expect_type(res100, "double")
   expect_equal(length(res100), 1)
+})
+
+test_that("official documentation - 5 (sparse)", {
+  skip_if_no_sparse()
+
+  res89 <- speye1_(2)
+  expect_type(res89, "double")
+  expect_equal(dim(res89), c(2, 2))
+
+  res90 <- spones1_(2)
+  expect_type(res90, "double")
+  expect_equal(dim(res90), c(2, 2))
+
+  res91 <- sprandu1_(2)
+  expect_type(res91, "double")
+  expect_equal(dim(res91), c(2, 2))
+
+  res92 <- sprandn1_(2)
+  expect_type(res92, "double")
+  expect_equal(dim(res92), c(2, 2))
 })

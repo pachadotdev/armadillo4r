@@ -126,12 +126,16 @@
   return as_doubles_matrix(X);
 }
 
+#ifndef ARMADILLO4R_NO_SPARSE
+
 [[cpp4r::register]] doubles_matrix<> spdiags1_(const int& n) {
   mat V(n, n, fill::randu);
   ivec D = {0, -1};
   sp_mat X = spdiags(V, D, n, n);  // lower triangular matrix
   return as_doubles_matrix(X);
 }
+
+#endif  // ARMADILLO4R_NO_SPARSE
 
 [[cpp4r::register]] doubles_matrix<> diff1_(const int& n) {
   vec a = randu<vec>(n);

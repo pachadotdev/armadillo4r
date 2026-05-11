@@ -43,10 +43,6 @@ test_that("official documentation - 6", {
   expect_type(res111, "double")
   expect_equal(dim(res111), c(2, 2))
 
-  res112 <- spdiags1_(2)
-  expect_type(res112, "double")
-  expect_equal(dim(res112), c(2, 2))
-
   res113 <- diff1_(3)
   expect_type(res113, "double")
   expect_equal(dim(res113), c(3, 2))
@@ -76,4 +72,11 @@ test_that("official documentation - 6", {
 
   res120 <- find_nonfinite1_(2)
   expect_type(res120, "integer")
+})
+
+test_that("official documentation - 6 (sparse)", {
+  skip_if_no_sparse()
+  res112 <- spdiags1_(2)
+  expect_type(res112, "double")
+  expect_equal(dim(res112), c(2, 2))
 })
