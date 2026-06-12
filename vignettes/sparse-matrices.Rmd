@@ -1,0 +1,65 @@
+---
+title: "Sparse matrices"
+output: rmarkdown::html_vignette
+bibliography: "references.bib"
+vignette: >
+  %\VignetteIndexEntry{Sparse matrices}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Supported sparse matrix classes
+
+Since v0.9.0, `armadillo4r` links to the `Matrix` package and uses its public
+C API to convert between R sparse matrices and Armadillo `SpMat<double>`. The
+`as_SpMat(SEXP)` function accepts any sparse matrix class that the `Matrix`
+package can express:
+
+* `CsparseMatrix` subclasses (`dgCMatrix`, `dsCMatrix`, `dtCMatrix`,
+  `lgCMatrix`, ...) -- the fast path, read directly via the CHOLMOD bridge.
+* `RsparseMatrix` and `TsparseMatrix` subclasses -- transparently coerced to
+  `CsparseMatrix` first.
+* Symmetric (`dsCMatrix`) matrices are expanded to general (both triangles
+  populated) before constructing the `SpMat`.
+* Unit-triangular (`dtCMatrix` with `diag = "U"`) matrices have their implicit
+  unit diagonal materialized.
+
+`as_dgCMatrix(SpMat<double>)` always returns a general `dgCMatrix`.
+
+The strategy is to use Matrix's `M_sexp_as_cholmod_sparse` to wrap the input
+without copying the slot data, then build the Armadillo `SpMat` from the CSC
+arrays. The output path uses `M_cholmod_sparse_as_sexp` to construct the
+returned `dgCMatrix`.
+
+Note that `cpp4r` does not provide sparse matrices as it does for the dense
+data types `doubles_matrix<>` or `integers_matrix<>`. `armadillo4r` uses
+`SEXP` to provide a method to convert between R sparse classes and `SpMat`
+objects.
+
+Here is an example of how to convert a `dgCMatrix` object to a `SpMat` object
+and export the resulting operation to R:
+
+```cpp
+[[cpp4r::register]] SEXP sum_matrices_(SEXP x) {
+  // Convert from any sparse Matrix object to SpMat
+  SpMat<double> A = as_SpMat(x);
+
+  // Create a matrix B with a diagonal of random numbers
+  SpMat<double> B(A.n_rows, A.n_cols);
+  for (uword i = 0; i < A.n_rows; ++i) {
+    B(i, i) = randu<double>();
+  }
+
+  A += B; // Add the two matrices
+
+  // Convert back to dgCMatrix and return
+  return as_dgCMatrix(A);
+}
+```

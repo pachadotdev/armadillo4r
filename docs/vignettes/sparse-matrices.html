@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Sparse matrices • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>On this page</label>
+    <a href="#supported-sparse-matrix-classes" class="toc-level-1">Supported sparse matrix classes</a>
+  </div>
+
+</div>
+<div id="content">
+<div class="content-wrapper">
+        <div class="content-main">
+          <h1>Sparse matrices</h1>
+
+
+
+<div id="supported-sparse-matrix-classes" class="section level1">
+<h1 id="supported-sparse-matrix-classes">Supported sparse matrix classes</h1>
+<p>Since v0.9.0, <code>armadillo4r</code> links to the
+<code>Matrix</code> package and uses its public C API to convert between
+R sparse matrices and Armadillo <code>SpMat&lt;double&gt;</code>. The
+<code>as_SpMat(SEXP)</code> function accepts any sparse matrix class
+that the <code>Matrix</code> package can express:</p>
+<ul><li><code>CsparseMatrix</code> subclasses (<code>dgCMatrix</code>,
+<code>dsCMatrix</code>, <code>dtCMatrix</code>, <code>lgCMatrix</code>,
+…) – the fast path, read directly via the CHOLMOD bridge.</li>
+<li><code>RsparseMatrix</code> and <code>TsparseMatrix</code> subclasses
+– transparently coerced to <code>CsparseMatrix</code> first.</li>
+<li>Symmetric (<code>dsCMatrix</code>) matrices are expanded to general
+(both triangles populated) before constructing the
+<code>SpMat</code>.</li>
+<li>Unit-triangular (<code>dtCMatrix</code> with
+<code>diag = "U"</code>) matrices have their implicit unit diagonal
+materialized.</li>
+</ul><p><code>as_dgCMatrix(SpMat&lt;double&gt;)</code> always returns a
+general <code>dgCMatrix</code>.</p>
+<p>The strategy is to use Matrix’s <code>M_sexp_as_cholmod_sparse</code>
+to wrap the input without copying the slot data, then build the
+Armadillo <code>SpMat</code> from the CSC arrays. The output path uses
+<code>M_cholmod_sparse_as_sexp</code> to construct the returned
+<code>dgCMatrix</code>.</p>
+<p>Note that <code>cpp4r</code> does not provide sparse matrices as it
+does for the dense data types <code>doubles_matrix&lt;&gt;</code> or
+<code>integers_matrix&lt;&gt;</code>. <code>armadillo4r</code> uses
+<code>SEXP</code> to provide a method to convert between R sparse
+classes and <code>SpMat</code> objects.</p>
+<p>Here is an example of how to convert a <code>dgCMatrix</code> object
+to a <code>SpMat</code> object and export the resulting operation to
+R:</p>
+<pre class="cpp"><code>[[cpp4r::register]] SEXP sum_matrices_(SEXP x) {
+  // Convert from any sparse Matrix object to SpMat
+  SpMat&lt;double&gt; A = as_SpMat(x);
+
+  // Create a matrix B with a diagonal of random numbers
+  SpMat&lt;double&gt; B(A.n_rows, A.n_cols);
+  for (uword i = 0; i &lt; A.n_rows; ++i) {
+    B(i, i) = randu&lt;double&gt;();
+  }
+
+  A += B; // Add the two matrices
+
+  // Convert back to dgCMatrix and return
+  return as_dgCMatrix(A);
+}</code></pre>
+</div>
+        </div>
+        <footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
+</div>
+</div>
+</body></html>
+

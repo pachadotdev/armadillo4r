@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rhistory
+.vscode
+README.html
+check-docker/cache
+check-docker/*.Rcheck
+*.o
+*.so
+*.tar.gz

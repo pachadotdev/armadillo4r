@@ -1,0 +1,105 @@
+#!/bin/sh
+# armadillo4r's anticonf script by Pacha (2025)
+
+# Find compiler
+CXX=$(${R_HOME}/bin/R CMD config CXX)
+CXXFLAGS=$(${R_HOME}/bin/R CMD config CXXFLAGS)
+SHLIB_OPENMP_CXXFLAGS=$(${R_HOME}/bin/R CMD config SHLIB_OPENMP_CXXFLAGS 2>/dev/null || echo "")
+
+# Find BLAS/LAPACK
+BLAS_LIBS=$(${R_HOME}/bin/R CMD config BLAS_LIBS)
+LAPACK_LIBS=$(${R_HOME}/bin/R CMD config LAPACK_LIBS)
+
+# OpenMP support
+OPENMP_SUPPORT="no"
+cat > testomp.cpp <<EOF
+#include <omp.h>
+int main() {
+  #pragma omp parallel
+  {
+    int tid = omp_get_thread_num();
+  }
+  return 0;
+}
+EOF
+if $CXX $CXXFLAGS -fopenmp testomp.cpp -o testomp >/dev/null 2>&1; then
+  OPENMP_SUPPORT="yes"
+fi
+rm -f testomp testomp.cpp
+
+# Detect CPU features for SIMD optimization
+SIMD_SUPPORT=""
+AVX2_SUPPORT="no"
+SSE42_SUPPORT="no"
+
+if [ -f /proc/cpuinfo ]; then
+    if grep -q avx2 /proc/cpuinfo 2>/dev/null; then
+        AVX2_SUPPORT="yes"
+        SIMD_SUPPORT="AVX2"
+    elif grep -q sse4_2 /proc/cpuinfo 2>/dev/null; then
+        SSE42_SUPPORT="yes"
+        SIMD_SUPPORT="SSE4.2"
+        echo "- [V] SSE4.2 support detected"
+    fi
+elif [ "$(uname)" = "Darwin" ]; then
+    if sysctl machdep.cpu.features 2>/dev/null | grep -q AVX2; then
+        AVX2_SUPPORT="yes"
+        SIMD_SUPPORT="AVX2"
+    elif sysctl machdep.cpu.features 2>/dev/null | grep -q SSE4.2; then
+        SSE42_SUPPORT="yes"
+        SIMD_SUPPORT="SSE4.2"
+        echo "- [V] SSE4.2 support detected"
+    fi
+fi
+
+# Test compiler flag
+# Usage: test_flag "-O3"
+test_flag() {
+  echo 'int main(){return 0;}' > testrconf.cpp
+  if $CXX $CXXFLAGS $1 testrconf.cpp -o testrconf >/dev/null 2>&1; then
+    rm -f testrconf testrconf.cpp
+    return 0
+  else
+    rm -f testrconf testrconf.cpp
+    return 1
+  fi
+}
+
+# Remove any -std= from CXX and CXXFLAGS
+CXX=$(echo "$CXX" | sed -E 's/ *-std=[^ ]+//g')
+CXXFLAGS=$(echo "$CXXFLAGS" | sed -E 's/ *-std=[^ ]+//g')
+
+# C++ standard detection (must come after test_flag is defined)
+# Armadillo requires C++14 minimum
+CXX_STD=""
+STD_FLAG=""
+if test_flag "-std=c++20"; then
+  CXX_STD="CXX20"
+  STD_FLAG="-std=c++20"
+elif test_flag "-std=c++17"; then
+  CXX_STD="CXX17"
+  STD_FLAG="-std=c++17"
+elif test_flag "-std=c++14"; then
+  CXX_STD="CXX14"
+  STD_FLAG="-std=c++14"
+else
+  echo ""
+  echo "---------------------------------------------------------------------"
+  echo "ERROR: C++14 compiler required but not found."
+  echo ""
+  echo "The Armadillo C++ library requires C++14 or later."
+  echo "Your compiler does not appear to support C++14."
+  echo ""
+  echo "Possible solutions:"
+  echo "  - Upgrade your compiler (GCC >= 5, Clang >= 3.4, MSVC >= 2015)"
+  echo "  - On Windows, use R >= 4.2 with Rtools42 or later"
+  echo "  - Set CXX14 in ~/.R/Makevars to a C++14-compatible compiler"
+  echo "---------------------------------------------------------------------"
+  echo ""
+  exit 1
+fi
+
+# Add the detected standard to CXXFLAGS
+CXXFLAGS="$CXXFLAGS $STD_FLAG"
+
+exit 0

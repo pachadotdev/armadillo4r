@@ -1,0 +1,1239 @@
+Updating and loading repositories:
+ Fedora 42 - x86_64                     100% |  18.0 KiB/s |  20.1 KiB |  00m01s
+ Fedora 42 - x86_64 - Updates           100% |  49.1 KiB/s |  17.7 KiB |  00m00s
+ Fedora 42 openh264 (From Cisco) - x86_ 100% |   3.2 KiB/s | 986.0   B |  00m00s
+Repositories loaded.
+Package "pkgconf-pkg-config-2.3.0-2.fc42.x86_64" is already installed.
+
+Total size of inbound packages is 942 KiB. Need to download 942 KiB.
+After this operation, 5 MiB extra will be used (install 5 MiB, remove 0 B).
+Package        Arch   Version         Repository      Size
+Installing:
+ libuv-devel   x86_64 1:1.51.0-1.fc42 updates    192.5 KiB
+ libxml2-devel x86_64 2.12.10-1.fc42  fedora       3.4 MiB
+Installing dependencies:
+ libuv         x86_64 1:1.51.0-1.fc42 updates    570.2 KiB
+ libuv-static  x86_64 1:1.51.0-1.fc42 updates    427.9 KiB
+
+Transaction Summary:
+ Installing:         4 packages
+
+[1/4] libuv-devel-1:1.51.0-1.fc42.x86_6 100% | 396.1 KiB/s |  41.2 KiB |  00m00s
+[2/4] libuv-static-1:1.51.0-1.fc42.x86_ 100% | 811.2 KiB/s | 111.1 KiB |  00m00s
+[3/4] libuv-1:1.51.0-1.fc42.x86_64      100% |   1.7 MiB/s | 266.3 KiB |  00m00s
+[4/4] libxml2-devel-0:2.12.10-1.fc42.x8 100% |   3.3 MiB/s | 523.7 KiB |  00m00s
+--------------------------------------------------------------------------------
+[4/4] Total                             100% |   3.4 MiB/s | 942.4 KiB |  00m00s
+Running transaction
+[1/6] Verify package files              100% | 800.0   B/s |   4.0   B |  00m00s
+[2/6] Prepare transaction               100% |  26.0   B/s |   4.0   B |  00m00s
+[3/6] Installing libuv-1:1.51.0-1.fc42. 100% |  50.9 MiB/s | 573.0 KiB |  00m00s
+[4/6] Installing libuv-static-1:1.51.0- 100% | 104.6 MiB/s | 428.3 KiB |  00m00s
+[5/6] Installing libuv-devel-1:1.51.0-1 100% |  23.8 MiB/s | 195.4 KiB |  00m00s
+[6/6] Installing libxml2-devel-0:2.12.1 100% |  10.6 MiB/s |   3.4 MiB |  00m00s
+Complete!
+trying URL 'https://cloud.r-project.org/src/contrib/tinytest_1.4.3.tar.gz'
+Content type 'application/x-gzip' length 595901 bytes (581 KB)
+==================================================
+downloaded 581 KB
+
+* installing *source* package ‘tinytest’ ...
+** this is package ‘tinytest’ version ‘1.4.3’
+** package ‘tinytest’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+  converting help for package ‘tinytest’
+    finding HTML links ... done
+    at_home                                 html  
+    build_install_test                      html  
+    exit_file                               html  
+    expect_equal                            html  
+    expect_equal_to_reference               html  
+    expect_length                           html  
+    expect_match                            html  
+    get_call_wd                             html  
+    ignore                                  html  
+    print.tinytest                          html  
+    puppy                                   html  
+    register_tinytest_extension             html  
+    report_side_effects                     html  
+    run_test_dir                            html  
+    run_test_file                           html  
+    setup_tinytest                          html  
+    test_package                            html  
+    tinytest                                html  
+    tinytests                               html  
+    using                                   html  
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (tinytest)
+
+The downloaded source packages are in
+	‘/tmp/RtmpJct44C/downloaded_packages’
+also installing the dependencies ‘cli’, ‘R6’
+
+trying URL 'https://cloud.r-project.org/src/contrib/cli_3.6.6.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/R6_2.6.1.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/desc_1.4.3.tar.gz'
+* installing *source* package ‘cli’ ...
+** this is package ‘cli’ version ‘3.6.6’
+** package ‘cli’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C compiler: ‘gcc (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)’
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c ansi.c -o ansi.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c cleancall.c -o cleancall.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c diff.c -o diff.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c errors.c -o errors.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c glue.c -o glue.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c init.c -o init.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c inst.c -o inst.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c keypress-unix.c -o keypress-unix.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c keypress-win.c -o keypress-win.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c keypress.c -o keypress.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c md5.c -o md5.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c progress-altrep.c -o progress-altrep.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c progress.c -o progress.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c sha1.c -o sha1.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c sha256.c -o sha256.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c thread.c -o thread.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c tty.c -o tty.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c utf8.c -o utf8.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c utils.c -o utils.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c vt.c -o vt.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c vtparse.c -o vtparse.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c vtparse_table.c -o vtparse_table.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c win-utf8.c -o win-utf8.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c winfiles.c -o winfiles.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c xxhash.c -o xxhash.o
+gcc -I"/opt/R/devel/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2  -c xxhash2.c -o xxhash2.o
+gcc -shared -L/opt/R/devel/lib/R/lib -L/usr/local/lib -o cli.so ansi.o cleancall.o diff.o errors.o glue.o init.o inst.o keypress-unix.o keypress-win.o keypress.o md5.o progress-altrep.o progress.o sha1.o sha256.o thread.o tty.o utf8.o utils.o vt.o vtparse.o vtparse_table.o win-utf8.o winfiles.o xxhash.o xxhash2.o -lpthread -L/opt/R/devel/lib/R/lib -lR
+installing to /cache/R_libs/00LOCK-cli/00new/cli/libs
+** R
+** exec
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+    finding HTML links ...  converting help for package ‘cli’
+ done
+    ansi-styles                             html  
+    ansi_align                              html  
+    ansi_collapse                           html  
+    ansi_columns                            html  
+    ansi_grep                               html  
+    ansi_has_any                            html  
+    ansi_hide_cursor                        html  
+    ansi_html                               html  
+    ansi_html_style                         html  
+    ansi_nchar                              html  
+    ansi_nzchar                             html  
+    ansi_palettes                           html  
+    ansi_regex                              html  
+    ansi_simplify                           html  
+    ansi_string                             html  
+    ansi_strip                              html  
+    ansi_strsplit                           html  
+    ansi_strtrim                            html  
+    ansi_strwrap                            html  
+    ansi_substr                             html  
+    ansi_substring                          html  
+    ansi_toupper                            html  
+    ansi_trimws                             html  
+    boxx                                    html  
+    builtin_theme                           html  
+    cat_line                                html  
+    cli-config                              html  
+    cli-package                             html  
+    cli                                     html  
+    cli_abort                               html  
+    cli_alert                               html  
+    cli_blockquote                          html  
+    cli_bullets                             html  
+    cli_bullets_raw                         html  
+    cli_code                                html  
+    cli_debug_doc                           html  
+    cli_div                                 html  
+    cli_dl                                  html  
+    cli_end                                 html  
+    cli_fmt                                 html  
+    cli_format                              html  
+    cli_format_method                       html  
+    cli_h1                                  html  
+    cli_li                                  html  
+    cli_list_themes                         html  
+    cli_ol                                  html  
+    cli_output_connection                   html  
+    cli_par                                 html  
+    cli_process_start                       html  
+    cli_progress_along                      html  
+    cli_progress_bar                        html  
+    cli_progress_builtin_handlers           html  
+    cli_progress_demo                       html  
+    cli_progress_message                    html  
+    cli_progress_output                     html  
+    cli_progress_step                       html  
+    cli_progress_styles                     html  
+    cli_rule                                html  
+    cli_sitrep                              html  
+    cli_status                              html  
+    cli_status_clear                        html  
+    cli_status_update                       html  
+    cli_text                                html  
+    cli_ul                                  html  
+    cli_vec                                 html  
+    cli_verbatim                            html  
+    code_highlight                          html  
+    code_theme_list                         html  
+    combine_ansi_styles                     html  
+    console_width                           html  
+    containers                              html  
+    demo_spinners                           html  
+    diff_chr                                html  
+    diff_str                                html  
+    faq                                     html  
+    format_error                            html  
+    format_inline                           html  
+    get_spinner                             html  
+    has_keypress_support                    html  
+    hash_animal                             html  
+    hash_emoji                              html  
+    hash_md5                                html  
+    hash_sha1                               html  
+    hash_sha256                             html  
+    hash_xxhash                             html  
+    inline-markup                           html  
+    is_ansi_tty                             html  
+    is_dynamic_tty                          html  
+    is_utf8_output                          html  
+    keypress                                html  
+    links                                   html  
+    list_spinners                           html  
+    make_ansi_style                         html  
+    make_spinner                            html  
+    match_selector                          html  
+    match_selector_node                     html  
+    num_ansi_colors                         html  
+    parse_selector                          html  
+    pluralization-helpers                   html  
+    pluralization                           html  
+    pluralize                               html  
+    pretty_print_code                       html  
+    progress-c                              html  
+    progress-utils                          html  
+    progress-variables                      html  
+    rule                                    html  
+    ruler                                   html  
+    simple_theme                            html  
+    spark_bar                               html  
+    spark_line                              html  
+    start_app                               html  
+    style_hyperlink                         html  
+    symbol                                  html  
+    test_that_cli                           html  
+    themes                                  html  
+    tree                                    html  
+    unicode-width-workaround                html  
+    utf8_graphemes                          html  
+    utf8_nchar                              html  
+    utf8_substr                             html  
+    vt_output                               html  
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (cli)
+* installing *source* package ‘R6’ ...
+** this is package ‘R6’ version ‘2.6.1’
+** package ‘R6’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+  converting help for package ‘R6’
+    finding HTML links ... done
+    R6-package                              html  
+    R6Class                                 html  
+    as.list.R6                              html  
+    is.R6                                   html  
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (R6)
+* installing *source* package ‘desc’ ...
+** this is package ‘desc’ version ‘1.4.3’
+** package ‘desc’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+  converting help for package ‘desc’
+    finding HTML links ... done
+    check_encoding                          html  
+    check_field                             html  
+    cran_ascii_fields                       html  
+    cran_valid_fields                       html  
+    dep_types                               html  
+    desc-package                            html  
+    desc                                    html  
+    desc_add_author                         html  
+    desc_add_author_gh                      html  
+    desc_add_me                             html  
+    desc_add_orcid                          html  
+    desc_add_remotes                        html  
+    desc_add_role                           html  
+    desc_add_to_collate                     html  
+    desc_add_urls                           html  
+    desc_bump_version                       html  
+    desc_change_maintainer                  html  
+    desc_clear_remotes                      html  
+    desc_clear_urls                         html  
+    desc_coerce_authors_at_r                html  
+    desc_del                                html  
+    desc_del_author                         html  
+    desc_del_collate                        html  
+    desc_del_dep                            html  
+    desc_del_deps                           html  
+    desc_del_from_collate                   html  
+    desc_del_remotes                        html  
+    desc_del_role                           html  
+    desc_del_urls                           html  
+    desc_fields                             html  
+    desc_get                                html  
+    desc_get_author                         html  
+    desc_get_authors                        html  
+    desc_get_built                          html  
+    desc_get_collate                        html  
+    desc_get_deps                           html  
+    desc_get_field                          html  
+    desc_get_maintainer                     html  
+    desc_get_remotes                        html  
+    desc_get_urls                           html  
+    desc_get_version                        html  
+    desc_has_dep                            html  
+    desc_has_fields                         html  
+    desc_normalize                          html  
+    desc_print                              html  
+    desc_reformat_fields                    html  
+    desc_reorder_fields                     html  
+    desc_set                                html  
+    desc_set_authors                        html  
+    desc_set_collate                        html  
+    desc_set_dep                            html  
+    desc_set_deps                           html  
+    desc_set_remotes                        html  
+    desc_set_urls                           html  
+    desc_set_version                        html  
+    desc_to_latex                           html  
+    desc_validate                           html  
+    description                             html  
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (desc)
+
+The downloaded source packages are in
+	‘/tmp/RtmpJct44C/downloaded_packages’
+* installing *source* package ‘cpp4r’ ...
+** this is package ‘cpp4r’ version ‘1.0.0’
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+  converting help for package ‘cpp4r’
+    finding HTML links ... done
+    cpp4r-package                           html  
+    pkg_template                            html  
+    register                                html  
+    unvendor                                html  
+    vendor                                  html  
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (cpp4r)
+* installing *source* package ‘armadillo4r’ ...
+** this is package ‘armadillo4r’ version ‘1.0.0’
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+  converting help for package ‘armadillo4r’
+    finding HTML links ... done
+    armadillo4r-package                     html  
+    armadillo_version                       html  
+    check_cpp4r                             html  
+    pkg_template                            html  
+    unvendor                                html  
+    vendor                                  html  
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4r)
+* installing *source* package ‘armadillo4rtest’ ...
+** this is package ‘armadillo4rtest’ version ‘0.1.0’
+** using staged installation
+==========================================================================
+armadillo4r configuration summary
+
+  C++ Compiler:           g++
+  C++ Standard:           CXX20
+  OpenMP Support:         yes
+  OpenMP Threads:         4
+  SIMD Support:           AVX2
+  Sparse Matrix Support:  yes (Matrix >= 1.6-2)
+  BLAS:                   -lflexiblas
+  LAPACK:                 
+  High-Performance Mode:  no
+  Optimization Flags:     
+  Debug Flags:            
+
+For faster computation
+ 
+ Enable high-performance optimizations:
+ export ARMADILLO4RTEST_OPTIMIZATIONS=yes
+ 
+ Change thread count:
+ export ARMADILLO4RTEST_NCORES=<number>
+ 
+ Then reinstall the package
+==========================================================================
+** libs
+specified C++20
+using C++ compiler: ‘g++ (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)’
+using C++20
+g++ -std=gnu++20 -I"/opt/R/devel/lib/R/include" -DNDEBUG -DARMADILLO4R_SPARSE -I'/cache/R_libs/cpp4r/include' -I'/cache/R_libs/armadillo4r/include' -I'/opt/R/devel/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -g -O2   -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++20 -I"/opt/R/devel/lib/R/include" -DNDEBUG -DARMADILLO4R_SPARSE -I'/cache/R_libs/cpp4r/include' -I'/cache/R_libs/armadillo4r/include' -I'/opt/R/devel/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -g -O2   -c main.cpp -o main.o
+g++ -std=gnu++20 -shared -L/opt/R/devel/lib/R/lib -L/usr/local/lib -o armadillo4rtest.so cpp4r.o main.o -fopenmp -lflexiblas -lgfortran -lm -lquadmath -L/opt/R/devel/lib/R/lib -lR
+installing to /cache/R_libs/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+  converting help for package ‘armadillo4rtest’
+    finding HTML links ... done
+    abs1_                                   html  
+    access1_                                html  
+    accu1_                                  html  
+    affmul1_                                html  
+    all1_                                   html  
+    any1_                                   html  
+    approx_equal1_                          html  
+    arg1_                                   html  
+    armadillo4rtest-package                 html  
+    as_col1_                                html  
+    as_dense1_                              html  
+    as_row1_                                html  
+    as_scalar1_                             html  
+    as_sexp_demo_                           html  
+    attr1_                                  html  
+    build_field_                            html  
+    capm                                    html  
+    chi2rnd1_                               html  
+    chol1_                                  html  
+    chol_mat                                html  
+    clamp1_                                 html  
+    clamp2_                                 html  
+    clean1_                                 html  
+    col_as_mat1_                            html  
+    colptr1_                                html  
+    column1_                                html  
+    compatibility1_                         html  
+    compatibility2_                         html  
+    cond1_                                  html  
+    conj1_                                  html  
+    conv1_                                  html  
+    conv2_                                  html  
+    conv_to1_                               html  
+    copy_size1_                             html  
+    cor1_                                   html  
+    cov1_                                   html  
+    cross1_                                 html  
+    cube1_                                  html  
+    cube_col_means_                         html  
+    cumprod1_                               html  
+    cumsum1_                                html  
+    det1_                                   html  
+    diagmat1_                               html  
+    diagonal1_                              html  
+    diags1_                                 html  
+    diagvec1_                               html  
+    diff1_                                  html  
+    dot1_                                   html  
+    each_col1_                              html  
+    each_row1_                              html  
+    each_slice1_                            html  
+    eig_gen1_                               html  
+    eig_gen2_                               html  
+    eig_pair1_                              html  
+    eig_sym1_                               html  
+    eig_sym2_                               html  
+    eigen_gen_dbl_complex_wrapper           html  
+    eigen_gen_mat                           html  
+    eigen_gen_mat_complex_wrapper           html  
+    eigen_gen_no_wrapper                    html  
+    eigen_sym_dbl                           html  
+    eigen_sym_mat                           html  
+    eps1_                                   html  
+    expmat1_                                html  
+    expmat_sym1_                            html  
+    eye1_                                   html  
+    eye2_                                   html  
+    fft1_                                   html  
+    fft2_                                   html  
+    field1_                                 html  
+    field_imat_demo_                        html  
+    field_mat_demo_                         html  
+    field_str_demo_                         html  
+    field_vec_demo_                         html  
+    fill1_                                  html  
+    find1_                                  html  
+    find_finite1_                           html  
+    find_nan1_                              html  
+    find_nonfinite1_                        html  
+    find_unique1_                           html  
+    flip1_                                  html  
+    fmat_example_                           html  
+    for_each1_                              html  
+    gmm1_                                   html  
+    has_inf1_                               html  
+    has_nan1_                               html  
+    hess1_                                  html  
+    hist1_                                  html  
+    histc1_                                 html  
+    imag1_                                  html  
+    imbue1_                                 html  
+    imbue2_                                 html  
+    implicit_conversion_double              html  
+    implicit_conversion_float               html  
+    implicit_conversion_int                 html  
+    implicit_conversion_uint                html  
+    in_range1_                              html  
+    ind2sub1_                               html  
+    index_maxmin1_                          html  
+    index_min1_                             html  
+    initialization1_                        html  
+    inplace_strans1_                        html  
+    inplace_trans1_                         html  
+    insert_columns1_                        html  
+    insert_rows1_                           html  
+    insert_slices1_                         html  
+    integer_cube_roundtrip_                 html  
+    integer_transpose_                      html  
+    interp1_                                html  
+    interp2_                                html  
+    intersect1_                             html  
+    inv1_                                   html  
+    inv_sympd1_                             html  
+    inverse1_                               html  
+    is_diagonal1_                           html  
+    is_empty1_                              html  
+    is_finite1_                             html  
+    is_hermitian1_                          html  
+    is_sorted1_                             html  
+    is_square1_                             html  
+    is_symmetric1_                          html  
+    is_sympd1_                              html  
+    is_triangular1_                         html  
+    is_vec1_                                html  
+    is_zero1_                               html  
+    iterators1_                             html  
+    iterators2_                             html  
+    iterators3_                             html  
+    iterators4_                             html  
+    iwishrnd1_                              html  
+    join_cubes1_                            html  
+    join_rows1_                             html  
+    kmeans1_                                html  
+    kron1_                                  html  
+    linspace1_                              html  
+    log_det1_                               html  
+    log_det_sympd1_                         html  
+    logmat1_                                html  
+    logmat_sympd1_                          html  
+    lognormpdf1_                            html  
+    logspace1_                              html  
+    lu1_                                    html  
+    mat_demo_                               html  
+    mat_out_demo_                           html  
+    matrix1_                                html  
+    matrix2_                                html  
+    matrix_add_                             html  
+    max1_                                   html  
+    maxmin1_                                html  
+    mean1_                                  html  
+    median1_                                html  
+    memptr1_                                html  
+    misc1_                                  html  
+    mtcars_mat                              html  
+    mvnrnd1_                                html  
+    nonzeros1_                              html  
+    norm1_                                  html  
+    norm2est1_                              html  
+    normalise1_                             html  
+    normcdf1_                               html  
+    normpdf1_                               html  
+    null1_                                  html  
+    ols_                                    html  
+    ols_dbl                                 html  
+    ols_mat                                 html  
+    ols_qr_dbl                              html  
+    ols_qr_mat                              html  
+    ols_simplified2_                        html  
+    ols_simplified3_                        html  
+    ols_simplified4_                        html  
+    ols_simplified5_                        html  
+    ols_simplified_                         html  
+    ols_traditional_                        html  
+    ones1_                                  html  
+    ones2_                                  html  
+    orth1_                                  html  
+    pinv1_                                  html  
+    poisson_                                html  
+    polyfit1_                               html  
+    polyval1_                               html  
+    pow1_                                   html  
+    powmat1_                                html  
+    prod1_                                  html  
+    qr1_                                    html  
+    qr_econ1_                               html  
+    quantile1_                              html  
+    qz1_                                    html  
+    randg3_                                 html  
+    randn1_                                 html  
+    randn2_                                 html  
+    randn3_                                 html  
+    random_cube_                            html  
+    random_matrix_nxn                       html  
+    randperm1_                              html  
+    randu1_                                 html  
+    randu2_                                 html  
+    randu3_                                 html  
+    range1_                                 html  
+    rank1_                                  html  
+    rcond1_                                 html  
+    regspace1_                              html  
+    repelem1_                               html  
+    replace1_                               html  
+    repmat1_                                html  
+    reset1_                                 html  
+    reshape1_                               html  
+    reshape2_                               html  
+    resize1_                                html  
+    resize2_                                html  
+    reverse1_                               html  
+    roots1_                                 html  
+    row1_                                   html  
+    row_as_mat1_                            html  
+    saveload1_                              html  
+    saveload2_                              html  
+    schur1_                                 html  
+    set_imag1_                              html  
+    set_real1_                              html  
+    set_real2_                              html  
+    set_size1_                              html  
+    shed_columns1_                          html  
+    shed_rows1_                             html  
+    shed_slices1_                           html  
+    shift1_                                 html  
+    shuffle1_                               html  
+    size1_                                  html  
+    solve1_                                 html  
+    sort1_                                  html  
+    sort_index1_                            html  
+    spdiags1_                               html  
+    speye1_                                 html  
+    spones1_                                html  
+    sprandn1_                               html  
+    sprandu1_                               html  
+    spsolve1_                               html  
+    sqrtmat1_                               html  
+    sqrtmat_sympd1_                         html  
+    stddev1_                                html  
+    sub2ind1_                               html  
+    subview1_                               html  
+    subview2_                               html  
+    sum1_                                   html  
+    sum2_                                   html  
+    svd1_                                   html  
+    svd_econ1_                              html  
+    svds1_                                  html  
+    swap1_                                  html  
+    swap_columns1_                          html  
+    swap_rows1_                             html  
+    syl1_                                   html  
+    symmatu1_                               html  
+    test_dgCMatrix_to_SpMat                 html  
+    test_sparse_dims                        html  
+    test_sparse_to_dgCMatrix                html  
+    toeplitz1_                              html  
+    trace1_                                 html  
+    trans1_                                 html  
+    transform1_                             html  
+    transpose1_                             html  
+    transpose2_                             html  
+    trapz1_                                 html  
+    trig1_                                  html  
+    trimatu1_                               html  
+    trimatu_ind1_                           html  
+    typedef_Col_double                      html  
+    typedef_Col_int                         html  
+    typedef_Mat_double                      html  
+    typedef_Mat_int                         html  
+    typedef_SpMat_double                    html  
+    typedef_SpMat_int                       html  
+    typedef_dblmat_exchangeability          html  
+    typedef_spmat_exchangeability           html  
+    typedef_spmat_int_exchangeability       html  
+    typedef_uvec                            html  
+    unique1_                                html  
+    uvec_example_                           html  
+    var1_                                   html  
+    vec_demo_                               html  
+    vec_out_demo_                           html  
+    vecnorm1_                               html  
+    vectorise1_                             html  
+    wishrnd1_                               html  
+    zeros1_                                 html  
+    zeros2_                                 html  
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4rtest)
+* using log directory ‘/check/armadillo4rtest.Rcheck’
+* using R Under development (unstable) (2026-05-15 r90061)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)
+    GNU Fortran (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)
+* running under: Fedora Linux 42 (Container Image)
+* using session charset: UTF-8
+* current time: 2026-06-09 09:34:09 UTC
+* using options ‘--no-manual --as-cran’
+* checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
+* this is package ‘armadillo4rtest’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... OK
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [84s/84s] OK
+* used C++ compiler: ‘g++ (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)’
+* checking C++ specification ... INFO
+  specified C++20
+* checking installed package size ... INFO
+  installed size is 22.1Mb
+  sub-directories of 1Mb or more:
+    help   1.4Mb
+    html   1.2Mb
+    libs  19.3Mb
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking line endings in shell scripts ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking use of PKG_*FLAGS in Makefiles ... OK
+* checking use of SHLIB_OPENMP_*FLAGS in Makefiles ... OK
+* checking pragmas in C/C++ headers and code ... OK
+* checking compilation flags used ... OK
+* checking compiled code ... OK
+* checking examples ... NONE
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ...
+  Running ‘tinytest.R’
+ OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+
+Status: OK
+
+=== 00install.out ===
+* installing *source* package ‘armadillo4rtest’ ...
+** this is package ‘armadillo4rtest’ version ‘0.1.0’
+** using staged installation
+==========================================================================
+armadillo4r configuration summary
+
+  C++ Compiler:           g++
+  C++ Standard:           CXX20
+  OpenMP Support:         yes
+  OpenMP Threads:         4
+  SIMD Support:           AVX2
+  Sparse Matrix Support:  yes (Matrix >= 1.6-2)
+  BLAS:                   -lflexiblas
+  LAPACK:                 
+  High-Performance Mode:  no
+  Optimization Flags:     
+  Debug Flags:            
+
+For faster computation
+ 
+ Enable high-performance optimizations:
+ export ARMADILLO4RTEST_OPTIMIZATIONS=yes
+ 
+ Change thread count:
+ export ARMADILLO4RTEST_NCORES=<number>
+ 
+ Then reinstall the package
+==========================================================================
+** libs
+specified C++20
+using C++ compiler: ‘g++ (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)’
+using C++20
+g++ -std=gnu++20 -I"/opt/R/devel/lib/R/include" -DNDEBUG -DARMADILLO4R_SPARSE -I'/cache/R_libs/cpp4r/include' -I'/cache/R_libs/armadillo4r/include' -I'/opt/R/devel/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -g -O2   -c cpp4r.cpp -o cpp4r.o
+g++ -std=gnu++20 -I"/opt/R/devel/lib/R/include" -DNDEBUG -DARMADILLO4R_SPARSE -I'/cache/R_libs/cpp4r/include' -I'/cache/R_libs/armadillo4r/include' -I'/opt/R/devel/lib/R/library/Matrix/include' -I/usr/local/include   -fopenmp  -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -g -O2   -c main.cpp -o main.o
+g++ -std=gnu++20 -shared -L/opt/R/devel/lib/R/lib -L/usr/local/lib -o armadillo4rtest.so cpp4r.o main.o -fopenmp -lflexiblas -lgfortran -lm -lquadmath -L/opt/R/devel/lib/R/lib -lR
+installing to /check/armadillo4rtest.Rcheck/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+  converting help for package ‘armadillo4rtest’
+    finding HTML links ... done
+    abs1_                                   html  
+    access1_                                html  
+    accu1_                                  html  
+    affmul1_                                html  
+    all1_                                   html  
+    any1_                                   html  
+    approx_equal1_                          html  
+    arg1_                                   html  
+    armadillo4rtest-package                 html  
+    as_col1_                                html  
+    as_dense1_                              html  
+    as_row1_                                html  
+    as_scalar1_                             html  
+    as_sexp_demo_                           html  
+    attr1_                                  html  
+    build_field_                            html  
+    capm                                    html  
+    chi2rnd1_                               html  
+    chol1_                                  html  
+    chol_mat                                html  
+    clamp1_                                 html  
+    clamp2_                                 html  
+    clean1_                                 html  
+    col_as_mat1_                            html  
+    colptr1_                                html  
+    column1_                                html  
+    compatibility1_                         html  
+    compatibility2_                         html  
+    cond1_                                  html  
+    conj1_                                  html  
+    conv1_                                  html  
+    conv2_                                  html  
+    conv_to1_                               html  
+    copy_size1_                             html  
+    cor1_                                   html  
+    cov1_                                   html  
+    cross1_                                 html  
+    cube1_                                  html  
+    cube_col_means_                         html  
+    cumprod1_                               html  
+    cumsum1_                                html  
+    det1_                                   html  
+    diagmat1_                               html  
+    diagonal1_                              html  
+    diags1_                                 html  
+    diagvec1_                               html  
+    diff1_                                  html  
+    dot1_                                   html  
+    each_col1_                              html  
+    each_row1_                              html  
+    each_slice1_                            html  
+    eig_gen1_                               html  
+    eig_gen2_                               html  
+    eig_pair1_                              html  
+    eig_sym1_                               html  
+    eig_sym2_                               html  
+    eigen_gen_dbl_complex_wrapper           html  
+    eigen_gen_mat                           html  
+    eigen_gen_mat_complex_wrapper           html  
+    eigen_gen_no_wrapper                    html  
+    eigen_sym_dbl                           html  
+    eigen_sym_mat                           html  
+    eps1_                                   html  
+    expmat1_                                html  
+    expmat_sym1_                            html  
+    eye1_                                   html  
+    eye2_                                   html  
+    fft1_                                   html  
+    fft2_                                   html  
+    field1_                                 html  
+    field_imat_demo_                        html  
+    field_mat_demo_                         html  
+    field_str_demo_                         html  
+    field_vec_demo_                         html  
+    fill1_                                  html  
+    find1_                                  html  
+    find_finite1_                           html  
+    find_nan1_                              html  
+    find_nonfinite1_                        html  
+    find_unique1_                           html  
+    flip1_                                  html  
+    fmat_example_                           html  
+    for_each1_                              html  
+    gmm1_                                   html  
+    has_inf1_                               html  
+    has_nan1_                               html  
+    hess1_                                  html  
+    hist1_                                  html  
+    histc1_                                 html  
+    imag1_                                  html  
+    imbue1_                                 html  
+    imbue2_                                 html  
+    implicit_conversion_double              html  
+    implicit_conversion_float               html  
+    implicit_conversion_int                 html  
+    implicit_conversion_uint                html  
+    in_range1_                              html  
+    ind2sub1_                               html  
+    index_maxmin1_                          html  
+    index_min1_                             html  
+    initialization1_                        html  
+    inplace_strans1_                        html  
+    inplace_trans1_                         html  
+    insert_columns1_                        html  
+    insert_rows1_                           html  
+    insert_slices1_                         html  
+    integer_cube_roundtrip_                 html  
+    integer_transpose_                      html  
+    interp1_                                html  
+    interp2_                                html  
+    intersect1_                             html  
+    inv1_                                   html  
+    inv_sympd1_                             html  
+    inverse1_                               html  
+    is_diagonal1_                           html  
+    is_empty1_                              html  
+    is_finite1_                             html  
+    is_hermitian1_                          html  
+    is_sorted1_                             html  
+    is_square1_                             html  
+    is_symmetric1_                          html  
+    is_sympd1_                              html  
+    is_triangular1_                         html  
+    is_vec1_                                html  
+    is_zero1_                               html  
+    iterators1_                             html  
+    iterators2_                             html  
+    iterators3_                             html  
+    iterators4_                             html  
+    iwishrnd1_                              html  
+    join_cubes1_                            html  
+    join_rows1_                             html  
+    kmeans1_                                html  
+    kron1_                                  html  
+    linspace1_                              html  
+    log_det1_                               html  
+    log_det_sympd1_                         html  
+    logmat1_                                html  
+    logmat_sympd1_                          html  
+    lognormpdf1_                            html  
+    logspace1_                              html  
+    lu1_                                    html  
+    mat_demo_                               html  
+    mat_out_demo_                           html  
+    matrix1_                                html  
+    matrix2_                                html  
+    matrix_add_                             html  
+    max1_                                   html  
+    maxmin1_                                html  
+    mean1_                                  html  
+    median1_                                html  
+    memptr1_                                html  
+    misc1_                                  html  
+    mtcars_mat                              html  
+    mvnrnd1_                                html  
+    nonzeros1_                              html  
+    norm1_                                  html  
+    norm2est1_                              html  
+    normalise1_                             html  
+    normcdf1_                               html  
+    normpdf1_                               html  
+    null1_                                  html  
+    ols_                                    html  
+    ols_dbl                                 html  
+    ols_mat                                 html  
+    ols_qr_dbl                              html  
+    ols_qr_mat                              html  
+    ols_simplified2_                        html  
+    ols_simplified3_                        html  
+    ols_simplified4_                        html  
+    ols_simplified5_                        html  
+    ols_simplified_                         html  
+    ols_traditional_                        html  
+    ones1_                                  html  
+    ones2_                                  html  
+    orth1_                                  html  
+    pinv1_                                  html  
+    poisson_                                html  
+    polyfit1_                               html  
+    polyval1_                               html  
+    pow1_                                   html  
+    powmat1_                                html  
+    prod1_                                  html  
+    qr1_                                    html  
+    qr_econ1_                               html  
+    quantile1_                              html  
+    qz1_                                    html  
+    randg3_                                 html  
+    randn1_                                 html  
+    randn2_                                 html  
+    randn3_                                 html  
+    random_cube_                            html  
+    random_matrix_nxn                       html  
+    randperm1_                              html  
+    randu1_                                 html  
+    randu2_                                 html  
+    randu3_                                 html  
+    range1_                                 html  
+    rank1_                                  html  
+    rcond1_                                 html  
+    regspace1_                              html  
+    repelem1_                               html  
+    replace1_                               html  
+    repmat1_                                html  
+    reset1_                                 html  
+    reshape1_                               html  
+    reshape2_                               html  
+    resize1_                                html  
+    resize2_                                html  
+    reverse1_                               html  
+    roots1_                                 html  
+    row1_                                   html  
+    row_as_mat1_                            html  
+    saveload1_                              html  
+    saveload2_                              html  
+    schur1_                                 html  
+    set_imag1_                              html  
+    set_real1_                              html  
+    set_real2_                              html  
+    set_size1_                              html  
+    shed_columns1_                          html  
+    shed_rows1_                             html  
+    shed_slices1_                           html  
+    shift1_                                 html  
+    shuffle1_                               html  
+    size1_                                  html  
+    solve1_                                 html  
+    sort1_                                  html  
+    sort_index1_                            html  
+    spdiags1_                               html  
+    speye1_                                 html  
+    spones1_                                html  
+    sprandn1_                               html  
+    sprandu1_                               html  
+    spsolve1_                               html  
+    sqrtmat1_                               html  
+    sqrtmat_sympd1_                         html  
+    stddev1_                                html  
+    sub2ind1_                               html  
+    subview1_                               html  
+    subview2_                               html  
+    sum1_                                   html  
+    sum2_                                   html  
+    svd1_                                   html  
+    svd_econ1_                              html  
+    svds1_                                  html  
+    swap1_                                  html  
+    swap_columns1_                          html  
+    swap_rows1_                             html  
+    syl1_                                   html  
+    symmatu1_                               html  
+    test_dgCMatrix_to_SpMat                 html  
+    test_sparse_dims                        html  
+    test_sparse_to_dgCMatrix                html  
+    toeplitz1_                              html  
+    trace1_                                 html  
+    trans1_                                 html  
+    transform1_                             html  
+    transpose1_                             html  
+    transpose2_                             html  
+    trapz1_                                 html  
+    trig1_                                  html  
+    trimatu1_                               html  
+    trimatu_ind1_                           html  
+    typedef_Col_double                      html  
+    typedef_Col_int                         html  
+    typedef_Mat_double                      html  
+    typedef_Mat_int                         html  
+    typedef_SpMat_double                    html  
+    typedef_SpMat_int                       html  
+    typedef_dblmat_exchangeability          html  
+    typedef_spmat_exchangeability           html  
+    typedef_spmat_int_exchangeability       html  
+    typedef_uvec                            html  
+    unique1_                                html  
+    uvec_example_                           html  
+    var1_                                   html  
+    vec_demo_                               html  
+    vec_out_demo_                           html  
+    vecnorm1_                               html  
+    vectorise1_                             html  
+    wishrnd1_                               html  
+    zeros1_                                 html  
+    zeros2_                                 html  
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4rtest)
+=== 00check.log ===
+* using log directory ‘/check/armadillo4rtest.Rcheck’
+* using R Under development (unstable) (2026-05-15 r90061)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    gcc (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)
+    GNU Fortran (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)
+* running under: Fedora Linux 42 (Container Image)
+* using session charset: UTF-8
+* current time: 2026-06-09 09:34:09 UTC
+* using options ‘--no-manual --as-cran’
+* checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
+* this is package ‘armadillo4rtest’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... OK
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [84s/84s] OK
+* used C++ compiler: ‘g++ (GCC) 15.2.1 20260123 (Red Hat 15.2.1-7)’
+* checking C++ specification ... INFO
+  specified C++20
+* checking installed package size ... INFO
+  installed size is 22.1Mb
+  sub-directories of 1Mb or more:
+    help   1.4Mb
+    html   1.2Mb
+    libs  19.3Mb
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking line endings in shell scripts ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking use of PKG_*FLAGS in Makefiles ... OK
+* checking use of SHLIB_OPENMP_*FLAGS in Makefiles ... OK
+* checking pragmas in C/C++ headers and code ... OK
+* checking compilation flags used ... OK
+* checking compiled code ... OK
+* checking examples ... NONE
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘tinytest.R’
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: OK

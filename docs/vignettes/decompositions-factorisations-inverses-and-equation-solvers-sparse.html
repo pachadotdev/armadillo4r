@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Decompositions, factorisations, inverses and equation solvers (sparse matrices) • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>On this page</label>
+    <a href="#eigen-decomposition-of-a-symmetric-matrix" class="toc-level-1">Eigen decomposition of a symmetric matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#eigen-decomposition-of-a-general-matrix" class="toc-level-1">Eigen decomposition of a general matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#truncated-singular-value-decomposition" class="toc-level-1">Truncated singular value decomposition</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#solve-a-system-of-linear-equations" class="toc-level-1">Solve a system of linear equations</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#factorise-a-sparse-matrix-for-solving-linear-systems" class="toc-level-1">Factorise a sparse matrix for solving linear systems</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+  </div>
+
+</div>
+<div id="content">
+<div class="content-wrapper">
+        <div class="content-main">
+          <h1>Decompositions, factorisations, inverses and equation solvers (sparse matrices)</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<div id="eig_sym" class="section level1">
+<h1 id="eigen-decomposition-of-a-symmetric-matrix">Eigen decomposition of a symmetric matrix</h1>
+<p>Obtain a limited number of eigenvalues and eigenvectors of sparse
+symmetric real matrix <code>X</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>vec eigval = eigs_sym(X, k)
+vec eigval = eigs_sym(X, k, form)
+vec eigval = eigs_sym(X, k, form, opts)
+vec eigval = eigs_sym(X, k, sigma)
+vec eigval = eigs_sym(X, k, sigma, opts)
+
+eigs_sym(eigval, X, k)
+eigs_sym(eigval, X, k, form)
+eigs_sym(eigval, X, k, form, opts)
+eigs_sym(eigval, X, k, sigma)
+eigs_sym(eigval, X, k, sigma, opts)
+
+eigs_sym(eigval, eigvec, X, k)
+eigs_sym(eigval, eigvec, X, k, form)
+eigs_sym(eigval, eigvec, X, k, form, opts)
+eigs_sym(eigval, eigvec, X, k, sigma)
+eigs_sym(eigval, eigvec, X, k, sigma, opts)</code></pre>
+<p><code>k</code> specifies the number of eigenvalues and
+eigenvectors.</p>
+<p>The argument <code>form</code> is optional and is one of the
+following:</p>
+<ul><li><code>"lm"</code>: obtain eigenvalues with largest magnitude
+(default operation).</li>
+<li><code>"sm"</code>: obtain eigenvalues with smallest magnitude (see
+the caveats below).</li>
+<li><code>"la"</code>: obtain eigenvalues with largest algebraic
+value.</li>
+</ul><p>The argument <code>sigma</code> is optional; if <code>sigma</code> is
+given, eigenvalues closest to <code>sigma</code> are found via
+shift-invert mode. Note that to use <code>sigma</code>, both
+<code>ARMA_USE_ARPACK</code> and <code>ARMA_USE_SUPERLU</code> must be
+enabled in <code>armadillo/config.hpp</code>.</p>
+<p>The <code>opts</code> argument is optional; <code>opts</code> is an
+instance of the <code>eigs_opts</code> structure:</p>
+<pre class="cpp"><code>struct eigs_opts
+{
+  double       tol;     // default: 0
+  unsigned int maxiter; // default: 1000
+  unsigned int subdim;  // default: max(2*k+1, 20)
+};</code></pre>
+<ul><li><code>tol</code> specifies the tolerance for convergence.</li>
+<li><code>maxiter</code> specifies the maximum number of Arnoldi
+iterations.</li>
+<li><code>subdim</code> specifies the dimension of the Krylov subspace,
+with the constraint <code>k &lt; subdim &lt;= X.n_rows</code>; the
+recommended value is <code>subdim &gt;= 2*k</code>.</li>
+</ul><p>The eigenvalues and corresponding eigenvectors are stored in
+<code>eigval</code> and <code>eigvec</code>, respectively.</p>
+<p>If <code>X</code> is not square sized, an error is thrown.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>eigval = eigs_sym(X,k)</code> resets <code>eigval</code> and
+throws an error.</li>
+<li><code>eigs_sym(eigval,X,k)</code> resets <code>eigval</code> and
+returns a bool set to false (an error is not thrown).</li>
+<li><code>eigs_sym(eigval,eigvec,X,k)</code> resets <code>eigval</code>
+and <code>eigvec</code> and returns a bool set to false (an error is not
+thrown).</li>
+</ul><p>Caveats:</p>
+<ul><li>The number of obtained eigenvalues/eigenvectors may be lower than
+requested, depending on the given data.</li>
+<li>If the decomposition fails, try first increasing
+<code>opts.subdim</code> (Krylov subspace dimension), and, as secondary
+options, try increasing <code>opts.maxiter</code> (maximum number of
+iterations), and/or <code>opts.tol</code> (tolerance for convergence),
+and/or <code>k</code> (number of eigenvalues).</li>
+<li>For an alternative to the <code>"sm"</code> form, use the
+shift-invert mode with <code>sigma</code> set to <code>0.0</code>.</li>
+<li>The implementation in Armadillo 12.6 is considerably faster than
+earlier versions; further speedups can be obtained by enabling OpenMP in
+your compiler (e.g., <code>-fopenmp</code> in GCC and clang).</li>
+</ul><div id="examples" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list eig_sym2_(const doubles_matrix&lt;&gt;&amp; x,
+                                   const char* method,
+                                   const int&amp; k) {
+  sp_mat X = as_SpMat(x);
+
+  sp_mat Y = X.t() * X;
+
+  vec eigval;
+  mat eigvec;
+
+  eigs_opts opts;
+  opts.maxiter = 10000;
+  bool ok = eigs_sym(eigval, eigvec, Y, k, method, opts);
+
+  writable::list out(3);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles(eigval);
+  out[2] = as_doubles_matrix(eigvec);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="eig_gen" class="section level1">
+<h1 id="eigen-decomposition-of-a-general-matrix">Eigen decomposition of a general matrix</h1>
+<p>Obtain a limited number of eigenvalues and eigenvectors of sparse
+general (non-symmetric/non-hermitian) square matrix <code>X</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>cx_vec eigval = eigs_gen(X, k)
+cx_vec eigval = eigs_gen(X, k, form)
+cx_vec eigval = eigs_gen(X, k, sigma)
+cx_vec eigval = eigs_gen(X, k, form, opts)
+cx_vec eigval = eigs_gen(X, k, sigma, opts)
+
+eigs_gen(eigval, X, k)
+eigs_gen(eigval, X, k, form)
+eigs_gen(eigval, X, k, sigma)
+eigs_gen(eigval, X, k, form, opts)
+eigs_gen(eigval, X, k, sigma, opts)
+
+eigs_gen(eigval, eigvec, X, k)
+eigs_gen(eigval, eigvec, X, k, form)
+eigs_gen(eigval, eigvec, X, k, sigma)
+eigs_gen(eigval, eigvec, X, k, form, opts)
+eigs_gen(eigval, eigvec, X, k, sigma, opts)</code></pre>
+<p><code>k</code> specifies the number of eigenvalues and
+eigenvectors.</p>
+<p>The argument <code>form</code> is optional; <code>form</code> is one
+of the following:</p>
+<ul><li><code>"lm"</code>: obtain eigenvalues with largest magnitude
+(default operation).</li>
+<li><code>"sm"</code>: obtain eigenvalues with smallest magnitude (see
+the caveats below).</li>
+<li><code>"lr"</code>: obtain eigenvalues with largest real part.</li>
+<li><code>"sr"</code>: obtain eigenvalues with smallest real part.</li>
+<li><code>"li"</code>: obtain eigenvalues with largest imaginary
+part.</li>
+<li><code>"si"</code>: obtain eigenvalues with smallest imaginary
+part.</li>
+</ul><p>The argument <code>sigma</code> is optional; if <code>sigma</code> is
+given, eigenvalues closest to <code>sigma</code> are found via
+shift-invert mode. Note that to use <code>sigma</code>, both
+<code>ARMA_USE_ARPACK</code> and <code>ARMA_USE_SUPERLU</code> must be
+enabled in <code>armadillo/config.hpp</code>.</p>
+<p>The <code>opts</code> argument is optional; <code>opts</code> is an
+instance of the <code>eigs_opts</code> structure:</p>
+<pre class="cpp"><code>struct eigs_opts
+{
+  double       tol;     // default: 0
+  unsigned int maxiter; // default: 1000
+  unsigned int subdim;  // default: max(2*k+1, 20)
+};</code></pre>
+<ul><li><code>tol</code> specifies the tolerance for convergence.</li>
+<li><code>maxiter</code> specifies the maximum number of Arnoldi
+iterations.</li>
+<li><code>subdim</code> specifies the dimension of the Krylov subspace,
+with the constraint <code>k &lt; subdim &lt;= X.n_rows</code>; the
+recommended value is <code>subdim &gt;= 2*k</code>.</li>
+</ul><p>The eigenvalues and corresponding eigenvectors are stored in
+<code>eigval</code> and <code>eigvec</code>, respectively.</p>
+<p>If <code>X</code> is not square sized, an error is thrown.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>eigval = eigs_gen(X, k)</code> resets <code>eigval</code> and
+throws an error.</li>
+<li><code>eigs_gen(eigval, X, k)</code> resets <code>eigval</code> and
+returns a bool set to false (an error is not thrown).</li>
+<li><code>eigs_gen(eigval,eigvec, X, k)</code> resets
+<code>eigval</code> and <code>eigvec</code> and returns a bool set to
+false (an error is not thrown).</li>
+</ul><p>Caveats:</p>
+<ul><li>The number of obtained eigenvalues/eigenvectors may be lower than
+requested, depending on the given data.</li>
+<li>If the decomposition fails, try first increasing
+<code>opts.subdim</code> (Krylov subspace dimension), and, as secondary
+options, try increasing <code>opts.maxiter</code> (maximum number of
+iterations), and/or <code>opts.tol</code> (tolerance for convergence),
+and/or <code>k</code> (number of eigenvalues).</li>
+<li>For an alternative to the <code>"sm"</code> form, use the
+shift-invert mode with <code>sigma</code> set to <code>0.0</code>.</li>
+</ul><div id="examples-1" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list eig_gen2_(const doubles_matrix&lt;&gt;&amp; x,
+                                   const char* method,
+                                   const int&amp; k) {
+  sp_mat X = as_SpMat(x);
+
+  cx_vec eigval;
+  cx_mat eigvec;
+
+  eigs_opts opts;
+  opts.maxiter = 10000;
+
+  bool ok = eigs_gen(eigval, eigvec, X, k, method, opts);
+
+  writable::list out(3);
+  out[0] = writable::logicals({ok});
+  out[1] = as_complexes(eigval);
+  out[2] = as_complexes_matrix(eigvec);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="svds" class="section level1">
+<h1 id="truncated-singular-value-decomposition">Truncated singular value decomposition</h1>
+<p>Obtain a limited number of singular values and singular vectors
+(truncated SVD) of a sparse matrix.</p>
+<p>The singular values and vectors are calculated via sparse eigen
+decomposition of:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+0_{n \times n} &amp; X \\
+X^T &amp; 0_{m \times m}
+\end{bmatrix}
+\]</span></p>
+<p>where <span class="math inline">\(n\)</span> and <span class="math inline">\(m\)</span> are the number of rows and columns of
+<code>X</code>, respectively.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>vec s = svds(X, k)
+vec s = svds(X, k, tol)
+
+svds(vec s, X, k)
+svds(vec s, X, k, tol)
+
+svds(mat U, vec s, mat V, sp_mat X, k)
+svds(mat U, vec s, mat V, sp_mat X, k, tol)
+
+svds(cx_mat U, vec s, cx_mat V, sp_cx_mat X, k)
+svds(cx_mat U, vec s, cx_mat V, sp_cx_mat X, k, tol)</code></pre>
+<p><code>k</code> specifies the number of singular values and singular
+vectors.</p>
+<p>The singular values are in descending order.</p>
+<p>The argument <code>tol</code> is optional; it specifies the tolerance
+for convergence, and it is passed as <code>tol / sqrt(2)</code> to
+<code>eigs_sym</code>.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>s = svds(X, k)</code> resets <code>s</code> and throws an
+error.</li>
+<li><code>svds(s, X, k)</code> resets <code>s</code> and returns a bool
+set to false (an error is not thrown).</li>
+<li><code>svds(U, s, V, X, k)</code> resets <code>U</code>,
+<code>s</code>, and <code>V</code> and returns a bool set to false (an
+error is not thrown).</li>
+</ul><p>Caveats:</p>
+<ul><li><code>svds</code> is intended only for finding a few singular values
+from a large sparse matrix; to find all singular values, use
+<code>svd</code> instead.</li>
+<li>Depending on the given matrix, <code>svds</code> may find fewer
+singular values than specified.</li>
+<li>The implementation in Armadillo 12.6 is considerably faster than
+earlier versions; further speedups can be obtained by enabling OpenMP in
+your compiler (e.g., <code>-fopenmp</code> in GCC and clang).</li>
+</ul><div id="examples-2" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list svds1_(const doubles_matrix&lt;&gt;&amp; x, const int&amp; k) {
+  sp_mat X = as_SpMat(x);
+
+  // convert all values below 0.1 to zero
+  X.transform([](double val) { return (std::abs(val) &lt; 0.1) ? 0 : val; });
+
+  mat U;
+  vec s;
+  mat V;
+
+  bool ok = svds(U, s, V, X, k);
+
+  writable::list out(4);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles(s);
+  out[2] = as_doubles_matrix(U);
+  out[3] = as_doubles_matrix(V);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="spsolve" class="section level1">
+<h1 id="solve-a-system-of-linear-equations">Solve a system of linear equations</h1>
+<p>Solve a sparse system of linear equations, <span class="math inline">\(A \cdot X = B\)</span>, where <span class="math inline">\(A\)</span> is a sparse matrix, <span class="math inline">\(B\)</span> is a dense matrix or vector, and <span class="math inline">\(X\)</span> is unknown.</p>
+<p>The number of rows in <span class="math inline">\(A\)</span> and
+<span class="math inline">\(B\)</span> must be the same.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>// A = matrix, b = vector
+vec x = spsolve(A, b)
+vec x = spsolve(A, b, solver)
+vec x = spsolve(A, b, solver, opts)
+
+// A = matrix, B = matrix
+mat X = spsolve(A, B)
+
+spsolve(x, A, b)
+spsolve(x, A, b, solver)
+spsolve(x, A, b, solver, opts)</code></pre>
+<p>The <code>solver</code> argument is optional; <code>solver</code> is
+either <code>"superlu"</code> (default) or <code>"lapack"</code>.</p>
+<ul><li>For <code>"superlu"</code>, <code>ARMA_USE_SUPERLU</code> must be
+enabled in <code>armadillo/config.hpp</code>.</li>
+<li>For <code>"lapack"</code>, the sparse matrix <span class="math inline">\(A\)</span> is converted to a dense matrix before
+using the LAPACK solver. This considerably increases memory usage.</li>
+</ul><p>The <code>opts</code> argument is optional and applicable to the
+SuperLU solver, and is an instance of the <code>superlu_opts</code>
+structure:</p>
+<pre class="cpp"><code>struct superlu_opts
+{
+  bool             allow_ugly;   // default: false
+  bool             equilibrate;  // default: false
+  bool             symmetric;    // default: false
+  double           pivot_thresh; // default: 1.0
+  permutation_type permutation;  // default: superlu_opts::COLAMD
+  refine_type      refine;       // default: superlu_opts::REF_NONE
+};</code></pre>
+<ul><li><code>allow_ugly</code> is either <code>true</code> or
+<code>false</code>; it indicates whether to keep solutions of systems
+singular to working precision.</li>
+<li><code>equilibrate</code> is either <code>true</code> or
+<code>false</code>; it indicates whether to equilibrate the system
+(scale the rows and columns of <span class="math inline">\(A\)</span> to
+have unit norm).</li>
+<li><code>symmetric</code> is either <code>true</code> or
+<code>false</code>; it indicates whether to use SuperLU symmetric mode,
+which gives preference to diagonal pivots.</li>
+<li><code>pivot_thresh</code> is in the range [0.0, 1.0], used for
+determining whether a diagonal entry is an acceptable pivot (details in
+SuperLU documentation).</li>
+<li><code>permutation</code> specifies the type of column permutation;
+it is one of:
+<ul><li><code>superlu_opts::NATURAL</code>: natural ordering.</li>
+<li><code>superlu_opts::MMD_ATA</code>: minimum degree ordering on
+structure of <span class="math inline">\(A^T \cdot A\)</span>.</li>
+<li><code>superlu_opts::MMD_AT_PLUS_A</code>: minimum degree ordering on
+structure of <span class="math inline">\(A^T + A\)</span>.</li>
+<li><code>superlu_opts::COLAMD</code>: approximate minimum degree column
+ordering.</li>
+</ul></li>
+<li><code>refine</code> specifies the type of iterative refinement; it
+is one of:
+<ul><li><code>superlu_opts::REF_NONE</code>: no refinement.</li>
+<li><code>superlu_opts::REF_SINGLE</code>: iterative refinement in
+single precision.</li>
+<li><code>superlu_opts::REF_DOUBLE</code>: iterative refinement in
+double precision.</li>
+<li><code>superlu_opts::REF_EXTRA</code>: iterative refinement in extra
+precision.</li>
+</ul></li>
+</ul><p>If no solution is found:</p>
+<ul><li><code>x = spsolve(A, b)</code> resets <code>x</code> and throws an
+error.</li>
+<li><code>spsolve(x, A, b)</code> resets <code>x</code> and returns a
+bool set to false (an error is not thrown).</li>
+</ul><p>The SuperLU solver is mainly useful for very large and/or highly
+sparse matrices.</p>
+<p>To reuse the SuperLU factorisation of <span class="math inline">\(A\)</span> for finding solutions where <span class="math inline">\(B\)</span> is iteratively changed, see the
+<code>spsolve_factoriser</code> class.</p>
+<p>If there is sufficient memory to store a dense version of matrix
+<span class="math inline">\(A\)</span>, the LAPACK solver can be
+faster.</p>
+<div id="examples-3" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles spsolve1_(const doubles_matrix&lt;&gt;&amp; a,
+                                      const doubles&amp; b,
+                                      const char* method) {
+  sp_mat A = as_SpMat(a);
+  vec B = as_Col(b);
+
+  vec X = spsolve(A, B, method);
+
+  return as_doubles(X);
+}</code></pre>
+</div>
+</div>
+<div id="spsolve_factoriser" class="section level1">
+<h1 id="factorise-a-sparse-matrix-for-solving-linear-systems">Factorise a sparse matrix for solving linear systems</h1>
+<p>Class for factorisation of sparse matrix <span class="math inline">\(A\)</span> for solving systems of linear equations
+in the form <span class="math inline">\(AX = B\)</span>.</p>
+<p>Allows the SuperLU factorisation of <span class="math inline">\(A\)</span> to be reused for finding solutions in
+cases where <span class="math inline">\(B\)</span> is iteratively
+changed.</p>
+<p>For an instance of <code>spsolve_factoriser</code> named as
+<code>SF</code>, the member functions are:</p>
+<ul><li><code>SF.factorise(A. opts)</code>: factorise square-sized sparse
+matrix
+$A<code>. Optional   settings are given in the</code>opts<code>argument as per the</code>spsolve()`
+function. If the factorisation fails, a bool set to false is
+returned.</li>
+<li><code>SF.solve(X, B)</code>: using the given dense matrix <span class="math inline">\(B\)</span> and the computed factorisation, store
+in <span class="math inline">\(X\)</span> the solution to $AX = B`. If
+computing the solution fails, <span class="math inline">\(X\)</span> is
+reset and a bool set to false is returned.</li>
+<li><code>SF.rcond()</code>: return the 1-norm estimate of the
+reciprocal condition number computed during the factorisation. Values
+close to 1 suggest that the factorised matrix is well-conditioned.
+Values close to 0 suggest that the factorised matrix is badly
+conditioned.</li>
+<li><code>SF.reset()</code>: reset the instance and release all memory
+related to the stored factorisation; this is automatically done when the
+instance goes out of scope.</li>
+</ul><p>Caveats:</p>
+<ul><li>If the factorisation of <span class="math inline">\(A\)</span> does
+not need to be reused, use <code>spsolve()</code> instead.</li>
+<li>This class internally uses the SuperLU solver;
+<code>ARMA_USE_SUPERLU</code> must be enabled in
+<code>config.hpp</code>.</li>
+</ul><div id="examples-4" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list spsolve_factoriser1_(const doubles_matrix&lt;&gt;&amp; a,
+                                              const list&amp; b) {
+  sp_mat A = as_SpMat(a);
+
+  bool status = SF.factorise(A);
+
+  if (status == false) {
+    stop("factorisation failed");
+  }
+
+  double rcond_value = SF.rcond();
+
+  vec B1 = as_Col(b[0]);
+  vec B2 = as_Col(b[1]);
+
+  vec X1, X2;
+
+  bool ok1 = SF.solve(X1, B1);
+  bool ok2 = SF.solve(X2, B2);
+
+  if (ok1 == false) {
+    stop("couldn't find X1");
+  }
+
+  if (ok2 == false) {
+    stop("couldn't find X2");
+  }
+
+  writable::list out(3);
+  out[0] = writable::logicals({status &amp;&amp; ok1 &amp;&amp; ok2});
+  out[1] = as_doubles(X1);
+  out[2] = as_doubles(X2);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+        </div>
+        <footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
+</div>
+</div>
+</body></html>
+

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Converting between R and Armadillo types • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>On this page</label>
+    <a href="#r-to-armadillo" class="toc-level-1">R to Armadillo</a>
+    <a href="#matrices" class="toc-level-2">Matrices</a>
+    <a href="#vectors" class="toc-level-2">Vectors</a>
+    <a href="#cubes" class="toc-level-2">Cubes</a>
+    <a href="#fields" class="toc-level-2">Fields</a>
+    <a href="#armadillo-to-r" class="toc-level-1">Armadillo to R</a>
+    <a href="#matrices" class="toc-level-2">Matrices</a>
+    <a href="#vectors" class="toc-level-2">Vectors</a>
+    <a href="#cubes" class="toc-level-2">Cubes</a>
+    <a href="#fields" class="toc-level-2">Fields</a>
+    <a href="#generic-conversion-with-cpp4r-as-sexp" class="toc-level-2">Generic conversion with cpp4r::as_sexp()</a>
+    <a href="#references" class="toc-level-1">References</a>
+  </div>
+
+</div>
+<div id="content">
+<div class="content-wrapper">
+        <div class="content-main">
+          <h1>Converting between R and Armadillo types</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<p><code>armadillo4r</code> provides a set of conversion functions,
+declared across <code>armadillo4r/wrappers/matrices.hpp</code>,
+<code>armadillo4r/wrappers/vectors.hpp</code>,
+<code>armadillo4r/wrappers/cubes.hpp</code>, and
+<code>armadillo4r/wrappers/fields.hpp</code>, and all automatically
+available after including <code>&lt;armadillo4r.hpp&gt;</code>. This
+vignette documents every function and shows a minimal C++ example for
+each group.</p>
+<div id="r-to-armadillo" class="section level1">
+<h1 id="r-to-armadillo">R to Armadillo</h1>
+<div id="matrices" class="section level2">
+<h2 id="matrices">Matrices</h2>
+<p>R matrices are represented in <code>cpp4r</code> as
+<code>doubles_matrix&lt;&gt;</code> (numeric) or
+<code>integers_matrix&lt;&gt;</code> (integer). The following functions
+convert them to Armadillo dense matrices:</p>
+<table><colgroup><col width="27%"><col width="21%"><col width="36%"><col width="14%"></colgroup><thead><tr class="header"><th>cpp4r input</th>
+<th>Function</th>
+<th>Armadillo output</th>
+<th>Notes</th>
+</tr></thead><tbody><tr class="odd"><td><code>doubles_matrix&lt;&gt;</code></td>
+<td><code>as_Mat(x)</code> / <code>as_mat(x)</code></td>
+<td><code>Mat&lt;double&gt;</code></td>
+<td><code>as_mat()</code> is a lowercase alias</td>
+</tr><tr class="even"><td><code>integers_matrix&lt;&gt;</code></td>
+<td><code>as_Mat(x)</code> / <code>as_mat(x)</code></td>
+<td><code>Mat&lt;int&gt;</code></td>
+<td>same alias applies</td>
+</tr><tr class="odd"><td><code>integers_matrix&lt;&gt;</code></td>
+<td><code>as_imat(x)</code></td>
+<td><code>imat</code> (<code>Mat&lt;sword&gt;</code>)</td>
+<td>signed integer matrix</td>
+</tr><tr class="even"><td><code>integers_matrix&lt;&gt;</code></td>
+<td><code>as_umat(x)</code></td>
+<td><code>umat</code> (<code>Mat&lt;uword&gt;</code>)</td>
+<td>unsigned integer matrix; copies element-by-element</td>
+</tr><tr class="odd"><td><code>doubles_matrix&lt;&gt;</code></td>
+<td><code>as_fmat(x)</code></td>
+<td><code>fmat</code> (<code>Mat&lt;float&gt;</code>)</td>
+<td>narrows double to float</td>
+</tr></tbody></table><pre class="cpp"><code>#include &lt;cpp4r.hpp&gt;
+#include &lt;armadillo4r.hpp&gt;
+
+using namespace arma;
+using namespace cpp4r;
+
+[[cpp4r::register]]
+doubles_matrix&lt;&gt; mat_demo_(const doubles_matrix&lt;&gt;&amp; x,
+                           const integers_matrix&lt;&gt;&amp; xi) {
+  mat    A  = as_Mat(x);    // double matrix
+  imat   Ai = as_imat(xi);  // signed int matrix
+  umat   Au = as_umat(xi);  // unsigned int matrix
+  fmat   Af = as_fmat(x);   // float matrix
+
+  // use A, Ai, Au, Af ...
+  return as_doubles_matrix(A * A.t());
+}</code></pre>
+<pre class="r"><code>x &lt;- matrix(c(1.5, 2.5, 3.5, 4.5), nrow = 2)
+xi &lt;- matrix(1:4, nrow = 2)
+mat_demo_(x, xi)</code></pre>
+</div>
+<div id="vectors" class="section level2">
+<h2 id="vectors">Vectors</h2>
+<p>R vectors (<code>doubles</code> / <code>integers</code>) map to
+Armadillo column vectors:</p>
+<table><colgroup><col width="12%"><col width="25%"><col width="21%"><col width="41%"></colgroup><thead><tr class="header"><th>cpp4r input</th>
+<th>Function</th>
+<th>Armadillo output</th>
+<th>Notes</th>
+</tr></thead><tbody><tr class="odd"><td><code>doubles</code></td>
+<td><code>as_Col(x)</code> / <code>as_col(x)</code></td>
+<td><code>Col&lt;double&gt;</code> (<code>vec</code>)</td>
+<td><code>as_col()</code> is a lowercase alias</td>
+</tr><tr class="even"><td><code>integers</code></td>
+<td><code>as_Col(x)</code> / <code>as_col(x)</code></td>
+<td><code>Col&lt;int&gt;</code></td>
+<td>same alias applies</td>
+</tr><tr class="odd"><td><code>integers</code></td>
+<td><code>as_uvec(x)</code></td>
+<td><code>uvec</code> (<code>Col&lt;uword&gt;</code>)</td>
+<td>copies element-by-element (no reinterpret)</td>
+</tr></tbody></table><pre class="cpp"><code>[[cpp4r::register]]
+doubles vec_demo_(const doubles&amp; y, const integers&amp; yi) {
+  vec  v  = as_Col(y);    // double column vector
+  uvec vu = as_uvec(yi);  // unsigned int column vector
+
+  // use v, vu ...
+  return as_doubles(v % v);   // element-wise square
+}</code></pre>
+<pre class="r"><code>vec_demo_(c(1.0, 2.0, 3.0), 1:3)</code></pre>
+</div>
+<div id="cubes" class="section level2">
+<h2 id="cubes">Cubes</h2>
+<p>R has no native quasi third-order tensors (“3D matrices”) that maps
+directly onto Armadillo’s memory layout. <code>armadillo4r</code>
+therefore represents a cube on the R side as a <strong><code>list</code>
+of matrices</strong>, where every element is a matrix of the
+<strong>same dimensions</strong>. Slice <code>s</code> of the Armadillo
+cube corresponds to element <code>s + 1</code> of the R list (R is
+1-indexed).</p>
+<p>The most commonly used cube typedefs are:</p>
+<table><thead><tr class="header"><th>Typedef</th>
+<th>Equivalent</th>
+<th>Element type</th>
+</tr></thead><tbody><tr class="odd"><td><code>cube</code> / <code>dcube</code></td>
+<td><code>Cube&lt;double&gt;</code></td>
+<td><code>double</code></td>
+</tr><tr class="even"><td><code>fcube</code></td>
+<td><code>Cube&lt;float&gt;</code></td>
+<td><code>float</code></td>
+</tr><tr class="odd"><td><code>icube</code></td>
+<td><code>Cube&lt;sword&gt;</code></td>
+<td><code>long long</code> (signed, platform-dependent)</td>
+</tr><tr class="even"><td><code>ucube</code></td>
+<td><code>Cube&lt;uword&gt;</code></td>
+<td><code>unsigned int</code></td>
+</tr><tr class="odd"><td><code>cx_cube</code> / <code>cx_dcube</code></td>
+<td><code>Cube&lt;cx_double&gt;</code></td>
+<td><code>std::complex&lt;double&gt;</code></td>
+</tr></tbody></table><table><colgroup><col width="27%"><col width="21%"><col width="36%"><col width="14%"></colgroup><thead><tr class="header"><th>cpp4r input</th>
+<th>Function</th>
+<th>Armadillo output</th>
+<th>Notes</th>
+</tr></thead><tbody><tr class="odd"><td><code>list</code> of <code>doubles_matrix&lt;&gt;</code></td>
+<td><code>as_Cube(x)</code> / <code>as_cube(x)</code></td>
+<td><code>Cube&lt;double&gt;</code> (<code>cube</code>)</td>
+<td><code>as_cube()</code> is a lowercase alias</td>
+</tr><tr class="even"><td><code>list</code> of <code>integers_matrix&lt;&gt;</code></td>
+<td><code>as_icube(x)</code></td>
+<td><code>Cube&lt;int&gt;</code></td>
+<td>note: assigns to <code>Cube&lt;int&gt;</code>, not
+<code>icube</code> (<code>Cube&lt;sword&gt;</code>)</td>
+</tr></tbody></table><p>Both functions throw <code>std::runtime_error</code> if the list is
+empty or any matrix has dimensions different from the first.</p>
+<pre class="cpp"><code>[[cpp4r::register]]
+doubles_matrix&lt;&gt; cube_col_means_(const list&amp; slices) {
+  cube C = as_Cube(slices);   // list of doubles_matrix&lt;&gt; -&gt; cube
+
+  mat result(C.n_slices, C.n_cols);
+  for (uword s = 0; s &lt; C.n_slices; ++s) {
+    result.row(s) = mean(C.slice(s), 0);  // column means of each slice
+  }
+
+  return as_doubles_matrix(result);
+}</code></pre>
+<pre class="r"><code>slices &lt;- list(
+  matrix(1:6, nrow = 2), # slice 1
+  matrix(7:12, nrow = 2), # slice 2
+  matrix(13:18, nrow = 2) # slice 3
+)
+cube_col_means_(slices)</code></pre>
+</div>
+<div id="fields" class="section level2">
+<h2 id="fields">Fields</h2>
+<p>An Armadillo <code>field&lt;object_type&gt;</code> stores arbitrary
+objects (matrices, vectors, strings, …) in a matrix-like or cube-like
+layout. Unlike <code>Cube</code>, the elements of a field <strong>do not
+need to have the same size</strong> — each element is an independent
+object.</p>
+<blockquote>
+<p><strong>Tip:</strong> when all matrices share the same dimensions,
+prefer <code>Cube</code> over <code>field&lt;mat&gt;</code> because
+<code>Cube</code> is more memory-efficient and faster.</p>
+</blockquote>
+<p>On the R side a field is always represented as a plain
+<strong><code>list</code></strong> (or <code>strings</code> for
+<code>field&lt;std::string&gt;</code>). Element <code>i</code> of the
+Armadillo field (0-indexed) corresponds to element <code>i + 1</code> of
+the R list (1-indexed).</p>
+<table><colgroup><col width="27%"><col width="21%"><col width="36%"><col width="14%"></colgroup><thead><tr class="header"><th>cpp4r input</th>
+<th>Function</th>
+<th>Armadillo output</th>
+<th>Notes</th>
+</tr></thead><tbody><tr class="odd"><td><code>list</code> of <code>doubles_matrix&lt;&gt;</code></td>
+<td><code>as_field_mat(x)</code></td>
+<td><code>field&lt;mat&gt;</code></td>
+<td>matrices may differ in size</td>
+</tr><tr class="even"><td><code>list</code> of <code>integers_matrix&lt;&gt;</code></td>
+<td><code>as_field_imat(x)</code></td>
+<td><code>field&lt;imat&gt;</code></td>
+<td>matrices may differ in size</td>
+</tr><tr class="odd"><td><code>list</code> of <code>doubles</code></td>
+<td><code>as_field_vec(x)</code></td>
+<td><code>field&lt;vec&gt;</code></td>
+<td>vectors may differ in length</td>
+</tr><tr class="even"><td><code>strings</code></td>
+<td><code>as_field_str(x)</code></td>
+<td><code>field&lt;std::string&gt;</code></td>
+<td></td>
+</tr></tbody></table><p>All four functions throw <code>std::runtime_error</code> if the input
+list is empty.</p>
+<pre class="cpp"><code>[[cpp4r::register]]
+list field_mat_demo_(const list&amp; mats) {
+  // Ragged list of matrices -&gt; field&lt;mat&gt;
+  field&lt;mat&gt; F = as_field_mat(mats);
+
+  // Normalise each matrix independently
+  for (uword i = 0; i &lt; F.n_elem; ++i) {
+    F(i) = normalise(F(i));  // L2-normalise columns
+  }
+
+  // field&lt;mat&gt; -&gt; list of doubles_matrix&lt;&gt;
+  return as_doubles_matrix_field(F);
+}</code></pre>
+<pre class="r"><code>mats &lt;- list(
+  matrix(1:6, nrow = 2), # 2x3 matrix
+  matrix(1:12, nrow = 4) # 4x3 matrix  (different nrow!)
+)
+field_mat_demo_(mats)</code></pre>
+</div>
+</div>
+<div id="armadillo-to-r" class="section level1">
+<h1 id="armadillo-to-r">Armadillo to R</h1>
+<div id="matrices-1" class="section level2">
+<h2 id="matrices">Matrices</h2>
+<table><colgroup><col width="41%"><col width="25%"><col width="33%"></colgroup><thead><tr class="header"><th>Armadillo input</th>
+<th>Function</th>
+<th>cpp4r output</th>
+</tr></thead><tbody><tr class="odd"><td><code>Mat&lt;double&gt;</code> / <code>mat</code> /
+<code>fmat</code></td>
+<td><code>as_doubles_matrix(A)</code></td>
+<td><code>doubles_matrix&lt;&gt;</code></td>
+</tr><tr class="even"><td><code>Mat&lt;int&gt;</code> / <code>imat</code> /
+<code>umat</code></td>
+<td><code>as_integers_matrix(A)</code></td>
+<td><code>integers_matrix&lt;&gt;</code></td>
+</tr><tr class="odd"><td><code>Mat&lt;cx_double&gt;</code> / <code>cx_mat</code></td>
+<td><code>as_complexes_matrix(A)</code></td>
+<td><code>complexes_matrix&lt;&gt;</code></td>
+</tr></tbody></table><pre class="cpp"><code>[[cpp4r::register]]
+doubles_matrix&lt;&gt; mat_out_demo_(const doubles_matrix&lt;&gt;&amp; x) {
+  mat A = as_Mat(x);
+  return as_doubles_matrix(A.t() * A);  // mat -&gt; doubles_matrix&lt;&gt;
+}</code></pre>
+<pre class="r"><code>x &lt;- matrix(1:9, nrow = 3) * 1.0
+mat_out_demo_(x)</code></pre>
+</div>
+<div id="vectors-1" class="section level2">
+<h2 id="vectors">Vectors</h2>
+<table><thead><tr class="header"><th>Armadillo input</th>
+<th>Function</th>
+<th>cpp4r output</th>
+</tr></thead><tbody><tr class="odd"><td><code>Col&lt;double&gt;</code> / <code>vec</code></td>
+<td><code>as_doubles(v)</code></td>
+<td><code>doubles</code></td>
+</tr><tr class="even"><td><code>Col&lt;int&gt;</code> / <code>ivec</code></td>
+<td><code>as_integers(v)</code></td>
+<td><code>integers</code></td>
+</tr><tr class="odd"><td><code>uvec</code></td>
+<td><code>as_integers(v)</code></td>
+<td><code>integers</code></td>
+</tr></tbody></table><pre class="cpp"><code>[[cpp4r::register]]
+doubles vec_out_demo_(const doubles&amp; y) {
+  return as_doubles(normalise(as_Col(y)));  // vec -&gt; doubles
+}</code></pre>
+<pre class="r"><code>vec_out_demo_(c(3.0, 4.0)) # should give c(0.6, 0.8)</code></pre>
+</div>
+<div id="cubes-1" class="section level2">
+<h2 id="cubes">Cubes</h2>
+<table><colgroup><col width="41%"><col width="25%"><col width="33%"></colgroup><thead><tr class="header"><th>Armadillo input</th>
+<th>Function</th>
+<th>cpp4r output</th>
+</tr></thead><tbody><tr class="odd"><td><code>Cube&lt;double&gt;</code> / <code>cube</code></td>
+<td><code>as_doubles_matrix_list(C)</code></td>
+<td><code>list</code> of <code>doubles_matrix&lt;&gt;</code></td>
+</tr><tr class="even"><td><code>Cube&lt;int&gt;</code> / <code>icube</code></td>
+<td><code>as_integers_matrix_list(C)</code></td>
+<td><code>list</code> of <code>integers_matrix&lt;&gt;</code></td>
+</tr><tr class="odd"><td><code>ucube</code></td>
+<td><code>as_integers_matrix_list(C)</code></td>
+<td><code>list</code> of <code>integers_matrix&lt;&gt;</code></td>
+</tr></tbody></table><p>Slice <code>s</code> of the cube becomes element <code>s + 1</code>
+of the returned R list.</p>
+<pre class="cpp"><code>[[cpp4r::register]]
+list random_cube_(const int n_rows, const int n_cols, const int n_slices) {
+  cube C(n_rows, n_cols, n_slices, fill::randn);
+  return as_doubles_matrix_list(C);  // cube -&gt; list of doubles_matrix&lt;&gt;
+}</code></pre>
+<pre class="r"><code>set.seed(42)
+result &lt;- random_cube_(3L, 4L, 2L)
+
+length(result) # 2  (one element per slice)
+dim(result[[1]]) # 3 4</code></pre>
+</div>
+<div id="fields-1" class="section level2">
+<h2 id="fields">Fields</h2>
+<table><colgroup><col width="40%"><col width="25%"><col width="35%"></colgroup><thead><tr class="header"><th>Armadillo input</th>
+<th>Function</th>
+<th>cpp4r output</th>
+</tr></thead><tbody><tr class="odd"><td><code>field&lt;mat&gt;</code></td>
+<td><code>as_doubles_matrix_field(F)</code></td>
+<td><code>list</code> of <code>doubles_matrix&lt;&gt;</code></td>
+</tr><tr class="even"><td><code>field&lt;imat&gt;</code></td>
+<td><code>as_integers_matrix_field(F)</code></td>
+<td><code>list</code> of <code>integers_matrix&lt;&gt;</code></td>
+</tr><tr class="odd"><td><code>field&lt;vec&gt;</code></td>
+<td><code>as_doubles_field(F)</code></td>
+<td><code>list</code> of <code>doubles</code></td>
+</tr><tr class="even"><td><code>field&lt;std::string&gt;</code></td>
+<td><code>as_strings_field(F)</code></td>
+<td><code>strings</code></td>
+</tr></tbody></table><p>Element <code>i</code> of the field (0-indexed) becomes element
+<code>i + 1</code> of the returned R list (1-indexed). Because field
+elements may differ in size, the returned list is potentially
+ragged.</p>
+<pre class="cpp"><code>[[cpp4r::register]]
+list build_field_(const integers&amp; sizes) {
+  // Build a field&lt;vec&gt; where each vector has a different length
+  field&lt;vec&gt; F(sizes.size());
+
+  for (uword i = 0; i &lt; F.n_elem; ++i) {
+    F(i) = randn&lt;vec&gt;(sizes[static_cast&lt;int&gt;(i)]);  // random vector of length sizes[i]
+  }
+
+  return as_doubles_field(F);  // field&lt;vec&gt; -&gt; list of doubles
+}</code></pre>
+<pre class="r"><code>build_field_(c(3L, 5L, 2L)) # list of three vectors of lengths 3, 5, 2</code></pre>
+</div>
+<div id="generic-conversion-with-cpp4ras_sexp" class="section level2">
+<h2 id="generic-conversion-with-cpp4r-as-sexp">Generic conversion with <code>cpp4r::as_sexp()</code></h2>
+<p>For cases where the return type is determined at compile time,
+<code>cpp4r::as_sexp()</code> provides a single generic entry point that
+dispatches to the appropriate conversion based on the Armadillo
+type:</p>
+<table><thead><tr class="header"><th>Armadillo input</th>
+<th><code>as_sexp()</code> output</th>
+</tr></thead><tbody><tr class="odd"><td><code>vec</code> / <code>fvec</code></td>
+<td><code>doubles</code></td>
+</tr><tr class="even"><td><code>ivec</code> / <code>uvec</code></td>
+<td><code>integers</code></td>
+</tr><tr class="odd"><td><code>mat</code> / <code>fmat</code></td>
+<td><code>doubles_matrix&lt;&gt;</code></td>
+</tr><tr class="even"><td><code>imat</code> / <code>umat</code></td>
+<td><code>integers_matrix&lt;&gt;</code></td>
+</tr><tr class="odd"><td><code>rowvec</code> / <code>frowvec</code></td>
+<td><code>doubles_matrix&lt;&gt;</code> (1-row matrix)</td>
+</tr><tr class="even"><td><code>irowvec</code> / <code>urowvec</code></td>
+<td><code>integers_matrix&lt;&gt;</code> (1-row matrix)</td>
+</tr></tbody></table><pre class="cpp"><code>[[cpp4r::register]]
+SEXP as_sexp_demo_(const doubles&amp; y) {
+  return cpp4r::as_sexp(arma::sort(as_Col(y)));  // vec -&gt; doubles (dispatched automatically)
+}</code></pre>
+<pre class="r"><code>as_sexp_demo_(c(3.0, 1.0, 2.0)) # returns c(1, 2, 3)</code></pre>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1 id="references">References</h1>
+</div>
+        </div>
+        <footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
+</div>
+</div>
+</body></html>
+

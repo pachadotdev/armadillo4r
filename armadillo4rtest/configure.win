@@ -1,0 +1,84 @@
+#!/bin/sh
+# armadillo4rtest's configure.win script by Pacha (2025)
+# Detects the C++ standard and generates src/Makevars.win
+
+# Get compiler from R
+CXX=$("${R_HOME}/bin/R.exe" CMD config CXX 2>/dev/null || echo "g++")
+if [ -z "$CXX" ]; then
+  CXX="g++"
+fi
+
+# Test C++ standard support with actual compilation
+cat > testcxx.cpp <<EOF
+#include <memory>
+int main() {
+  auto ptr = std::make_unique<int>(42);
+  return 0;
+}
+EOF
+
+CXX_STD=""
+if $CXX -std=c++20 testcxx.cpp -o testcxx.exe >/dev/null 2>&1; then
+  CXX_STD="CXX20"
+elif $CXX -std=c++17 testcxx.cpp -o testcxx.exe >/dev/null 2>&1; then
+  CXX_STD="CXX17"
+elif $CXX -std=c++14 testcxx.cpp -o testcxx.exe >/dev/null 2>&1; then
+  CXX_STD="CXX14"
+elif $CXX -std=gnu++14 testcxx.cpp -o testcxx.exe >/dev/null 2>&1; then
+  CXX_STD="CXX14"
+fi
+
+rm -f testcxx.cpp testcxx.exe
+
+if [ -z "$CXX_STD" ]; then
+  echo ""
+  echo "---------------------------------------------------------------------"
+  echo "ERROR: C++14 compiler required but not found."
+  echo ""
+  echo "The Armadillo C++ library requires C++14 or later."
+  echo "Your compiler does not appear to support C++14."
+  echo ""
+  echo "On Windows, this typically means you need:"
+  echo "  - R >= 4.2 with Rtools42 or later"
+  echo "  - Rtools40 (R 4.0-4.1) uses GCC with C++11 by default"
+  echo ""
+  echo "Please upgrade to R 4.2+ for full armadillo4r support."
+  echo "---------------------------------------------------------------------"
+  echo ""
+  exit 1
+fi
+
+echo "- $CXX_STD support detected"
+
+# Test whether -llapack -lblas are available as standalone libraries.
+# They exist in rtools42+ (R >= 4.2) but not in rtools40 (R 4.1), where
+# LAPACK/BLAS are bundled inside R's own DLLs (Rlapack.dll / Rblas.dll)
+# and symbols are resolved at runtime automatically.
+cat > testlapack.cpp <<EOF
+int main() { return 0; }
+EOF
+if $CXX -std=gnu++14 testlapack.cpp -o testlapack.exe -llapack -lblas >/dev/null 2>&1; then
+  LAPACK_BLAS_LIBS="-llapack -lblas"
+  echo "- Standalone LAPACK/BLAS found (rtools42+)"
+elif $CXX -std=gnu++14 testlapack.cpp -o testlapack.exe -lopenblas >/dev/null 2>&1; then
+  # rtools40 + CI-provided OpenBLAS: full LAPACK and BLAS from one library
+  LAPACK_BLAS_LIBS="-lopenblas"
+  echo "- OpenBLAS found (rtools40 + CI-provided)"
+else
+  # Last resort: R's own DLLs (Rlapack.dll is a subset; some routines missing)
+  LAPACK_BLAS_LIBS="-lRlapack -lRblas"
+  echo "- Falling back to R's bundled Rlapack/Rblas DLLs"
+fi
+rm -f testlapack.cpp testlapack.exe
+
+# Generate src/Makevars.win with the detected CXX_STD so R uses the
+# correct standard (without this, R 4.1 defaults to -std=gnu++11,
+# which fails Armadillo's compiler_check.hpp requirement for C++14)
+cat > src/Makevars.win <<EOF
+CXX_STD = ${CXX_STD}
+
+PKG_CXXFLAGS = \$(SHLIB_OPENMP_CXXFLAGS)
+PKG_LIBS = \$(SHLIB_OPENMP_CXXFLAGS) ${LAPACK_BLAS_LIBS} \$(FLIBS)
+EOF
+
+exit 0

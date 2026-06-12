@@ -1,0 +1,96 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+#
+# NOTE: This workflow is overkill for most R packages and
+# check-standard.yaml is likely a better choice.
+# usethis::use_github_action("check-standard") will install it.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+name: R-CMD-check
+
+permissions: read-all
+
+jobs:
+  R-CMD-check:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) ${{ matrix.config.custom }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: macos-latest,   r: 'release'}
+
+          - {os: windows-2022, r: 'release'}
+          
+          # use 4.1 to check with rtools40's older compiler; OpenBLAS is
+          # downloaded below to provide full LAPACK/BLAS since rtools40
+          # ships no standalone lapack/blas and R's Rlapack.dll is a subset
+          - {os: windows-2022, r: '4.1'}
+          
+          # Use older ubuntu to maximise backward compatibility
+          - {os: ubuntu-22.04,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-22.04,   r: 'release', custom: 'no-armadillo4rtest'}
+          - {os: ubuntu-22.04,   r: 'oldrel-1'}
+          - {os: ubuntu-22.04,   r: 'oldrel-2'}
+          - {os: ubuntu-22.04,   r: 'oldrel-3'}
+          - {os: ubuntu-22.04,   r: 'oldrel-4'}
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          pak-version: devel
+          needs: check
+
+      - name: Download OpenBLAS (rtools40 / R 4.1 only)
+        if: matrix.config.r == '4.1'
+        shell: bash
+        run: |
+          curl -fLo "$RUNNER_TEMP/openblas.zip" \
+            "https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.33/OpenBLAS-0.3.33-x64.zip"
+          unzip -q "$RUNNER_TEMP/openblas.zip" -d "$RUNNER_TEMP/openblas"
+          # Put the mingw import library where rtools40 can find it with -lopenblas
+          cp "$RUNNER_TEMP/openblas/lib/libopenblas.dll.a" /c/rtools40/mingw64/lib/
+          # Copy the DLL into R's own bin dir; R's LoadLibrary always searches there
+          cp "$RUNNER_TEMP/openblas/bin/libopenblas.dll" "C:/R/bin/x64/"
+
+      - name: Install armadillo4rtest
+        if: matrix.config.custom != 'no-armadillo4rtest'
+        run: |
+          options(warn = 2)
+          pak::pkg_install("pachadotdev/cpp4r")
+          cpp4r::register("armadillo4rtest")
+          pak::local_install_dev_deps("armadillo4rtest", dependencies = TRUE)
+          install.packages("./", repos = NULL, type = "source")
+          install.packages("./armadillo4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
+        shell: Rscript {0}
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+      - name: Run armadillo4rtest tests
+        if: matrix.config.custom != 'no-armadillo4rtest'
+        run: |
+          tinytest::build_install_test("armadillo4rtest")
+        shell: Rscript {0}

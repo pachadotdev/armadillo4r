@@ -1,0 +1,23 @@
+Package: armadillo4r
+Type: Package
+Title: An 'Armadillo' Interface
+Description: Provides function declarations and inline function definitions
+    that facilitate communication between R and the 'Armadillo' 'C++' library
+    for linear algebra and scientific computing. This implementation is derived
+    from Vargas Sepulveda and Schneider Malamud (2024)
+    <doi:10.1016/j.softx.2025.102087>.
+Version: 1.0.0
+Authors@R: c( person( given = "Mauricio", family = "Vargas Sepulveda", role =
+    c("aut", "cre"), email = "m.vargas.sepulveda@gmail.com", comment = c(ORCID
+    = "0000-0003-1017-7574")), person( given = "Jonathan", family = "Schneider
+    Malamud", role = "ctb"), person( given = "Conrad", family = "Sanderson",
+    role = "aut", comment = "Armadillo library (C++)") )
+Imports: cpp4r
+Suggests: Matrix, roxygen2, tinytest
+License: Apache License (>= 2)
+URL: https://pacha.dev/armadillo4r/, https://github.com/pachadotdev/armadillo4r
+BugReports: https://github.com/pachadotdev/armadillo4r/issues
+Depends: R(>= 4.0.0)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0

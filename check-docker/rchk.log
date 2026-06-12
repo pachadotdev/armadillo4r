@@ -1,0 +1,454 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+pkg-config is already the newest version (0.29.2-1ubuntu3).
+pkg-config set to manually installed.
+libxml2-dev is already the newest version (2.9.13+dfsg-1ubuntu0.11).
+libxml2-dev set to manually installed.
+The following additional packages will be installed:
+  libuv1
+The following NEW packages will be installed:
+  libuv1 libuv1-dev
+0 upgraded, 2 newly installed, 0 to remove and 8 not upgraded.
+Need to get 223 kB of archives.
+After this operation, 906 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libuv1 amd64 1.43.0-1ubuntu0.1 [92.7 kB]
+Get:2 http://archive.ubuntu.com/ubuntu jammy-updates/main amd64 libuv1-dev amd64 1.43.0-1ubuntu0.1 [130 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 223 kB in 0s (2,570 kB/s)
+Selecting previously unselected package libuv1:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 27763 files and directories currently installed.)
+Preparing to unpack .../libuv1_1.43.0-1ubuntu0.1_amd64.deb ...
+Unpacking libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+Selecting previously unselected package libuv1-dev:amd64.
+Preparing to unpack .../libuv1-dev_1.43.0-1ubuntu0.1_amd64.deb ...
+Unpacking libuv1-dev:amd64 (1.43.0-1ubuntu0.1) ...
+Setting up libuv1:amd64 (1.43.0-1ubuntu0.1) ...
+Setting up libuv1-dev:amd64 (1.43.0-1ubuntu0.1) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.13) ...
+trying URL 'https://cloud.r-project.org/src/contrib/tinytest_1.4.3.tar.gz'
+Content type 'application/x-gzip' length 595901 bytes (581 KB)
+==================================================
+downloaded 581 KB
+
+* installing *source* package ‘tinytest’ ...
+** this is package ‘tinytest’ version ‘1.4.3’
+** package ‘tinytest’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (tinytest)
+
+The downloaded source packages are in
+	‘/tmp/RtmpYlhYk5/downloaded_packages’
+also installing the dependencies ‘cli’, ‘R6’
+
+trying URL 'https://cloud.r-project.org/src/contrib/cli_3.6.6.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/R6_2.6.1.tar.gz'
+trying URL 'https://cloud.r-project.org/src/contrib/desc_1.4.3.tar.gz'
+* installing *source* package ‘cli’ ...
+** this is package ‘cli’ version ‘3.6.6’
+** package ‘cli’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C compiler: ‘Ubuntu clang version 14.0.0-1ubuntu1.1’
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c ansi.c -o ansi.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c cleancall.c -o cleancall.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c diff.c -o diff.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c errors.c -o errors.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c glue.c -o glue.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c init.c -o init.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c inst.c -o inst.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c keypress-unix.c -o keypress-unix.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c keypress-win.c -o keypress-win.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c keypress.c -o keypress.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c md5.c -o md5.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c progress-altrep.c -o progress-altrep.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c progress.c -o progress.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c sha1.c -o sha1.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c sha256.c -o sha256.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c thread.c -o thread.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c tty.c -o tty.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c utf8.c -o utf8.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c utils.c -o utils.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c vt.c -o vt.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c vtparse.c -o vtparse.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c vtparse_table.c -o vtparse_table.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c win-utf8.c -o win-utf8.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c winfiles.c -o winfiles.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c xxhash.c -o xxhash.o
+clang -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fPIC  -Wall -g -O0 -fPIC  -c xxhash2.c -o xxhash2.o
+clang -shared -L/usr/local/lib -o cli.so ansi.o cleancall.o diff.o errors.o glue.o init.o inst.o keypress-unix.o keypress-win.o keypress.o md5.o progress-altrep.o progress.o sha1.o sha256.o thread.o tty.o utf8.o utils.o vt.o vtparse.o vtparse_table.o win-utf8.o winfiles.o xxhash.o xxhash2.o -lpthread
+installing to /cache/R_libs/00LOCK-cli/00new/cli/libs
+** R
+** exec
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (cli)
+* installing *source* package ‘R6’ ...
+** this is package ‘R6’ version ‘2.6.1’
+** package ‘R6’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (R6)
+* installing *source* package ‘desc’ ...
+** this is package ‘desc’ version ‘1.4.3’
+** package ‘desc’ successfully unpacked and MD5 sums checked
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (desc)
+
+The downloaded source packages are in
+	‘/tmp/RtmpYlhYk5/downloaded_packages’
+* installing *source* package ‘cpp4r’ ...
+** this is package ‘cpp4r’ version ‘1.0.0’
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (cpp4r)
+* installing *source* package ‘armadillo4r’ ...
+** this is package ‘armadillo4r’ version ‘1.0.0’
+** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4r)
+* installing *source* package ‘armadillo4rtest’ ...
+** this is package ‘armadillo4rtest’ version ‘0.1.0’
+** using staged installation
+==========================================================================
+armadillo4r configuration summary
+
+  C++ Compiler:           clang++ -stdlib=libc++
+  C++ Standard:           CXX20
+  OpenMP Support:         no
+  OpenMP Threads:         4
+  SIMD Support:           AVX2
+  Sparse Matrix Support:  yes (Matrix >= 1.6-2)
+  BLAS:                   -L/opt/R/devel-rchk/lib/R/lib -lRblas
+  LAPACK:                 -L/opt/R/devel-rchk/lib/R/lib -lRlapack
+  High-Performance Mode:  no
+  Optimization Flags:     
+  Debug Flags:            
+
+For faster computation
+ 
+ Enable high-performance optimizations:
+ export ARMADILLO4RTEST_OPTIMIZATIONS=yes
+ 
+ Change thread count:
+ export ARMADILLO4RTEST_NCORES=<number>
+ 
+ Then reinstall the package
+==========================================================================
+** libs
+specified C++20
+using C++ compiler: ‘Ubuntu clang version 14.0.0-1ubuntu1.1’
+using C++20
+clang++ -stdlib=libc++ -std=gnu++20 -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -DARMADILLO4R_SPARSE -I'/cache/R_libs/cpp4r/include' -I'/cache/R_libs/armadillo4r/include' -I'/opt/R/devel-rchk/lib/R/library/Matrix/include' -I/usr/local/include     -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -Wall -g -O0 -fPIC -I/usr/include/libcxxabi   -c cpp4r.cpp -o cpp4r.o
+clang++ -stdlib=libc++ -std=gnu++20 -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -DARMADILLO4R_SPARSE -I'/cache/R_libs/cpp4r/include' -I'/cache/R_libs/armadillo4r/include' -I'/opt/R/devel-rchk/lib/R/library/Matrix/include' -I/usr/local/include     -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -Wall -g -O0 -fPIC -I/usr/include/libcxxabi   -c main.cpp -o main.o
+In file included from main.cpp:14:
+In file included from /cache/R_libs/armadillo4r/include/armadillo4r.hpp:52:
+In file included from /cache/R_libs/armadillo4r/include/armadillo4r/armadillo.hpp:119:
+/cache/R_libs/armadillo4r/include/armadillo4r/armadillo/compiler_setup.hpp:377:11: warning: WARNING: use of OpenMP disabled; compiler support for OpenMP 4.0+ not detected [-W#pragma-messages]
+  #pragma message ("WARNING: use of OpenMP disabled; compiler support for OpenMP 4.0+ not detected")
+          ^
+1 warning generated.
+clang++ -stdlib=libc++ -std=gnu++20 -shared -L/usr/local/lib -o armadillo4rtest.so cpp4r.o main.o -L/opt/R/devel-rchk/lib/R/lib -lRlapack -L/opt/R/devel-rchk/lib/R/lib -lRblas -lgfortran -lm -lquadmath
+installing to /cache/R_libs/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4rtest)
+* using log directory ‘/check/armadillo4rtest.Rcheck’
+* using R Under development (unstable) (2026-05-15 r90061)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    Ubuntu clang version 14.0.0-1ubuntu1.1
+    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+* running under: Ubuntu 22.04.5 LTS
+* using session charset: UTF-8
+* current time: 2026-06-09 09:38:21 UTC
+* using options ‘--no-manual --as-cran’
+* checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
+* this is package ‘armadillo4rtest’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... OK
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [28s/28s] OK
+* used C++ compiler: ‘Ubuntu clang version 14.0.0-1ubuntu1.1’
+* checking C++ specification ... INFO
+  specified C++20
+* checking installed package size ... INFO
+  installed size is 13.5Mb
+  sub-directories of 1Mb or more:
+    libs  12.9Mb
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... WARNING
+A complete check needs the 'checkbashisms' script.
+See section ‘Configure and cleanup’ in the ‘Writing R Extensions’
+manual.
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking line endings in shell scripts ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking use of PKG_*FLAGS in Makefiles ... OK
+* checking use of SHLIB_OPENMP_*FLAGS in Makefiles ... OK
+* checking pragmas in C/C++ headers and code ... OK
+* checking compilation flags used ... OK
+* checking compiled code ... OK
+* checking examples ... NONE
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ...
+  Running ‘tinytest.R’
+ OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+
+Status: 1 WARNING
+See
+  ‘/check/armadillo4rtest.Rcheck/00check.log’
+for details.
+
+=== 00install.out ===
+* installing *source* package ‘armadillo4rtest’ ...
+** this is package ‘armadillo4rtest’ version ‘0.1.0’
+** using staged installation
+==========================================================================
+armadillo4r configuration summary
+
+  C++ Compiler:           clang++ -stdlib=libc++
+  C++ Standard:           CXX20
+  OpenMP Support:         no
+  OpenMP Threads:         4
+  SIMD Support:           AVX2
+  Sparse Matrix Support:  yes (Matrix >= 1.6-2)
+  BLAS:                   -L/opt/R/devel-rchk/lib/R/lib -lRblas
+  LAPACK:                 -L/opt/R/devel-rchk/lib/R/lib -lRlapack
+  High-Performance Mode:  no
+  Optimization Flags:     
+  Debug Flags:            
+
+For faster computation
+ 
+ Enable high-performance optimizations:
+ export ARMADILLO4RTEST_OPTIMIZATIONS=yes
+ 
+ Change thread count:
+ export ARMADILLO4RTEST_NCORES=<number>
+ 
+ Then reinstall the package
+==========================================================================
+** libs
+specified C++20
+using C++ compiler: ‘Ubuntu clang version 14.0.0-1ubuntu1.1’
+using C++20
+clang++ -stdlib=libc++ -std=gnu++20 -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -DARMADILLO4R_SPARSE -I'/cache/R_libs/cpp4r/include' -I'/cache/R_libs/armadillo4r/include' -I'/opt/R/devel-rchk/lib/R/library/Matrix/include' -I/usr/local/include     -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -Wall -g -O0 -fPIC -I/usr/include/libcxxabi   -c cpp4r.cpp -o cpp4r.o
+clang++ -stdlib=libc++ -std=gnu++20 -I"/opt/R/devel-rchk/lib/R/include" -DNDEBUG -DARMADILLO4R_SPARSE -I'/cache/R_libs/cpp4r/include' -I'/cache/R_libs/armadillo4r/include' -I'/opt/R/devel-rchk/lib/R/library/Matrix/include' -I/usr/local/include     -DARMA_NO_DEBUG -DARMA_USE_BLAS -DARMA_USE_LAPACK -DARMA_USE_OPENMP -DARMA_OPENMP_THREADS=4 -DARMA_64BIT_WORD -DARMADILLO4RTEST_DEFAULT_OMP_THREADS=4 -fpic  -Wall -g -O0 -fPIC -I/usr/include/libcxxabi   -c main.cpp -o main.o
+In file included from main.cpp:14:
+In file included from /cache/R_libs/armadillo4r/include/armadillo4r.hpp:52:
+In file included from /cache/R_libs/armadillo4r/include/armadillo4r/armadillo.hpp:119:
+/cache/R_libs/armadillo4r/include/armadillo4r/armadillo/compiler_setup.hpp:377:11: warning: WARNING: use of OpenMP disabled; compiler support for OpenMP 4.0+ not detected [-W#pragma-messages]
+  #pragma message ("WARNING: use of OpenMP disabled; compiler support for OpenMP 4.0+ not detected")
+          ^
+1 warning generated.
+clang++ -stdlib=libc++ -std=gnu++20 -shared -L/usr/local/lib -o armadillo4rtest.so cpp4r.o main.o -L/opt/R/devel-rchk/lib/R/lib -lRlapack -L/opt/R/devel-rchk/lib/R/lib -lRblas -lgfortran -lm -lquadmath
+installing to /check/armadillo4rtest.Rcheck/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4rtest)
+=== 00check.log ===
+* using log directory ‘/check/armadillo4rtest.Rcheck’
+* using R Under development (unstable) (2026-05-15 r90061)
+* using platform: x86_64-pc-linux-gnu
+* R was compiled by
+    Ubuntu clang version 14.0.0-1ubuntu1.1
+    GNU Fortran (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+* running under: Ubuntu 22.04.5 LTS
+* using session charset: UTF-8
+* current time: 2026-06-09 09:38:21 UTC
+* using options ‘--no-manual --as-cran’
+* checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
+* this is package ‘armadillo4rtest’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking CRAN incoming feasibility ... OK
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [28s/28s] OK
+* used C++ compiler: ‘Ubuntu clang version 14.0.0-1ubuntu1.1’
+* checking C++ specification ... INFO
+  specified C++20
+* checking installed package size ... INFO
+  installed size is 13.5Mb
+  sub-directories of 1Mb or more:
+    libs  12.9Mb
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... WARNING
+A complete check needs the 'checkbashisms' script.
+See section ‘Configure and cleanup’ in the ‘Writing R Extensions’
+manual.
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking code files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking use of S3 registration ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... OK
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... OK
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking line endings in shell scripts ... OK
+* checking line endings in C/C++/Fortran sources/headers ... OK
+* checking line endings in Makefiles ... OK
+* checking compilation flags in Makevars ... OK
+* checking for GNU extensions in Makefiles ... OK
+* checking for portable use of $(BLAS_LIBS) and $(LAPACK_LIBS) ... OK
+* checking use of PKG_*FLAGS in Makefiles ... OK
+* checking use of SHLIB_OPENMP_*FLAGS in Makefiles ... OK
+* checking pragmas in C/C++ headers and code ... OK
+* checking compilation flags used ... OK
+* checking compiled code ... OK
+* checking examples ... NONE
+* checking for unstated dependencies in ‘tests’ ... OK
+* checking tests ... OK
+  Running ‘tinytest.R’
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 1 WARNING

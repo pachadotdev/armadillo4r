@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Decompositions, factorisations, inverses and equation solvers (dense matrices) • armadillo4r</title><link rel="stylesheet" href="../menu.css"><link rel="stylesheet" href="../content.css"><!-- MathJax Configuration --><script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true,
+        processEnvironments: true,
+        packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script><script id="MathJax-script" async src="../js/tex-svg.js"></script></head><body>
+<div class="main-container">
+<div id="menu">
+  <div>
+    <img src="../man/figures/logo.svg" align="center" height="139" alt="armadillo4r logo"></div>
+
+  <div class="search-container">
+    <input type="text" id="search-box" placeholder="Search..."></div>
+
+  <div class="search-container">
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">Toggle theme</button>
+    <button id="font-decrease" title="Decrease font size" aria-label="Decrease font size">A-</button>
+    <button id="font-increase" title="Increase font size" aria-label="Increase font size">A+</button>
+  </div>
+
+  <div class="submenu">
+    <label style="border-bottom: 0;"><a style="padding-left: 0;" href="../index.html">Home 🏠</a></label>
+  </div>
+
+  <div class="submenu">
+    <label>On this page</label>
+    <a href="#cholesky-decomposition-of-symmetric-matrix" class="toc-level-1">Cholesky decomposition of symmetric matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#eigen-decomposition-of-a-symmetric-matrix" class="toc-level-1">Eigen decomposition of a symmetric matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#eigen-decomposition-of-a-general-matrix" class="toc-level-1">Eigen decomposition of a general matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#eigen-decomposition-for-a-pair-of-general-matrices" class="toc-level-1">Eigen decomposition for a pair of general matrices</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#upper-hessenberg-decomposition" class="toc-level-1">Upper Hessenberg decomposition</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#inverse-of-a-general-matrix" class="toc-level-1">Inverse of a general matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#inverse-of-a-symmetric-positive-definite-matrix" class="toc-level-1">Inverse of a symmetric positive definite matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#lowe-upper-decomposition-with-partial-pivoting" class="toc-level-1">Lowe-upper decomposition with partial pivoting</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#find-the-orthonormal-basis-of-the-null-space-of-a-matrix" class="toc-level-1">Find the orthonormal basis of the null space of a matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#find-the-orthonormal-basis-of-the-range-space-of-a-matrix" class="toc-level-1">Find the orthonormal basis of the range space of a matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#moore-penrose-pseudo-inverse" class="toc-level-1">Moore-Penrose pseudo-inverse</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#qr-decomposition" class="toc-level-1">QR decomposition</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#economic-qr-decomposition" class="toc-level-1">Economic QR decomposition</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#generalized-schur-decomposition" class="toc-level-1">Generalized Schur decomposition</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#schur-decomposition-of-a-square-matrix" class="toc-level-1">Schur decomposition of a square matrix</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#solve-a-system-of-linear-equations" class="toc-level-1">Solve a system of linear equations</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#singular-value-decomposition" class="toc-level-1">Singular value decomposition</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#economic-singular-value-decomposition" class="toc-level-1">Economic singular value decomposition</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#sylvester-equation-solver" class="toc-level-1">Sylvester equation solver</a>
+    <a href="#examples" class="toc-level-2">Examples</a>
+    <a href="#references" class="toc-level-1">References</a>
+  </div>
+
+</div>
+<div id="content">
+<div class="content-wrapper">
+        <div class="content-main">
+          <h1>Decompositions, factorisations, inverses and equation solvers (dense matrices)</h1>
+
+
+
+<p><strong>Adapted from the official Armadillo <a href="https://arma.sourceforge.net/docs.html">documentation</a>.</strong></p>
+<div id="chol" class="section level1">
+<h1 id="cholesky-decomposition-of-symmetric-matrix">Cholesky decomposition of symmetric matrix</h1>
+<p>Cholesky decomposition of symmetric (or hermitian) matrix
+<code>X</code> into a triangular matrix <code>R</code>, with an optional
+permutation vector (or matrix) <code>P</code>. By default,
+<code>R</code> is upper triangular.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>chol(R, P, X, layout, output)
+
+// form 1
+mat R = chol(X) // chol(X, "upper") or chol(X, "lower") also work
+
+// form 2
+chol(R, X) // chol(R, X, "upper") or chol(R, X, "lower") also work
+
+// form 3
+chol(R, P, X, "upper", "vector") // chol(R, P, X, "lower", "vector") also work
+
+// form 4
+chol(R, P, X, "upper", "matrix") // chol(R, P, X, "lower", "matrix") also work</code></pre>
+<p>The optional argument <code>layout</code> is either
+<code>"upper"</code> or <code>"lower"</code>, which specifies whether
+<code>R</code> is upper or lower triangular.</p>
+<p>Forms 1 and 2 require <code>X</code> to be positive definite.</p>
+<p>Forms 3 and 4 require <code>X</code> to be positive semi-definite.
+The pivoted decomposition provides a permutation vector or matrix
+<code>P</code> with type <code>uvec</code> or <code>umat</code>.</p>
+<p>The decomposition has the following form:</p>
+<ul><li>Forms 1 and 2 with <code>layout = "upper"</code>: <span class="math inline">\(X = R^T R\)</span>.</li>
+<li>Forms 1 and 2 with <code>layout = "lower"</code>: <span class="math inline">\(X = R R^T\)</span>.</li>
+<li>Form 3 with <code>layout = "upper"</code>: <span class="math inline">\(X(P,P) = R^T R\)</span>, where <span class="math inline">\(X(P,P)\)</span> is a non-contiguous view of <span class="math inline">\(X\)</span>.</li>
+<li>Form 3 with <code>layout = "lower"</code>: <span class="math inline">\(X(P,P) = R * R^T\)</span>, where <span class="math inline">\(X(P,P)\)</span> is a non-contiguous view of <span class="math inline">\(X\)</span>.</li>
+<li>Form 4 with <code>layout = "upper"</code>: <span class="math inline">\(X = P R^T R P^T\)</span>.</li>
+<li>Form 4 with <code>layout = "lower"</code>: <span class="math inline">\(X = P R R^T P^T\)</span>.</li>
+</ul><p>Caveats:</p>
+<ul><li><code>R = chol(X)</code> and <code>R = chol(X,layout)</code> reset
+<code>R</code> and throw an error if the decomposition fails. The other
+forms reset <code>R</code> and <code>P</code>, and return a bool set to
+false without an error.</li>
+<li>To find the inverse of a positive definite matrix, use
+<code>inv_sympd()</code>.</li>
+</ul><div id="examples" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list chol1_(const doubles_matrix&lt;&gt;&amp; x,
+                                const char* layout,
+                                const char* output) {
+  mat X = as_mat(x);
+
+  mat Y = X.t() * X;
+
+  mat R;
+  umat P;
+
+  writable::list out(2);
+  bool ok = chol(R, P, Y, layout, output);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(R);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="eig_sym" class="section level1">
+<h1 id="eigen-decomposition-of-a-symmetric-matrix">Eigen decomposition of a symmetric matrix</h1>
+<p>Eigen decomposition of dense symmetric (or hermitian) matrix
+<code>X</code> into eigenvalues <code>eigval</code> and eigenvectors
+<code>eigvec</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>vec eigval = eig_sym(X)
+
+eig_sym(eigval, X)
+eig_sym(eigval, eigvec, X, "dc") // eig_sym(eigval, eigvec, X, "std") also works</code></pre>
+<p>The eigenvalues and corresponding eigenvectors are stored in
+<code>eigval</code> and <code>eigvec</code>, respectively. The
+eigenvalues are in ascending order. The eigenvectors are stored as
+column vectors.</p>
+<p>The optional argument <code>method</code> is either <code>"dc"</code>
+or <code>"std"</code>, which specifies the method used for the
+decomposition. The divide-and-conquer method (<code>dc</code>) provides
+slightly different results than the standard method (<code>std</code>),
+but is considerably faster for large matrices.</p>
+<p>If <code>X</code> is not square sized, an error is thrown.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>eigval = eig_sym(X)</code> resets <code>eigval</code> and
+throws an error.</li>
+<li><code>eig_sym(eigval, X)</code> resets <code>eigval</code> and
+returns a bool set to false without an error.</li>
+<li><code>eig_sym(eigval, eigvec, X)</code> resets <code>eigval</code>
+and <code>eigvec</code>, and returns a bool set to false without an
+error.</li>
+</ul><div id="examples-1" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list eig_sym1_(const doubles_matrix&lt;&gt;&amp; x,
+                                   const char* method) {
+  mat X = as_mat(x);
+
+  vec eigval;
+  mat eigvec;
+
+  bool ok = eig_sym(eigval, eigvec, X, method);
+
+  writable::list out(3);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles(eigval);
+  out[2] = as_doubles_matrix(eigvec);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="eig_gen" class="section level1">
+<h1 id="eigen-decomposition-of-a-general-matrix">Eigen decomposition of a general matrix</h1>
+<p>Eigen decomposition of dense general (non-symmetric/non-hermitian)
+square matrix <code>X</code> into eigenvalues <code>eigval</code> and
+eigenvectors <code>eigvec</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>cx_vec eigval = eig_gen(X, bal)
+
+eig_gen(eigval, X, bal)
+eig_gen(eigval, eigvec, X, bal)
+eig_gen(eigval, leigvec, reigvec, X, bal)</code></pre>
+<p>The eigenvalues and corresponding right eigenvectors are stored in
+<code>eigval</code> and <code>eigvec</code>, respectively. If both left
+and right eigenvectors are requested, they are stored in
+<code>leigvec</code> and <code>reigvec</code>, respectively. The
+eigenvectors are stored as column vectors.</p>
+<p>The optional argument <code>balance</code> is either
+<code>"balance"</code> or <code>"nobalance"</code>, which specifies
+whether to diagonally scale and permute <code>X</code> to improve
+conditioning of the eigenvalues. The default operation is
+<code>"nobalance"</code>.</p>
+<p>If <code>X</code> is not square sized, an error is thrown.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>eigval = eig_gen(X)</code> resets <code>eigval</code> and
+throws an error.</li>
+<li><code>eig_gen(eigval, X)</code> resets <code>eigval</code> and
+returns a bool set to false without an error.</li>
+<li><code>eig_gen(eigval, eigvec, X)</code> resets <code>eigval</code>
+and <code>eigvec</code>, and returns a bool set to false without an
+error.</li>
+<li><code>eig_gen(eigval, leigvec, reigvec, X)</code> resets
+<code>eigval</code>, <code>leigvec</code>, and <code>reigvec</code>, and
+returns a bool set to false without an error.</li>
+</ul><div id="examples-2" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list eig_gen1_(const doubles_matrix&lt;&gt;&amp; x,
+                                   const char* balance) {
+  mat X = as_mat(x);
+
+  cx_vec eigval;
+  cx_mat eigvec;
+
+  bool ok = eig_gen(eigval, eigvec, X, balance);
+
+  writable::list out(3);
+  out[0] = writable::logicals({ok});
+  out[1] = as_complexes(eigval);
+  out[2] = as_complexes_matrix(eigvec);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="eig_pair" class="section level1">
+<h1 id="eigen-decomposition-for-a-pair-of-general-matrices">Eigen decomposition for a pair of general matrices</h1>
+<p>Eigen decomposition for pair of general dense square matrices A and B
+of the same size, such that
+<code>A * eigvec = B * eigvec * diagmat(eigval)</code>. The eigenvalues
+and corresponding right eigenvectors are stored in <code>eigval</code>
+and <code>eigvec</code>, respectively. If both left and right
+eigenvectors are requested, they are stored in <code>leigvec</code> and
+<code>reigvec</code>, respectively. The eigenvectors are stored as
+column vectors.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>cx_vec eigval = eig_pair(A, B)
+
+eig_pair(eigval, A, B)
+eig_pair(eigval, eigvec, A, B)
+eig_pair(eigval, leigvec, reigvec, A, B)</code></pre>
+<p>If <code>A</code> or <code>B</code> is not square sized, an error is
+thrown.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>eigval = eig_pair(A, B)</code> resets <code>eigval</code> and
+throws an error.</li>
+<li><code>eig_pair(eigval, A, B)</code> resets <code>eigval</code> and
+returns a bool set to false without an error.</li>
+<li><code>eig_pair(eigval, eigvec, A, B)</code> resets
+<code>eigval</code> and <code>eigvec</code>, and returns a bool set to
+false without an error.</li>
+<li><code>eig_pair(eigval, leigvec, reigvec, A, B)</code> resets
+<code>eigval</code>, <code>leigvec</code>, and <code>reigvec</code>, and
+returns a bool set to false without an error.</li>
+</ul><div id="examples-3" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list eig_pair1_(const doubles_matrix&lt;&gt;&amp; a,
+                                    const doubles_matrix&lt;&gt;&amp; b) {
+  mat A = as_mat(a);
+  mat B = as_mat(b);
+
+  cx_vec eigval;
+  cx_mat eigvec;
+
+  bool ok = eig_pair(eigval, eigvec, A, B);
+
+  writable::list out(3);
+  out[0] = writable::logicals({ok});
+  out[1] = as_complexes(eigval);
+  out[2] = as_complexes_matrix(eigvec);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="hess" class="section level1">
+<h1 id="upper-hessenberg-decomposition">Upper Hessenberg decomposition</h1>
+<p>Upper Hessenberg decomposition of square matrix <code>X</code>, such
+that <code>X = U * H * U.t()</code>. <code>U</code> is a unitary matrix
+containing the Hessenberg vectors. <code>H</code> is a square matrix
+known as the upper Hessenberg matrix, with elements below the first
+subdiagonal set to zero.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>mat H = hess(X)
+
+hess(U, H, X)
+hess(H, X)</code></pre>
+<p>If <code>X</code> is not square sized, an error is thrown.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>H = hess(X)</code> resets <code>H</code> and throws an
+error.</li>
+<li><code>hess(H, X)</code> resets <code>H</code> and returns a bool set
+to false without an error.</li>
+<li><code>hess(U, H, X)</code> resets <code>U</code> and <code>H</code>,
+and returns a bool set to false without an error.</li>
+</ul><p>Caveat: in general, upper Hessenberg decomposition is not unique.</p>
+<div id="examples-4" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list hess1_(const doubles_matrix&lt;&gt;&amp; x) {
+  mat X = as_mat(x);
+
+  mat H;
+  bool ok = hess(H, X);
+
+  writable::list out(2);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(H);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="inv" class="section level1">
+<h1 id="inverse-of-a-general-matrix">Inverse of a general matrix</h1>
+<p>Inverse of general square matrix <code>A</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>mat B = inv(A)
+mat B = inv(A, settings)
+
+inv(B, A)
+inv(B, A, settings)
+inv(B, rcond, A)</code></pre>
+<p>The <code>settings</code> argument is optional, it is one of the
+following:</p>
+<ul><li><code>inv_opts::no_ugly</code>: do not provide inverses for poorly
+conditioned matrices (where
+<code>rcond &lt; A.n_rows * datum::eps</code>).</li>
+<li><code>inv_opts::allow_approx</code>: allow approximate inverses for
+rank deficient or poorly conditioned matrices.</li>
+</ul><p>The reciprocal condition number is optionally calculated and stored
+in <code>rcond</code>:</p>
+<ul><li><code>rcond</code> close to 1 suggests that <code>A</code> is
+well-conditioned.</li>
+<li><code>rcond</code> close to 0 suggests that <code>A</code> is badly
+conditioned.</li>
+</ul><p>If <code>A</code> is not square sized, an error is thrown.</p>
+<p>If <code>A</code> appears to be singular:</p>
+<ul><li><code>B = inv(A)</code> resets <code>B</code> and throws an
+error.</li>
+<li><code>inv(B, A)</code> resets <code>B</code> and returns a bool set
+to false without an error.</li>
+<li><code>inv(B, rcond, A)</code> resets <code>B</code>, sets
+<code>rcond</code> to zero, and returns a bool set to false without an
+error.</li>
+</ul><p>Caveats:</p>
+<ul><li>If matrix <code>A</code> is known to be symmetric positive definite,
+<code>inv_sympd()</code> is faster.</li>
+<li>If matrix <code>A</code> is known to be diagonal, use
+<code>inv(diagmat(A))</code>.</li>
+<li>If matrix <code>A</code> is known to be triangular, use
+<code>inv(trimatu(A))</code> or <code>inv(trimatl(A))</code>.</li>
+</ul><p>To solve a system of linear equations, such as
+<code>Z = inv(X) * Y</code>, <code>solve()</code> can be faster and/or
+more accurate.</p>
+<div id="examples-5" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list inv1_(const doubles_matrix&lt;&gt;&amp; a) {
+  mat A = as_mat(a);
+
+  mat B;
+  bool ok = inv(B, A, inv_opts::allow_approx);
+
+  writable::list out(2);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(B);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="inv_sympd" class="section level1">
+<h1 id="inverse-of-a-symmetric-positive-definite-matrix">Inverse of a symmetric positive definite matrix</h1>
+<p>Inverse of symmetric/hermitian positive definite matrix
+<code>A</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>mat B = inv_sympd(A)
+mat B = inv_sympd(A, settings)
+
+inv_sympd(B, A)
+inv_sympd(B, A, settings)
+inv_sympd(B, rcond, A)</code></pre>
+<p>The <code>settings</code> argument is optional, it is one of the
+following:</p>
+<ul><li><code>inv_opts::no_ugly</code>: do not provide inverses for poorly
+conditioned matrices (where
+<code>rcond &lt; A.n_rows * datum::eps</code>).</li>
+<li><code>inv_opts::allow_approx</code>: allow approximate inverses for
+rank deficient or poorly conditioned matrices.</li>
+</ul><p>The reciprocal condition number is optionally calculated and stored
+in <code>rcond</code>:</p>
+<ul><li><code>rcond</code> close to 1 suggests that <code>A</code> is
+well-conditioned.</li>
+<li><code>rcond</code> close to 0 suggests that <code>A</code> is badly
+conditioned.</li>
+</ul><p>If <code>A</code> is not square sized, an error is thrown.</p>
+<p>If <code>A</code> is not symmetric positive definite, an error is
+thrown.</p>
+<p>If <code>A</code> appears to be singular:</p>
+<ul><li><code>B = inv_sympd(A)</code> resets <code>B</code> and throws an
+error.</li>
+<li><code>inv_sympd(B, A)</code> resets <code>B</code> and returns a
+bool set to false without an error.</li>
+<li><code>inv_sympd(B, rcond, A)</code> resets <code>B</code>, sets
+<code>rcond</code> to zero, and returns a bool set to false without an
+error.</li>
+</ul><p>Caveats:</p>
+<ul><li>If matrix <code>A</code> is known to be symmetric, use
+<code>inv_sympd(symmatu(A))</code> or
+<code>inv_sympd(symmatl(A))</code>.</li>
+<li>If matrix <code>A</code> is known to be diagonal, use
+<code>inv(diagmat(A))</code>.</li>
+<li>If matrix <code>A</code> is known to be triangular, use
+<code>inv(trimatu(A))</code> or <code>inv(trimatl(A))</code>.</li>
+<li>To solve a system of linear equations, such as
+<code>Z = inv(X) * Y</code>, <code>solve()</code> can be faster and/or
+more accurate.</li>
+</ul><div id="examples-6" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list inv_sympd1_(const doubles_matrix&lt;&gt;&amp; a) {
+  mat A = as_mat(a);
+
+  mat B;
+  bool ok = inv_sympd(B, A, inv_opts::allow_approx);
+
+  writable::list out(2);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(B);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="lu" class="section level1">
+<h1 id="lowe-upper-decomposition-with-partial-pivoting">Lowe-upper decomposition with partial pivoting</h1>
+<p>Lower-upper decomposition (with partial pivoting) of matrix
+<code>X</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>// form 1
+lu(L, U, P, X)
+
+// form 2
+lu(L, U, X)</code></pre>
+<p>The first form provides a lower-triangular matrix <code>L</code>, an
+upper-triangular matrix <code>U</code>, and a permutation matrix
+<code>P</code>, such that <code>P.t() * L * U = X</code>.</p>
+<p>The second form provides permuted <code>L</code> and <code>U</code>,
+such that <code>L * U = X</code>. Note that in this case <code>L</code>
+is generally not lower-triangular.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>lu(L, U, P, X)</code> resets <code>L</code>, <code>U</code>,
+and <code>P</code>, and returns a bool set to false without an
+error.</li>
+<li><code>lu(L, U, X)</code> resets <code>L</code> and <code>U</code>,
+and returns a bool set to false without an error.</li>
+</ul><div id="examples-7" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list lu1_(const doubles_matrix&lt;&gt;&amp; x) {
+  mat X = as_mat(x);
+
+  mat L, U, P;
+
+  bool ok = lu(L, U, P, X);
+
+  writable::list out(4);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(L);
+  out[2] = as_doubles_matrix(U);
+  out[3] = as_doubles_matrix(P);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="null" class="section level1">
+<h1 id="find-the-orthonormal-basis-of-the-null-space-of-a-matrix">Find the orthonormal basis of the null space of a matrix</h1>
+<p>Find the orthonormal basis of the null space of matrix
+<code>A</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>mat B = null(A)
+B = null(A, tolerance)
+
+null(B, A)
+null(B, A, tolerance)</code></pre>
+<p>The dimension of the range space is the number of singular values of
+<code>A</code> not greater than <code>tolerance</code>.</p>
+<p>The <code>tolerance</code> argument is optional; by default
+<code>tolerance = max_rc * max_sv * epsilon</code>, where:</p>
+<ul><li><span class="math inline">\(\max_{\text{rc}} = \max(n_\text{rows},
+n_\text{cols})\)</span></li>
+<li><span class="math inline">\(\max_{\text{sv}} = \max(\text{maximum
+singular value of } A)\)</span> (i.e. spectral norm)</li>
+<li><span class="math inline">\(\epsilon = 1 - \text{least value greater
+than 1 that is representable}\)</span></li>
+</ul><p>The computation is based on singular value decomposition. If the
+decomposition fails:</p>
+<ul><li><code>B = null(A)</code> resets <code>B</code> and throws an
+error.</li>
+<li><code>null(B, A)</code> resets <code>B</code> and returns a bool set
+to false without an error.</li>
+</ul><div id="examples-8" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list null1_(const doubles_matrix&lt;&gt;&amp; a) {
+  mat A = as_mat(a);
+
+  mat B;
+  bool ok = null(B, A);
+
+  writable::list out(2);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(B);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="range" class="section level1">
+<h1 id="find-the-orthonormal-basis-of-the-range-space-of-a-matrix">Find the orthonormal basis of the range space of a matrix</h1>
+<p>Find the orthonormal basis of the range space of matrix
+<code>A</code>, so that <span class="math inline">\(B^t B \approx
+I_{r,r}\)</span>, where <span class="math inline">\(r =
+\text{rank}(A)\)</span>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>mat B = orth(A)
+B = orth(A, tolerance)
+
+orth(B, A)
+orth(B, A, tolerance)</code></pre>
+<p>The dimension of the range space is the number of singular values of
+<code>A</code> greater than <code>tolerance</code>.</p>
+<p>The <code>tolerance</code> argument is optional; by default
+<code>tolerance = max_rc * max_sv * epsilon</code>, where:</p>
+<ul><li><span class="math inline">\(\max_{\text{rc}} = \max(n_\text{rows},
+n_\text{cols})\)</span></li>
+<li><span class="math inline">\(\max_{\text{sv}} = \max(\text{maximum
+singular value of } A)\)</span> (i.e. spectral norm)</li>
+<li><span class="math inline">\(\epsilon = 1 - \text{least value greater
+than 1 that is representable}\)</span></li>
+</ul><p>The computation is based on singular value decomposition. If the
+decomposition fails:</p>
+<ul><li><code>B = orth(A)</code> resets <code>B</code> and throws an
+error.</li>
+<li><code>orth(B, A)</code> resets <code>B</code> and returns a bool set
+to false without an error.</li>
+</ul><div id="examples-9" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list orth1_(const doubles_matrix&lt;&gt;&amp; a) {
+  mat A = as_mat(a);
+
+  mat B;
+  bool ok = orth(B, A);
+
+  writable::list out(2);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(B);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="pinv" class="section level1">
+<h1 id="moore-penrose-pseudo-inverse">Moore-Penrose pseudo-inverse</h1>
+<p>Moore-Penrose pseudo-inverse (generalised inverse) of matrix
+<code>A</code> based on singular value decomposition.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>B = pinv(A)
+B = pinv(A, tolerance)
+B = pinv(A, tolerance, method)
+
+pinv(B, A)
+pinv(B, A, tolerance)
+pinv(B, A, tolerance, method)</code></pre>
+<p>The <code>tolerance</code> argument is optional; by default
+<code>tolerance = max_rc * max_sv * epsilon</code>, where:</p>
+<ul><li><span class="math inline">\(\max_{\text{rc}} = \max(n_\text{rows},
+n_\text{cols})\)</span></li>
+<li><span class="math inline">\(\max_{\text{sv}} = \max(\text{maximum
+singular value of } A)\)</span> (i.e. spectral norm)</li>
+<li><span class="math inline">\(\epsilon = 1 - \text{least value greater
+than 1 that is representable}\)</span></li>
+</ul><p>Any singular values less than <code>tolerance</code> are treated as
+zero.</p>
+<p>The <code>method</code> argument is optional; <code>method</code> is
+either <code>"dc"</code> or <code>"std"</code>:</p>
+<ul><li><code>"dc"</code> indicates divide-and-conquer method (default
+setting).</li>
+<li><code>"std"</code> indicates standard method.</li>
+<li>The divide-and-conquer method provides slightly different results
+than the standard method, but is considerably faster for large
+matrices.</li>
+</ul><p>If the decomposition fails:</p>
+<ul><li><code>B = pinv(A)</code> resets <code>B</code> and throws an
+error.</li>
+<li><code>pinv(B, A)</code> resets <code>B</code> and returns a bool set
+to false without an error.</li>
+</ul><p>Caveats:</p>
+<ul><li>To find approximate solutions to under-/over-determined or rank
+deficient systems of linear equations, <code>solve()</code> can be
+considerably faster and/or more accurate.</li>
+<li>If the given matrix <code>A</code> is square-sized and only
+occasionally rank deficient, using <code>inv()</code> or
+<code>inv_sympd()</code> with the <code>inv_opts::allow_approx</code>
+option is faster.</li>
+</ul><div id="examples-10" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list pinv1_(const doubles_matrix&lt;&gt;&amp; a) {
+  mat A = as_mat(a);
+
+  mat B = pinv(A);
+
+  writable::list out(1);
+  out[0] = as_doubles_matrix(B);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="qr" class="section level1">
+<h1 id="qr-decomposition">QR decomposition</h1>
+<p>QR decomposition of matrix <code>X</code> into an orthogonal matrix
+<code>Q</code> and a right triangular matrix <code>R</code>, with an
+optional permutation matrix/vector <code>P</code>.</p>
+<p>Usage:</p>
+<pre class="cpp"><code>// form 1
+qr(Q, R, X)
+
+// form 2
+qr(Q, R, P, X, "vector")
+
+// form 3
+qr(Q, R, P, X, "matrix")</code></pre>
+<p>The decomposition has the following form:</p>
+<ul><li>Form 1: <span class="math inline">\(Q * R = X\)</span>.</li>
+<li>Form 2: <span class="math inline">\(Q * R = Y\)</span>, where
+<code>Y</code> is a non-contiguous view of <code>X</code> with columns
+permuted by <code>P</code>, and <code>P</code> is a permutation vector
+with type <code>uvec</code>.</li>
+<li>Form 3: <span class="math inline">\(Q * R = X * P\)</span>, where
+<code>P</code> is a permutation matrix with type <code>umat</code>.</li>
+</ul><p>If <code>P</code> is specified, a column pivoting decomposition is
+used.</p>
+<p>The diagonal entries of <code>R</code> are ordered from largest to
+smallest magnitude.</p>
+<p>If the decomposition fails, <code>Q</code>, <code>R</code> and
+<code>P</code> are reset, and the function returns a bool set to false
+(an error is not thrown).</p>
+<div id="examples-11" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list qr1_(const doubles_matrix&lt;&gt;&amp; x) {
+  mat X = as_mat(x);
+
+  mat Q, R;
+  umat P;
+
+  bool ok = qr(Q, R, P, X, "matrix");
+
+  writable::list out(4);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(Q);
+  out[2] = as_doubles_matrix(R);
+  out[3] = as_integers_matrix(P);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="qr_econ" class="section level1">
+<h1 id="economic-qr-decomposition">Economic QR decomposition</h1>
+<p>Economical QR decomposition of matrix <code>X</code> into an
+orthogonal matrix <code>Q</code> and a right triangular matrix
+<code>R</code>, such that <span class="math inline">\(QR =
+X\)</span>.</p>
+<p>If the number of rows of <code>X</code> is greater than the number of
+columns, only the first <code>n</code> rows of <code>R</code> and the
+first <code>n</code> columns of <code>Q</code> are calculated, where
+<code>n</code> is the number of columns of <code>X</code>.</p>
+<p>If the decomposition fails, <code>Q</code> and <code>R</code> are
+reset, and the function returns a bool set to false (an error is not
+thrown).</p>
+<div id="examples-12" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list qr_econ1_(const doubles_matrix&lt;&gt;&amp; x) {
+  mat X = as_mat(x);
+
+  mat Q, R;
+
+  bool ok = qr_econ(Q, R, X);
+
+  writable::list out(3);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(Q);
+  out[2] = as_doubles_matrix(R);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="qz" class="section level1">
+<h1 id="generalized-schur-decomposition">Generalized Schur decomposition</h1>
+<p>Generalised Schur decomposition for pair of general square matrices
+<code>A</code> and <code>B</code> of the same size, such that <span class="math inline">\(A = Q^T AA Z^T\)</span> and <span class="math inline">\(B = Q^T BB Z^T\)</span>.</p>
+<p>The <code>select</code> argument is optional and specifies the
+ordering of the top left of the Schur form. It is one of the
+following:</p>
+<ul><li><code>"none"</code>: no ordering (default operation).</li>
+<li><code>"lhp"</code>: left-half-plane: eigenvalues with real part &lt;
+0.</li>
+<li><code>"rhp"</code>: right-half-plane: eigenvalues with real part
+&gt; 0.</li>
+<li><code>"iuc"</code>: inside-unit-circle: eigenvalues with absolute
+value &lt; 1.</li>
+<li><code>"ouc"</code>: outside-unit-circle: eigenvalues with absolute
+value &gt; 1.</li>
+</ul><p>The left and right Schur vectors are stored in <code>Q</code> and
+<code>Z</code>, respectively.</p>
+<p>In the complex-valued problem, the generalised eigenvalues are found
+in <code>diagvec(AA) / diagvec(BB)</code>. If <code>A</code> or
+<code>B</code> is not square sized, an error is thrown.</p>
+<p>If the decomposition fails, <code>AA</code>, <code>BB</code>,
+<code>Q</code> and <code>Z</code> are reset, and the function returns a
+bool set to false (an error is not thrown).</p>
+<div id="examples-13" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list qz1_(const doubles_matrix&lt;&gt;&amp; a, const doubles_matrix&lt;&gt;&amp; b,
+                                 const char* select) {
+  mat A = as_mat(a);
+  mat B = as_mat(b);
+
+  mat AA, BB, Q, Z;
+
+  bool ok = qz(AA, BB, Q, Z, A, B, select);
+
+  writable::list out(5);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(AA);
+  out[2] = as_doubles_matrix(BB);
+  out[3] = as_doubles_matrix(Q);
+  out[4] = as_doubles_matrix(Z);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="schur" class="section level1">
+<h1 id="schur-decomposition-of-a-square-matrix">Schur decomposition of a square matrix</h1>
+<p>Schur decomposition of square matrix <code>X</code> into an
+orthogonal matrix <code>U</code> and an upper triangular matrix
+<code>S</code>, such that <span class="math inline">\(X = U S
+U^T\)</span>.</p>
+<p>If the decomposition fails:</p>
+<ul><li><code>S = schur(X)</code> resets <code>S</code> and throws an
+error.</li>
+<li><code>schur(S, X)</code> resets <code>S</code> and returns a bool
+set to false (an error is not thrown).</li>
+<li><code>schur(U, S, X)</code> resets <code>U</code> and
+<code>S</code>, and returns a bool set to false (an error is not
+thrown).</li>
+</ul><p>Caveat: in general, Schur decomposition is not unique.</p>
+<div id="examples-14" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list schur1_(const doubles_matrix&lt;&gt;&amp; x) {
+  mat X = as_mat(x);
+
+  mat U, S;
+
+  bool ok = schur(U, S, X);
+
+  writable::list out(3);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(U);
+  out[2] = as_doubles_matrix(S);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="solve" class="section level1">
+<h1 id="solve-a-system-of-linear-equations">Solve a system of linear equations</h1>
+<p>Solve a dense system of linear equations, <span class="math inline">\(AX = B\)</span>, where <span class="math inline">\(X\)</span> is unknown. This is similar
+functionality to the <code>\</code> operator in Matlab/Octave (e.g.,
+<code>X = A \ B</code>). The implementation details are available in
+<span class="citation">Sanderson and Curtin (2017)</span>.</p>
+<p><span class="math inline">\(A\)</span> can be square sized
+(critically determined system), non-square (under/over-determined
+system), or rank deficient.</p>
+<p><span class="math inline">\(B\)</span> can be a vector or matrix.</p>
+<p>The number of rows in <code>A</code> and <code>B</code> must be the
+same.</p>
+<p>By default, matrix <code>A</code> is analysed to automatically
+determine whether it is a general matrix, band matrix, diagonal matrix,
+or symmetric/hermitian positive definite (sympd) matrix. Based on the
+detected matrix structure, a specialised solver is used for faster
+execution. If no solution is found, an approximate solver is
+automatically used as a fallback.</p>
+<p>If <code>A</code> is known to be a triangular matrix, the solution
+can be computed faster by explicitly indicating that <code>A</code> is
+triangular through <code>trimatu()</code> or <code>trimatl()</code> (see
+examples below).</p>
+<p>The <code>settings</code> argument is optional; it is one of the
+following, or a combination thereof:</p>
+<ul><li><code>solve_opts::fast</code>: fast mode: disable determining
+solution quality via <code>rcond</code>, disable iterative refinement,
+disable equilibration.</li>
+<li><code>solve_opts::refine</code>: apply iterative refinement to
+improve solution quality (matrix <code>A</code> must be square).</li>
+<li><code>solve_opts::equilibrate</code>: equilibrate the system before
+solving (matrix <code>A</code> must be square).</li>
+<li><code>solve_opts::likely_sympd</code>: indicate that matrix
+<code>A</code> is likely symmetric/hermitian positive definite
+(sympd).</li>
+<li><code>solve_opts::allow_ugly</code>: keep solutions of systems that
+are singular to working precision.</li>
+<li><code>solve_opts::no_approx</code>: do not find approximate
+solutions for rank deficient systems.</li>
+<li><code>solve_opts::force_sym</code>: force use of the
+symmetric/hermitian solver (not limited to sympd matrices).</li>
+<li><code>solve_opts::force_approx</code>: force use of the approximate
+solver.</li>
+</ul><p>The above settings can be combined using the <code>+</code> operator;
+for example:</p>
+<pre class="cpp"><code>solve_opts::fast + solve_opts::no_approx</code></pre>
+<p>If a rank deficient system is detected and the
+<code>solve_opts::no_approx</code> option is not enabled, a warning is
+emitted and an approximate solution is attempted. Since Armadillo 10.4,
+this warning can be disabled by setting <code>ARMA_WARN_LEVEL</code> to
+1 before including the armadillo header:</p>
+<pre class="cpp"><code>#define ARMA_WARN_LEVEL 1
+#include &lt;armadillo&gt;</code></pre>
+<p>Caveats:</p>
+<ul><li>Using <code>solve_opts::fast</code> will speed up finding the
+solution, but for poorly conditioned systems the solution may have lower
+quality.</li>
+<li>Not all sympd matrices are automatically detected; to directly
+indicate that matrix <code>A</code> is likely sympd, use
+<code>solve_opts::likely_sympd</code>.</li>
+<li>Using <code>solve_opts::force_approx</code> is only advised if the
+system is known to be rank deficient; the approximate solver is
+considerably slower.</li>
+</ul><p>If no solution is found:</p>
+<ul><li><code>X = solve(A,B)</code> resets <code>X</code> and throws an
+error.</li>
+<li><code>solve(X,A,B)</code> resets <code>X</code> and returns a bool
+set to false (an error is not thrown).</li>
+</ul><div id="examples-15" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; solve1_(const doubles_matrix&lt;&gt;&amp; a,
+                                             const doubles_matrix&lt;&gt;&amp; b) {
+  mat A = as_mat(a);
+  mat B = as_mat(b);
+
+  mat X = solve(A, B);
+
+  return as_doubles_matrix(X);
+}</code></pre>
+</div>
+</div>
+<div id="svd" class="section level1">
+<h1 id="singular-value-decomposition">Singular value decomposition</h1>
+<p>Singular value decomposition of dense matrix <code>X</code>.</p>
+<p>If <code>X</code> is square, it can be reconstructed using <span class="math inline">\(X = U S V^T\)</span>, where <span class="math inline">\(S\)</span> is a diagonal matrix containing the
+singular values.</p>
+<p>The singular values are in descending order.</p>
+<p>The <code>method</code> argument is optional; <code>method</code> is
+either <code>"dc"</code> or <code>"std"</code>:</p>
+<ul><li><code>"dc"</code> indicates divide-and-conquer method (default
+setting).</li>
+<li><code>"std"</code> indicates standard method.</li>
+<li>The divide-and-conquer method provides slightly different results
+than the standard method, but is considerably faster for large
+matrices.</li>
+</ul><p>If the decomposition fails:</p>
+<ul><li><code>s = svd(X)</code> resets <code>s</code> and throws an
+error.</li>
+<li><code>svd(s, X)</code> resets <code>s</code> and returns a bool set
+to false (an error is not thrown).</li>
+<li><code>svd(U, s, V, X)</code> resets <code>U</code>, <code>s</code>,
+and <code>V</code>, and returns a bool set to false (an error is not
+thrown).</li>
+</ul><div id="examples-16" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list svd1_(const doubles_matrix&lt;&gt;&amp; x) {
+  mat X = as_mat(x);
+
+  mat U;
+  vec s;
+  mat V;
+
+  bool ok = svd(U, s, V, X);
+
+  writable::list out(4);
+  out[0] = writable::logicals({ok});
+  out[1] = as_doubles_matrix(U);
+  out[2] = as_doubles(s);
+  out[3] = as_doubles_matrix(V);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="svd_econ" class="section level1">
+<h1 id="economic-singular-value-decomposition">Economic singular value decomposition</h1>
+<p>Economical singular value decomposition of dense matrix
+<code>X</code>.</p>
+<p>The singular values are in descending order.</p>
+<p>The <code>mode</code> argument is optional; <code>mode</code> is one
+of:</p>
+<ul><li><code>"both"</code>: compute both left and right singular vectors
+(default operation).</li>
+<li><code>"left"</code>: compute only left singular vectors.</li>
+<li><code>"right"</code>: compute only right singular vectors.</li>
+</ul><p>The <code>method</code> argument is optional; <code>method</code> is
+either <code>"dc"</code> or <code>"std"</code>:</p>
+<ul><li><code>"dc"</code> indicates divide-and-conquer method (default
+setting).</li>
+<li><code>"std"</code> indicates standard method.</li>
+<li>The divide-and-conquer method provides slightly different results
+than the standard method, but is considerably faster for large
+matrices.</li>
+</ul><p>If the decomposition fails, <code>U</code>, <code>s</code>, and
+<code>V</code> are reset, and a bool set to false is returned (an error
+is not thrown).</p>
+<div id="examples-17" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] list svd_econ1_(const doubles_matrix&lt;&gt;&amp; x) {
+  mat X = as_mat(x);
+
+  mat U;
+  vec s;
+  mat V;
+
+  svd_econ(U, s, V, X);
+
+  writable::list out(3);
+  out[0] = as_doubles_matrix(U);
+  out[1] = as_doubles(s);
+  out[2] = as_doubles_matrix(V);
+
+  return out;
+}</code></pre>
+</div>
+</div>
+<div id="syl" class="section level1">
+<h1 id="sylvester-equation-solver">Sylvester equation solver</h1>
+<p>Solve the Sylvester equation, i.e., <span class="math inline">\(AX +
+XB + C = 0\)</span>, where <span class="math inline">\(X\)</span> is
+unknown.</p>
+<p>Matrices <code>A</code>, <code>B</code>, and <code>C</code> must be
+square sized.</p>
+<p>If no solution is found:</p>
+<ul><li><code>syl(A,B,C)</code> resets <code>X</code> and throws an
+error.</li>
+<li><code>syl(X,A,B,C)</code> resets <code>X</code> and returns a bool
+set to false (an error is not thrown).</li>
+</ul><div id="examples-18" class="section level2">
+<h2 id="examples">Examples</h2>
+<pre class="cpp"><code>[[cpp4r::register]] doubles_matrix&lt;&gt; syl1_(const doubles_matrix&lt;&gt;&amp; a,
+                                          const doubles_matrix&lt;&gt;&amp; b,
+                                          const doubles_matrix&lt;&gt;&amp; c) {
+  mat A = as_mat(a);
+  mat B = as_mat(b);
+  mat C = as_mat(c);
+
+  mat X = syl(A, B, C);
+
+  return as_doubles_matrix(X);
+}</code></pre>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 id="references" class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-Sanderson2017" class="csl-entry">
+Sanderson, Conrad, and Ryan Curtin. 2017. <span>“An Open Source
+<span>C</span>++ Implementation of Multi-Threaded <span>Gaussian</span>
+Mixture Models, k-Means and Expectation Maximisation.”</span> In
+<em>2017 11th <span>International</span> <span>Conference</span> on
+<span>Signal</span> <span>Processing</span> and
+<span>Communication</span> <span>Systems</span>
+(<span>ICSPCS</span>)</em>, 1–8. <a href="https://doi.org/10.1109/ICSPCS.2017.8270510">https://doi.org/10.1109/ICSPCS.2017.8270510</a>.
+</div>
+</div>
+</div>
+        </div>
+        <footer><p id="last-updated">Loading...</p>
+</footer><script src="../js/footer.js"></script><script src="../js/theme.js"></script><script src="../js/search.js"></script><script src="../js/fontsize.js"></script></div>
+</div>
+</div>
+</body></html>
+
