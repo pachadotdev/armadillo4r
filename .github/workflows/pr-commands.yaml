@@ -79,3 +79,79 @@ jobs:
       - uses: r-lib/actions/pr-push@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  test:
+    if: ${{ github.event.issue.pull_request && (github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER') && startsWith(github.event.comment.body, '/test') }}
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.r }}) ${{ matrix.config.custom }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: macos-latest,   r: 'release'}
+
+          - {os: windows-2022, r: 'release'}
+          
+          - {os: windows-2022, r: '4.1'}
+          
+          - {os: ubuntu-22.04,   r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-22.04,   r: 'release', custom: 'no-armadillo4rtest'}
+          - {os: ubuntu-22.04,   r: 'oldrel-1'}
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: r-lib/actions/pr-fetch@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.config.r }}
+          http-user-agent: ${{ matrix.config.http-user-agent }}
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::rcmdcheck
+          pak-version: devel
+          needs: check
+
+      - name: Download OpenBLAS (rtools40 / R 4.1 only)
+        if: matrix.config.r == '4.1'
+        shell: bash
+        run: |
+          curl -fLo "$RUNNER_TEMP/openblas.zip" \
+            "https://github.com/OpenMathLib/OpenBLAS/releases/download/v0.3.33/OpenBLAS-0.3.33-x64.zip"
+          unzip -q "$RUNNER_TEMP/openblas.zip" -d "$RUNNER_TEMP/openblas"
+          cp "$RUNNER_TEMP/openblas/lib/libopenblas.dll.a" /c/rtools40/mingw64/lib/
+          cp "$RUNNER_TEMP/openblas/bin/libopenblas.dll" "C:/R/bin/x64/"
+
+      - name: Install armadillo4rtest
+        if: matrix.config.custom != 'no-armadillo4rtest'
+        run: |
+          options(warn = 2)
+          pak::pkg_install("pachadotdev/cpp4r")
+          cpp4r::register("armadillo4rtest")
+          pak::local_install_dev_deps("armadillo4rtest", dependencies = TRUE)
+          install.packages("./", repos = NULL, type = "source")
+          install.packages("./armadillo4rtest", repos = NULL, INSTALL_opts = "--install-tests", type = "source")
+        shell: Rscript {0}
+
+      - uses: r-lib/actions/check-r-package@v2
+        with:
+          build_args: 'c("--no-manual","--compact-vignettes=gs+qpdf")'
+
+      - name: Run armadillo4rtest tests
+        if: matrix.config.custom != 'no-armadillo4rtest'
+        run: |
+          tinytest::build_install_test("armadillo4rtest")
+        shell: Rscript {0}
