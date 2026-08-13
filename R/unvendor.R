@@ -1,10 +1,10 @@
-#' Unvendor the armadillo4r headers
+#' @title Unvendor the armadillo4r headers
 #'
-#' This function removes the vendored armadillo4r headers from your package by
+#' @description Removes the vendored armadillo4r headers from your package by
 #' automatically finding the vendored headers.
 #'
-#' @param path The directory with the vendored headers. It is recommended to use `"./src/vendor"`.
-#' The default is `NULL`.
+#' @param path The directory with the vendored headers (e.g., \code{"./src/vendor"}). The default
+#'  is \code{NULL}.
 #' @return The path to the unvendored code (invisibly).
 #' @export
 #' @examples

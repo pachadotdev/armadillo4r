@@ -1,3 +1,12 @@
+# armadillo4r 1.1.0
+
+* Using Armadillo 15.4.2.
+* I am now using `litedown` and `tinyroxygen` for the documentation.
+
+# armadillo4r 1.0.0
+
+* Fully documented vignettes covering over 400 examples.
+
 # armadillo4r 0.9.0
 
 * Using Armadillo 15.2.6

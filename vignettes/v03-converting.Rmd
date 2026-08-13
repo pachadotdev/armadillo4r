@@ -1,23 +1,19 @@
 ---
-title: "Converting between R and Armadillo types"
-output: rmarkdown::html_vignette
-bibliography: "references.bib"
+title: "03 - Converting between R and Armadillo types"
+output:
+  litedown::html_format:
+    options:
+      toc: true
+      number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Converting between R and Armadillo types}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{03 - Converting between R and Armadillo types}
+  %\VignetteEngine{litedown::vignette}
   %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+bibliography: ["references.bib"]
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-
-knitr::knit_engines$set(cpp = function(options) {
-  paste("```cpp", options$code, "```", sep = "\n")
-})
-```
 
 **Adapted from the official Armadillo
 [documentation](https://arma.sourceforge.net/docs.html).**

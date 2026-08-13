@@ -1,7 +1,13 @@
+#' @title An 'Armadillo' Interface
+#' @description Provides function declarations and inline function definitions
+#'  that facilitate communication between R and the 'Armadillo' 'C++' library
+#'  for linear algebra and scientific computing. This implementation is derived
+#'  from Vargas Sepulveda and Schneider Malamud (2024)
+#'  <doi:10.1016/j.softx.2025.102087>.
 #' @keywords internal
 "_PACKAGE"
 
-#' Check that cpp4r can be used
+#' @title Check that cpp4r can be used
 #' @keywords internal
 #' @return integer value
 check_cpp4r <- function() {

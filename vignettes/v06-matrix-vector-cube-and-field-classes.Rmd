@@ -1,19 +1,19 @@
 ---
-title: "Matrix, vector, cube and field classes"
-output: rmarkdown::html_vignette
-bibliography: "references.bib"
+title: "06 - Matrix, vector, cube and field classes"
+output:
+  litedown::html_format:
+    options:
+      toc: true
+      number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Matrix, vector, cube and field classes}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{06 - Matrix, vector, cube and field classes}
+  %\VignetteEngine{litedown::vignette}
   %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+bibliography: ["references.bib"]
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 **Adapted from the official Armadillo
 [documentation](https://arma.sourceforge.net/docs.html).**

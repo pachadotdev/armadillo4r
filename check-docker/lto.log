@@ -1,40 +1,61 @@
-Reading package lists...
-Building dependency tree...
-Reading state information...
-pkg-config is already the newest version (1.8.1-2build1).
-The following NEW packages will be installed:
-  libuv1-dev libuv1t64 libxml2-dev
-0 upgraded, 3 newly installed, 0 to remove and 11 not upgraded.
-Need to get 1,015 kB of archives.
-After this operation, 4,271 kB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 libuv1t64 amd64 1.48.0-1.1build1 [97.3 kB]
-Get:2 http://archive.ubuntu.com/ubuntu noble/main amd64 libuv1-dev amd64 1.48.0-1.1build1 [136 kB]
-Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libxml2-dev amd64 2.9.14+dfsg-1.3ubuntu3.7 [782 kB]
-debconf: delaying package configuration, since apt-utils is not installed
-Fetched 1,015 kB in 0s (5,942 kB/s)
-Selecting previously unselected package libuv1t64:amd64.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 19926 files and directories currently installed.)
-Preparing to unpack .../libuv1t64_1.48.0-1.1build1_amd64.deb ...
-Unpacking libuv1t64:amd64 (1.48.0-1.1build1) ...
-Selecting previously unselected package libuv1-dev:amd64.
-Preparing to unpack .../libuv1-dev_1.48.0-1.1build1_amd64.deb ...
-Unpacking libuv1-dev:amd64 (1.48.0-1.1build1) ...
-Selecting previously unselected package libxml2-dev:amd64.
-Preparing to unpack .../libxml2-dev_2.9.14+dfsg-1.3ubuntu3.7_amd64.deb ...
-Unpacking libxml2-dev:amd64 (2.9.14+dfsg-1.3ubuntu3.7) ...
-Setting up libuv1t64:amd64 (1.48.0-1.1build1) ...
-Setting up libxml2-dev:amd64 (2.9.14+dfsg-1.3ubuntu3.7) ...
-Setting up libuv1-dev:amd64 (1.48.0-1.1build1) ...
-Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
-trying URL 'https://cloud.r-project.org/src/contrib/tinytest_1.4.3.tar.gz'
-Content type 'application/x-gzip' length 595901 bytes (581 KB)
-==================================================
-downloaded 581 KB
-
-* installing *source* package ‘tinytest’ ...
-** this is package ‘tinytest’ version ‘1.4.3’
-** package ‘tinytest’ successfully unpacked and MD5 sums checked
+** this is package ‘armadillo4r’ version ‘1.0.0’
+** package ‘armadillo4r’ successfully unpacked and MD5 sums checked
 ** using staged installation
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+*** copying figures
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (armadillo4r)
+
+The downloaded source packages are in
+	‘/tmp/RtmpiKYhvX/downloaded_packages’
+trying URL 'https://cloud.r-project.org/src/contrib/curl_7.1.0.tar.gz'
+Content type 'application/x-gzip' length 717725 bytes (700 KB)
+==================================================
+downloaded 700 KB
+
+* installing *source* package ‘curl’ ...
+** this is package ‘curl’ version ‘7.1.0’
+** package ‘curl’ successfully unpacked and MD5 sums checked
+** using staged installation
+Found pkg-config cflags and libs!
+Using PKG_CFLAGS=-I/usr/include/x86_64-linux-gnu 
+Using PKG_LIBS=-lcurl 
+** libs
+using C compiler: ‘gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c callbacks.c -o callbacks.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c curl.c -o curl.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c download.c -o download.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c dryrun.c -o dryrun.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c escape.c -o escape.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c fetch.c -o fetch.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c findport.c -o findport.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c form.c -o form.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c getdate.c -o getdate.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c handle.c -o handle.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c ieproxy.c -o ieproxy.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c init.c -o init.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c interrupt.c -o interrupt.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c multi.c -o multi.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c nslookup.c -o nslookup.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c options.c -o options.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c reflist.c -o reflist.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c split.c -o split.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c ssl.c -o ssl.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c typechecking.c -o typechecking.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c urlparser.c -o urlparser.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c utils.c -o utils.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c version.c -o version.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c winidn.c -o winidn.o
+gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I/usr/include/x86_64-linux-gnu  -DSTRICT_R_HEADERS -DR_NO_REMAP  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c writer.c -o writer.o
+gcc -std=gnu2x -shared -L/opt/R/4.6.0/lib/R/lib -L/usr/local/lib -o curl.so callbacks.o curl.o download.o dryrun.o escape.o fetch.o findport.o form.o getdate.o handle.o ieproxy.o init.o interrupt.o multi.o nslookup.o options.o reflist.o split.o ssl.o typechecking.o urlparser.o utils.o version.o winidn.o writer.o -lcurl -L/opt/R/4.6.0/lib/R/lib -lR
+installing to /cache/R_libs/00LOCK-curl/00new/curl/libs
 ** R
 ** inst
 ** byte-compile and prepare package for lazy loading
@@ -43,100 +64,15 @@ downloaded 581 KB
 ** building package indices
 ** installing vignettes
 ** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (tinytest)
-
-The downloaded source packages are in
-	‘/tmp/Rtmpz7MMgh/downloaded_packages’
-also installing the dependencies ‘cli’, ‘R6’
-
-trying URL 'https://cloud.r-project.org/src/contrib/cli_3.6.6.tar.gz'
-trying URL 'https://cloud.r-project.org/src/contrib/R6_2.6.1.tar.gz'
-trying URL 'https://cloud.r-project.org/src/contrib/desc_1.4.3.tar.gz'
-* installing *source* package ‘cli’ ...
-** this is package ‘cli’ version ‘3.6.6’
-** package ‘cli’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-using C compiler: ‘gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c ansi.c -o ansi.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c cleancall.c -o cleancall.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c diff.c -o diff.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c errors.c -o errors.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c glue.c -o glue.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c init.c -o init.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c inst.c -o inst.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c keypress-unix.c -o keypress-unix.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c keypress-win.c -o keypress-win.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c keypress.c -o keypress.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c md5.c -o md5.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c progress-altrep.c -o progress-altrep.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c progress.c -o progress.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c sha1.c -o sha1.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c sha256.c -o sha256.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c thread.c -o thread.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c tty.c -o tty.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c utf8.c -o utf8.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c utils.c -o utils.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c vt.c -o vt.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c vtparse.c -o vtparse.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c vtparse_table.c -o vtparse_table.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c win-utf8.c -o win-utf8.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c winfiles.c -o winfiles.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c xxhash.c -o xxhash.o
-gcc -std=gnu2x -I"/opt/R/4.6.0/lib/R/include" -DNDEBUG -I../inst/include  -I/usr/local/include   -fvisibility=hidden -fpic  -g -O2 -flto -c xxhash2.c -o xxhash2.o
-gcc -std=gnu2x -shared -L/opt/R/4.6.0/lib/R/lib -L/usr/local/lib -o cli.so ansi.o cleancall.o diff.o errors.o glue.o init.o inst.o keypress-unix.o keypress-win.o keypress.o md5.o progress-altrep.o progress.o sha1.o sha256.o thread.o tty.o utf8.o utils.o vt.o vtparse.o vtparse_table.o win-utf8.o winfiles.o xxhash.o xxhash2.o -lpthread -L/opt/R/4.6.0/lib/R/lib -lR
-lto-wrapper: warning: using serial compilation of 2 LTRANS jobs
-lto-wrapper: note: see the ‘-flto’ option documentation for more information
-/usr/bin/nm: /tmp/RtmpEoTtdH/R.INSTALL122300f20b0/cli/src/xxhash.o: no symbols
-installing to /cache/R_libs/00LOCK-cli/00new/cli/libs
-** R
-** exec
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** testing if installed package can be loaded from temporary location
 ** checking absolute paths in shared objects and dynamic libraries
 ** testing if installed package can be loaded from final location
 ** testing if installed package keeps a record of temporary installation path
-* DONE (cli)
-* installing *source* package ‘R6’ ...
-** this is package ‘R6’ version ‘2.6.1’
-** package ‘R6’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (R6)
-* installing *source* package ‘desc’ ...
-** this is package ‘desc’ version ‘1.4.3’
-** package ‘desc’ successfully unpacked and MD5 sums checked
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (desc)
+* DONE (curl)
 
 The downloaded source packages are in
-	‘/tmp/Rtmpz7MMgh/downloaded_packages’
+	‘/tmp/RtmpVbauNt/downloaded_packages’
 * installing *source* package ‘cpp4r’ ...
-** this is package ‘cpp4r’ version ‘1.0.0’
+** this is package ‘cpp4r’ version ‘1.2.0’
 ** using staged installation
 ** R
 ** inst
@@ -145,12 +81,13 @@ The downloaded source packages are in
 *** installing help indices
 *** copying figures
 ** building package indices
+** installing vignettes
 ** testing if installed package can be loaded from temporary location
 ** testing if installed package can be loaded from final location
 ** testing if installed package keeps a record of temporary installation path
 * DONE (cpp4r)
 * installing *source* package ‘armadillo4r’ ...
-** this is package ‘armadillo4r’ version ‘1.0.0’
+** this is package ‘armadillo4r’ version ‘1.1.0’
 ** using staged installation
 ** R
 ** inst
@@ -159,6 +96,7 @@ The downloaded source packages are in
 *** installing help indices
 *** copying figures
 ** building package indices
+** installing vignettes
 ** testing if installed package can be loaded from temporary location
 ** testing if installed package can be loaded from final location
 ** testing if installed package keeps a record of temporary installation path
@@ -222,25 +160,24 @@ installing to /cache/R_libs/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
     GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
 * running under: Ubuntu 24.04.4 LTS
 * using session charset: UTF-8
-* current time: 2026-06-09 09:19:47 UTC
+* current time: 2026-08-12 10:28:20 UTC
 * using options ‘--no-manual --as-cran’
 * checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
 * this is package ‘armadillo4rtest’ version ‘0.1.0’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [1s/1s] NOTE
+* checking CRAN incoming feasibility ... [5s/9s] NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
-Checking URLs failed with message:
-  there is no package called ‘curl’
+New submission
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
-* checking for .dll and .exe files ... OK
+* checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [88s/81s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [91s/85s] OK
 * used C++ compiler: ‘g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’
 * checking C++ specification ... INFO
   specified C++20
@@ -264,7 +201,7 @@ Checking URLs failed with message:
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... [14s/4s] OK
+* checking R code for possible problems ... [13s/5s] OK
 * checking Rd files ... [2s/1s] OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
@@ -292,7 +229,7 @@ Checking URLs failed with message:
 * checking examples ... NONE
 * checking for unstated dependencies in ‘tests’ ... OK
 * checking tests ...
-  Running ‘tinytest.R’ [3s/1s]
+  Running ‘tinytest.R’ [3s/2s]
  [4s/2s] OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
@@ -364,25 +301,24 @@ installing to /check/armadillo4rtest.Rcheck/00LOCK-armadillo4rtest/00new/armadil
     GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
 * running under: Ubuntu 24.04.4 LTS
 * using session charset: UTF-8
-* current time: 2026-06-09 09:19:47 UTC
+* current time: 2026-08-12 10:28:20 UTC
 * using options ‘--no-manual --as-cran’
 * checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
 * this is package ‘armadillo4rtest’ version ‘0.1.0’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [1s/1s] NOTE
+* checking CRAN incoming feasibility ... [5s/9s] NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
-Checking URLs failed with message:
-  there is no package called ‘curl’
+New submission
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
-* checking for .dll and .exe files ... OK
+* checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [88s/81s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [91s/85s] OK
 * used C++ compiler: ‘g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’
 * checking C++ specification ... INFO
   specified C++20
@@ -406,7 +342,7 @@ Checking URLs failed with message:
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... [14s/4s] OK
+* checking R code for possible problems ... [13s/5s] OK
 * checking Rd files ... [2s/1s] OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
@@ -434,7 +370,7 @@ Checking URLs failed with message:
 * checking examples ... NONE
 * checking for unstated dependencies in ‘tests’ ... OK
 * checking tests ... [4s/2s] OK
-  Running ‘tinytest.R’ [3s/1s]
+  Running ‘tinytest.R’ [3s/2s]
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE

@@ -1,19 +1,16 @@
 #' @title Vendor the cpp4r and armadillo4r headers
 #'
-#' @description Vendoring is the act of making your own copy of the 3rd party packages your
-#' project is using. It is often used in the go language community.
-#'
-#' This function vendors armadillo4r into your package by copying the armadillo4r
-#' headers into the `inst/include` folder of your package and adding
+#' @description Vendors armadillo4r into your package by copying the armadillo4r
+#' headers into the \code{inst/include} folder of your package and adding
 #' 'armadillo4r version: XYZ' to the top of the files, where XYZ is the version of
 #' armadillo4r currently installed on your machine.
 #'
-#' **Note**: vendoring places the responsibility of updating the code on
-#' **you**. Bugfixes and new features in armadillo4r will not be available for your
-#' code until you run `cpp_vendor()` again.
+#' Note: vendoring places the responsibility of updating the code on
+#' you. Bugfixes and new features in armadillo4r will not be available for your
+#' code until you run \code{cpp_vendor()} again.
 #'
-#' @param path The directory with the vendored headers. It is recommended to use `"./src/vendor"`.
-#' The default is `NULL`.
+#' @param path The directory with the vendored headers. It is recommended to use
+#' \code{"./src/vendor"}. The default is \code{NULL}.
 #' @return The path to the vendored code (invisibly).
 #' @export
 #' @examples

@@ -1,19 +1,19 @@
 ---
-title: "Using SEXP with Armadillo data types"
-output: rmarkdown::html_vignette
-bibliography: "references.bib"
+title: "15 - Using SEXP with Armadillo data types"
+output:
+  litedown::html_format:
+    options:
+      toc: true
+      number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Using SEXP with Armadillo data types}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{15 - Using SEXP with Armadillo data types}
+  %\VignetteEngine{litedown::vignette}
   %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+bibliography: ["references.bib"]
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 `as_sexp()` allows to pass objects from Armadillo to R while `as_cpp<>` allows to
 pass objects from R to Armadillo. I prefer to use `as_mat()`, `as_doubles_matrix()`, etc. to be clear about the

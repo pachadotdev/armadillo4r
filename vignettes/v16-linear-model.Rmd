@@ -1,19 +1,19 @@
 ---
-title: "Fitting regressions with Armadillo"
-output: rmarkdown::html_vignette
-bibliography: "references.bib"
+title: "16 - Fitting regressions with Armadillo"
+output:
+  litedown::html_format:
+    options:
+      toc: true
+      number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Fitting regressions with Armadillo}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{16 - Fitting regressions with Armadillo}
+  %\VignetteEngine{litedown::vignette}
   %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+bibliography: ["references.bib"]
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 **Adapted from the official Armadillo
 [documentation](https://arma.sourceforge.net/docs.html) and
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 **
 
 For those interested in Econometrics, do yourself a favour and buy
-[Econometrics](https://users.ssc.wisc.edu/~bhansen/econometrics/) by Prof.
+[Econometrics](https://users.ssc.wisc.edu/~behansen/econometrics/) by Prof.
 Bruce E. Hansen. I have [unofficial](https://pacha.dev/hansen/) re-written codes
 using Armadillo for his R examples.
 

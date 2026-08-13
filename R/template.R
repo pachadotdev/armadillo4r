@@ -55,19 +55,13 @@ pkg_template <- function(path = NULL, pkgname = NULL) {
   writeLines(lines, con = paste0(path, "/.Rbuildignore"))
 
   lines <- c(
+    "#' @title Package Title",
+    "#' @description Some description. CRAN asks for at least one paragraph with two full sentences. Like this.",
     paste0("#' @useDynLib ", pkgname, ", .registration = TRUE"),
-    "#' @keywords internal",
     "\"_PACKAGE\""
   )
 
   writeLines(lines, con = paste0(path, "/R/", pkgname, "-package.R"))
-
-  # get roxygen version
-  if (!requireNamespace("roxygen2", quietly = TRUE)) {
-    stop("You must install the roxygen2 package to use this function", call. = FALSE)
-  } else {
-    roxyver <- as.character(utils::packageVersion("roxygen2"))
-  }
 
   lines <- c(
     paste("Package:", pkgname),
@@ -82,21 +76,14 @@ pkg_template <- function(path = NULL, pkgname = NULL) {
     "        email = \"YOUR@EMAIL.COM\",",
     "        comment = c(ORCID = \"0000-0001-0002-0003\"))",
     "    )",
-    "Suggests: ",
-    "    knitr,",
-    "    rmarkdown,",
-    "    roxygen2,",
-    "    tinytest,",
-    "    Matrix",
     "Depends: R(>= 4.0.0)",
+    "Suggests: tinytest",
     "Description: ADD DESCRIPTION. TWO OR MORE LINES",
     "License: ADD LICENSE",
     "BugReports: https://github.com/USERNAME/PKGNAME/issues",
     "URL: https://WEBSITE.COM",
-    paste0("RoxygenNote: ", roxyver),
     "Encoding: UTF-8",
     "NeedsCompilation: yes",
-    "VignetteBuilder: knitr",
     "LinkingTo: cpp4r, armadillo4r, Matrix"
   )
 

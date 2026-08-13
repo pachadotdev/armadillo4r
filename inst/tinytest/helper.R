@@ -8,9 +8,13 @@ local_package <- function() {
   )
   writeLines("Package: testPkg", file.path(dir, "DESCRIPTION"))
   writeLines("useDynLib(testPkg, .registration = TRUE)", file.path(dir, "NAMESPACE"))
-  desc::desc(dir)
+  dir
 }
 
 pkg_path <- function(pkg) {
+  if (is.character(pkg) && length(pkg) == 1L) {
+    return(pkg)
+  }
+
   dirname(pkg$.__enclos_env__$private$path)
 }

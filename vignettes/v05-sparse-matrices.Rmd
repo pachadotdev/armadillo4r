@@ -1,19 +1,19 @@
 ---
-title: "Sparse matrices"
-output: rmarkdown::html_vignette
-bibliography: "references.bib"
+title: "05 - Sparse matrices"
+output:
+  litedown::html_format:
+    options:
+      toc: true
+      number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Sparse matrices}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{05 - Sparse matrices}
+  %\VignetteEngine{litedown::vignette}
   %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+bibliography: ["references.bib"]
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 # Supported sparse matrix classes
 

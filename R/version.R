@@ -1,6 +1,6 @@
-#' Get Armadillo version
+#' @title Get Armadillo version
 #'
-#' Provides the Armadillo C++ library version name and number included in the
+#' @description Provides the Armadillo C++ library version name and number included in the
 #' package.
 #'
 #' @export

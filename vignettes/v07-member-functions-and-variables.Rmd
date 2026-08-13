@@ -1,19 +1,19 @@
 ---
-title: "Member functions and variables"
-output: rmarkdown::html_vignette
-bibliography: "references.bib"
+title: "07 - Member functions and variables"
+output:
+  litedown::html_format:
+    options:
+      toc: true
+      number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Member functions and variables}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{07 - Member functions and variables}
+  %\VignetteEngine{litedown::vignette}
   %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+bibliography: ["references.bib"]
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 **Adapted from the official Armadillo
 [documentation](https://arma.sourceforge.net/docs.html).**

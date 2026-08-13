@@ -1,33 +1,4 @@
-Reading package lists...
-Building dependency tree...
-Reading state information...
-pkg-config is already the newest version (1.8.1-2build1).
-The following NEW packages will be installed:
-  libuv1-dev libuv1t64 libxml2-dev
-0 upgraded, 3 newly installed, 0 to remove and 13 not upgraded.
-Need to get 1,015 kB of archives.
-After this operation, 4,271 kB of additional disk space will be used.
-Get:1 http://archive.ubuntu.com/ubuntu noble/main amd64 libuv1t64 amd64 1.48.0-1.1build1 [97.3 kB]
-Get:2 http://archive.ubuntu.com/ubuntu noble/main amd64 libuv1-dev amd64 1.48.0-1.1build1 [136 kB]
-Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libxml2-dev amd64 2.9.14+dfsg-1.3ubuntu3.7 [782 kB]
-debconf: delaying package configuration, since apt-utils is not installed
-Fetched 1,015 kB in 0s (2,570 kB/s)
-Selecting previously unselected package libuv1t64:amd64.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 19926 files and directories currently installed.)
-Preparing to unpack .../libuv1t64_1.48.0-1.1build1_amd64.deb ...
-Unpacking libuv1t64:amd64 (1.48.0-1.1build1) ...
-Selecting previously unselected package libuv1-dev:amd64.
-Preparing to unpack .../libuv1-dev_1.48.0-1.1build1_amd64.deb ...
-Unpacking libuv1-dev:amd64 (1.48.0-1.1build1) ...
-Selecting previously unselected package libxml2-dev:amd64.
-Preparing to unpack .../libxml2-dev_2.9.14+dfsg-1.3ubuntu3.7_amd64.deb ...
-Unpacking libxml2-dev:amd64 (2.9.14+dfsg-1.3ubuntu3.7) ...
-Setting up libuv1t64:amd64 (1.48.0-1.1build1) ...
-Setting up libxml2-dev:amd64 (2.9.14+dfsg-1.3ubuntu3.7) ...
-Setting up libuv1-dev:amd64 (1.48.0-1.1build1) ...
-Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
-* installing *source* package ‘cpp4r’ ...
-** this is package ‘cpp4r’ version ‘1.0.0’
+** this is package ‘armadillo4r’ version ‘1.1.0’
 ** using staged installation
 ** R
 ** inst
@@ -36,20 +7,7 @@ Processing triggers for libc-bin (2.39-0ubuntu8.7) ...
 *** installing help indices
 *** copying figures
 ** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (cpp4r)
-* installing *source* package ‘armadillo4r’ ...
-** this is package ‘armadillo4r’ version ‘1.0.0’
-** using staged installation
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-*** copying figures
-** building package indices
+** installing vignettes
 ** testing if installed package can be loaded from temporary location
 ** testing if installed package can be loaded from final location
 ** testing if installed package keeps a record of temporary installation path
@@ -111,25 +69,24 @@ installing to /cache/R_libs/00LOCK-armadillo4rtest/00new/armadillo4rtest/libs
     GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
 * running under: Ubuntu 24.04.4 LTS
 * using session charset: UTF-8
-* current time: 2026-06-11 14:09:28 UTC
+* current time: 2026-08-12 09:19:39 UTC
 * using options ‘--no-manual --as-cran’
 * checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
 * this is package ‘armadillo4rtest’ version ‘0.1.0’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [1s/1s] NOTE
+* checking CRAN incoming feasibility ... [5s/8s] NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
-Checking URLs failed with message:
-  there is no package called ‘curl’
+New submission
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
-* checking for .dll and .exe files ... OK
+* checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [82s/75s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [84s/77s] OK
 * used C++ compiler: ‘g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’
 * checking C++ specification ... INFO
   specified C++20
@@ -181,8 +138,8 @@ Checking URLs failed with message:
 * checking examples ... NONE
 * checking for unstated dependencies in ‘tests’ ... OK
 * checking tests ...
-  Running ‘tinytest.R’ [3s/1s]
- [4s/1s] OK
+  Running ‘tinytest.R’ [3s/2s]
+ [4s/2s] OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
@@ -251,25 +208,24 @@ installing to /check/armadillo4rtest.Rcheck/00LOCK-armadillo4rtest/00new/armadil
     GNU Fortran (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
 * running under: Ubuntu 24.04.4 LTS
 * using session charset: UTF-8
-* current time: 2026-06-11 14:09:28 UTC
+* current time: 2026-08-12 09:19:39 UTC
 * using options ‘--no-manual --as-cran’
 * checking for file ‘armadillo4rtest/DESCRIPTION’ ... OK
 * this is package ‘armadillo4rtest’ version ‘0.1.0’
 * package encoding: UTF-8
-* checking CRAN incoming feasibility ... [1s/1s] NOTE
+* checking CRAN incoming feasibility ... [5s/8s] NOTE
 Maintainer: ‘Mauricio Vargas Sepulveda <m.vargas.sepulveda@gmail.com>’
 
-Checking URLs failed with message:
-  there is no package called ‘curl’
+New submission
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
 * checking if there is a namespace ... OK
-* checking for .dll and .exe files ... OK
+* checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
 * checking for sufficient/correct file permissions ... OK
-* checking whether package ‘armadillo4rtest’ can be installed ... [82s/75s] OK
+* checking whether package ‘armadillo4rtest’ can be installed ... [84s/77s] OK
 * used C++ compiler: ‘g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0’
 * checking C++ specification ... INFO
   specified C++20
@@ -320,8 +276,8 @@ Checking URLs failed with message:
 * checking compiled code ... OK
 * checking examples ... NONE
 * checking for unstated dependencies in ‘tests’ ... OK
-* checking tests ... [4s/1s] OK
-  Running ‘tinytest.R’ [3s/1s]
+* checking tests ... [4s/2s] OK
+  Running ‘tinytest.R’ [3s/2s]
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE

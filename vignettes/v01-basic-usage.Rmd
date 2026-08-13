@@ -1,25 +1,19 @@
 ---
-title: "Basic 'armadillo4r' usage"
-output: rmarkdown::html_vignette
-bibliography: "references.bib"
+title: "01 - Basic 'armadillo4r' usage"
+output:
+  litedown::html_format:
+    options:
+      toc: true
+      number_sections: true
 vignette: >
-  %\VignetteIndexEntry{Basic 'armadillo4r' usage}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{01 - Basic 'armadillo4r' usage}
+  %\VignetteEngine{litedown::vignette}
   %\VignetteEncoding{UTF-8}
+editor:
+  markdown:
+    wrap: sentence
+bibliography: ["references.bib"]
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-
-# Register cpp as an alias for C++ syntax highlighting
-knitr::knit_engines$set(cpp = function(options) {
-  # Just return the code as-is for syntax highlighting
-  paste("```cpp", options$code, "```", sep = "\n")
-})
-```
 
 # Ordinary Least Squares
 

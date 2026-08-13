@@ -149,5 +149,5 @@ LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so; LAPA
 
 Windows Server works totally fine but there is a catch. If you use R 4.1
 with rtools 4.0, which is quite old in 2026, you need to install
-OpenBLAS DLL for a full setup. \[Here\] I show the steps to install it
-that I use to test backwards compatibility.
+OpenBLAS DLL for a full setup. [Here](https://github.com/pachadotdev/armadillo4r/blob/main/.github/workflows/R-CMD-check.yaml#L65)
+I show the steps to install it that I use to test backwards compatibility.
