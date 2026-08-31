@@ -31,8 +31,5 @@ vendor(dir)
 
 # unvendor the armadillo4r headers from the directory
 unvendor(dir)
-
-# cleanup
-unlink(dir, recursive = TRUE)
 }
 

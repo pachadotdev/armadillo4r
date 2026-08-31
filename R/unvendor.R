@@ -17,9 +17,6 @@
 #'
 #' # unvendor the armadillo4r headers from the directory
 #' unvendor(dir)
-#'
-#' # cleanup
-#' unlink(dir, recursive = TRUE)
 unvendor <- function(path = NULL) {
   stopifnot(!is.null(path), dir.exists(path))
 

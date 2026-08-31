@@ -1,5 +1,6 @@
-# armadillo4r 1.1.0
+# armadillo4r 15.4.2
 
+* From now I will follow the version number of the shipped armadillo version.
 * Using Armadillo 15.4.2.
 * I am now using `litedown` and `tinyroxygen` for the documentation.
 

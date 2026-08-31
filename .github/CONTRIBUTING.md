@@ -1,36 +1,24 @@
 # Contributing to armadillo4r
 
-This outlines how to propose a change to armadillo4r. For more detailed info about contributing to this, please see the [**development contributing guide**](https://rstd.io/tidy-contrib). 
+This outlines how to propose a change to armadillo4r.
 
-## Fixing typos
+## Typos and feature requests
 
-You can fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface, as long as the changes are made in the _source_ file. 
-This generally means you'll need to edit  [roxygen2 comments](https://roxygen2.r-lib.org/articles/roxygen2.html) in an `.R`, not a `.Rd` file. 
-You can find the `.R` file that generates the `.Rd` by reading the comment in the first line.
+Please open an issue.
 
-## Bigger changes
+If you have the time, please fix typos, spelling mistakes, or grammatical errors in the documentation directly using the GitHub web interface but do it directly in the source files (e.g., R, qmd, cpp, h as long as those don't start with "auto generated").
 
-If you want to make a bigger change, it's a good idea to first file an issue and make sure the maintainer agrees that it’s needed. 
-If you’ve found a bug, please file an issue that illustrates the bug with a minimal  [reprex](https://www.tidyverse.org/help/#reprex) (this will also help you write a unit test, if needed).
+## Feature requests
 
-### Pull request process
+Please open an issue first to check the scope and feasibility.
 
-*   Fork the repository and clone onto your computer. If you haven't done this before, use `usethis::create_from_github("pachadotdev/armadillo4r", fork = TRUE)`.
+It is also helpful for me to receive ideas that I can work with later.
 
-*   Install all development dependences with `devtools::install_dev_deps()`, and then make sure the package passes R CMD check by running `devtools::check()`. Even better, use `make check` from the command line to run the checks in a clean environment. If `R CMD check` doesn't pass cleanly, it's a good idea to ask for help before continuing. What I do to be extra sure is to run `make clean && make install && make test` to discard that I don't have outdated binaries.
-*   Create a Git branch for your pull request (PR). Use `usethis::pr_init("brief-description-of-change")`.
+## Code changes
 
-*   Make your changes, commit to git, and then create a PR by running `usethis::pr_push()`, and following the prompts in your browser. The title of your PR should briefly describe the change. The body of your PR should contain `Fixes #issue-number`.
+Please open an issue first to check the scope and feasibility.
 
-*   Add a description of the changes at the top of `NEWS.md` (i.e. just below the first header). Follow the style described in <https://style.tidyverse.org/news.html>.
-
-### Code style
-
-*   New code should follow the tidyverse [style guide](https://style.tidyverse.org). You can use the [styler](https://CRAN.R-project.org/package=styler) package to apply these styles, but please don't restyle code that has nothing to do with your PR. If you edit C++ code, please run `make format` to apply the clang format style or the CI will fail.
-
-*   Use [roxygen2](https://cran.r-project.org/package=roxygen2), with [Markdown syntax](https://cran.r-project.org/web/packages/roxygen2/vignettes/rd-formatting.html), for documentation.
-
-*  Use [testthat](https://cran.r-project.org/package=testthat) for unit tests. Contributions with test cases included are easier to understand and accept.
+I am happy to split work to work on a new feature but that requires coordination first.
 
 ## Code of Conduct
 

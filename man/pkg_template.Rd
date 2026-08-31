@@ -25,7 +25,7 @@ Copies a package template into a new directory.
 
 \examples{
 # create a new directory
-dir <- tempdir()
+dir <- paste0(tempdir(), "/", gsub("\\\\s+|[[:punct:]]", "", Sys.time()))
 dir.create(dir)
 
 # copy the package template into the directory

@@ -43,23 +43,23 @@
 
   <div class="submenu">
     <label>Vignettes</label>
-    <a href="../vignettes/basic-usage.html">Basic 'armadillo4r' usage</a>
-    <a href="../vignettes/configuration.html">Armadillo configuration</a>
-    <a href="../vignettes/converting.html">Converting between R and Armadillo types</a>
-    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-dense.html">Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
-    <a href="../vignettes/decompositions-factorisations-inverses-and-equation-solvers-sparse.html">Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
-    <a href="../vignettes/functions-of-vector-matrices-cubes.html">Functions of vectors, matrices, and cubes</a>
-    <a href="../vignettes/generated-vectors-matrices-cubes.html">Generated vectors, matrices, and cubes</a>
-    <a href="../vignettes/linear-model.html">Fitting regressions with Armadillo</a>
-    <a href="../vignettes/matrix-vector-cube-and-field-classes.html">Matrix, vector, cube and field classes</a>
-    <a href="../vignettes/member-functions-and-variables.html">Member functions and variables</a>
-    <a href="../vignettes/miscellaneous.html">Miscellaneous</a>
-    <a href="../vignettes/save-load.html">Saving and loading Armadillo objects on C++ side</a>
-    <a href="../vignettes/signal-and-image-processing.html">Signal and image processing</a>
-    <a href="../vignettes/sparse-matrices.html">Sparse matrices</a>
-    <a href="../vignettes/statistics-and-clustering.html">Statistics and clustering</a>
-    <a href="../vignettes/syntax-comparison-for-matlab-users.html">Syntax comparison for MATLAB/Octave users</a>
-    <a href="../vignettes/using-sexp-cpp.html">Using SEXP with Armadillo data types</a>
+    <a href="../vignettes/v01-basic-usage.html">01 - Basic 'armadillo4r' usage</a>
+    <a href="../vignettes/v02-configuration.html">02 - Armadillo configuration</a>
+    <a href="../vignettes/v03-converting.html">03 - Converting between R and Armadillo types</a>
+    <a href="../vignettes/v04-syntax-comparison-for-matlab-users.html">04 - Syntax comparison for MATLAB/Octave users</a>
+    <a href="../vignettes/v05-sparse-matrices.html">05 - Sparse matrices</a>
+    <a href="../vignettes/v06-matrix-vector-cube-and-field-classes.html">06 - Matrix, vector, cube and field classes</a>
+    <a href="../vignettes/v07-member-functions-and-variables.html">07 - Member functions and variables</a>
+    <a href="../vignettes/v08-functions-of-vector-matrices-cubes.html">08 - Functions of vectors, matrices, and cubes</a>
+    <a href="../vignettes/v09-generated-vectors-matrices-cubes.html">09 - Generated vectors, matrices, and cubes</a>
+    <a href="../vignettes/v10-decompositions-factorisations-inverses-and-equation-solvers-dense.html">10 - Decompositions, factorisations, inverses and equation solvers (dense matrices)</a>
+    <a href="../vignettes/v11-decompositions-factorisations-inverses-and-equation-solvers-sparse.html">11 - Decompositions, factorisations, inverses and equation solvers (sparse matrices)</a>
+    <a href="../vignettes/v12-statistics-and-clustering.html">12 - Statistics and clustering</a>
+    <a href="../vignettes/v13-signal-and-image-processing.html">13 - Signal and image processing</a>
+    <a href="../vignettes/v14-save-load.html">14 - Saving and loading Armadillo objects on C++ side</a>
+    <a href="../vignettes/v15-using-sexp-cpp.html">15 - Using SEXP with Armadillo data types</a>
+    <a href="../vignettes/v16-linear-model.html">16 - Fitting regressions with Armadillo</a>
+    <a href="../vignettes/v17-miscellaneous.html">17 - Miscellaneous</a>
   </div>
 
   <div class="submenu">
@@ -104,7 +104,7 @@ Name of the new package
 <h3>Examples</h3>
 
 <pre><code class="language-R"># create a new directory
-dir &lt;- tempdir()
+dir &lt;- paste0(tempdir(), "/", gsub("\\s+|[[:punct:]]", "", Sys.time()))
 dir.create(dir)
 
 # copy the package template into the directory

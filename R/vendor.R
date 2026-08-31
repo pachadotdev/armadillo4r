@@ -20,12 +20,6 @@
 #'
 #' # vendor the armadillo4r headers into the directory
 #' vendor(dir)
-#'
-#' # just a preview as Armadillo has over 100 files
-#' head(list.files(dir, recursive = TRUE))
-#'
-#' # cleanup
-#' unlink(dir, recursive = TRUE)
 vendor <- function(path = NULL) {
   if (is.null(path)) {
     stop("You must provide a path to vendor the code into", call. = FALSE)

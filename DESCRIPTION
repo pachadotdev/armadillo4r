@@ -5,8 +5,9 @@ Description: Provides function declarations and inline function definitions
     that facilitate communication between R and the 'Armadillo' 'C++' library
     for linear algebra and scientific computing. This implementation is derived
     from Vargas Sepulveda and Schneider Malamud (2024)
-    <doi:10.1016/j.softx.2025.102087>.
-Version: 1.1.0
+    <doi:10.1016/j.softx.2025.102087>. The shipped version of the 'Armadillo'
+    library is version 15.4.2 "Medium Roast Agave".
+Version: 15.4.2
 Authors@R: c(person( given = "Mauricio", family = "Vargas Sepulveda", role =
     c("aut", "cre"), email = "m.vargas.sepulveda@gmail.com", comment = c(ORCID
     = "0000-0003-1017-7574")), person( given = "Jonathan", family = "Schneider
