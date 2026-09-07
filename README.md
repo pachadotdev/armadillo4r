@@ -83,27 +83,24 @@ remotes::install_github("pachadotdev/armadillo4r")
 
 ## Examples
 
-I have provided a package template for RStudio that also works with VS
-Code.
+I have provided a package template with the least amount of setup to get you started.
 
-The idea of this package is to be as simple as possible, with the least
-amount of setup to get you started.
-
-From RStudio/VSCode, go to an empty directory of your choice and run:
+Go to an empty directory of your choice and run:
 
 ``` r
 # subdir + package name
 # subdir can be "." to create the package in the current directory
-armadillo4r::pkg_template("pkgtemplate", "myownpackage")
+armadillo4r::pkg_template("mypkgname")
 ```
 
 Then follow the instructions from README.md in the path where the new
 package is. The template contains a simple Ordinary Least Squares (OLS)
 example that you can run to test the package.
 
-The vignette expands on the OLS estimator, and the [hansen
-package](https://pacha.dev/hansen/) expands on how to use armadillo4r
-for Econometric models.
+
+The vignettes contain many examples. The [hansen package](https://pacha.dev/hansen/)
+expands on how to use armadillo4r for Econometric models. The [armadillo4r-replication] article
+organizes my replication efforts in the domain of Macroeconomics.
 
 The
 [armadillo4rtest](https://github.com/pachadotdev/armadillo4r/tree/main/armadillo4rtest)
