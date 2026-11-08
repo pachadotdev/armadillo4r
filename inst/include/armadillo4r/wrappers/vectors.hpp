@@ -59,6 +59,40 @@ inline Col<int> as_Col(const integers_matrix<>& x) {
   return Col<int>(reinterpret_cast<int*>(INTEGER(x.data())), n, false);
 }
 
+inline Col<double> as_Col(SEXP x) {
+  if (TYPEOF(x) != REALSXP) {
+    stop("Input must be a double vector or column matrix");
+  }
+
+  SEXP dims = Rf_getAttrib(x, R_DimSymbol);
+  uword n;
+  if (dims == R_NilValue) {
+    n = static_cast<uword>(Rf_xlength(x));
+  } else {
+    if (TYPEOF(dims) != INTSXP) {
+      stop("Input must be a double vector or one-dimensional array or column matrix");
+    }
+
+    const int* dim = INTEGER(dims);
+    if (Rf_xlength(dims) == 1) {
+      if (dim[0] < 0 || Rf_xlength(x) != static_cast<R_xlen_t>(dim[0])) {
+        stop("Input has incompatible dimensions");
+      }
+      n = static_cast<uword>(dim[0]);
+    } else if (Rf_xlength(dims) == 2) {
+      if (dim[0] < 0 || dim[1] != 1 ||
+          Rf_xlength(x) != static_cast<R_xlen_t>(dim[0])) {
+        stop("Input must have exactly one column");
+      }
+      n = static_cast<uword>(dim[0]);
+    } else {
+      stop("Input must be a double vector or one-dimensional array or column matrix");
+    }
+  }
+
+  return Col<double>(REAL(x), n, false);
+}
+
 inline Col<double> as_col(const doubles_matrix<>& x) { return as_Col(x); }
 inline Col<int> as_col(const integers_matrix<>& x) { return as_Col(x); }
 
@@ -78,6 +112,8 @@ inline Col<T> as_col(const Col<T>& x) {
 inline Col<double> as_col(const doubles& x) { return as_Col(x); }
 
 inline Col<int> as_col(const integers& x) { return as_Col(x); }
+
+inline Col<double> as_col(SEXP x) { return as_Col(x); }
 
 inline uvec as_uvec(const cpp4r::integers& x) {
   uvec res(x.size());
