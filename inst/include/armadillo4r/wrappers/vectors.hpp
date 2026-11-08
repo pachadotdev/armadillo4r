@@ -80,8 +80,7 @@ inline Col<double> as_Col(SEXP x) {
       }
       n = static_cast<uword>(dim[0]);
     } else if (Rf_xlength(dims) == 2) {
-      if (dim[0] < 0 || dim[1] != 1 ||
-          Rf_xlength(x) != static_cast<R_xlen_t>(dim[0])) {
+      if (dim[0] < 0 || dim[1] != 1 || Rf_xlength(x) != static_cast<R_xlen_t>(dim[0])) {
         stop("Input must have exactly one column");
       }
       n = static_cast<uword>(dim[0]);
