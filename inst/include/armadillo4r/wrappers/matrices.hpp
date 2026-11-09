@@ -56,34 +56,6 @@ inline Mat<double> as_Mat(const doubles& x) { return dblint_to_Mat_<double, doub
 
 inline Mat<int> as_Mat(const integers& x) { return dblint_to_Mat_<int, integers>(x); }
 
-inline Mat<double> as_Mat(SEXP x) {
-  if (TYPEOF(x) != REALSXP) {
-    stop("Input must be a double vector or matrix");
-  }
-
-  SEXP dims = Rf_getAttrib(x, R_DimSymbol);
-  uword n_rows;
-  uword n_cols;
-  if (dims == R_NilValue) {
-    n_rows = static_cast<uword>(Rf_xlength(x));
-    n_cols = 1;
-  } else {
-    if (TYPEOF(dims) != INTSXP || Rf_xlength(dims) != 2) {
-      stop("Input must be a double vector or two-dimensional matrix");
-    }
-
-    const int* dim = INTEGER(dims);
-    if (dim[0] < 0 || dim[1] < 0 ||
-        Rf_xlength(x) != static_cast<R_xlen_t>(dim[0]) * dim[1]) {
-      stop("Input has incompatible dimensions");
-    }
-    n_rows = static_cast<uword>(dim[0]);
-    n_cols = static_cast<uword>(dim[1]);
-  }
-
-  return Mat<double>(REAL(x), n_rows, n_cols, false, false);
-}
-
 // Convert integers_matrix<> to umat/imat
 
 template <typename TargetMatType>
@@ -139,8 +111,6 @@ inline Mat<int> as_mat(const integers_matrix<>& x) { return as_Mat(x); }
 inline Mat<double> as_mat(const doubles& x) { return as_Mat(x); }
 
 inline Mat<int> as_mat(const integers& x) { return as_Mat(x); }
-
-inline Mat<double> as_mat(SEXP x) { return as_Mat(x); }
 
 ////////////////////////////////////////////////////////////////
 // Armadillo to R
